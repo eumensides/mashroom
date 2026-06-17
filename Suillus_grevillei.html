@@ -1,1 +1,859 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>厚环乳牛肝菌 · Suillus grevillei</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #1a1a18;
+    --ink-mid: #4a4a45;
+    --ink-light: #8a8a82;
+    --cream: #f7f4ee;
+    --surface: #ffffff;
+    --moss: #3b5c2a;
+    --moss-light: #c8dab8;
+    --moss-pale: #edf4e5;
+    --amber: #8b5e1a;
+    --amber-light: #e8c980;
+    --amber-pale: #fdf4dc;
+    --rust: #8b3a1a;
+    --rust-pale: #fceee8;
+    --border: rgba(60,60,40,0.12);
+    --border-mid: rgba(60,60,40,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #d4cdc0;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-image-placeholder {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #7a7468;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+    padding: 2rem;
+    border: 2px dashed #b8b2a8;
+  }
+
+  .hero-image-placeholder .icon-large {
+    font-size: 48px;
+    opacity: 0.4;
+    line-height: 1;
+  }
+
+  .hero-image-placeholder .placeholder-label {
+    font-size: 12px;
+    color: #9a9490;
+    font-family: monospace;
+    background: rgba(255,255,255,0.5);
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--moss);
+    margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .hero-name-la {
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--ink-mid);
+    margin-bottom: 4px;
+  }
+
+  .hero-author {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-moss { background: var(--moss-pale); color: var(--moss); }
+  .tag-amber { background: var(--amber-pale); color: var(--amber); }
+  .tag-rust { background: var(--rust-pale); color: var(--rust); }
+  .tag-ink { background: #f0ede8; color: var(--ink-mid); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-moss { background: var(--moss); }
+  .dot-amber { background: var(--amber); }
+  .dot-rust { background: var(--rust); }
+  .dot-ink { background: var(--ink-mid); }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .section-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .photo-slot {
+    aspect-ratio: 4/3;
+    background: #e8e4dc;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px dashed #c0bab0;
+  }
+
+  .photo-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #9a9490;
+    font-size: 11px;
+    text-align: center;
+    padding: 8px;
+  }
+
+  .photo-placeholder svg {
+    opacity: 0.4;
+    width: 28px; height: 28px;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(26,26,24,0.72);
+    color: #f0ede8;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 5px 8px;
+    text-align: center;
+  }
+
+  .photo-url-hint {
+    font-size: 10px;
+    color: #b0aa9e;
+    font-family: monospace;
+    word-break: break-all;
+    line-height: 1.3;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .phase-label {
+    padding: 4px 0;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .phase-young { background: var(--moss-pale); color: var(--moss); }
+  .phase-mid { background: var(--amber-pale); color: var(--amber); }
+  .phase-mature { background: #fceee8; color: var(--rust); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .trait-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .trait-name {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  .parts-table td:first-child {
+    font-weight: 500;
+    color: var(--ink-mid);
+    white-space: nowrap;
+    width: 100px;
+  }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .distinction-box {
+    background: var(--moss-pale);
+    border: 1px solid var(--moss-light);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .distinction-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--moss);
+    margin-bottom: 10px;
+  }
+
+  .distinction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .distinction-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #2a4520;
+    line-height: 1.6;
+  }
+
+  .distinction-list li::before {
+    content: "·";
+    color: var(--moss);
+    font-size: 16px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .confusion-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+  }
+
+  .confusion-item.danger {
+    border-left-color: #e8a090;
+  }
+
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--ink-mid); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+
+  .memory-pill {
+    background: #f0ede8;
+    border: 1px solid #d8d3c8;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .habitat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .habitat-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 6px;
+  }
+
+  .habitat-value {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .value-card-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+  }
+
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--ink-light);
+  }
+
+  .ref-link { color: var(--moss); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <!-- 主图区域：取消下方注释并填入您的图片链接 -->
+    <!-- <img src="https://raw.githubusercontent.com/eumensides/mashroom/refs/heads/main/Macro_nature_photography_of_Suillus_grevillei_mush-1781678364212.png" alt="厚环乳牛肝菌主图"> -->
+    <div class="hero-image-placeholder">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 8C16 8 10 14 10 22c0 5 3 9 7 11v7h14v-7c4-2 7-6 7-11 0-8-6-14-14-14z" stroke="#9a9490" stroke-width="1.5" fill="none"/>
+        <path d="M17 33v-2c0-2 1.5-3 7-3s7 1 7 3v2" stroke="#9a9490" stroke-width="1.5"/>
+      </svg>
+      <span>主图区域</span>
+      <span class="placeholder-label">src="YOUR_MAIN_IMAGE_URL_HERE"</span>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 乳牛肝菌科</div>
+    <div class="hero-name-zh">厚环乳牛肝菌</div>
+    <div class="hero-name-la">Suillus grevillei</div>
+    <div class="hero-author">(Klotzsch) Singer, 1945</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">已知种</span>
+      <span class="tag tag-moss">外生菌根菌</span>
+      <span class="tag tag-amber">可食（风味一般）</span>
+      <span class="tag tag-ink">无毒</span>
+      <span class="tag tag-ink">落叶松专一共生</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">厚环粘盖牛肝、落叶松牛肝菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Larch Bolete / Tamarack Jack</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">牛肝菌目 / Suillaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">LC（无危，IUCN 3.1）</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+    <div class="photo-grid">
+
+      <div class="photo-slot">
+        <!-- <img src="https://raw.githubusercontent.com/eumensides/mashroom/refs/heads/main/Top-down_macro_photograph_of_Suillus_grevillei_mus-1781678489775.png" alt="上方菌盖图"> -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>上方菌盖图</span>
+          <span class="photo-url-hint">src="YOUR_URL_1"</span>
+        </div>
+        <div class="photo-caption">上方菌盖图 · 柠檬黄/橙黄黏滑面</div>
+      </div>
+
+      <div class="photo-slot">
+        <!-- <img src="https://raw.githubusercontent.com/eumensides/mashroom/refs/heads/main/Gemini_Generated_Image_qfja9sqfja9sqfja.png" alt="45°仰拍图"> -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>45° 仰拍图</span>
+          <span class="photo-url-hint">src="YOUR_URL_2"</span>
+        </div>
+        <div class="photo-caption">45° 仰拍 · 厚菌环与菌柄条纹</div>
+      </div>
+
+      <div class="photo-slot">
+        <!-- <img src="https://raw.githubusercontent.com/eumensides/mashroom/refs/heads/main/Detailed_macro_photograph_of_vertically_bisected_S-1781678732083.png" alt="剖面图"> -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>剖面图</span>
+          <span class="photo-url-hint">src="YOUR_URL_3"</span>
+        </div>
+        <div class="photo-caption">剖面 · 黄色菌肉受伤变褐</div>
+      </div>
+
+      <div class="photo-slot">
+        <!-- <img src="https://raw.githubusercontent.com/eumensides/mashroom/refs/heads/main/Gemini_Generated_Image_eyvg1seyvg1seyvg.png" alt="下方菌管图"> -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>下方菌管图</span>
+          <span class="photo-url-hint">src="YOUR_URL_4"</span>
+        </div>
+        <div class="photo-caption">管面 · 浅黄色管口，延生菌柄</div>
+      </div>
+
+      <div class="photo-slot">
+        <!-- <img src="https://raw.githubusercontent.com/eumensides/mashroom/refs/heads/main/Detailed_top-down_flat_lay_photograph_of_Suillus_g-1781680866599.png" alt="孢子印图"> -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>孢子印图</span>
+          <span class="photo-url-hint">src="YOUR_URL_5"</span>
+        </div>
+        <div class="photo-caption">孢子印 · 黄褐至栗褐色</div>
+      </div>
+
+      <div class="photo-slot">
+        <!-- <img src="https://raw.githubusercontent.com/eumensides/mashroom/refs/heads/main/Detailed_extreme_close-up_macro_photograph_of_Suil-1781679219601.png" alt="菌环细节图"> -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>菌环细节图</span>
+          <span class="photo-url-hint">src="YOUR_URL_6"</span>
+        </div>
+        <div class="photo-caption">★菌环特写 · 核心识别特征</div>
+      </div>
+
+      <div class="photo-slot" style="grid-column: span 3;">
+        <!-- <img src="https://raw.githubusercontent.com/eumensides/mashroom/refs/heads/main/Detailed_wide_habitat_photograph_of_Suillus_grevil-1781679108118.png" alt="生境图"> -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>群生生境图</span>
+          <span class="photo-url-hint">src="YOUR_URL_7"</span>
+        </div>
+        <div class="photo-caption">生境 · 落叶松林下群生</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">菌盖扁半球形，边缘常带菌幕残片；表面光滑黏滑，柠檬黄至橙黄色；菌环厚实，紧裹菌柄上部，尚未展开</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">菌盖转为钟形，颜色加深至橙褐/栗褐色，黏液层更明显；菌环展开但仍保持厚实质感，环上方菌柄黄色，环下方出现红褐色条纹；管口浅黄色，触碰后渐染棕色</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">菌盖中部突起后平展或下凹；管面延生至菌柄基部；菌肉黄色，受伤后变褐；孢子印黄褐至栗褐色；口感转涩或微苦，金属味略增</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-amber">柠檬黄→橙黄→赭褐</span>
+          <span class="tag tag-ink">菌环上方黄色</span>
+          <span class="tag tag-ink">菌环下方红褐条纹</span>
+          <span class="tag tag-ink">菌肉黄色受伤变褐</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">扁半球→钟形→平展</span>
+          <span class="tag tag-ink">菌盖径 5–10cm</span>
+          <span class="tag tag-ink">菌柄圆柱形 6–10×1–2cm</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">无味或略带金属味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">温和→微涩</span>
+          <span class="tag tag-amber">老熟后微苦</span>
+          <span class="tag tag-ink">无明显鲜甜</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr>
+            <th>部位</th>
+            <th>形态描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>极黏滑，光泽感强，易与菌肉剥离；边缘常带菌幕残片</td></tr>
+          <tr><td>菌管</td><td>短，浅黄色，延生至菌柄基部，触碰后渐染棕褐色</td></tr>
+          <tr><td>菌环</td><td><strong>★厚实显著，质感如绒</strong>，是本种区别于多数无环乳牛肝菌的核心识别特征</td></tr>
+          <tr><td>菌柄</td><td>圆柱形，6–10×1–2cm，上下近等粗或略向下细，无腺点，顶端有网纹；环上方黄色，环下方红褐色条纹</td></tr>
+          <tr><td>菌肉</td><td>黄色，受伤后变褐色</td></tr>
+          <tr><td>孢子</td><td>椭圆形或近纺锤形，光滑，带橄榄黄色</td></tr>
+          <tr><td>孢子印</td><td>黄褐色至栗褐色</td></tr>
+          <tr><td>囊状体</td><td>无色至淡褐色，多棒状</td></tr>
+          <tr><td>菌托</td><td>无</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识三要素</div>
+      <ul class="distinction-list">
+        <li>菌盖<strong>柠檬黄至橙黄/橙褐色</strong>，极黏滑光亮，是同属中颜色最鲜艳的种类之一</li>
+        <li>菌柄具<strong>厚实显著的菌环</strong>——这是本种区别于大多数乳牛肝菌属物种（多数无环）的最关键特征</li>
+        <li>严格<strong>专一共生落叶松</strong>（Larch），看到落叶松林就该想到它，离开落叶松基本不会出现</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">受伤变色反应</div>
+        <div style="font-size:13px;color:var(--ink-mid)">菌肉受伤后变<strong>褐色</strong>（非蓝绿色反应）</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">特征色素</div>
+        <div style="font-size:13px;color:var(--ink-mid)">含 grevillin 等至少11种黄橙红色素（普伏酸衍生物），赋予其鲜艳色调</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">黏盖乳牛肝菌 <em>Suillus bovinus</em></div>
+        <div class="confusion-diff">区别：本种无菌环，颜色偏肉桂黄褐（非柠檬黄）；伴生松属而非落叶松；管孔为双层结构 · 同为可食种</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">点柄乳牛肝菌 <em>Suillus granulatus</em></div>
+        <div class="confusion-diff">区别：无菌环，菌柄有腺点液滴；颜色偏肉桂褐而非橙黄 · 同为可食种</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">环柄乳牛肝菌 <em>Suillus luteus</em>（铆钉菇）</div>
+        <div class="confusion-diff">区别：也有菌环但偏膜质而非厚绒质；菌盖颜色偏深棕而非柠檬黄；伴生松属而非落叶松 · 共生树种是关键区分线索</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">同种变型 <em>S. grevillei</em> var. badius</div>
+        <div class="confusion-diff">区别：颜色偏栗褐而非典型橙黄，属同种内变型，误判风险低</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「厚环 + 柠檬黄 + 落叶松 = 三位一体」</div>
+        <div class="memory-pill">「有环就想到落叶松」</div>
+        <div class="memory-pill">「黄牛肝里最鲜艳的那个」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ink"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">群落分布方式</div>
+        <div class="habitat-value">单生、群生或丛生</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 共生树种</div>
+        <div class="habitat-value">严格外生菌根菌，<strong>专一共生落叶松属</strong>（Larix），离开落叶松基本不出现</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广泛分布于北美与欧洲；亚洲见于台湾；中国贵州（贵阳、遵义、安顺、毕节等地）有记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">7–11月（夏末至秋季）</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      标本采集建议：重点确认周边是否有落叶松（针叶簇生轮状、秋季落叶），这是定位本种最有效的线索
+    </div>
+  </div>
+
+  <!-- 7. 价值 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值 · 风味</div>
+        <div class="value-body">去除黏滑表皮后可食用，但风味平淡，缺乏烹饪亮点；口感可微涩微苦，部分文献评价为"无烹饪价值的可食用菌"</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">研究价值 · 色素学</div>
+        <div class="value-body">含grevillin等至少11种黄橙红色素（普伏酸衍生物）；atromentin合成酶（GreA）已被表征；已建立基因组粘粒文库，是研究真菌色素合成机制的重要模式物种</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">与落叶松属形成专性外生菌根共生关系，是落叶松林生态系统不可或缺的组成部分</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用价值</div>
+        <div class="value-body">暂无显著药用记录；近缘种研究显示乳牛肝菌属对宿主根系修剪后恢复有积极调节作用，可促进养分吸收</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Suillus_grevillei" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://zh.wikipedia.org/wiki/%E5%8E%9A%E7%8E%AF%E4%B9%B3%E7%89%9B%E8%82%9D%E8%8F%8C" target="_blank">维基百科 中文</a> ·
+      <a class="ref-link" href="http://book.foodmate.net/wiki/%E5%8E%9A%E7%8E%AF%E7%B2%98%E7%9B%96%E7%89%9B%E8%82%9D%E8%8F%8C" target="_blank">食品百科</a>
+    </div>
+    <div>IUCN LC · 落叶松专一共生</div>
+  </div>
+
+</div>
+</body>
+</html>
 
