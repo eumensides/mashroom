@@ -251,6 +251,8 @@
     line-height: 1.3;
   }
 
+  .photo-slot-wide { grid-column: span 3; }
+
   .phase-list { display: flex; flex-direction: column; gap: 12px; }
 
   .phase-card {
@@ -461,6 +463,7 @@
   @media (max-width: 600px) {
     .hero { grid-template-columns: 1fr; }
     .photo-grid { grid-template-columns: 1fr 1fr; }
+    .photo-slot-wide { grid-column: span 2; aspect-ratio: 16/9; }
     .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
     .hero-taxonomy { grid-template-columns: 1fr; }
     .phase-card { grid-template-columns: 1fr; }
@@ -554,7 +557,7 @@
         <div class="photo-caption">★菌环特写 · 核心识别特征</div>
       </div>
 
-      <div class="photo-slot" style="grid-column: span 3;">
+      <div class="photo-slot photo-slot-wide">
         <img src="https://eumensides.github.io/mashroom/Detailed_wide_habitat_photograph_of_Suillus_grevil-1781679108118.png" alt="生境图">
         <div class="photo-caption">生境 · 落叶松林下群生</div>
       </div>
