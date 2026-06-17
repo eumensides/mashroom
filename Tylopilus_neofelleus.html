@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新苦粉孢牛肝菌 · Tylopilus neofelleus（有毒）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #1a1a18;
+    --ink-mid: #4a4a45;
+    --ink-light: #8a8a82;
+    --cream: #f7f4ee;
+    --surface: #ffffff;
+    --moss: #3b5c2a;
+    --moss-light: #c8dab8;
+    --moss-pale: #edf4e5;
+    --amber: #8b5e1a;
+    --amber-light: #e8c980;
+    --amber-pale: #fdf4dc;
+    --rust: #8b3a1a;
+    --rust-pale: #fceee8;
+    --toxic: #7a1f2b;
+    --toxic-light: #d99aa3;
+    --toxic-pale: #f7e3e6;
+    --purple: #6b4a7a;
+    --purple-pale: #ede5f0;
+    --border: rgba(60,60,40,0.12);
+    --border-mid: rgba(60,60,40,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── TOXIC WARNING BANNER ── */
+  .toxic-banner {
+    background: var(--toxic);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #d4cdc0;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .hero-name-la {
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--ink-mid);
+    margin-bottom: 4px;
+  }
+
+  .hero-author {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-moss { background: var(--moss-pale); color: var(--moss); }
+  .tag-amber { background: var(--amber-pale); color: var(--amber); }
+  .tag-rust { background: var(--rust-pale); color: var(--rust); }
+  .tag-ink { background: #f0ede8; color: var(--ink-mid); }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+  .tag-purple { background: var(--purple-pale); color: var(--purple); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-moss { background: var(--moss); }
+  .dot-amber { background: var(--amber); }
+  .dot-rust { background: var(--rust); }
+  .dot-ink { background: var(--ink-mid); }
+  .dot-toxic { background: var(--toxic); }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .section-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .photo-slot {
+    aspect-ratio: 4/3;
+    background: #e8e4dc;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px dashed #c0bab0;
+  }
+
+  .photo-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .photo-slot-wide { grid-column: span 3; }
+
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #9a9490;
+    font-size: 11px;
+    text-align: center;
+    padding: 8px;
+  }
+
+  .photo-placeholder svg {
+    opacity: 0.4;
+    width: 28px; height: 28px;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(26,26,24,0.72);
+    color: #f0ede8;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 5px 8px;
+    text-align: center;
+  }
+
+  .photo-url-hint {
+    font-size: 10px;
+    color: #b0aa9e;
+    font-family: monospace;
+    word-break: break-all;
+    line-height: 1.3;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .phase-label {
+    padding: 4px 0;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .phase-young { background: var(--purple-pale); color: var(--purple); }
+  .phase-mid { background: var(--amber-pale); color: var(--amber); }
+  .phase-mature { background: var(--toxic-pale); color: var(--toxic); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .trait-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .trait-name {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  .parts-table td:first-child {
+    font-weight: 500;
+    color: var(--ink-mid);
+    white-space: nowrap;
+    width: 100px;
+  }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .distinction-box {
+    background: var(--toxic-pale);
+    border: 1px solid var(--toxic-light);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .distinction-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--toxic);
+    margin-bottom: 10px;
+  }
+
+  .distinction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .distinction-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #5a1620;
+    line-height: 1.6;
+  }
+
+  .distinction-list li::before {
+    content: "·";
+    color: var(--toxic);
+    font-size: 16px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .confusion-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+  }
+
+  .confusion-item.danger {
+    border-left-color: var(--toxic);
+    background: var(--toxic-pale);
+  }
+
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--ink-mid); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+
+  .memory-pill {
+    background: #f0ede8;
+    border: 1px solid #d8d3c8;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .habitat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .habitat-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 6px;
+  }
+
+  .habitat-value {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .value-card.toxic-card {
+    border-left: 3px solid var(--toxic);
+  }
+
+  .value-card-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+  }
+
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--ink-light);
+  }
+
+  .ref-link { color: var(--moss); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  .alert-box {
+    background: var(--toxic-pale);
+    border: 1px solid var(--toxic-light);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--toxic);
+    margin-top: 10px;
+    font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .photo-slot-wide { grid-column: span 2; aspect-ratio: 16/9; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toxic-banner">⚠️ 有毒物种 · 已记录多起胃肠炎型中毒事件 · 严禁食用，仅供学习识别</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <!-- 主图区域：取消下方注释并填入您的图片链接 -->
+     <img src="https://eumensides.github.io/mashroom/Tylopilus_neofelleus0.png" alt="新苦粉孢牛肝菌主图">
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 牛肝菌科 · 粉孢牛肝菌属</div>
+    <div class="hero-name-zh">新苦粉孢牛肝菌</div>
+    <div class="hero-name-la">Tylopilus neofelleus</div>
+    <div class="hero-author">Hongo, 1967</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">已知种</span>
+      <span class="tag tag-moss">外生菌根菌</span>
+      <span class="tag tag-toxic">⚠ 有毒</span>
+      <span class="tag tag-toxic">胃肠炎型中毒</span>
+      <span class="tag tag-purple">紫色调孔面</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">闹马肝、苦马肝</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">命名地</span>
+        <span class="taxon-value">1967年描述于日本</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">牛肝菌目 / Boletaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">近缘易混淆种</span>
+        <span class="taxon-value">苦粉孢牛肝菌 <em>T. felleus</em></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+    <div class="photo-grid">
+
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Tylopilus_neofelleus1.png" alt="上方菌盖图">
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>上方菌盖图</span>
+          <span class="photo-url-hint">src="YOUR_URL_1"</span>
+        </div>
+        <div class="photo-caption">上方菌盖图 · 浅紫罗兰/灰褐绒质面</div>
+      </div>
+
+      <div class="photo-slot">
+         <img src="https://eumensides.github.io/mashroom/Tylopilus_neofelleus2.png" alt="45°仰拍图">
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>45° 仰拍图</span>
+          <span class="photo-url-hint">src="YOUR_URL_2"</span>
+        </div>
+        <div class="photo-caption">45° 仰拍 · 孔面紫色调与菌柄</div>
+      </div>
+
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Tylopilus_neofelleus3.png" alt="剖面图">
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>剖面图</span>
+          <span class="photo-url-hint">src="YOUR_URL_3"</span>
+        </div>
+        <div class="photo-caption">剖面 · 白色菌肉，伤后不变色</div>
+      </div>
+
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Tylopilus_neofelleus4.png" alt="下方菌管图">
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>下方菌管图</span>
+          <span class="photo-url-hint">src="YOUR_URL_4"</span>
+        </div>
+        <div class="photo-caption">★管面 · 紫粉红色孔面特写</div>
+      </div>
+
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Tylopilus_neofelleus5.png" alt="孢子印图"> 
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>孢子印图</span>
+          <span class="photo-url-hint">src="YOUR_URL_5"</span>
+        </div>
+        <div class="photo-caption">孢子印 · 肉粉色</div>
+      </div>
+
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Tylopilus_neofelleus6.png" alt="菌柄顶端特写"> 
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>菌柄顶端特写</span>
+          <span class="photo-url-hint">src="YOUR_URL_6"</span>
+        </div>
+        <div class="photo-caption">菌柄顶端淡紫色调细节</div>
+      </div>
+
+      <div class="photo-slot photo-slot-wide">
+        <img src="https://eumensides.github.io/mashroom/Tylopilus_neofelleus7.png" alt="生境图">
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>群生生境图</span>
+          <span class="photo-url-hint">src="YOUR_URL_7"</span>
+        </div>
+        <div class="photo-caption">生境 · 松科/针阔混交林</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">菌盖半球形，表面干燥具绒质感，浅紫罗兰色；孔面<strong>紫色至紫粉红色</strong>，质地细密；菌柄淡褐色，顶端常带淡紫色调；菌肉白色</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">菌盖渐平展，颜色转为灰褐色至褐色；孔面紫色调逐渐褪去；菌柄颜色加深至褐色或污褐色，上部偶现网纹；菌肉白色，受伤基本不变色</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">菌盖完全平展，褐色至黑褐色，近光滑；孔面成熟后转为<strong>粉红色至浅粉色</strong>；菌柄深褐至黑褐色；孢子印肉粉色至污肉桂色；口感极苦，舔尝菌盖边缘即可验证（仅验证，不可咽食）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-purple">浅紫罗兰→灰褐→黑褐</span>
+          <span class="tag tag-ink">孔面紫→紫粉红→粉红/浅粉</span>
+          <span class="tag tag-ink">菌柄淡褐→深褐/黑褐</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">半球形→平展</span>
+          <span class="tag tag-ink">菌盖径 9–14cm</span>
+          <span class="tag tag-ink">菌柄 8–11×1.5–2.5cm</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">不明显</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感 · 食毒</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">极苦</span>
+          <span class="tag tag-toxic">⚠ 有毒不可食</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr>
+            <th>部位</th>
+            <th>形态描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>干燥，具绒质感，幼时绒毛明显，老后近光滑</td></tr>
+          <tr><td>菌管/菌孔</td><td>凹生，近圆形，约1个/mm，灰红色至紫粉色，伤后反应文献记载不一（变蓝黑色或基本不变色）</td></tr>
+          <tr><td>菌柄</td><td>中生，中实，深褐至黑褐色，平滑，柄上部偶有网纹，顶端常带淡紫色调，无菌环</td></tr>
+          <tr><td>菌肉</td><td>白色，厚，伤后不变色或变化不明显</td></tr>
+          <tr><td>孢子</td><td>平滑，肉粉色，比近缘种 <em>T. felleus</em> 更小（关键分类区分点，需显微测量）</td></tr>
+          <tr><td>孢子印</td><td>肉粉色至污肉桂色</td></tr>
+          <tr><td>菌环 / 菌托</td><td>均无</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆 · 有毒警示</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">⚠ 核心辨识三要素（有毒警示）</div>
+      <ul class="distinction-list">
+        <li>孔面带<strong>紫色至紫粉红色</strong>调（幼时尤其明显），这是粉孢牛肝菌属（<em>Tylopilus</em>）的家族特征，区别于黄孔/白孔的可食牛肝菌</li>
+        <li>菌肉味道<strong>极苦</strong>，可舔尝菌盖边缘验证（不会致命但极不适，验毒时务必只舔不咽不食用）</li>
+        <li>菌柄顶端常带<strong>淡紫色调</strong>，与菌盖的紫罗兰色形成呼应，是本属特有的"紫调统一感"</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">食毒属性</div>
+        <div style="font-size:13px;color:var(--toxic);font-weight:500;">⚠ 有毒（胃肠炎型中毒）</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">中毒记录</div>
+        <div style="font-size:13px;color:var(--ink-mid)">2020年8-9月云南、重庆至少3起中毒事件，6人中毒</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">苦粉孢牛肝菌 <em>Tylopilus felleus</em></div>
+        <div class="confusion-diff">区别：外形几乎一致，唯一可靠区分是孢子尺寸（本种更小），野外几乎无法目视区分，需显微镜确认 · 同样味苦，分布于欧洲</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">橙黄粉孢牛肝菌 <em>Tylopilus</em>（橙黄系可食种）</div>
+        <div class="confusion-diff">区别：该属内有可食种类，孔面颜色偏橙黄而非紫色调 · 提醒：同属不代表同样可食，务必逐种确认，不可凡是粉孢牛肝菌属就认为可食</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic);">⚠ 最危险的误判：与可食牛肝菌混淆</div>
+        <div class="confusion-diff">由于外形与部分可食牛肝菌相近，缺乏经验者最危险的误判是"凡牛肝菌皆可食"，本种正是反例，孔面紫色调+极苦味是关键拦截点，野外采集时务必先舔尝验证</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「紫孔 + 极苦 = 闹马肝」</div>
+        <div class="memory-pill">「舔一下，毕生难忘的苦」</div>
+        <div class="memory-pill">「苦味是它最好的自我保护」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ink"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">群落分布方式</div>
+        <div class="habitat-value">单生或散生</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 共生树种</div>
+        <div class="habitat-value">外生菌根菌，共生松科树木，或松科与壳斗科组成的针阔混交林</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国西南、华中地区（云南、四川、重庆、湖北、湖南）；台湾、日本、韩国、新西兰、新几内亚</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">6–9月（中国记录）；夏季（台湾记录），中高海拔</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      标本采集建议：记录孔面颜色变化阶段、菌柄顶端紫色调
+    </div>
+    <div class="alert-box">
+      ⚠ 重要警示：本种已确认有毒，严禁食用。如误食出现恶心、呕吐、腹泻等胃肠炎症状，须立即就医并携带样本以便鉴定。验毒舔尝仅可触及舌尖后立即吐出漱口，绝不可咽食。
+    </div>
+  </div>
+
+  <!-- 7. 价值 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card toxic-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">⚠ 有毒，禁止食用。已确认可造成胃肠炎型中毒，2020年云南、重庆有确切中毒病例记录；极苦味本身也使其几乎无食用价值，民间俗称"闹马肝"即警示其毒性</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">研究价值</div>
+        <div class="value-body">作为我国胃肠炎型蘑菇中毒的常见致因物种，是毒蘑菇监测与公众科普的重点对象；其与<em>T. felleus</em>的近缘关系及孢子尺寸差异为粉孢牛肝菌属分类研究提供了重要案例</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为外生菌根菌，与松科及壳斗科树木形成共生关系，是针叶林与针阔混交林生态系统的组成部分</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">化学防御推测</div>
+        <div class="value-body">苦味物质可能是其对抗动物啃食的化学防御机制，这也是粉孢牛肝菌属（Tylopilus）多数物种的共同特征</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Tylopilus_neofelleus" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://blog.sciencenet.cn/blog-576297-1365143.html" target="_blank">科学网 · 毒蘑菇科普</a>
+    </div>
+    <div>⚠ 有毒 · 胃肠炎型中毒 · 仅供学习识别</div>
+  </div>
+
+</div>
+</body>
+</html>
