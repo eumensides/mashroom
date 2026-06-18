@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大青褶伞 · Chlorophyllum molybdites（剧毒）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #1a1a18;
+    --ink-mid: #4a4a45;
+    --ink-light: #8a8a82;
+    --cream: #f7f4ee;
+    --surface: #ffffff;
+    --moss: #3b5c2a;
+    --moss-light: #c8dab8;
+    --moss-pale: #edf4e5;
+    --amber: #8b5e1a;
+    --amber-light: #e8c980;
+    --amber-pale: #fdf4dc;
+    --rust: #8b3a1a;
+    --rust-pale: #fceee8;
+    --toxic: #7a1f2b;
+    --toxic-light: #d99aa3;
+    --toxic-pale: #f7e3e6;
+    --spore: #55642f;
+    --spore-light: #b8c48a;
+    --spore-pale: #f0f1de;
+    --border: rgba(60,60,40,0.12);
+    --border-mid: rgba(60,60,40,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── TOXIC WARNING BANNER ── */
+  .toxic-banner {
+    background: var(--toxic);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #d4cdc0;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-image-placeholder {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #7a7468;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+    padding: 2rem;
+    border: 2px dashed #b8b2a8;
+  }
+
+  .hero-image-placeholder .icon-large {
+    font-size: 48px;
+    opacity: 0.4;
+    line-height: 1;
+  }
+
+  .hero-image-placeholder .placeholder-label {
+    font-size: 12px;
+    color: #9a9490;
+    font-family: monospace;
+    background: rgba(255,255,255,0.5);
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--toxic);
+    margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .hero-name-la {
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--ink-mid);
+    margin-bottom: 4px;
+  }
+
+  .hero-author {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-moss { background: var(--moss-pale); color: var(--moss); }
+  .tag-amber { background: var(--amber-pale); color: var(--amber); }
+  .tag-rust { background: var(--rust-pale); color: var(--rust); }
+  .tag-ink { background: #f0ede8; color: var(--ink-mid); }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+  .tag-spore { background: var(--spore-pale); color: var(--spore); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-moss { background: var(--moss); }
+  .dot-amber { background: var(--amber); }
+  .dot-rust { background: var(--rust); }
+  .dot-ink { background: var(--ink-mid); }
+  .dot-toxic { background: var(--toxic); }
+  .dot-spore { background: var(--spore); }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .section-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .photo-slot {
+    aspect-ratio: 4/3;
+    background: #e8e4dc;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px dashed #c0bab0;
+  }
+
+  .photo-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .photo-slot-wide { grid-column: span 3; }
+
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #9a9490;
+    font-size: 11px;
+    text-align: center;
+    padding: 8px;
+  }
+
+  .photo-placeholder svg {
+    opacity: 0.4;
+    width: 28px; height: 28px;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(26,26,24,0.72);
+    color: #f0ede8;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 5px 8px;
+    text-align: center;
+  }
+
+  .photo-url-hint {
+    font-size: 10px;
+    color: #b0aa9e;
+    font-family: monospace;
+    word-break: break-all;
+    line-height: 1.3;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .phase-label {
+    padding: 4px 0;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .phase-young { background: var(--amber-pale); color: var(--amber); }
+  .phase-mid { background: var(--rust-pale); color: var(--rust); }
+  .phase-mature { background: var(--spore-pale); color: var(--spore); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .trait-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .trait-name {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  .parts-table td:first-child {
+    font-weight: 500;
+    color: var(--ink-mid);
+    white-space: nowrap;
+    width: 100px;
+  }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .distinction-box {
+    background: var(--toxic-pale);
+    border: 1px solid var(--toxic-light);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .distinction-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--toxic);
+    margin-bottom: 10px;
+  }
+
+  .distinction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .distinction-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #5a1620;
+    line-height: 1.6;
+  }
+
+  .distinction-list li::before {
+    content: "·";
+    color: var(--toxic);
+    font-size: 16px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .confusion-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+  }
+
+  .confusion-item.danger {
+    border-left-color: var(--toxic);
+    background: var(--toxic-pale);
+  }
+
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--ink-mid); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+
+  .memory-pill {
+    background: #f0ede8;
+    border: 1px solid #d8d3c8;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .habitat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .habitat-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 6px;
+  }
+
+  .habitat-value {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .value-card.toxic-card {
+    border-left: 3px solid var(--toxic);
+  }
+
+  .value-card-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+  }
+
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--ink-light);
+  }
+
+  .ref-link { color: var(--moss); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  .alert-box {
+    background: var(--toxic-pale);
+    border: 1px solid var(--toxic-light);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--toxic);
+    margin-top: 10px;
+    font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .photo-slot-wide { grid-column: span 2; aspect-ratio: 16/9; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toxic-banner">⚠️ 我国引起中毒事件最多的毒蘑菇之一 · 2019–2021年中国至少275起、560人中毒 · 严禁采食，仅供学习识别</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <!-- 主图区域：请替换下方注释为 <img src="您生成的主图URL" alt="大青褶伞主图"> -->
+    <div class="hero-image-placeholder">
+      <div class="icon-large">🍄</div>
+      <div>主图占位 · 待插入</div>
+      <div class="placeholder-label">src="YOUR_URL_0"</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 蘑菇科 · 青褶伞属</div>
+    <div class="hero-name-zh">大青褶伞</div>
+    <div class="hero-name-la">Chlorophyllum molybdites</div>
+    <div class="hero-author">(G. Mey.) Massee, 1898</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">已知种</span>
+      <span class="tag tag-moss">腐生菌·非菌根</span>
+      <span class="tag tag-toxic">⚠ 剧毒</span>
+      <span class="tag tag-toxic">胃肠炎型中毒</span>
+      <span class="tag tag-spore">孢子印绿色 · 全菌物界独有</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">摩根小伞、青褶环伞、铅绿褶菇、绿褶菇（俗称"ICU菇"）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Green-spored Parasol / False Parasol / Vomiter</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">蘑菇目 / Agaricaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">近缘易混淆种</span>
+        <span class="taxon-value">高大环柄菇 <em>Macrolepiota procera</em></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录 · 待插入7张</span>
+    </div>
+    <div class="photo-grid">
+
+      <div class="photo-slot">
+        <!-- 替换为：<img src="您的图片URL_1" alt="上方菌盖图"> -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>上方菌盖图</span>
+          <span class="photo-url-hint">src="YOUR_URL_1"</span>
+        </div>
+        <div class="photo-caption">上方菌盖图 · 白底+褐紫色厚鳞片</div>
+      </div>
+
+      <div class="photo-slot">
+        <!-- 替换为：<img src="您的图片URL_2" alt="45°仰拍图"> -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>45° 仰拍图</span>
+          <span class="photo-url-hint">src="YOUR_URL_2"</span>
+        </div>
+        <div class="photo-caption">45° 仰拍 · 菌褶绿色调与双层菌环</div>
+      </div>
+
+      <div class="photo-slot">
+        <!-- 替换为：<img src="您的图片URL_3" alt="剖面图"> -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>剖面图</span>
+          <span class="photo-url-hint">src="YOUR_URL_3"</span>
+        </div>
+        <div class="photo-caption">剖面 · 白色菌肉，中空菌柄</div>
+      </div>
+
+      <div class="photo-slot">
+        <!-- 替换为：<img src="您的图片URL_4" alt="下方菌褶图"> -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>下方菌褶图</span>
+          <span class="photo-url-hint">src="YOUR_URL_4"</span>
+        </div>
+        <div class="photo-caption">★菌褶面 · 青绿至铅绿色特写</div>
+      </div>
+
+      <div class="photo-slot">
+        <!-- 替换为：<img src="您的图片URL_5" alt="孢子印图"> -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>孢子印图</span>
+          <span class="photo-url-hint">src="YOUR_URL_5"</span>
+        </div>
+        <div class="photo-caption">★孢子印 · 暗绿色（核心鉴定证据）</div>
+      </div>
+
+      <div class="photo-slot">
+        <!-- 替换为：<img src="您的图片URL_6" alt="特殊细节图"> -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>特殊细节图</span>
+          <span class="photo-url-hint">src="YOUR_URL_6"</span>
+        </div>
+        <div class="photo-caption">菌柄基部受伤变红褐色细节</div>
+      </div>
+
+      <div class="photo-slot photo-slot-wide">
+        <!-- 替换为：<img src="您的图片URL_7" alt="生境图"> -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>群生生境图</span>
+          <span class="photo-url-hint">src="YOUR_URL_7"</span>
+        </div>
+        <div class="photo-caption">生境 · 草坪/仙女环群生</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">菌盖近球形/卵圆形，全包被暗褐色至浅褐色光滑外皮，未破裂呈"光头"状态，外形与鸡腿菇（毛头鬼伞）或可食用环柄菇属物种相似，<strong>此阶段最易误判</strong>；菌褶污白色，紧密排列；菌柄白色光滑，菌环尚紧贴柄上部未展开；菌肉白色或带浅粉红色，松软</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">表皮开始龋裂为鳞片，中央保留一块大而厚的完整鳞片呈褐紫色，周围鳞片反卷翘起、向边缘渐小渐稀疏；菌盖渐从半球形转为平凸；菌褶开始转为<strong>浅绿色</strong>；菌柄伸长中空，基部稍膨大，环以上光滑、环以下有白色细纤毛，菌环逐渐显露、上位双层；触碰处可见淡粉红→红褐色伤变</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">菌盖近平展，中部稍凸起，直径可达5–30cm；菌褶<strong>明显转为青绿色至铅绿色/灰绿色</strong>（核心识别特征），干燥后呈深蓝绿色至深灰绿色；孢子印浅橄榄绿至暗绿色；菌柄基部受伤后<strong>变红褐色</strong>；菌丝体常在地表呈环状辐射蔓延（"仙女环"），逐年扩大。此阶段最易识别，也是大量群生、最常被误采食用的危险阶段</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">白→浅褐→褐紫鳞片（渐变）</span>
+          <span class="tag tag-spore">菌褶白→浅绿→青绿/铅绿 ★核心</span>
+          <span class="tag tag-spore">孢子印浅橄榄绿至暗绿色</span>
+          <span class="tag tag-ink">柄基受伤渐变红褐色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">半球形→近平展（中凸）</span>
+          <span class="tag tag-ink">大型：菌盖径5–30cm</span>
+          <span class="tag tag-ink">菌柄10–28×1–2.5cm，中空</span>
+          <span class="tag tag-ink">鳞片重复排列，中央大边缘小</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">无刺激性气味</span>
+          <span class="tag tag-ink">气味不明显，干燥后微有香气</span>
+          <span class="tag tag-toxic">⚠ 气味不可作辨毒依据</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感 · 食毒</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">食用记录显示口感尚可，不苦不涩</span>
+          <span class="tag tag-toxic">⚠ 严禁舔尝/试毒</span>
+          <span class="tag tag-toxic">⚠ 剧毒：肝/神经/胃肠/溶血毒素</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr>
+            <th>部位</th>
+            <th>形态描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>幼时全包被暗褐色至浅褐色光滑外皮，逐渐龋裂为鳞片；中央鳞片大而厚，常保持完整呈褐紫色；周围鳞片反卷、向边缘渐小渐稀疏，露出白色底色</td></tr>
+          <tr><td>菌褶</td><td>离生，宽，稠密，不等长，幼时污白色，成熟后浅绿色至青绿色/铅绿色，干燥后呈深蓝绿色至深灰绿色，褶缘具粉粒状孢子堆积</td></tr>
+          <tr><td>菌柄</td><td>中生，近圆柱形，10–28cm×1–2.5cm，表面完全光滑，<strong>无任何鳞片或花纹</strong>（与可食环柄菇属最关键区别），近白色至浅灰褐色，内部中空，基部稍膨大，受伤后渐变红褐色</td></tr>
+          <tr><td>菌环</td><td>上位，双层，厚，膜质，可上下推动；环以上光滑，环以下有白色细纤毛；★存在但需与有环鹅膏菌区分，不可仅凭"有环"判断安全</td></tr>
+          <tr><td>菌肉</td><td>近白色或带浅粉红色，松软，受伤变粉红色至红褐色，基部尤其明显；干燥后有特殊香气</td></tr>
+          <tr><td>孢子</td><td>浅橄榄色，侧面观宽杏仁形，背腹观近卵形，顶端具截平芽孔，壁厚光滑；褶缘囊状体宽棒状至球头短柄状，含浅褐色胞内色素</td></tr>
+          <tr><td>孢子印</td><td>浅橄榄绿至暗绿色（铅绿色）——青褶伞属内仅极少数物种具绿色孢子印，是整个菌物界绝无仅有的特征，是最可靠的鉴定证据</td></tr>
+          <tr><td>菌托</td><td>无菌托（与剧毒鹅膏菌属的关键区别之一，但仍须结合孢子印颜色综合判断，不可单凭"无菌托"放松警惕）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆 · 有毒警示</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">⚠ 核心辨识三要素（有毒警示）</div>
+      <ul class="distinction-list">
+        <li>菌柄<strong>完全光滑，没有任何鳞片或花纹</strong>——这是与高大环柄菇等可食用大环柄菇属物种最关键、最可靠的肉眼区分点</li>
+        <li>菌褶成熟后明显变为<strong>青绿色至铅绿色</strong>，孢子印呈<strong>浅橄榄绿至暗绿色</strong>——绿色是本种的招牌特征，任何可食用环柄菇属/同属近亲都不具备</li>
+        <li>菌柄<strong>基部受伤后变红褐色</strong>，这一反应同样不见于可食用环柄菇属物种</li>
+      </ul>
+    </div>
+
+    <div class="alert-box" style="margin-bottom:1rem;">
+      ⚠ 特别警示：口感与气味<strong>无法</strong>作为本种安全性判断依据——据中毒记录其本身风味并不差，这正是反复被误食的根源。与许多"舔一下就知道"的苦味毒菌不同，本种必须依靠孢子印颜色、菌柄是否光滑、菌褶颜色及菌柄基部是否变红褐色等结构特征综合判断，严禁以味觉/嗅觉作初步试毒。
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">食毒属性</div>
+        <div style="font-size:13px;color:var(--toxic);font-weight:500;">⚠ 有毒（胃肠炎型，极少数严重病例累及肝/神经/血液系统）</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">中毒记录</div>
+        <div style="font-size:13px;color:var(--ink-mid)">2019–2021年中国至少275起、560人中毒；2017–2024年6月至少97起、216人中毒；致死性极低，目前无明确死亡病例（一说台湾有一例未经证实）</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">高大环柄菇 <em>Macrolepiota procera</em>（可食）</div>
+        <div class="confusion-diff">区别：菌柄具明显蛇皮状鳞纹/花纹（本种完全光滑），菌褶始终白色或淡黄色不变绿，孢子印白色或浅色 · 最常见的误食源头，"在老家这的确是可食用蘑菇"是典型误判心理</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">粗鳞青褶伞类 <em>Chlorophyllum rhacodes</em> 群（可食，同属近亲）</div>
+        <div class="confusion-diff">区别：同属近亲，但菌褶成熟后呈白色而非青绿/铅绿色，孢子近无色而非浅橄榄绿色，多生于林地而非草坪 · 同属内最容易混淆的一对，需结合菌褶颜色变化与孢子印综合判断</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">毛头鬼伞（鸡腿菇） <em>Coprinus comatus</em>（幼时可食）</div>
+        <div class="confusion-diff">区别：幼时菌盖长椭圆形，鳞片翘起如睫毛状（本种近球形，鳞片平伏）；成熟后菌褶自溶融化为黑色汁液（本种不会自溶）；孢子印黑色（本种绿色）</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic);">⚠ 最危险方向：剧毒白色鹅膏菌属</div>
+        <div class="confusion-diff">由于本种具菌环，幼嫩或退色个体有时会与致命鹅膏、淡红鹅膏、裂皮鹅膏等剧毒白色鹅膏菌混淆，这类误判的潜在风险远高于本种自身毒性；野外遇到白色环柄伞菌务必格外谨慎，做孢子印是关键鉴别手段（鹅膏菌孢子印白色，本种绿色）</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「光柄无鳞 + 菌褶变绿 + 孢子印铅绿 = 大青褶伞三连签」</div>
+        <div class="memory-pill">「能吃的环柄菇柄上有花纹，它没有」</div>
+        <div class="memory-pill">「草坪上的美丽陷阱，中国头号中毒元凶」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ink"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">群落分布方式</div>
+        <div class="habitat-value">常成群成片出现，菌丝体辐射状蔓延，地表常呈环状排列（"仙女环"），逐年扩大</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质类型</div>
+        <div class="habitat-value">腐生菌（非菌根菌，不依赖树木共生），生于草坪、公园、路边荒地、农田菜地、花盆、锯末堆、垃圾堆旁，亦见于林地或林缘草地</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国华南、华东、华中、西南及华北南部多省（广东、广西、海南、湖南、湖北、云南、四川、重庆、浙江、安徽、福建、江苏、河南、西藏、香港、台湾等）；世界温带至热带广泛分布，北美洲（北美最常见误食毒菌之一）、大洋洲、非洲、欧洲、亚洲；模式产地欧洲</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">一年四季均可生长（3–12月），集中于6–10月（夏秋高温多雨季节），雨后数日内大量爆发</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      标本采集建议：重点记录菌褶颜色变化阶段、菌柄是否光滑无鳞、孢子印颜色、基部是否受伤变红褐色；记录经纬度、海拔与生长基质类型（草坪/林地/堆肥）；由于生长地极接近人类活动区域，是食品安全科普的重点物种
+    </div>
+    <div class="alert-box">
+      ⚠ 重要警示：本种是我国南方中毒事件最多的毒蘑菇之一，无特效解毒药，仅对症治疗。如误食出现恶心、呕吐、腹泻等症状须立即就医并尽量携带样本/拍照供专业鉴定，绝不可因外形或"老家经验"自行判断可食用。
+    </div>
+  </div>
+
+  <!-- 7. 价值 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card toxic-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">⚠ 剧毒，绝对禁止食用。含肝脏毒素、神经毒素、胃肠毒素、溶血毒素，主要引起剧烈胃肠炎型中毒，潜伏期15分钟至6小时（多数10分钟–3小时），症状包括恶心、呕吐、腹绞痛、水样便（部分血性），严重者可致脱水、电解质紊乱、休克甚至昏迷，常需ICU治疗（俗称"ICU菇"）；致死性极低，无明确死亡病例报道，预后通常良好，1–2天内可恢复。据食用记录其本身风味并不差，这正是反复被误食的根源</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">研究 · 公共卫生价值</div>
+        <div class="value-body">是中国及全球（北美同样常见）食源性蘑菇中毒事件中最重要的研究对象之一，2019–2021年中国至少275起、560人中毒，相关物种鉴定与中毒救治方案已被系统总结发表于专业期刊，是毒蘑菇监测预警体系与公众科普教育的核心案例</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">分类与毒理研究</div>
+        <div class="value-body">1974年及2012年研究先后从其子实体中分离出耐热性差的高分子量毒蛋白；其分类历史（多次在<em>Lepiota</em>/<em>Macrolepiota</em>/<em>Chlorophyllum</em>间转移）也是真菌分子系统学研究的经典范例</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为腐生菌（非菌根菌），广泛分解草坪、农田、堆肥等环境中的有机质，参与土壤养分循环；不依赖树木共生关系，这也是其能广泛出现在城市公园、花盆等人工环境中的原因，是城市生态系统中常见的分解者类群</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Chlorophyllum_molybdites" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="http://www.mycopedia.top/result.php?id=6" target="_blank">菌物志 Mycopedia</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E5%A4%A7%E9%9D%92%E8%A4%B6%E4%BC%9E/624973" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://wjw.hubei.gov.cn/bmdt/jkhb/spyy/202506/t20250606_5681162.shtml" target="_blank">湖北省卫健委科普</a>
+    </div>
+    <div>⚠ 剧毒 · 胃肠炎型中毒（伴肝/神经/溶血毒性）· 仅供学习识别</div>
+  </div>
+
+</div>
+</body>
+</html>
