@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>菌物志 · 蘑菇检索站</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%84%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@1,500&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1B2118;
+    --bg-deep:#12160F;
+    --paper:#F1EAD9;
+    --paper-deep:#E7DCC4;
+    --ink:#2B2A22;
+    --ink-soft:#6B6554;
+    --cream:#EDE6D6;
+    --cream-dim:rgba(237,230,214,.78);
+    --gold:#C9A227;
+    --line:rgba(241,234,217,.14);
+    --line-soft:rgba(43,42,34,.14);
+
+    --tox-deadly-bg:#8C3420; --tox-deadly-fg:#F7E9DC;
+    --tox-toxic-bg:#A85A1E;  --tox-toxic-fg:#FFF3E2;
+    --tox-unknown-bg:#675E4C;--tox-unknown-fg:#F2ECDD;
+    --tox-edible-bg:#3F6B45; --tox-edible-fg:#EFF5E9;
+
+    --spore-green:#5C7A4B;
+    --spore-white:#EFEAD9;
+    --spore-pink:#C98C82;
+    --spore-yellowbrown:#B08D3E;
+    --spore-olivebrown:#7C7240;
+
+    --radius:14px;
+    --serif:"Noto Serif SC", serif;
+    --latin:"EB Garamond", serif;
+    --sans:"Noto Sans SC", sans-serif;
+    --mono:"JetBrains Mono", monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,.045) 1px, transparent 0);
+    background-size:24px 24px;
+    color:var(--cream);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  button{font:inherit;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:clamp(2.6rem,6vw,4.5rem) clamp(1.2rem,5vw,3.5rem) clamp(2rem,4vw,3rem);
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .hero__eyebrow{
+    font-family:var(--mono);
+    font-size:.78rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:.6em;
+  }
+  .hero__eyebrow::before{
+    content:"";
+    width:1.6em;height:1px;
+    background:var(--gold);
+    display:inline-block;
+  }
+  .hero__title{
+    font-family:var(--serif);
+    font-weight:900;
+    font-size:clamp(2.4rem,7vw,4.2rem);
+    letter-spacing:-.01em;
+    margin:.35em 0 .5em;
+    color:var(--cream);
+  }
+  .hero__lede{
+    max-width:62ch;
+    color:var(--cream-dim);
+    font-size:1.02rem;
+    margin:0 0 1.1em;
+  }
+  .hero__meta{
+    font-family:var(--mono);
+    font-size:.82rem;
+    color:var(--cream-dim);
+    border-top:1px solid var(--line);
+    padding-top:1em;
+    display:flex;
+    flex-wrap:wrap;
+    gap:.4em 1.4em;
+  }
+  .hero__meta b{color:var(--gold);font-weight:700;}
+
+  /* ---------- Controls ---------- */
+  .controls{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:rgba(18,20,15,.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:1.1rem clamp(1.2rem,5vw,3.5rem);
+  }
+  .controls__inner{max-width:1100px;margin:0 auto;}
+
+  .search{
+    display:flex;
+    align-items:center;
+    gap:.7em;
+    background:var(--paper);
+    border-radius:999px;
+    padding:.7em 1.1em;
+    box-shadow:inset 0 0 0 1px var(--line-soft);
+  }
+  .search svg{flex:none;color:var(--ink-soft);}
+  .search input{
+    flex:1;
+    border:none;
+    outline:none;
+    background:transparent;
+    font-family:var(--sans);
+    font-size:.98rem;
+    color:var(--ink);
+  }
+  .search input::placeholder{color:var(--ink-soft);}
+
+  .meta-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1em;
+    flex-wrap:wrap;
+    margin-top:.85em;
+  }
+  .result-count{font-family:var(--mono);font-size:.82rem;color:var(--cream-dim);}
+  .result-count b{color:var(--gold);}
+  .reset-btn{
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--cream-dim);
+    padding:.4em .9em;
+    border-radius:999px;
+    font-family:var(--mono);
+    font-size:.78rem;
+    letter-spacing:.04em;
+    cursor:pointer;
+    transition:border-color .2s,color .2s;
+  }
+  .reset-btn:hover,.reset-btn:focus-visible{border-color:var(--gold);color:var(--gold);}
+
+  .chipgroups{margin-top:1rem;display:flex;flex-direction:column;gap:.75rem;}
+  .chipgroup__label{
+    font-family:var(--mono);
+    font-size:.74rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--cream-dim);
+    margin-bottom:.4em;
+    display:block;
+  }
+  .chipgroup__row{display:flex;flex-wrap:wrap;gap:.5em;}
+  .chip{
+    --chip-color:var(--gold);
+    display:inline-flex;
+    align-items:center;
+    gap:.45em;
+    border:1.4px solid var(--chip-color);
+    color:var(--cream);
+    background:transparent;
+    padding:.32em .85em;
+    border-radius:999px;
+    font-family:var(--sans);
+    font-size:.82rem;
+    cursor:pointer;
+    transition:background .2s,color .2s,transform .15s;
+  }
+  .chip:hover{transform:translateY(-1px);}
+  .chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+  .chip.active{background:var(--chip-color);color:var(--bg-deep);font-weight:700;}
+  .chip__dot{
+    width:.7em;height:.7em;border-radius:50%;
+    background:var(--chip-color);
+    flex:none;
+    box-shadow:0 0 0 1px rgba(0,0,0,.25) inset;
+  }
+  .chip.active .chip__dot{box-shadow:0 0 0 1px rgba(255,255,255,.5) inset;}
+
+  .spore-tip{
+    font-size:.78rem;
+    color:var(--cream-dim);
+    margin-top:.3em;
+  }
+
+  /* ---------- Grid & cards ---------- */
+  .grid-wrap{max-width:1100px;margin:0 auto;padding:2.2rem clamp(1.2rem,5vw,3.5rem) 4rem;}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:1.4rem;
+  }
+
+  .card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:0 1px 0 rgba(0,0,0,.2), 0 14px 28px -18px rgba(0,0,0,.55);
+    transition:transform .25s ease, box-shadow .25s ease;
+    animation:cardIn .5s ease both;
+  }
+  .card:hover,.card:focus-visible{
+    transform:translateY(-4px);
+    box-shadow:0 1px 0 rgba(0,0,0,.2), 0 22px 34px -16px rgba(0,0,0,.6);
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:14px;left:14px;
+    width:9px;height:9px;
+    border-radius:50%;
+    background:var(--bg);
+    box-shadow:0 0 0 2px rgba(0,0,0,.12) inset;
+    z-index:2;
+  }
+
+  .card__media{position:relative;aspect-ratio:4/3;background:var(--paper-deep);overflow:hidden;}
+  .card__media img{
+    width:100%;height:100%;object-fit:cover;
+    filter:grayscale(15%) sepia(8%) contrast(1.02);
+    transition:filter .4s ease, transform .4s ease;
+  }
+  .card:hover .card__media img,.card:focus-visible .card__media img{
+    filter:none;
+    transform:scale(1.03);
+  }
+  .card__fallback{
+    position:absolute;inset:0;
+    display:none;
+    align-items:center;justify-content:center;
+    font-size:2.6rem;
+    background:var(--paper-deep);
+  }
+  .card__no{
+    position:absolute;top:10px;right:12px;
+    font-family:var(--mono);
+    font-size:.74rem;
+    letter-spacing:.06em;
+    background:rgba(18,20,15,.78);
+    color:var(--cream);
+    padding:.18em .55em;
+    border-radius:5px;
+    z-index:2;
+  }
+
+  .card__body{padding:1.1rem 1.2rem 1.3rem;display:flex;flex-direction:column;gap:.55em;flex:1;}
+  .card__badge{
+    align-self:flex-start;
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:.7rem;
+    letter-spacing:.05em;
+    padding:.28em .65em;
+    border:1.4px solid currentColor;
+    border-radius:5px;
+    transform:rotate(-2.5deg);
+  }
+  .card__zh{font-family:var(--serif);font-weight:700;font-size:1.28rem;margin:0;}
+  .card__latin{font-family:var(--latin);font-style:italic;font-size:1rem;color:var(--ink-soft);margin:0;}
+  .card__tags{font-size:.8rem;color:var(--ink-soft);}
+  .card__blurb{font-size:.88rem;color:var(--ink);opacity:.85;margin:0;}
+  .card__clue{
+    font-size:.8rem;
+    color:var(--ink-soft);
+    border-left:2px solid var(--gold);
+    padding-left:.6em;
+    margin:0;
+  }
+  .card__spore{display:flex;align-items:center;gap:.5em;font-size:.78rem;color:var(--ink-soft);margin-top:auto;}
+  .card__spore-dot{width:.85em;height:.85em;border-radius:50%;border:1.4px solid var(--ink-soft);flex:none;}
+  .card__link{
+    margin-top:.5em;
+    font-family:var(--mono);
+    font-size:.78rem;
+    letter-spacing:.03em;
+    color:var(--ink);
+    display:inline-flex;
+    align-items:center;
+    gap:.4em;
+  }
+  .card:hover .card__link{color:var(--tox-toxic-bg);}
+
+  .empty-state{
+    text-align:center;
+    color:var(--cream-dim);
+    padding:3rem 1rem;
+    font-size:.95rem;
+    display:none;
+  }
+
+  @keyframes cardIn{
+    from{opacity:0;transform:translateY(10px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  /* ---------- Footer ---------- */
+  .site-footer{
+    border-top:1px solid var(--line);
+    padding:2rem clamp(1.2rem,5vw,3.5rem) 3rem;
+    max-width:1100px;
+    margin:0 auto;
+    color:var(--cream-dim);
+    font-size:.85rem;
+  }
+  .site-footer strong{color:var(--gold);}
+  .site-footer p{max-width:70ch;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important;transition-duration:0.001ms !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="hero__eyebrow">MYCOTECA · 标本检索</span>
+  <h1 class="hero__title">菌物志</h1>
+  <p class="hero__lede">
+    每一种蘑菇都会留下可供核实的证据——外形、生长阶段、孢子印颜色，甚至误食后的中毒记录。这里按统一档案格式收录野外可能遇到的物种，方便你在见到相似蘑菇时快速比对查证。比对结果仅用于学习与安全识别，<strong>绝不能作为食用依据</strong>。
+  </p>
+  <div class="hero__meta">
+    <span>标本编号 <b>NO.001–005</b></span>
+    <span>持续收录中</span>
+    <span>仅供学习识别 · 请勿采食</span>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="controls__inner">
+    <div class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" autocomplete="off" placeholder="搜索中文名、俗名或拉丁名，例如「鹅膏」「牛肝菌」「molybdites」" aria-label="搜索蘑菇">
+    </div>
+
+    <div class="meta-row">
+      <span class="result-count" id="resultCount"></span>
+      <button class="reset-btn" id="resetBtn" type="button">清除筛选</button>
+    </div>
+
+    <div class="chipgroups" id="chipGroups"></div>
+  </div>
+</div>
+
+<main class="grid-wrap">
+  <div class="grid" id="cardGrid"></div>
+  <p class="empty-state" id="emptyState">没有找到符合条件的标本 · 换个关键词或调整筛选试试</p>
+</main>
+
+<footer class="site-footer">
+  <p>⚠ 本站所有档案仅用于教学与野外安全识别。绝大多数野生蘑菇仅凭肉眼和图片极难准确辨认，<strong>请勿仅凭外观或网络资料自行采食</strong>；如怀疑误食中毒，请立即就医并携带样本供专业鉴定。</p>
+  <p>资料整理自标本观察记录与公开文献，持续校订与更新中。</p>
+</footer>
+
+<script>
+/* ============================================================
+   数据区：每新增一种蘑菇，只需在 mushrooms 数组里追加一个对象。
+   字段说明：
+   no          标本编号（建议按收录顺序递增）
+   nameZh      中文正名      nameLatin  拉丁学名      author 命名人与年份
+   commonNames 俗名数组（用于搜索）
+   family      科的筛选键，需对应 TAXONOMY.family 里的 key
+   familyLabel 科的中文+拉丁展示文本
+   genus       属名展示文本
+   toxicity    毒性筛选键：deadly / toxic / unknown / edible
+   spore       孢子印颜色筛选键，需对应 TAXONOMY.spore 里的 key
+   sporeLabel  孢子印颜色展示文本
+   habitats    生境/共生筛选键数组，对应 TAXONOMY.habitat 的 key（可多选）
+   blurb       一句话简介      keyClue 一句话辨识要点
+   image       卡片缩略图地址   url 跳转到的详情页地址
+   ============================================================ */
+
+const TAXONOMY = {
+  toxicity: [
+    {key:'deadly',  label:'剧毒'},
+    {key:'toxic',   label:'有毒'},
+    {key:'unknown', label:'疑似有毒'},
+    {key:'edible',  label:'可食用'}
+  ],
+  spore: [
+    {key:'green',       label:'暗绿色'},
+    {key:'white',       label:'白色'},
+    {key:'pink',        label:'肉粉色'},
+    {key:'yellowbrown', label:'黄褐色'},
+    {key:'olivebrown',  label:'橄榄褐色'}
+  ],
+  family: [
+    {key:'agaricaceae',  label:'蘑菇科'},
+    {key:'amanitaceae',  label:'鹅膏菌科'},
+    {key:'boletaceae',   label:'牛肝菌科'},
+    {key:'suillaceae',   label:'乳牛肝菌科'}
+  ],
+  habitat: [
+    {key:'saprotroph', label:'腐生 · 草坪堆肥'},
+    {key:'ecm_pine',   label:'外生菌根 · 松科'},
+    {key:'ecm_oak',    label:'外生菌根 · 壳斗科'}
+  ]
+};
+
+const TOX_BG = {deadly:'var(--tox-deadly-bg)', toxic:'var(--tox-toxic-bg)', unknown:'var(--tox-unknown-bg)', edible:'var(--tox-edible-bg)'};
+const TOX_FG = {deadly:'var(--tox-deadly-fg)', toxic:'var(--tox-toxic-fg)', unknown:'var(--tox-unknown-fg)', edible:'var(--tox-edible-fg)'};
+const SPORE_COLOR = {green:'var(--spore-green)', white:'var(--spore-white)', pink:'var(--spore-pink)', yellowbrown:'var(--spore-yellowbrown)', olivebrown:'var(--spore-olivebrown)'};
+
+const mushrooms = [
+  {
+    no:'001',
+    nameZh:'大青褶伞', nameLatin:'Chlorophyllum molybdites', author:'(G. Mey.) Massee, 1898',
+    commonNames:['摩根小伞','青褶环伞','铅绿褶菇','绿褶菇','ICU菇'],
+    family:'agaricaceae', familyLabel:'蘑菇科 Agaricaceae', genus:'青褶伞属 Chlorophyllum',
+    toxicity:'deadly',
+    spore:'green', sporeLabel:'暗绿色（铅绿色）',
+    habitats:['saprotroph'],
+    blurb:'草坪上最常见的"美丽陷阱"，是我国胃肠炎型蘑菇中毒事件数量最多的物种之一。',
+    keyClue:'辨识关键：菌柄从头到尾光滑无鳞，菌褶成熟后转为青绿至铅绿色。',
+    image:'https://eumensides.github.io/mashroom/Chlorophyllum_molybdites0.png',
+    url:'https://eumensides.github.io/mashroom/Chlorophyllum_molybdites.html'
+  },
+  {
+    no:'002',
+    nameZh:'灰褶鹅膏', nameLatin:'Amanita griseofolia', author:'O.K. Mill., Loderm. & Youmans, 1996',
+    commonNames:['灰褶鹅膏菌','加州暗色鹅膏'],
+    family:'amanitaceae', familyLabel:'鹅膏菌科 Amanitaceae', genus:'鹅膏属 Amanita',
+    toxicity:'unknown',
+    spore:'white', sporeLabel:'白色',
+    habitats:['ecm_oak','ecm_pine'],
+    blurb:'鹅膏属里少见的灰色菌褶物种，常见于北美太平洋沿岸的橡树与松树混生林。',
+    keyClue:'辨识关键：菌环、菌托一应俱全，但菌褶呈罕见的灰色而非纯白。',
+    image:'https://images.unsplash.com/photo-1534432247920-7f283b63cc9b?auto=format&fit=crop&w=800&q=80',
+    url:'https://eumensides.github.io/mashroom/Amanita_griseofolia.html'
+  },
+  {
+    no:'003',
+    nameZh:'新苦粉孢牛肝菌', nameLatin:'Tylopilus neofelleus', author:'Hongo, 1967',
+    commonNames:['闹马肝','苦马肝'],
+    family:'boletaceae', familyLabel:'牛肝菌科 Boletaceae', genus:'粉孢牛肝菌属 Tylopilus',
+    toxicity:'toxic',
+    spore:'pink', sporeLabel:'肉粉色至污肉桂色',
+    habitats:['ecm_pine','ecm_oak'],
+    blurb:'孔面带紫粉色调的牛肝菌，名字里的"苦"字绝非虚言。',
+    keyClue:'辨识关键：孔面紫粉色调，菌肉味极苦，可舔尝菌盖边缘验证（不可咽下）。',
+    image:'https://eumensides.github.io/mashroom/Tylopilus_neofelleus0.png',
+    url:'https://eumensides.github.io/mashroom/Tylopilus_neofelleus.html'
+  },
+  {
+    no:'004',
+    nameZh:'点柄乳牛肝菌', nameLatin:'Suillus granulatus', author:'(L.) Roussel, 1796',
+    commonNames:['松毛菌','粘团子','栗壳牛肝菌'],
+    family:'suillaceae', familyLabel:'乳牛肝菌科 Suillaceae', genus:'乳牛肝菌属 Suillus',
+    toxicity:'edible',
+    spore:'yellowbrown', sporeLabel:'淡黄褐色',
+    habitats:['ecm_pine'],
+    blurb:'松林地表的常客，幼嫩时管口会分泌乳白液滴，因此得名 weeping bolete。',
+    keyClue:'辨识关键：菌柄布满褐色颗粒状腺点，且始终没有菌环。',
+    image:'https://eumensides.github.io/mashroom/Suillus_granulatus0.png',
+    url:'https://eumensides.github.io/mashroom/Suillus_granulatus.html'
+  },
+  {
+    // 提示：抓取这一页时遇到了访问限制，未能读到你原页面里的文字，
+    // 以下内容是根据公开资料整理的占位描述，建议对照你写的原文核对、替换。
+    no:'005',
+    nameZh:'黏盖乳牛肝菌', nameLatin:'Suillus bovinus', author:'(L.) Roussel, 1806',
+    commonNames:['乳牛肝菌','粘盖牛肝菌','泽西奶牛蘑菇'],
+    family:'suillaceae', familyLabel:'乳牛肝菌科 Suillaceae', genus:'乳牛肝菌属 Suillus',
+    toxicity:'edible',
+    spore:'olivebrown', sporeLabel:'橄榄褐色',
+    habitats:['ecm_pine'],
+    blurb:'同样偏爱松林的乳牛肝菌属物种，管孔呈独特的双层蜂窝状结构。',
+    keyClue:'辨识关键：菌柄细长无环，常与寄生其上的红铆钉菇相伴出现。',
+    image:'https://eumensides.github.io/mashroom/Suillus_bovinus0.png',
+    url:'https://eumensides.github.io/mashroom/Suillus_bovinus.html'
+  }
+];
+
+// 预先生成搜索用的文本块
+mushrooms.forEach(m=>{
+  m.searchBlob = [
+    m.nameZh, m.nameLatin, m.author, m.genus, m.familyLabel,
+    (m.commonNames||[]).join(' '), m.blurb, m.keyClue, m.sporeLabel
+  ].join(' ').toLowerCase();
+});
+
+const toxLabel = key => (TAXONOMY.toxicity.find(t=>t.key===key)||{}).label || key;
+const familyLabel = key => (TAXONOMY.family.find(t=>t.key===key)||{}).label || key;
+const habitatLabel = key => (TAXONOMY.habitat.find(t=>t.key===key)||{}).label || key;
+
+/* ---------------- 筛选状态 ---------------- */
+const active = { toxicity:new Set(), spore:new Set(), family:new Set(), habitat:new Set() };
+let searchText = '';
+
+function matches(m){
+  if (searchText && !m.searchBlob.includes(searchText)) return false;
+  if (active.toxicity.size && !active.toxicity.has(m.toxicity)) return false;
+  if (active.spore.size && !active.spore.has(m.spore)) return false;
+  if (active.family.size && !active.family.has(m.family)) return false;
+  if (active.habitat.size && !m.habitats.some(h=>active.habitat.has(h))) return false;
+  return true;
+}
+
+/* ---------------- 渲染：筛选标签 ---------------- */
+const chipGroupsEl = document.getElementById('chipGroups');
+const GROUP_META = [
+  {group:'toxicity', label:'毒性与安全', list:TAXONOMY.toxicity, colorMap:TOX_BG},
+  {group:'spore',    label:'孢子印颜色', list:TAXONOMY.spore,    colorMap:SPORE_COLOR},
+  {group:'family',   label:'科属分类',   list:TAXONOMY.family,   colorMap:null},
+  {group:'habitat',  label:'生境与共生', list:TAXONOMY.habitat,  colorMap:null}
+];
+
+GROUP_META.forEach(meta=>{
+  const wrap = document.createElement('div');
+  const labelEl = document.createElement('span');
+  labelEl.className = 'chipgroup__label';
+  labelEl.textContent = meta.label;
+  wrap.appendChild(labelEl);
+
+  const row = document.createElement('div');
+  row.className = 'chipgroup__row';
+
+  meta.list.forEach(item=>{
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chip';
+    btn.dataset.group = meta.group;
+    btn.dataset.key = item.key;
+    btn.setAttribute('aria-pressed','false');
+    if (meta.colorMap){
+      btn.style.setProperty('--chip-color', meta.colorMap[item.key]);
+      const dot = document.createElement('span');
+      dot.className = 'chip__dot';
+      btn.appendChild(dot);
+    }
+    const txt = document.createElement('span');
+    txt.textContent = item.label;
+    btn.appendChild(txt);
+
+    btn.addEventListener('click', ()=>{
+      const set = active[meta.group];
+      if (set.has(item.key)){ set.delete(item.key); btn.classList.remove('active'); btn.setAttribute('aria-pressed','false'); }
+      else { set.add(item.key); btn.classList.add('active'); btn.setAttribute('aria-pressed','true'); }
+      render();
+    });
+
+    row.appendChild(btn);
+  });
+
+  wrap.appendChild(row);
+
+  if (meta.group === 'spore'){
+    const tip = document.createElement('p');
+    tip.className = 'spore-tip';
+    tip.textContent = '孢子印颜色是蘑菇鉴定中最可靠的证据之一，采集标本时建议务必制作孢子印。';
+    wrap.appendChild(tip);
+  }
+
+  chipGroupsEl.appendChild(wrap);
+});
+
+/* ---------------- 渲染：卡片 ---------------- */
+const cardGrid = document.getElementById('cardGrid');
+const emptyState = document.getElementById('emptyState');
+const resultCount = document.getElementById('resultCount');
+
+function cardHTML(m, index){
+  const habitatTxt = m.habitats.map(habitatLabel).join(' · ');
+  return `
+  <a class="card" href="${m.url}" style="animation-delay:${Math.min(index*45,360)}ms">
+    <div class="card__media">
+      <img src="${m.image}" alt="${m.nameZh}" loading="lazy"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="card__fallback">🍄</div>
+      <span class="card__no">NO.${m.no}</span>
+    </div>
+    <div class="card__body">
+      <span class="card__badge" style="color:${TOX_FG[m.toxicity]};background:${TOX_BG[m.toxicity]};border-color:${TOX_BG[m.toxicity]}">${toxLabel(m.toxicity)}</span>
+      <h2 class="card__zh">${m.nameZh}</h2>
+      <p class="card__latin">${m.nameLatin}</p>
+      <p class="card__tags">${m.familyLabel} · ${habitatTxt}</p>
+      <p class="card__blurb">${m.blurb}</p>
+      <p class="card__clue">${m.keyClue}</p>
+      <div class="card__spore">
+        <span class="card__spore-dot" style="background:${SPORE_COLOR[m.spore]}"></span>
+        <span>孢子印 · ${m.sporeLabel}</span>
+      </div>
+      <span class="card__link">查看完整档案 →</span>
+    </div>
+  </a>`;
+}
+
+function render(){
+  const visible = mushrooms.filter(matches);
+  cardGrid.innerHTML = visible.map((m,i)=>cardHTML(m,i)).join('');
+  emptyState.style.display = visible.length ? 'none' : 'block';
+  resultCount.innerHTML = `共 <b>${mushrooms.length}</b> 份标本 · 已显示 <b>${visible.length}</b> 份`;
+}
+
+document.getElementById('searchInput').addEventListener('input', e=>{
+  searchText = e.target.value.trim().toLowerCase();
+  render();
+});
+
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  Object.values(active).forEach(set=>set.clear());
+  document.querySelectorAll('.chip').forEach(c=>{c.classList.remove('active'); c.setAttribute('aria-pressed','false');});
+  searchText = '';
+  document.getElementById('searchInput').value = '';
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
