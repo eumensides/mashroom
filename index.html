@@ -318,6 +318,72 @@
     to{opacity:1;transform:translateY(0);}
   }
 
+  /* ---------- 折叠面板 ---------- */
+  .search-row{display:flex;align-items:center;gap:.6em;}
+  .search{flex:1;}
+
+  .filter-toggle{
+    flex:none;
+    display:flex;
+    align-items:center;
+    gap:.35em;
+    border:1.4px solid var(--line);
+    background:transparent;
+    color:var(--cream-dim);
+    padding:.68em .9em;
+    border-radius:999px;
+    font-family:var(--mono);
+    font-size:.78rem;
+    letter-spacing:.04em;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:border-color .2s,color .2s,background .2s;
+  }
+  .filter-toggle:hover,.filter-toggle:focus-visible{border-color:var(--gold);color:var(--gold);}
+  .filter-toggle.has-active{border-color:var(--gold);background:rgba(201,162,39,.12);color:var(--gold);}
+  .filter-toggle__badge{
+    display:none;
+    background:var(--gold);
+    color:var(--bg-deep);
+    font-size:.68rem;
+    font-weight:700;
+    padding:.05em .45em;
+    border-radius:999px;
+    line-height:1.5;
+  }
+  .filter-toggle.has-active .filter-toggle__badge{display:inline;}
+  .filter-toggle__arrow{
+    display:inline-block;
+    transition:transform .25s ease;
+  }
+  .filter-toggle.open .filter-toggle__arrow{transform:rotate(180deg);}
+
+  .collapsible{
+    overflow:hidden;
+    max-height:0;
+    transition:max-height .35s cubic-bezier(.4,0,.2,1), opacity .28s ease;
+    opacity:0;
+  }
+  .collapsible.open{
+    max-height:700px;
+    opacity:1;
+  }
+
+  /* 桌面端：隐藏折叠按钮，始终展开 */
+  @media (min-width:700px){
+    .filter-toggle{display:none;}
+    .collapsible{max-height:none !important;opacity:1 !important;overflow:visible;}
+  }
+
+  /* 移动端：收紧间距 */
+  @media (max-width:699px){
+    .controls{padding:.8rem 1rem;}
+    .meta-row{margin-top:.6em;}
+    .chipgroups{margin-top:.75rem;gap:.6rem;}
+    .chipgroup__label{font-size:.7rem;}
+    .chip{font-size:.8rem;padding:.28em .75em;}
+  }
+
   /* ---------- Footer ---------- */
   .site-footer{
     border-top:1px solid var(--line);
@@ -353,9 +419,16 @@
 
 <div class="controls">
   <div class="controls__inner">
-    <div class="search">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input id="searchInput" type="text" autocomplete="off" placeholder="搜索中文名、俗名或拉丁名，例如「鹅膏」「牛肝菌」「molybdites」" aria-label="搜索蘑菇">
+    <div class="search-row">
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="searchInput" type="text" autocomplete="off" placeholder="搜索中文名、俗名或拉丁名，例如「鹅膏」「牛肝菌」「molybdites」" aria-label="搜索蘑菇">
+      </div>
+      <button class="filter-toggle" id="filterToggle" type="button" aria-expanded="false" aria-controls="filterCollapsible">
+        <span>筛选</span>
+        <span class="filter-toggle__badge" id="filterBadge">0</span>
+        <span class="filter-toggle__arrow">▾</span>
+      </button>
     </div>
 
     <div class="meta-row">
@@ -363,7 +436,9 @@
       <button class="reset-btn" id="resetBtn" type="button">清除筛选</button>
     </div>
 
-    <div class="chipgroups" id="chipGroups"></div>
+    <div class="collapsible" id="filterCollapsible">
+      <div class="chipgroups" id="chipGroups"></div>
+    </div>
   </div>
 </div>
 
@@ -561,6 +636,7 @@ GROUP_META.forEach(meta=>{
       const set = active[meta.group];
       if (set.has(item.key)){ set.delete(item.key); btn.classList.remove('active'); btn.setAttribute('aria-pressed','false'); }
       else { set.add(item.key); btn.classList.add('active'); btn.setAttribute('aria-pressed','true'); }
+      syncToggleState();
       render();
     });
 
@@ -622,11 +698,33 @@ document.getElementById('searchInput').addEventListener('input', e=>{
   render();
 });
 
+/* ---------- 折叠按钮逻辑 ---------- */
+const filterToggleBtn = document.getElementById('filterToggle');
+const filterPanel     = document.getElementById('filterCollapsible');
+const filterBadge     = document.getElementById('filterBadge');
+
+function countActive(){
+  return Object.values(active).reduce((n,s)=>n+s.size, 0);
+}
+function syncToggleState(){
+  const n = countActive();
+  filterBadge.textContent = n;
+  if(n > 0){ filterToggleBtn.classList.add('has-active'); }
+  else { filterToggleBtn.classList.remove('has-active'); }
+}
+
+filterToggleBtn.addEventListener('click', ()=>{
+  const isOpen = filterPanel.classList.toggle('open');
+  filterToggleBtn.classList.toggle('open', isOpen);
+  filterToggleBtn.setAttribute('aria-expanded', String(isOpen));
+});
+
 document.getElementById('resetBtn').addEventListener('click', ()=>{
   Object.values(active).forEach(set=>set.clear());
   document.querySelectorAll('.chip').forEach(c=>{c.classList.remove('active'); c.setAttribute('aria-pressed','false');});
   searchText = '';
   document.getElementById('searchInput').value = '';
+  syncToggleState();
   render();
 });
 
