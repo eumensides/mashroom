@@ -240,6 +240,7 @@
   }
 
   .card__media{position:relative;aspect-ratio:4/3;background:var(--paper-deep);overflow:hidden;}
+  .card__media picture{display:block;width:100%;height:100%;}
   .card__media img{
     width:100%;height:100%;object-fit:cover;
     filter:grayscale(15%) sepia(8%) contrast(1.02);
@@ -411,7 +412,7 @@
     每一种蘑菇都会留下可供核实的证据——外形、生长阶段、孢子印颜色，甚至误食后的中毒记录。这里按统一档案格式收录野外可能遇到的物种，方便你在见到相似蘑菇时快速比对查证。比对结果仅用于学习与安全识别，<strong>绝不能作为食用依据</strong>。
   </p>
   <div class="hero__meta">
-    <span>标本编号 <b>NO.001–005</b></span>
+    <span>标本编号 <b>NO.001–006</b></span>
     <span>持续收录中</span>
     <span>仅供学习识别 · 请勿采食</span>
   </div>
@@ -493,7 +494,8 @@ const TAXONOMY = {
   habitat: [
     {key:'saprotroph', label:'腐生 · 草坪堆肥'},
     {key:'ecm_pine',   label:'外生菌根 · 松科'},
-    {key:'ecm_oak',    label:'外生菌根 · 壳斗科'}
+    {key:'ecm_oak',    label:'外生菌根 · 壳斗科'},
+    {key:'ecm_larch',  label:'外生菌根 · 落叶松'}
   ]
 };
 
@@ -525,7 +527,7 @@ const mushrooms = [
     habitats:['ecm_oak','ecm_pine'],
     blurb:'鹅膏属里少见的灰色菌褶物种，常见于北美太平洋沿岸的橡树与松树混生林。',
     keyClue:'辨识关键：菌环、菌托一应俱全，但菌褶呈罕见的灰色而非纯白。',
-    image:'https://images.unsplash.com/photo-1534432247920-7f283b63cc9b?auto=format&fit=crop&w=800&q=80',
+    image:'https://eumensides.github.io/mashroom/Amanita_griseofolia0.png',
     url:'https://eumensides.github.io/mashroom/Amanita_griseofolia.html'
   },
   {
@@ -568,6 +570,19 @@ const mushrooms = [
     keyClue:'辨识关键：菌柄细长无环，常与寄生其上的红铆钉菇相伴出现。',
     image:'https://eumensides.github.io/mashroom/Suillus_bovinus0.png',
     url:'https://eumensides.github.io/mashroom/Suillus_bovinus.html'
+  },
+  {
+    no:'006',
+    nameZh:'厚环乳牛肝菌', nameLatin:'Suillus grevillei', author:'(Klotzsch) Singer, 1945',
+    commonNames:['厚环粘盖牛肝菌','落叶松乳牛肝菌','Larch suillus','Larch bolete'],
+    family:'suillaceae', familyLabel:'乳牛肝菌科 Suillaceae', genus:'乳牛肝菌属 Suillus',
+    toxicity:'edible',
+    spore:'yellowbrown', sporeLabel:'黄褐色至栗褐色',
+    habitats:['ecm_larch','ecm_pine'],
+    blurb:'落叶松林的专属伴侣，菌盖赤褐色至栗褐色，黏滑鲜亮，菌柄顶端具醒目的厚实菌环，是乳牛肝菌属辨识度最高的物种之一。',
+    keyClue:'辨识关键：菌柄上端的厚实白色菌环（乳牛肝菌属罕见），以及与落叶松的高度专一共生关系（见落叶松必搜索此种）。',
+    image:'https://eumensides.github.io/mashroom/Suillus_grevillei0.png',
+    url:'https://eumensides.github.io/mashroom/Suillus_grevillei.html'
   }
 ];
 
@@ -665,11 +680,8 @@ function cardHTML(m, index){
   return `
   <a class="card" href="${m.url}" style="animation-delay:${Math.min(index*45,360)}ms">
     <div class="card__media">
-      <picture>
-        <source srcset="${m.image.replace(/\.png$/i,'.webp')}" type="image/webp">
-        <img src="${m.image}" alt="${m.nameZh}" loading="lazy"
-             onerror="this.closest('picture').style.display='none'; this.closest('.card__media').querySelector('.card__fallback').style.display='flex';">
-      </picture>
+      <img src="${m.image}" alt="${m.nameZh}" loading="lazy"
+           onerror="this.style.display='none'; this.closest('.card__media').querySelector('.card__fallback').style.display='flex';">
       <div class="card__fallback">🍄</div>
       <span class="card__no">NO.${m.no}</span>
     </div>
