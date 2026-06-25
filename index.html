@@ -489,13 +489,17 @@ const TAXONOMY = {
     {key:'agaricaceae',  label:'蘑菇科'},
     {key:'amanitaceae',  label:'鹅膏菌科'},
     {key:'boletaceae',   label:'牛肝菌科'},
-    {key:'suillaceae',   label:'乳牛肝菌科'}
+    {key:'suillaceae',   label:'乳牛肝菌科'},
+    {key:'physalacriaceae', label:'小奥德蘑科'},
+    {key:'ganodermataceae', label:'灵芝科'},
+    {key:'marasmiaceae',    label:'小皮伞科'}
   ],
   habitat: [
     {key:'saprotroph', label:'腐生 · 草坪堆肥'},
     {key:'ecm_pine',   label:'外生菌根 · 松科'},
     {key:'ecm_oak',    label:'外生菌根 · 壳斗科'},
-    {key:'ecm_larch',  label:'外生菌根 · 落叶松'}
+    {key:'ecm_larch',  label:'外生菌根 · 落叶松'},
+    {key:'wood_saprotroph', label:'腐生 · 枯木木材'}
   ]
 };
 
@@ -583,7 +587,88 @@ const mushrooms = [
     keyClue:'辨识关键：菌柄上端的厚实白色菌环（乳牛肝菌属罕见），以及与落叶松的高度专一共生关系（见落叶松必搜索此种）。',
     image:'https://eumensides.github.io/mashroom/Suillus_grevillei0.png',
     url:'https://eumensides.github.io/mashroom/Suillus_grevillei.html'
-  }
+  },
+  {
+    no:'007',
+  nameZh:'金针菇',
+  nameLatin:'Flammulina velutipes',
+  author:'(Curtis) Singer, 1951',
+
+  commonNames:['冬菇','毛柄金钱菌','野生金针菇'],
+
+  family:'physalacriaceae',
+  familyLabel:'小奥德蘑科 Physalacriaceae',
+  genus:'金钱菌属 Flammulina',
+
+  toxicity:'edible',
+
+  spore:'white',
+  sporeLabel:'白色',
+
+  habitats:['wood_saprotroph'],
+
+  blurb:'冬季最常见的野生木腐菌之一，也是栽培金针菇的原始野生种。',
+
+  keyClue:'菌柄下半部呈深褐至黑色绒毛状，冬季簇生于阔叶树枯木。',
+
+  image:'https://eumensides.github.io/mashroom/Flammulina_velutipes0.png',
+
+  url:'https://eumensides.github.io/mashroom/Flammulina_velutipes.html'
+},
+  {
+  no:'008',
+  nameZh:'树舌',
+  nameLatin:'Elfvingia lobata',
+  author:'(Schwein.) Murrill',
+
+  commonNames:['树舌灵芝','树舌菌','平盖灵芝'],
+
+  family:'ganodermataceae',
+  familyLabel:'灵芝科 Ganodermataceae',
+  genus:'树舌属 Elfvingia',
+
+  toxicity:'unknown',
+
+  spore:'white',
+  sporeLabel:'白色',
+
+  habitats:['wood_saprotroph'],
+
+  blurb:'大型多年生木腐菌，可持续生长多年形成明显年轮状层次。',
+
+  keyClue:'木质坚硬，菌盖具同心环纹，腹面白色孔层，多年生附着树干。',
+
+  image:'https://eumensides.github.io/mashroom/Elfvingia_lobata0.png',
+
+  url:'https://eumensides.github.io/mashroom/Elfvingia_lobata.html'
+},
+  {
+  no:'009',
+  nameZh:'安络小皮伞',
+  nameLatin:'Marasmiellus androsaceiformis',
+  author:'Hongo',
+
+  commonNames:['马尾丝小皮伞','毛根小皮伞'],
+
+  family:'marasmiaceae',
+  familyLabel:'小皮伞科 Marasmiaceae',
+  genus:'小皮伞属 Marasmiellus',
+
+  toxicity:'unknown',
+
+  spore:'white',
+  sporeLabel:'白色',
+
+  habitats:['wood_saprotroph'],
+
+  blurb:'体型极小的腐生真菌，常成群生长于细枝和枯叶层。',
+
+  keyClue:'菌柄极细如马尾丝，黑色坚韧，菌盖仅数毫米至约1厘米。',
+
+  image:'https://eumensides.github.io/mashroom/Marasmiellus_androsaceiformis0.png',
+
+  url:'https://eumensides.github.io/mashroom/Marasmiellus_androsaceiformis.html'
+}
 ];
 
 // 预先生成搜索用的文本块
