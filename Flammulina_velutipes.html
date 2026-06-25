@@ -214,11 +214,43 @@
   }
 
   /* ── PHOTO GRID ── */
-  .photo-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
+ .photo-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+}
+
+.photo-slot{
+    aspect-ratio:4/3;
+    overflow:hidden;
+    border-radius:12px;
+    background:none;
+    border:none;
+    box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+
+.photo-slot img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    border-radius:12px;
+}
+
+.photo-slot:hover{
+    transform:translateY(-2px);
+    transition:.25s;
+}
+
+.photo-slot-habitat{
+    grid-column:1 / -1;
+    aspect-ratio:16/7;
+}
+
+.photo-slot-main{
+    grid-column:1 / -1;
+    aspect-ratio:16/8;
+}
 
   .photo-slot {
     aspect-ratio: 4/3;
@@ -605,8 +637,20 @@
 <div class="hero">
   <div class="hero-image-slot">
     <!-- 主图：待替换 -->
-    <div class="hero-image-placeholder">
-      <div class="placeholder-label"><img src="https://eumensides.github.io/mashroom/Flammulina_velutipes0.png" alt="主图">
+   <img
+src="https://eumensides.github.io/mashroom/Flammulina_velutipes0.png"
+alt="金针菇主图">
+   .hero-image-slot{
+    min-height:520px;
+    overflow:hidden;
+    background:none;
+}
+
+.hero-image-slot img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
         </div>
     </div>
   </div>
@@ -711,17 +755,6 @@
         </div>
         <div class="photo-caption">孢子印 · 白色至乳白色（关键鉴别特征）</div>
       </div>
-
-      <!-- 生境图 -->
-      <div class="photo-slot photo-slot-wide">
-        <div class="photo-placeholder">
-
-          <div style="font-family:monospace;font-size:10px;color:#b0a880;margin-top:3px;">
-            <img src="https://eumensides.github.io/mashroom/Flammulina_velutipes6.png" alt="生境图"></div>
-        </div>
-        <div class="photo-caption">生境 · 阔叶树腐木 · 冬季低温出菇 · 丛生至群生</div>
-      </div>
-
       <!-- 特殊细节图：菌柄绒毛 -->
       <div class="photo-slot">
         <div class="photo-placeholder">
@@ -731,9 +764,17 @@
         </div>
         <div class="photo-caption">★ 特写 · 菌柄下半部密被深褐色绒毛 — 命名依据</div>
       </div>
-
+    
     </div>
+  <!-- 生境图 -->
+      <div class="photo-slot photo-slot-wide">
+        <div class="photo-placeholder">
 
+          <div style="font-family:monospace;font-size:10px;color:#b0a880;margin-top:3px;">
+            <img src="https://eumensides.github.io/mashroom/Flammulina_velutipes6.png" alt="生境图"></div>
+        </div>
+        <div class="photo-caption">生境 · 阔叶树腐木 · 冬季低温出菇 · 丛生至群生</div>
+      </div>
     <div class="note-box" style="margin-top:10px;">
       ⚠️ 注意：市售白色细长"金针菇"与以上野生型外观差异悬殊。上方图片均以<strong>野生型（褐色、矮壮、有绒毛）</strong>为主，栽培型见下文"野生 vs 栽培"对比区。
     </div>
