@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>树舌 · Elfvingia lobata</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink:        #14120e;
+    --ink-mid:    #3e3a32;
+    --ink-light:  #7a7468;
+    --cream:      #f0ece3;
+    --surface:    #faf8f4;
+
+    /* 树舌主色：铁灰、沉棕、古墨 */
+    --iron:       #3a3830;
+    --iron-mid:   #6a6458;
+    --iron-light: #b8b0a0;
+    --iron-pale:  #eae8e0;
+
+    --bark:       #6b4e2a;
+    --bark-light: #c8a070;
+    --bark-pale:  #f5ede0;
+
+    --ash:        #58544c;
+    --ash-pale:   #e8e4dc;
+
+    /* 药用标记色（青绿沉稳） */
+    --med:        #2a5040;
+    --med-light:  #90c0a8;
+    --med-pale:   #e0f0e8;
+
+    /* 警示色（非食用） */
+    --warn:       #7a3820;
+    --warn-light: #d09878;
+    --warn-pale:  #f8ece4;
+
+    --border:     rgba(60,55,45,0.12);
+    --border-mid: rgba(60,55,45,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── 顶部提示横幅 ── */
+  .info-banner {
+    background: var(--iron);
+    color: #e8e0d0;
+    text-align: center;
+    padding: 9px 16px;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 2px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: linear-gradient(160deg, #2a2820 0%, #4a4438 60%, #6a5e48 100%);
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+    border-left: 4px solid var(--iron);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--iron-mid);
+    margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .hero-name-alias {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--bark);
+    margin-bottom: 5px;
+  }
+
+  .hero-name-la {
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--ink-mid);
+    margin-bottom: 4px;
+  }
+
+  .hero-author {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-iron  { background: var(--iron-pale); color: var(--iron); }
+  .tag-bark  { background: var(--bark-pale); color: var(--bark); }
+  .tag-med   { background: var(--med-pale);  color: var(--med); }
+  .tag-warn  { background: var(--warn-pale); color: var(--warn); }
+  .tag-ink   { background: var(--ash-pale);  color: var(--ash); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border-mid);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-iron { background: var(--iron); }
+  .dot-bark { background: var(--bark); }
+  .dot-med  { background: var(--med); }
+  .dot-warn { background: var(--warn); }
+  .dot-ash  { background: var(--ash); }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .section-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── PHOTO GRID ── */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .photo-slot {
+    aspect-ratio: 4/3;
+    background: var(--iron-pale);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(20,18,14,0.76);
+    color: #e8e0d0;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 5px 8px;
+    text-align: center;
+  }
+
+  .photo-slot-wide { grid-column: span 2; }
+  .photo-slot-full { grid-column: span 3; aspect-ratio: 16/7; }
+
+  /* ── PHASE CARDS ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border-mid);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .phase-label {
+    padding: 5px 0;
+    font-size: 11.5px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .phase-young  { background: var(--med-pale);  color: var(--med); }
+  .phase-mid    { background: var(--bark-pale);  color: var(--bark); }
+  .phase-mature { background: var(--iron-pale);  color: var(--iron); }
+  .phase-aged   { background: var(--ash-pale);   color: var(--ash); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .trait-card {
+    background: var(--surface);
+    border: 1px solid var(--border-mid);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .trait-name {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+    line-height: 1.65;
+  }
+  .parts-table td:first-child {
+    font-weight: 500;
+    color: var(--iron-mid);
+    white-space: nowrap;
+    width: 110px;
+  }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── 生长年轮对照表 ── */
+  .stage-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .stage-table th {
+    padding: 8px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--cream);
+    text-align: left;
+  }
+  .stage-table td {
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink-mid);
+    line-height: 1.6;
+  }
+  .stage-table td:first-child {
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+    width: 90px;
+  }
+  .stage-table tr:last-child td { border-bottom: none; }
+
+  /* ── DISTINCTION ── */
+  .distinction-box {
+    background: var(--iron-pale);
+    border: 1px solid var(--iron-light);
+    border-left: 4px solid var(--iron);
+    border-radius: 0 12px 12px 0;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .distinction-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--iron);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .distinction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .distinction-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.65;
+  }
+
+  .distinction-list li::before {
+    content: "▪";
+    color: var(--bark);
+    font-size: 12px;
+    line-height: 1.7;
+    flex-shrink: 0;
+  }
+
+  /* ── CONFUSION LIST ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .confusion-item {
+    background: var(--surface);
+    border: 1px solid var(--border-mid);
+    border-left: 3px solid var(--bark-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+  }
+
+  .confusion-item.similar {
+    border-left-color: var(--med-light);
+  }
+
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .confusion-name em { color: var(--ink-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.65; }
+
+  .edible-label {
+    display: inline-block;
+    background: var(--med-pale);
+    color: var(--med);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 1px 7px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .caution-label {
+    display: inline-block;
+    background: var(--warn-pale);
+    color: var(--warn);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 1px 7px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* ── MEMORY PILLS ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+
+  .memory-pill {
+    background: var(--ash-pale);
+    border: 1px solid var(--iron-light);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--iron-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── HABITAT GRID ── */
+  .habitat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .habitat-card {
+    background: var(--surface);
+    border: 1px solid var(--border-mid);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .habitat-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 6px;
+  }
+
+  .habitat-value {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  /* ── VALUE GRID ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border-mid);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .value-card-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+  }
+
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── NOTE BOXES ── */
+  .note-box {
+    background: var(--med-pale);
+    border: 1px solid var(--med-light);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 12.5px;
+    color: #1a3828;
+    line-height: 1.65;
+    margin-top: 10px;
+  }
+
+  .warn-box {
+    background: var(--warn-pale);
+    border: 1px solid var(--warn-light);
+    border-left: 4px solid var(--warn);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+    font-size: 12.5px;
+    color: #4a1808;
+    line-height: 1.65;
+    margin-top: 10px;
+  }
+
+  /* ── 年轮示意图 ── */
+  .ring-diagram {
+    background: var(--surface);
+    border: 1px solid var(--border-mid);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .ring-diagram-label {
+    font-size: 11px;
+    color: var(--ink-light);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .ring-layers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 4px 0;
+  }
+
+  .ring-layer {
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .ring-arrow {
+    color: var(--ink-light);
+    font-size: 14px;
+    padding: 0 4px;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--ink-light);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ref-link { color: var(--bark); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-info { border-left: none; border-top: 4px solid var(--iron); }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .photo-slot-wide { grid-column: span 2; }
+    .photo-slot-full { grid-column: span 2; aspect-ratio: 4/3; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── 顶部信息横幅 ── -->
+<div class="info-banner">
+  🪨 树舌 · 多年生木质型灵芝 · 不可食用 · 具重要药用研究价值 · 古称"木灵芝"
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Elfvingia_lobata0.png" alt="树舌主图">
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 多孔菌目 · 灵芝科 · 树舌属</div>
+    <div class="hero-name-zh">树舌</div>
+    <div class="hero-name-alias">平盖灵芝 · 木灵芝 · 树舌扁灵芝 · 扁芝 · 老母菌</div>
+    <div class="hero-name-la">Elfvingia lobata</div>
+    <div class="hero-author">(Berk.) Ryvarden, 2004（异名 Ganoderma applanatum）</div>
+
+    <div class="tag-row">
+      <span class="tag tag-warn">不可食用</span>
+      <span class="tag tag-iron">多年生木质</span>
+      <span class="tag tag-med">药用研究</span>
+      <span class="tag tag-ink">腐生木腐菌</span>
+      <span class="tag tag-ink">广布种</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">树舌 / 平盖灵芝 / 扁芝</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Artist's Conk / Shelf Fungus</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科 / 属</span>
+        <span class="taxon-value">多孔菌目 / 灵芝科 / 树舌属</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">LC（无危，极广布种）</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- ① 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-iron"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录 · 8张</span>
+    </div>
+
+    <div class="photo-grid">
+
+      <!-- 主图（已被 hero 占用，这里放上方菌盖图） -->
+      <div class="photo-slot photo-slot-full">
+        <img src="https://eumensides.github.io/mashroom/Elfvingia_lobata0.png" alt="树舌主图">
+        <div class="photo-caption">主图 · 树舌成体侧面全貌 — 多年生半圆形木质菌盖，灰褐至深棕色同心环纹</div>
+      </div>
+
+      <!-- 上方菌盖图 -->
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Elfvingia_lobata1.png" alt="上方菌盖图">
+        <div class="photo-caption">菌盖俯拍 · 同心环沟 + 灰棕色硬壳 + 孢子粉堆积</div>
+      </div>
+
+      <!-- 45° 仰拍图 -->
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Elfvingia_lobata2.png" alt="45°仰拍图">
+        <div class="photo-caption">45° 仰拍 · 白色管面（可划刻留痕，"画布菌"名称由来）</div>
+      </div>
+
+      <!-- 剖面图 -->
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Elfvingia_lobata3.png" alt="剖面图">
+        <div class="photo-caption">纵向剖面 · 可见年层叠加 + 锈褐色菌肉 + 木质化菌管层</div>
+      </div>
+
+      <!-- 管面图 -->
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Elfvingia_lobata4.png" alt="管面图">
+        <div class="photo-caption">管面 · 新鲜时乳白色 / 奶油色，微细孔口，触压变褐</div>
+      </div>
+
+      <!-- 孢子印图 -->
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Elfvingia_lobata5.png" alt="孢子印图">
+        <div class="photo-caption">孢子粉 · 锈褐色 / 可可棕，大量时呈粉雾状散落</div>
+      </div>
+
+      <!-- 生境图 -->
+      <div class="photo-slot photo-slot-wide">
+        <img src="https://eumensides.github.io/mashroom/Elfvingia_lobata6.png" alt="生境图">
+        <div class="photo-caption">生境 · 阔叶腐木 / 活树基部侧生 · 可见多枚叠瓦状排列</div>
+      </div>
+
+      <!-- 特殊细节图：菌盖刻痕 -->
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Elfvingia_lobata7.png" alt="特殊细节图">
+        <div class="photo-caption">★ 特写 · 管面划刻后留下的深褐色痕迹（"画布菌"核心特征）</div>
+      </div>
+
+    </div>
+
+    <div class="note-box" style="margin-top:10px;">
+      🎨 <strong>英文名"Artist's Conk（画家蘑菇）"来源：</strong>新鲜树舌的白色管面质地细腻，用硬物轻划后留下深褐色永久性线条，可用于创作精细画作；干燥后画面可保存数十年，是真菌界独特的"天然画布"。
+    </div>
+  </div>
+
+  <!-- ② 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-bark"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签 · 多年生叠层</span>
+    </div>
+
+    <div class="phase-list">
+
+      <div class="phase-card">
+        <div class="phase-label phase-young">当年初生</div>
+        <div class="phase-desc">
+          子实体从树皮裂缝或伤口处萌发，初呈小白色至奶油色瘤状突起；边缘圆滑，白色至浅黄，柔软，可弯折；菌管层尚未形成；直径通常不超过 5cm；此阶段外观与灵芝属幼体极为相似，难以区分。
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期（1–2年）</div>
+        <div class="phase-desc">
+          菌盖迅速横向扩展，逐渐形成扇形至半圆形；表面开始出现同心环纹，颜色从外缘浅黄逐渐向中心加深为灰褐色；上表面分泌少量树脂，干燥后形成灰棕色硬壳；管面乳白至奶油色，孔口极细（约 4–6 个/mm），新鲜时触压即变深褐；孢子量开始增大，可见锈褐色孢子粉积于菌盖表面。
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期（3–10年）</div>
+        <div class="phase-desc">
+          菌盖直径可达 20–80cm，厚 5–20cm，重量显著增加；表面环纹密集清晰，色调为深灰、灰棕至近黑色，外壳坚硬如木；每年新增一层管孔层叠加于旧层之上，剖面可见清晰的<strong>年层结构</strong>（类似树木年轮）；孢子粉散落量极大，出菇季节菌盖周围地面和植物叶片上可覆盖明显的锈褐色粉末；菌肉呈锈褐色，质地木质化。
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-label phase-aged">衰老期（10年以上）</div>
+        <div class="phase-desc">
+          菌盖外壳变为炭黑色，表面有时开裂；菌管层老化，孔口封闭或破裂，不再有效散孢；内部木质化程度极高，已近乎木头质感；可长期存留于树干上数十年不脱落，成为森林生态系统中持久的物理结构。中国民间采集的"老树舌"即多为此阶段。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 年层剖面示意 -->
+    <div class="ring-diagram">
+      <div class="ring-diagram-label">剖面年层结构示意（从外向内）</div>
+      <div class="ring-layers">
+        <div class="ring-layer" style="background:var(--med-pale);color:var(--med);">生长边缘（白/奶油）</div>
+        <div class="ring-arrow">→</div>
+        <div class="ring-layer" style="background:var(--bark-pale);color:var(--bark);">当年管孔层</div>
+        <div class="ring-arrow">→</div>
+        <div class="ring-layer" style="background:var(--iron-pale);color:var(--iron);">前年管孔层</div>
+        <div class="ring-arrow">→</div>
+        <div class="ring-layer" style="background:var(--ash-pale);color:var(--ash);">老化管孔层×N</div>
+        <div class="ring-arrow">→</div>
+        <div class="ring-layer" style="background:#2a2820;color:#d0c8b8;">菌肉核心（锈褐/木质）</div>
+      </div>
+      <div style="font-size:11px;color:var(--ink-light);margin-top:8px;">每一层管孔对应一个生长年份，可据此粗估个体年龄</div>
+    </div>
+  </div>
+
+  <!-- ③ 颜色 · 形状 · 气味 · 口感 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-bark"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+      <span class="section-badge">感官细分标签</span>
+    </div>
+
+    <div class="traits-grid">
+
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-iron">菌盖上表：灰褐→深灰→炭黑（随年龄）</span>
+          <span class="tag tag-ink">同心环纹：深浅相间的灰棕色带</span>
+          <span class="tag tag-bark">生长边缘：奶油白至浅黄（新生组织）</span>
+          <span class="tag tag-ink">管面（下表）：乳白色，触压后变深褐</span>
+          <span class="tag tag-bark">菌肉：锈褐色至深棕色</span>
+          <span class="tag tag-warn">孢子粉：锈褐色 / 可可棕，极大量</span>
+        </div>
+      </div>
+
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-iron">扇形 / 半圆形 / 马蹄形，无菌柄</span>
+          <span class="tag tag-ink">菌盖径 10–80cm（成熟个体）</span>
+          <span class="tag tag-ink">厚度 3–20cm</span>
+          <span class="tag tag-ink">表面同心环沟，边缘钝圆</span>
+          <span class="tag tag-ink">侧生或背生，叠瓦状可多枚重叠</span>
+          <span class="tag tag-iron">成熟后坚硬如木，敲击有实音</span>
+        </div>
+      </div>
+
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">新鲜时：淡木香，轻微土霉气</span>
+          <span class="tag tag-ink">干燥后：几乎无气味</span>
+          <span class="tag tag-ink">无刺激性气味</span>
+        </div>
+      </div>
+
+      <div class="trait-card">
+        <div class="trait-name">口感（不可食）</div>
+        <div class="trait-tags">
+          <span class="tag tag-warn">质地坚硬如木，无法咀嚼</span>
+          <span class="tag tag-warn">味苦，有涩感</span>
+          <span class="tag tag-ink">民间煎汤饮用（提取物），非直接食用</span>
+          <span class="tag tag-iron">老熟个体已完全木质化，不具食用性</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ④ 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-bark"></span>
+      <span class="section-title">各部位详情</span>
+      <span class="section-badge">解剖结构</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr>
+            <th>部位</th>
+            <th>形态描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖外壳</td>
+            <td>灰棕至炭灰色，表面具明显同心环状沟纹，无光泽（区别于灵芝属的漆光壳面）；老年个体表面粗糙，可有纵裂纹；外壳由致密树脂化菌丝组成，质坚而韧</td>
+          </tr>
+          <tr>
+            <td>生长边缘</td>
+            <td>奶油白至浅黄色，质软，可弯折；每年生长季节重新激活，形成新的管孔层；边缘圆钝，厚度 3–8mm</td>
+          </tr>
+          <tr>
+            <td>管面（下表面）</td>
+            <td><strong>★ 核心特征：</strong>新鲜时乳白色至奶油色，极细密（4–6 孔/mm），光滑；手指或硬物触压后立即变为深褐色，并留下永久性划痕——这是本种最著名的"画布"特性</td>
+          </tr>
+          <tr>
+            <td>菌管层</td>
+            <td>多年生叠加结构，每年新增一层（厚约 3–8mm）；剖面可见清晰年层，颜色从浅（新）到深（老），是判断年龄的依据</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>锈褐色至深棕色，质地致密，木质化；厚度随年龄增加；受伤后不变色；含大量多糖和三萜类化合物</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>卵圆形至椭圆形，双层壁，外壁无色，内壁锈褐色有刺状纹饰，8–13 × 5–8 μm；孢子产量极大</td>
+          </tr>
+          <tr>
+            <td>孢子印</td>
+            <td><strong>锈褐色至可可棕色</strong>，出菇盛期可见菌盖下方及周围地面积累大量孢子粉雾</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>无菌柄（无柄，直接从基部侧生或背生于树干）</td>
+          </tr>
+          <tr>
+            <td>菌托 / 菌环</td>
+            <td>无菌托，无菌环</td>
+          </tr>
+          <tr>
+            <td>附着方式</td>
+            <td>基部直接与木材相连，菌丝深入寄主木质部；与宿主木材界面处可见白色菌丝束</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 各年龄阶段对照 -->
+    <div style="margin-top:1.2rem;background:var(--surface);border:1px solid var(--border-mid);border-radius:12px;overflow:hidden;">
+      <table class="stage-table">
+        <thead>
+          <tr>
+            <th>部位 / 阶段</th>
+            <th>当年初生</th>
+            <th>1–3年</th>
+            <th>5–10年</th>
+            <th>10年以上</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>外壳颜色</td>
+            <td>白色 / 奶油</td>
+            <td>灰黄 → 灰棕</td>
+            <td>灰褐 → 深灰</td>
+            <td>炭黑，可开裂</td>
+          </tr>
+          <tr>
+            <td>管面颜色</td>
+            <td>乳白，敏感</td>
+            <td>奶油白，可划刻</td>
+            <td>渐老化泛黄</td>
+            <td>封闭，破裂</td>
+          </tr>
+          <tr>
+            <td>质地硬度</td>
+            <td>软，可弯折</td>
+            <td>逐渐木质化</td>
+            <td>坚硬如木</td>
+            <td>极坚硬</td>
+          </tr>
+          <tr>
+            <td>孢子量</td>
+            <td>极少</td>
+            <td>逐年增多</td>
+            <td>极大量</td>
+            <td>减少 / 停止</td>
+          </tr>
+          <tr>
+            <td>年层可见性</td>
+            <td>无</td>
+            <td>1–2层</td>
+            <td>多层清晰</td>
+            <td>多层，模糊</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ⑤ 特殊区分点 + 相似易混淆物种 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-iron"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>管面（下表）<strong>触压后立即出现深褐色永久痕迹</strong>，可用尖锐物划出精细线条——这是本种最独特的感官识别特征，灵芝属和其他多孔菌极少具备</li>
+        <li>上表面<strong>无漆光感</strong>，灰棕色哑光同心环纹，质地粗糙——这是与有光泽红色菌盖的灵芝属（<em>Ganoderma</em>）最直观的区分点</li>
+        <li>孢子印<strong>锈褐色</strong>，出菇季节孢子量极大，肉眼可见棕红色粉雾散落于周围叶片和地面</li>
+        <li>严格<strong>多年生叠层</strong>结构，剖面可见清晰年轮状管孔层；体型可随年龄极度增大（直径达 80cm 以上），单体重量可超数千克</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与灵芝的关键区别</div>
+        <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+          灵芝（<em>Ganoderma lucidum</em>）菌盖具<strong>红漆光泽</strong>，有明显菌柄，颜色多为红褐至紫褐；树舌菌盖<strong>无光泽</strong>，无菌柄，灰棕色。两者均含三萜类，但形态截然不同
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">"画布"测试</div>
+        <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+          用指甲或细枝划新鲜管面：<strong>立即出现深褐线条</strong> → 极大概率为树舌；无痕迹或痕迹浅淡 → 考虑其他多孔菌。此"划痕测试"简单直观，是野外快速鉴别的最佳方法
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种 · 对比</span>
+    </div>
+
+    <div class="confusion-list">
+
+      <div class="confusion-item similar">
+        <div class="confusion-name">
+          灵芝 <em>Ganoderma lucidum</em>
+          <span class="caution-label">可药用，不直接食</span>
+        </div>
+        <div class="confusion-diff">
+          同为灵芝科，亲缘最近，民间常将树舌与灵芝混用。<br>
+          <strong>区别：</strong>① 灵芝菌盖具<strong>明显红漆光泽</strong>（树舌哑光灰棕无光泽）；② 灵芝有明显<strong>侧生或偏生菌柄</strong>（树舌完全无柄）；③ 灵芝菌盖较小（10–20cm），树舌可达 80cm；④ 两者孢子印均为锈褐色，此点相同。
+        </div>
+      </div>
+
+      <div class="confusion-item similar">
+        <div class="confusion-name">
+          无柄灵芝 <em>Ganoderma resinaceum</em>（树脂灵芝）
+        </div>
+        <div class="confusion-diff">
+          同为大型无柄多年生多孔菌，生于阔叶腐木，形态相近。<br>
+          <strong>区别：</strong>① 树脂灵芝表面有<strong>明显树脂光泽</strong>（红棕至红褐色），树舌为哑光灰棕；② 树脂灵芝管面触压变色不显著；③ 菌肉色泽偏浅。
+        </div>
+      </div>
+
+      <div class="confusion-item similar">
+        <div class="confusion-name">
+          木蹄层孔菌 <em>Fomes fomentarius</em>（火绒菌 / 蹄形层孔菌）
+          <span class="caution-label">民俗用途</span>
+        </div>
+        <div class="confusion-diff">
+          同样大型、多年生、无柄、蹄形/马蹄形，木质坚硬，生于树干。<br>
+          <strong>区别：</strong>① 外形更呈<strong>马蹄形</strong>（顶部圆弧，不如树舌扁平）；② 菌盖表面具明显宽环带，灰色至棕灰，质感不同；③ 管面<strong>不具划刻变色特性</strong>；④ 菌肉棕色疏松（可作引火绒）；⑤ 孢子印白色至浅黄色（非锈褐色）。
+        </div>
+      </div>
+
+      <div class="confusion-item">
+        <div class="confusion-name">
+          红缘拟层孔菌 <em>Fomitopsis pinicola</em>（松生拟层孔菌）
+        </div>
+        <div class="confusion-diff">
+          多年生，无柄，大型，常见于针叶树倒木。<br>
+          <strong>区别：</strong>① 菌盖边缘常具<strong>鲜艳橙红至红色宽带</strong>（鉴别最显著）；② 主要寄生<strong>针叶树</strong>（松、云杉、冷杉），树舌偏阔叶树；③ 管面白色，触压不变色；④ 菌肉奶油色至浅黄，切面有轻微奶酪味；⑤ 孢子印白色至浅黄。
+        </div>
+      </div>
+
+      <div class="confusion-item">
+        <div class="confusion-name">
+          层叠树舌 <em>Elfvingia megaloma</em>（大孔树舌）及其近缘种
+        </div>
+        <div class="confusion-diff">
+          同属物种，外观极相似，通常需显微镜鉴定。<br>
+          <strong>区别：</strong>孔口密度、孢子大小、寄主选择有细微差异；野外仅凭肉眼往往无法区分，记录时标注"树舌属 <em>Elfvingia</em> sp."更为严谨。
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「划管面留棕痕 = 树舌标志性测试」</div>
+        <div class="memory-pill">「灰棕哑光、无柄无漆 = 不是灵芝」</div>
+        <div class="memory-pill">「年轮叠管孔，剖面记年龄」</div>
+        <div class="memory-pill">「锈褐孢子粉，地面铺棕毯」</div>
+        <div class="memory-pill">「坚如木石，艺术家的天然画板」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑥ 群落生境 · 分布采集 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ash"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+
+    <div class="habitat-grid">
+
+      <div class="habitat-card">
+        <div class="habitat-label">生态类型</div>
+        <div class="habitat-value">
+          <strong>腐生型白色腐朽木腐菌</strong>；分解木材中的木质素（白腐），可对活树造成心腐病，也大量生于死木和腐木
+        </div>
+      </div>
+
+      <div class="habitat-card">
+        <div class="habitat-label">寄主 · 生境</div>
+        <div class="habitat-value">
+          主要寄生于<strong>阔叶树</strong>（杨树、柳树、桦树、山毛榉、橡树、朴树、榆树、樱桃树等）的活树基部、树干或倒木；偶见于针叶树；喜湿润阴凉环境，山地混交林、河边林缘多见
+        </div>
+      </div>
+
+      <div class="habitat-card">
+        <div class="habitat-label">出现规律</div>
+        <div class="habitat-value">
+          <strong>全年可见</strong>（多年生，一旦定植不脱落）；孢子散发高峰期为<strong>晚春至秋季（4–10月）</strong>，此时管面新鲜、白色，最适合观察和"画布"体验；冬季仍可见但孢子停止散发
+        </div>
+      </div>
+
+      <div class="habitat-card">
+        <div class="habitat-label">群落方式</div>
+        <div class="habitat-value">
+          单生或多枚<strong>叠瓦状群生</strong>（同一树干可见数枚上下叠置）；大型个体常独占宽大树干截面；菌丝在木材内可蔓延数米
+        </div>
+      </div>
+
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">
+          <strong>世界广布种</strong>，几乎遍及各大陆温带和亚热带森林地区；中国全境均有记录，尤以<strong>华中、华南、西南山地阔叶林</strong>以及东北阔叶林带资源丰富；日本、欧洲、北美、澳大利亚均有分布
+        </div>
+      </div>
+
+      <div class="habitat-card">
+        <div class="habitat-label">采集建议</div>
+        <div class="habitat-value">
+          用于药用（煎汤）或艺术创作时，<strong>选取新鲜个体</strong>（管面白色，边缘浅黄），春秋两季最佳；老化木质化个体药效研究尚存争议；采集时注意不伤害活树，部分地区有保护规定
+        </div>
+      </div>
+
+    </div>
+
+    <div class="warn-box">
+      ⚠️ <strong>注意：</strong>树舌质地坚硬，<strong>不可直接食用</strong>。民间"煎水服用"的传统用法尚无充分临床证据支撑，不建议自行采集作为药用。孢子量极大，对真菌孢子过敏人群应避免长时间近距离接触正在散孢的个体。
+    </div>
+  </div>
+
+  <!-- ⑦ 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-med"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+
+    <div class="value-grid">
+
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">
+          <strong>不可食用。</strong>质地完全木质化，苦涩难咽，即使烹煮也无法软化为可食状态。民间将其与灵芝混淆作药材煎汤饮用，但并非食材。
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-card-label">药用与研究价值</div>
+        <div class="value-body">
+          含灵芝多糖（β-葡聚糖）、三萜类化合物（灵芝酸等）、腺苷类物质；体外实验显示具有免疫调节、抗氧化及潜在抗肿瘤活性，但<strong>临床证据仍不充分</strong>；中国传统医学中用于"化积、止痛、清热"等；现代研究热点包括多糖提取纯化与结构鉴定
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-card-label">艺术与文化价值</div>
+        <div class="value-body">
+          英文名"Artist's Conk（画家蘑菇）"——新鲜管面可用针、木棍等刻画精细图案，干燥后永久保存；中国、日本、北美均有利用树舌创作艺术品的传统；部分作品可追溯保存数十年甚至更长
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">
+          作为白腐菌参与森林有机质分解循环，加速朽木腐解，为众多小型生物提供庇护所；同时作为寄生菌对活树造成心腐，影响森林结构动态；是研究木质素降解机制的重要模式真菌
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>
+      参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Ganoderma_applanatum" target="_blank">Wikipedia EN（Ganoderma applanatum）</a> ·
+      <a class="ref-link" href="https://zh.wikipedia.org/wiki/%E6%A0%91%E8%88%8C%E7%81%B5%E8%8A%9D" target="_blank">维基百科 中文</a> ·
+      <a class="ref-link" href="https://www.mycobank.org/" target="_blank">MycoBank</a>
+    </div>
+    <div>多年生木腐 · 白腐 · 全年可见 · 阔叶林广布</div>
+  </div>
+
+</div>
+</body>
+</html>
