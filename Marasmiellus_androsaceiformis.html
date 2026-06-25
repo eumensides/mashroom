@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安络小皮伞 · Marasmiellus androsaceiformis</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink:        #18160f;
+    --ink-mid:    #48443a;
+    --ink-light:  #8a8478;
+    --cream:      #f8f5ef;
+    --surface:    #ffffff;
+
+    /* 主色调：细叶白、枯草褐、林地灰褐 */
+    --parch:      #b89a68;       /* 羊皮纸棕 */
+    --parch-light:#e8d8b0;
+    --parch-pale: #fdf7ec;
+
+    --straw:      #8a7448;       /* 枯草色 */
+    --straw-light:#d4bc88;
+    --straw-pale: #f8f0dc;
+
+    --litter:     #6a5c40;       /* 落叶层棕 */
+    --litter-light:#c0a878;
+    --litter-pale: #f2ead8;
+
+    /* 菌丝细线 — 淡紫灰（马尾细柄的颜色感） */
+    --wire:       #7a7088;
+    --wire-light: #c8c0d8;
+    --wire-pale:  #f0eef8;
+
+    /* 辅助 — 苔藓绿（生境色） */
+    --moss:       #5a6e48;
+    --moss-light: #a8c090;
+    --moss-pale:  #edf4e4;
+
+    --border:     rgba(90,80,55,0.11);
+    --border-mid: rgba(90,80,55,0.20);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── 顶部提示横幅 ── */
+  .info-banner {
+    background: var(--straw);
+    color: #fdf8f0;
+    text-align: center;
+    padding: 9px 16px;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 480px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: linear-gradient(150deg, #e8e0cc 0%, #c8b888 60%, #a89060 100%);
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+  }
+
+  .hero-image-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-info {
+    padding: 2.8rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+    border-left: 3px solid var(--parch-light);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--straw);
+    margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .hero-name-alias {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13.5px;
+    font-weight: 400;
+    color: var(--litter);
+    margin-bottom: 5px;
+  }
+
+  .hero-name-la {
+    font-style: italic;
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--ink-mid);
+    margin-bottom: 3px;
+  }
+
+  .hero-author {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-parch  { background: var(--parch-pale);  color: var(--parch); }
+  .tag-straw  { background: var(--straw-pale);  color: var(--straw); }
+  .tag-litter { background: var(--litter-pale); color: var(--litter); }
+  .tag-wire   { background: var(--wire-pale);   color: var(--wire); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-ink    { background: #f0ece4;            color: var(--ink-mid); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-parch  { background: var(--parch); }
+  .dot-straw  { background: var(--straw); }
+  .dot-litter { background: var(--litter); }
+  .dot-wire   { background: var(--wire); }
+  .dot-moss   { background: var(--moss); }
+  .dot-ink    { background: var(--ink-mid); }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .section-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── PHOTO GRID ── */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .photo-slot {
+    aspect-ratio: 4/3;
+    background: var(--parch-pale);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(24,22,15,0.72);
+    color: #f4f0e4;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 5px 8px;
+    text-align: center;
+  }
+
+  /* ── PHASE CARDS ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border-mid);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .phase-label {
+    padding: 5px 0;
+    font-size: 11.5px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--parch-pale);  color: var(--parch); }
+  .phase-mature { background: var(--straw-pale);  color: var(--straw); }
+  .phase-dry    { background: var(--litter-pale); color: var(--litter); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .trait-card {
+    background: var(--surface);
+    border: 1px solid var(--border-mid);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .trait-name {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+    line-height: 1.65;
+  }
+  .parts-table td:first-child {
+    font-weight: 500;
+    color: var(--litter);
+    white-space: nowrap;
+    width: 110px;
+  }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── 生长阶段对照表 ── */
+  .stage-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .stage-table th {
+    padding: 8px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--cream);
+    text-align: left;
+  }
+  .stage-table td {
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink-mid);
+    line-height: 1.6;
+  }
+  .stage-table td:first-child {
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+    width: 90px;
+  }
+  .stage-table tr:last-child td { border-bottom: none; }
+
+  /* ── DISTINCTION ── */
+  .distinction-box {
+    background: var(--parch-pale);
+    border: 1px solid var(--parch-light);
+    border-left: 4px solid var(--parch);
+    border-radius: 0 12px 12px 0;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .distinction-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--straw);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .distinction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .distinction-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.65;
+  }
+
+  .distinction-list li::before {
+    content: "▪";
+    color: var(--parch);
+    font-size: 12px;
+    line-height: 1.7;
+    flex-shrink: 0;
+  }
+
+  /* ── CONFUSION LIST ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .confusion-item {
+    background: var(--surface);
+    border: 1px solid var(--border-mid);
+    border-left: 3px solid var(--straw-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+  }
+
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .confusion-name em { color: var(--ink-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.65; }
+
+  .safe-label {
+    display: inline-block;
+    background: var(--moss-pale);
+    color: var(--moss);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 1px 7px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .caution-label {
+    display: inline-block;
+    background: #fdf0e0;
+    color: #8a4a10;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 1px 7px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* ── MEMORY PILLS ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+
+  .memory-pill {
+    background: var(--litter-pale);
+    border: 1px solid var(--parch-light);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--litter);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── HABITAT / VALUE GRID ── */
+  .habitat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .habitat-card {
+    background: var(--surface);
+    border: 1px solid var(--border-mid);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .habitat-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 6px;
+  }
+
+  .habitat-value {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border-mid);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .value-card-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+  }
+
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── NOTE BOXES ── */
+  .note-box {
+    background: var(--moss-pale);
+    border: 1px solid var(--moss-light);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 12.5px;
+    color: #243818;
+    line-height: 1.65;
+    margin-top: 10px;
+  }
+
+  .info-box {
+    background: var(--wire-pale);
+    border: 1px solid var(--wire-light);
+    border-left: 3px solid var(--wire);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+    font-size: 12.5px;
+    color: #302840;
+    line-height: 1.65;
+    margin-top: 10px;
+  }
+
+  /* ── STIPE STRUCTURE BOX ── */
+  .stipe-diagram {
+    background: var(--surface);
+    border: 1px solid var(--border-mid);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 10px;
+  }
+
+  .stipe-label {
+    font-size: 11px;
+    color: var(--ink-light);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .stipe-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .stipe-row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .stipe-part {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-mid);
+    text-align: right;
+    padding-right: 10px;
+    border-right: 2px solid var(--border-mid);
+  }
+
+  .stipe-desc {
+    font-size: 12.5px;
+    color: var(--ink-mid);
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--ink-light);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ref-link { color: var(--straw); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-info { border-left: none; border-top: 3px solid var(--parch-light); }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 27px; }
+    .stipe-row { grid-template-columns: 80px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── 顶部横幅 ── -->
+<div class="info-banner">
+  🌿 安络小皮伞 · 枯枝落叶腐生型微型伞菌 · 无毒，体型微小，无食用价值 · 林地生态链重要分解者
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Marasmiellus_androsaceiformis0.png" alt="安络小皮伞主图">
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 蜡伞目 · 小皮伞科 · 小皮伞属</div>
+    <div class="hero-name-zh">安络小皮伞</div>
+    <div class="hero-name-alias">马尾小皮伞 · 马尾菇 · 落叶伞</div>
+    <div class="hero-name-la">Marasmiellus androsaceiformis</div>
+    <div class="hero-author">(Lév.) Singer, 1973</div>
+
+    <div class="tag-row">
+      <span class="tag tag-ink">无毒</span>
+      <span class="tag tag-ink">无食用价值</span>
+      <span class="tag tag-moss">腐生落叶</span>
+      <span class="tag tag-wire">极纤细柄</span>
+      <span class="tag tag-straw">热带/亚热带</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">安络小皮伞 / 马尾小皮伞</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Horsehair Fungus / Pinwheel Marasmius</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科 / 属</span>
+        <span class="taxon-value">蜡伞目 / 小皮伞科 / 小皮伞属</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">LC（无危，热带广布种）</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- ① 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-parch"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录 · 8张</span>
+    </div>
+
+    <!-- 6张小图：2行 × 3列 -->
+    <div class="photo-grid">
+
+      <!-- 上方菌盖图 -->
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Marasmiellus_androsaceiformis1.png" alt="上方菌盖图">
+        <div class="photo-caption">菌盖俯拍 · 辐射状沟纹，白色至象牙色，中部微凹脐状</div>
+      </div>
+
+      <!-- 45° 仰拍图 -->
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Marasmiellus_androsaceiformis2.png" alt="45°仰拍图">
+        <div class="photo-caption">45° 仰拍 · 极稀少菌褶 + 发丝般黑色菌柄基部</div>
+      </div>
+
+      <!-- 剖面图 -->
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Marasmiellus_androsaceiformis3.png" alt="剖面图">
+        <div class="photo-caption">纵向剖面 · 菌盖极薄，菌柄中实，黑色角质外层</div>
+      </div>
+
+      <!-- 管面图（菌褶图） -->
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Marasmiellus_androsaceiformis4.png" alt="菌褶图">
+        <div class="photo-caption">菌褶面 · 极稀，白色，弯生至延生，仅 8–16 片</div>
+      </div>
+
+      <!-- 孢子印图 -->
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Marasmiellus_androsaceiformis5.png" alt="孢子印图">
+        <div class="photo-caption">孢子印 · 白色，量少（个体极小）</div>
+      </div>
+
+      <!-- 特殊细节图 -->
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Marasmiellus_androsaceiformis7.png" alt="特殊细节图">
+        <div class="photo-caption">★ 特写 · 菌柄黑色角质丝状，附着于枯枝或叶中脉</div>
+      </div>
+
+    </div>
+
+    <!-- 生境大图 -->
+    <div style="margin-top:10px;">
+      <div class="photo-slot" style="aspect-ratio:21/9;border-radius:8px;">
+        <img src="https://eumensides.github.io/mashroom/Marasmiellus_androsaceiformis6.png" alt="生境图">
+        <div class="photo-caption">生境 · 热带/亚热带林地枯枝落叶层 · 群落密集散生，菌柄丝状如马尾</div>
+      </div>
+    </div>
+
+    <div class="note-box" style="margin-top:10px;">
+      🐴 <strong>英文名"Horsehair Fungus（马尾菌）"来源：</strong>菌柄极为纤细，颜色黑如马尾毛，直径仅约 0.1–0.5mm，从枯枝或叶片中脉处直立生长，远观酷似从落叶上长出的一簇马尾毛，是本种最具辨识度的视觉特征。
+    </div>
+  </div>
+
+  <!-- ② 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-straw"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+
+      <div class="phase-card">
+        <div class="phase-label phase-young">初生期</div>
+        <div class="phase-desc">
+          子实体从枯枝或枯叶中脉处萌出，初呈针尖状白色小点；菌盖直径不足 1mm，完全闭合呈球形；菌柄此时已呈黑色丝状，从基物中穿出；菌褶未展开，不可见；整体极度微小，需俯身贴近才能察觉其存在。
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-label phase-mid">展开期</div>
+        <div class="phase-desc">
+          菌盖逐渐展开为凸面形至扁平，直径 3–15mm；表面呈白色至象牙白，中部出现脐状微凹，边缘显现辐射状细沟纹（对应菌褶位置）；菌褶白色，极稀少（8–16片），弯生；菌柄完全伸展，黑色丝状，长 10–50mm，直径约 0.1–0.5mm，韧而不断，可绕指而不折。
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，边缘略上翻；中部脐状凹陷更加明显，有时略带浅棕色调；菌褶白色，等长或有短褶插入；孢子印白色，量极少（菌盖体积极小）；成熟后极快完成孢子散播；菌柄仍保持韧性，不腐烂。
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-label phase-dry">干燥复苏期</div>
+        <div class="phase-desc">
+          <strong>安络小皮伞具有显著的干湿可逆性（复水能力）：</strong>干旱时菌盖收缩皱缩，颜色变深，貌似枯死；降雨或湿度恢复后数小时内可完全复原至正常形态继续散孢，甚至多次循环——这是小皮伞科的重要生物学特性，也是野外辨识的辅助线索之一。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 菌柄结构特写说明 -->
+    <div class="stipe-diagram">
+      <div class="stipe-label">菌柄结构详解（核心辨识部位）</div>
+      <div class="stipe-layers">
+        <div class="stipe-row">
+          <div class="stipe-part">顶端</div>
+          <div class="stipe-desc">与菌盖连接处，颜色最浅（白色至浅褐），质地稍软</div>
+        </div>
+        <div class="stipe-row">
+          <div class="stipe-part">中段</div>
+          <div class="stipe-desc">深褐至黑褐色，坚韧，角质化外层光亮，直径极细（约 0.2–0.4mm）</div>
+        </div>
+        <div class="stipe-row">
+          <div class="stipe-part">基部</div>
+          <div class="stipe-desc"><strong>★ 最黑、最细</strong>，几乎与墨汁相近；紧密附着枯枝或叶中脉，基部可见白色菌丝，菌丝有时沿枯枝蔓延数厘米形成网络</div>
+        </div>
+        <div class="stipe-row">
+          <div class="stipe-part">质地</div>
+          <div class="stipe-desc">中实，角质化，韧而不断；干燥后不软化，可保存数周不腐；与纤维质或中空菌柄的物种截然不同</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 颜色 · 形状 · 气味 · 口感 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-straw"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+      <span class="section-badge">感官细分标签</span>
+    </div>
+
+    <div class="traits-grid">
+
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-parch">菌盖：白色→象牙白，中部偶带浅褐</span>
+          <span class="tag tag-ink">菌褶：白色，极稀</span>
+          <span class="tag tag-ink">菌肉：白色，极薄</span>
+          <span class="tag tag-wire">菌柄上段：深褐色</span>
+          <span class="tag tag-litter">菌柄基部：黑色如墨，光亮</span>
+          <span class="tag tag-ink">孢子印：白色</span>
+        </div>
+      </div>
+
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-parch">菌盖：凸面→扁平，中部脐状微凹</span>
+          <span class="tag tag-ink">盖径：3–15mm（极微小）</span>
+          <span class="tag tag-ink">边缘：辐射状沟纹，对应菌褶</span>
+          <span class="tag tag-wire">菌柄：发丝状，10–50mm 长</span>
+          <span class="tag tag-wire">柄径：仅约 0.1–0.5mm</span>
+          <span class="tag tag-ink">无菌环，无菌托</span>
+        </div>
+      </div>
+
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">几乎无气味</span>
+          <span class="tag tag-ink">偶有轻微土壤腐叶气息</span>
+          <span class="tag tag-ink">无刺激性，无特殊香气</span>
+        </div>
+      </div>
+
+      <div class="trait-card">
+        <div class="trait-name">口感（无食用价值）</div>
+        <div class="trait-tags">
+          <span class="tag tag-straw">菌体极微，无法作为食材</span>
+          <span class="tag tag-ink">菌盖极薄，几乎无菌肉</span>
+          <span class="tag tag-ink">菌柄角质坚韧，无法咀嚼</span>
+          <span class="tag tag-ink">无毒，但无食用意义</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ④ 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-straw"></span>
+      <span class="section-title">各部位详情</span>
+      <span class="section-badge">解剖结构</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr><th>部位</th><th>形态描述</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖表面</td>
+            <td>白色至象牙白，光滑；中央有明显脐状浅凹，向外放射状细沟延伸至边缘（与菌褶对应）；干燥时皱缩卷曲，复水后恢复；直径 3–15mm，极少超过 20mm</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>极稀少，仅 8–16 片，白色，弯生至稍延生；有时具极少数短褶插入；褶缘整齐；菌褶较宽（相对菌盖而言），但总数极少是本种最一眼辨识的特征之一</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td><strong>★ 核心特征：</strong>极纤细，如马尾毛或发丝，直径仅 0.1–0.5mm，长 10–50mm；上段白色至浅褐，向下逐渐加深为深褐至<strong>亮黑色</strong>；质地角质，坚韧有弹性，不断裂；中实；基部直接附着于枯枝或叶脉，有时可见白色菌索沿基物蔓延</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色，极薄（菌盖厚度不足 1mm），受伤后不变色；无明显气味；几乎无食用价值的物质含量</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>椭圆形至纺锤形，光滑，无色，约 7–11 × 3–4.5 μm</td>
+          </tr>
+          <tr>
+            <td>孢子印</td>
+            <td>白色（量极少，需置于深色纸上才可见）</td>
+          </tr>
+          <tr>
+            <td>菌环 / 菌托</td>
+            <td>无菌环，无菌托</td>
+          </tr>
+          <tr>
+            <td>菌索 / 基部</td>
+            <td>菌丝基部可在枯枝表面形成黑色菌索网络，沿寄主延伸；这些菌索是分解枯枝落叶的主要分解结构，肉眼可见时呈细黑线状</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 生长阶段对照表 -->
+    <div style="margin-top:1.2rem;background:var(--surface);border:1px solid var(--border-mid);border-radius:12px;overflow:hidden;">
+      <table class="stage-table">
+        <thead>
+          <tr>
+            <th>部位 / 阶段</th>
+            <th>初生期</th>
+            <th>展开期</th>
+            <th>成熟期</th>
+            <th>干燥收缩</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖形状</td>
+            <td>球形，闭合</td>
+            <td>凸面形展开</td>
+            <td>平展，脐凹明显</td>
+            <td>皱缩卷曲</td>
+          </tr>
+          <tr>
+            <td>菌盖颜色</td>
+            <td>纯白</td>
+            <td>白→象牙白</td>
+            <td>象牙白，中部浅褐</td>
+            <td>颜色加深，皱褶</td>
+          </tr>
+          <tr>
+            <td>菌柄颜色</td>
+            <td>浅褐，短</td>
+            <td>上浅下深褐</td>
+            <td>上褐下黑，全伸展</td>
+            <td>颜色不变，更坚硬</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>不可见</td>
+            <td>白色，稀少展现</td>
+            <td>白色，8–16片</td>
+            <td>皱缩，不可见</td>
+          </tr>
+          <tr>
+            <td>可复水</td>
+            <td>—</td>
+            <td>是</td>
+            <td>是</td>
+            <td>★ 可完全复原</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ⑤ 特殊区分点 + 相似易混淆物种 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-parch"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌柄<strong>黑色角质丝状</strong>，细如马尾，直径不足 0.5mm，基部附于枯枝/叶脉——这是整个小皮伞类群中最具视觉冲击力的特征，几乎无需其他辅助信息即可完成初步判断</li>
+        <li>菌盖<strong>极微小（3–15mm）</strong>，白色，边缘具辐射沟纹；菌褶<strong>极稀少（8–16片）</strong>——少到肉眼可数，是大多数近缘种不具备的显著特征</li>
+        <li>具有<strong>干湿可逆性</strong>：干燥皱缩后遇雨复原，可在同一位置反复出现；林地遇雨后在落叶层上大量同时"复活"，是野外识别的重要情境线索</li>
+        <li>严格生长于<strong>枯枝落叶</strong>基质（非土壤，非活体植物）；菌柄基部可见黑色菌索沿枯枝蔓延，形成细线网络——如见此网络则几乎可确认</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与近缘小皮伞属的关键区别</div>
+        <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+          同属近缘种（如茶褐小皮伞、大盖小皮伞等）菌柄多为棕褐色，直径更粗（>1mm），且菌褶数量更多（>20片）；<em>M. androsaceiformis</em> 以<strong>"最细最黑"</strong>的菌柄和<strong>"最少"</strong>的菌褶在属内极为突出
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">马尾测试</div>
+        <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+          尝试用两指轻捏菌柄：<strong>不断裂、可弯曲、手感坚韧光滑如细铁丝</strong> → 高度指向本种；松软易断 → 排除。这种角质化坚韧感是小皮伞科的科级特征，安络小皮伞将其推向极致
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种 · 对比</span>
+    </div>
+
+    <div class="confusion-list">
+
+      <div class="confusion-item">
+        <div class="confusion-name">
+          马尾小皮伞 <em>Marasmius androsaceus</em>
+          <span class="safe-label">无毒</span>
+        </div>
+        <div class="confusion-diff">
+          最易混淆的近缘种，同样菌柄黑色丝状，生境相同，民间常将两者统称"马尾菌"。<br>
+          <strong>区别：</strong>① <em>M. androsaceus</em> 菌盖颜色多为<strong>浅粉褐至淡紫褐色</strong>（本种为白色/象牙白）；② 菌褶数量稍多（约 16–24 片），颜色偶带粉调；③ 归属不同属（<em>Marasmius</em> vs <em>Marasmiellus</em>），孢子形态有差异；④ 两者食用价值同样可忽略不计。
+        </div>
+      </div>
+
+      <div class="confusion-item">
+        <div class="confusion-name">
+          小皮伞属其他种 <em>Marasmius</em> spp.
+          <span class="safe-label">多数无毒</span>
+        </div>
+        <div class="confusion-diff">
+          同科多种小型伞菌生于落叶，菌柄细长，外观相近。<br>
+          <strong>区别：</strong>① 大多数种菌柄颜色<strong>不达纯黑</strong>，直径 > 0.5mm；② 菌褶数量通常更多（> 20 片）；③ 菌盖颜色变化丰富（粉、褐、红等），本种为白色；④ 整体体型略大；⑤ 可逆干湿性多数种同样具备，不作为区分依据。
+        </div>
+      </div>
+
+      <div class="confusion-item">
+        <div class="confusion-name">
+          盔孢伞属小型种 <em>Galerina</em> spp.
+          <span class="caution-label">⚠️ 部分剧毒</span>
+        </div>
+        <div class="confusion-diff">
+          同样微小，生于落叶或腐木，白色至浅褐色菌盖，菌柄细长。<br>
+          <strong>区别：</strong>① 盔孢伞菌柄<strong>非纯黑色</strong>，多为锈褐至浅褐色，不呈角质丝状；② 孢子印<strong>锈褐色</strong>（本种白色）——此点最关键；③ 部分种有菌环残余；④ 菌褶颜色偶带锈褐调；⑤ 含鹅膏毒素的种类可致死，如在落叶层发现小型伞菌务必做孢子印验证。
+        </div>
+      </div>
+
+      <div class="confusion-item">
+        <div class="confusion-name">
+          裸盖菇属微小种 <em>Psilocybe</em> spp.（极小种）
+          <span class="caution-label">⚠️ 含致幻成分</span>
+        </div>
+        <div class="confusion-diff">
+          极少数微小裸盖菇与本种在体型上相近，均生于有机质基底。<br>
+          <strong>区别：</strong>① 菌柄<strong>绝非纯黑角质丝状</strong>；② 孢子印<strong>紫黑至深褐色</strong>（本种白色，一眼区分）；③ 菌盖常有轻微光滑黏感；④ 通常生于粪便或富氮土壤，不从枯枝叶脉处直立生长。
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「黑如马尾，细如发丝，从枯叶中生」</div>
+        <div class="memory-pill">「白盖·黑柄·稀褶 = 三合一识别法」</div>
+        <div class="memory-pill">「雨后枯叶层里同时"醒来"的小白伞」</div>
+        <div class="memory-pill">「孢子印白色 → 排除盔孢伞毒菌」</div>
+        <div class="memory-pill">「捏柄不断、弯而不折 = 角质马尾感」</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      🔬 <strong>分类说明：</strong><em>Marasmiellus androsaceiformis</em> 与 <em>Marasmius androsaceus</em> 长期存在分类混乱，不同文献对两者的归属、形态边界和同物异名处理仍有争议。野外记录时建议记录菌盖颜色、菌褶数量、孢子印颜色和生境细节，以便后续核对。
+    </div>
+  </div>
+
+  <!-- ⑥ 群落生境 · 分布采集 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+
+    <div class="habitat-grid">
+
+      <div class="habitat-card">
+        <div class="habitat-label">生态类型</div>
+        <div class="habitat-value">
+          <strong>腐生型落叶分解菌</strong>；专门分解枯枝、枯叶和叶脉等木质纤维素，是热带亚热带林地落叶层的重要物质循环参与者；单个子实体虽微小，但群落规模可极为庞大
+        </div>
+      </div>
+
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">
+          专生于<strong>枯枝、枯叶（尤其叶中脉）</strong>表面；偶见于细小枯树皮；从不见于土壤或活体植物；热带雨林、季风林、竹林落叶层是最典型生境
+        </div>
+      </div>
+
+      <div class="habitat-card">
+        <div class="habitat-label">出现规律</div>
+        <div class="habitat-value">
+          全年可见（热带地区）；温带地区集中于<strong>雨季至秋季（7–10月）</strong>；雨后数小时内大量出现，干燥后皱缩"消失"，再次降雨后复原——<strong>每场雨都是一次集体"苏醒"</strong>
+        </div>
+      </div>
+
+      <div class="habitat-card">
+        <div class="habitat-label">群落方式</div>
+        <div class="habitat-value">
+          散生至<strong>密集群生</strong>；同一片落叶上可见数十至数百个子实体簇生；菌丝沿枯枝蔓延，形成可见黑色菌索网络，将多个子实体连为一体
+        </div>
+      </div>
+
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">
+          <strong>热带至亚热带广布种</strong>；中国记录主要见于<strong>华南（广东、广西、福建、海南）、西南（云南、贵州）</strong>及台湾；东南亚、南亚、非洲、中美洲热带雨林均有分布；温带地区偶见于温暖湿润的夏季
+        </div>
+      </div>
+
+      <div class="habitat-card">
+        <div class="habitat-label">观察采集建议</div>
+        <div class="habitat-value">
+          雨后 2–6小时是观察最佳时机；建议携带放大镜（10×以上）——菌盖仅数毫米，裸眼细节不可见；记录时注意保留基物（枯枝/枯叶）样本；因体型极微，采集整体时建议连基物一并保存
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ⑦ 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+
+    <div class="value-grid">
+
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">
+          <strong>无食用价值。</strong>菌体极微（直径不足 15mm），菌肉极薄，无法作为食材。无毒，误食无害，但没有任何采食意义。
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">
+          作为落叶层主要分解者之一，在热带雨林营养循环中发挥重要作用；黑色菌索网络可将不同落叶片段的分解过程连接为整体，提高分解效率；为枯枝微生境中的微型节肢动物提供食物和栖所
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-card-label">科学研究价值</div>
+        <div class="value-body">
+          干湿可逆的复水机制（脱水保护蛋白）是真菌生理学研究热点；角质化菌柄的生物力学特性（极细极韧）对仿生材料有启发价值；小皮伞科的系统发育分类仍在修订中，本种是重要参考标本
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-card-label">观赏与教育价值</div>
+        <div class="value-body">
+          "马尾菌"视觉独特，是真菌多样性科普的绝佳案例；雨后落叶层上密集苏醒的场景极具震撼力，是自然教育活动的理想观察对象；用于展示真菌的干湿可逆性，效果直观
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>
+      参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Marasmius_androsaceus" target="_blank">Wikipedia EN（M. androsaceus）</a> ·
+      <a class="ref-link" href="https://www.mycobank.org/" target="_blank">MycoBank</a> ·
+      <a class="ref-link" href="https://www.inaturalist.org/" target="_blank">iNaturalist</a>
+    </div>
+    <div>腐生落叶 · 热带广布 · 雨后群现 · 可逆干湿</div>
+  </div>
+
+</div>
+</body>
+</html>
