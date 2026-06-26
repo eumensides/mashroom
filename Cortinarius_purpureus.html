@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>紫丝膜菌 · Cortinarius purpureus</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 有毒物种：沉重、警惕的色调 */
+    --ink: #1a1118;
+    --ink-mid: #4a3848;
+    --ink-light: #8a7888;
+    --cream: #1c1520;
+    --surface: #251c2c;
+    --surface-raised: #2e2238;
+
+    /* 紫调主色 */
+    --purple: #7b3fa0;
+    --purple-light: #b57fd4;
+    --purple-pale: #2a1e33;
+    --purple-mid: #3d2650;
+
+    /* 警戒红/深红 */
+    --danger: #c0253a;
+    --danger-light: #e86070;
+    --danger-pale: #2e1018;
+    --danger-mid: #8b1a2a;
+
+    /* 暗金色（孢子、细节） */
+    --gold: #a07828;
+    --gold-light: #d4a84e;
+    --gold-pale: #231c0e;
+
+    /* 暗灰石色 */
+    --stone: #5a4860;
+    --stone-light: #a090a8;
+
+    --border: rgba(180,140,200,0.12);
+    --border-mid: rgba(180,140,200,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: #d8cce0;
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── 警戒横幅 ── */
+  .warning-banner {
+    background: var(--danger);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .warning-banner .skull { font-size: 18px; }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #120c1a;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--purple-light);
+    margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #ede0f5;
+    margin-bottom: 6px;
+  }
+
+  .hero-name-la {
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--purple-light);
+    margin-bottom: 4px;
+  }
+
+  .hero-author {
+    font-size: 12px;
+    color: var(--stone-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-purple { background: var(--purple-mid); color: var(--purple-light); }
+  .tag-danger { background: var(--danger-pale); color: var(--danger-light); border: 1px solid rgba(200,40,60,0.3); }
+  .tag-gold { background: var(--gold-pale); color: var(--gold-light); }
+  .tag-stone { background: rgba(90,72,96,0.3); color: var(--stone-light); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: #d8cce0; font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-purple { background: var(--purple-light); }
+  .dot-danger { background: var(--danger); }
+  .dot-gold { background: var(--gold-light); }
+  .dot-stone { background: var(--stone-light); }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #ede0f5;
+  }
+
+  .section-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--stone-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── PHOTO GRID ── */
+  .photo-outer {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 10px;
+  }
+
+  .photo-grid-6 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .photo-slot {
+    background: #120c1a;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+    aspect-ratio: 4/3;
+  }
+
+  .photo-slot-wide {
+    aspect-ratio: 16/7;
+    background: #120c1a;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot img, .photo-slot-wide img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(18,12,26,0.80);
+    color: #d8cce0;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 5px 8px;
+    text-align: center;
+  }
+
+  /* ── GROWTH PHASES ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .phase-label {
+    padding: 4px 0;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .phase-young { background: var(--purple-mid); color: var(--purple-light); }
+  .phase-mid   { background: rgba(100,40,130,0.35); color: #c090e0; }
+  .phase-mature{ background: var(--danger-pale); color: var(--danger-light); }
+
+  .phase-desc { font-size: 13px; color: #b0a0bc; line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .trait-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .trait-name {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--purple-pale);
+  }
+  .parts-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: #c8bcd4;
+  }
+  .parts-table td:first-child {
+    font-weight: 500;
+    color: var(--purple-light);
+    white-space: nowrap;
+    width: 110px;
+  }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── DISTINCTION BOX ── */
+  .distinction-box {
+    background: var(--danger-pale);
+    border: 1px solid rgba(192,37,58,0.35);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .distinction-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--danger-light);
+    margin-bottom: 10px;
+  }
+
+  .distinction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .distinction-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #e0a0a8;
+    line-height: 1.6;
+  }
+
+  .distinction-list li::before {
+    content: "·";
+    color: var(--danger-light);
+    font-size: 16px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  /* ── CONFUSION TABLE ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .confusion-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--purple-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+  }
+
+  .confusion-item.safe {
+    border-left-color: #4a8a5a;
+  }
+
+  .confusion-name { font-size: 14px; font-weight: 500; color: #ede0f5; margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: #a090ac; line-height: 1.6; }
+
+  /* ── MEMORY ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+
+  .memory-pill {
+    background: var(--purple-pale);
+    border: 1px solid var(--border-mid);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--purple-light);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── HABITAT ── */
+  .habitat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .habitat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .habitat-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 6px;
+  }
+
+  .habitat-value {
+    font-size: 13px;
+    color: #c8bcd4;
+    line-height: 1.7;
+  }
+
+  /* ── VALUE / TOXICITY CARDS ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .value-card.danger-card {
+    border-color: rgba(192,37,58,0.35);
+    background: var(--danger-pale);
+  }
+
+  .value-card-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 8px;
+  }
+
+  .value-card.danger-card .value-card-label { color: var(--danger-light); }
+
+  .value-body { font-size: 13px; color: #a090ac; line-height: 1.7; }
+  .value-card.danger-card .value-body { color: #d88090; }
+
+  /* ── HERO IMAGE (大图) ── */
+  .hero-image-slot .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(18,12,26,0.85));
+    padding: 24px 20px 16px;
+  }
+
+  .hero-overlay-text {
+    font-size: 12px;
+    color: rgba(220,200,230,0.7);
+    font-style: italic;
+  }
+
+  /* ── 毒性信息栏 ── */
+  .toxin-bar {
+    background: linear-gradient(135deg, var(--danger-pale), var(--purple-pale));
+    border: 1px solid rgba(192,37,58,0.4);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .toxin-item { display: flex; flex-direction: column; gap: 4px; }
+  .toxin-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--danger-light);
+    font-weight: 500;
+  }
+  .toxin-value {
+    font-size: 13px;
+    color: #e8a0a8;
+    line-height: 1.5;
+  }
+
+  /* ── 生境大图 ── */
+  .habitat-banner {
+    width: 100%;
+    aspect-ratio: 16/7;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+    margin-top: 10px;
+  }
+
+  .habitat-banner img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .habitat-banner-cap {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(18,12,26,0.80);
+    color: #c8bcd4;
+    font-size: 12px;
+    padding: 8px 14px;
+    text-align: center;
+  }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--stone-light);
+  }
+
+  .ref-link { color: var(--purple-light); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .toxin-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 警戒横幅 ══ -->
+<div class="warning-banner">
+  <span class="skull">☠</span>
+  有毒物种 · 含奥来毒素（Orellanine）· 误食可致肾衰竭，禁止食用
+  <span class="skull">☠</span>
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Cortinarius_purpureus0.png" alt="紫丝膜菌主图">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Cortinarius purpureus · 全株深紫色，菌褶与菌柄同色</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 丝膜菌科</div>
+    <div class="hero-name-zh">紫丝膜菌</div>
+    <div class="hero-name-la">Cortinarius purpureus</div>
+    <div class="hero-author">(Bull.) Bidaud, Moënne-Locc. &amp; Reumaux, 1994</div>
+
+    <div class="tag-row">
+      <span class="tag tag-danger">☠ 剧毒</span>
+      <span class="tag tag-danger">致肾毒素</span>
+      <span class="tag tag-purple">丝膜菌属</span>
+      <span class="tag tag-stone">外生菌根菌</span>
+      <span class="tag tag-stone">阔叶林伴生</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">紫丝膜菌 / 紫褶丝膜菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Purple Webcap</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">蘑菇目 / Cortinariaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">毒性等级</span>
+        <span class="taxon-value" style="color:var(--danger-light);">剧毒 · 致死风险极高</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 毒性速查 -->
+  <div class="section">
+    <div class="toxin-bar">
+      <div class="toxin-item">
+        <span class="toxin-label">核心毒素</span>
+        <span class="toxin-value">奥来毒素（Orellanine）·耐高温·不溶于水</span>
+      </div>
+      <div class="toxin-item">
+        <span class="toxin-label">中毒潜伏期</span>
+        <span class="toxin-value">2～3周（最长可达45天）</span>
+      </div>
+      <div class="toxin-item">
+        <span class="toxin-label">靶向器官</span>
+        <span class="toxin-value">肾小管·不可逆损伤·可致慢性肾衰竭</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-purple"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-outer">
+      <!-- 主图（大图） -->
+      <div class="photo-slot-wide">
+        <img src="https://eumensides.github.io/mashroom/Cortinarius_purpureus0.png" alt="主图">
+        <div class="photo-caption">主图 · 成熟个体群落全貌 / 全株深紫色整体印象</div>
+      </div>
+
+      <!-- 6张小图 -->
+      <div class="photo-grid-6">
+        <!-- 图片槽 1 -->
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Cortinarius_purpureus1.png" alt="上方菌盖图">
+          <div class="photo-caption">上方菌盖图 · 紫色丝光 / 边缘内卷→平展</div>
+        </div>
+
+        <!-- 图片槽 2 -->
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Cortinarius_purpureus2.png" alt="45°仰拍图">
+          <div class="photo-caption">45° 仰拍 · 紫色菌褶 / 蛛网状菌幕残留</div>
+        </div>
+
+        <!-- 图片槽 3 -->
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Cortinarius_purpureus3.png" alt="剖面图">
+          <div class="photo-caption">剖面 · 菌肉紫色调 / 菌柄实心</div>
+        </div>
+
+        <!-- 图片槽 4 -->
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Cortinarius_purpureus4.png" alt="管面图">
+          <div class="photo-caption">褶面 · 紫→锈褐色菌褶排列</div>
+        </div>
+
+        <!-- 图片槽 5 -->
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Cortinarius_purpureus5.png" alt="孢子印图">
+          <div class="photo-caption">孢子印 · 锈褐色（丝膜菌属标志）</div>
+        </div>
+
+        <!-- 图片槽 6 · 特殊细节图 -->
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Cortinarius_purpureus6.png" alt="特殊细节图">
+          <div class="photo-caption">细节 · 菌柄蛛网状丝膜 / 丝膜遗迹（皮质环带）</div>
+        </div>
+      </div>
+
+      <!-- 生境图（大图） -->
+      <div class="photo-slot-wide">
+        <img src="https://eumensides.github.io/mashroom/Cortinarius_purpureus7.png" alt="生境图">
+        <div class="photo-caption">生境图 · 阔叶混交林地面群生 / 落叶层中散生或小群</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖半球形至钟形，边缘强烈内卷；表面覆密集丝状纤维，呈鲜艳深紫色至蓝紫色，带金属光泽感；
+          菌幕（cortina）完整，从菌盖边缘延伸至菌柄上部，蛛网状蜘蛛丝质地，鲜明紫色；
+          菌褶初期紧密，淡紫至深紫色；菌柄上下等粗或棒状膨大，实心，紫色丝绒状表面。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐平展，中央微凸（脐状），直径可达5–8cm；紫色调逐渐消退，向紫褐色转变；
+          菌幕破裂，在菌柄上留下不明显的丝状皮质带（环带），残余紫色絮状纤维；
+          菌褶由紫色转为锈褐色，孢子开始成熟；菌柄基部开始略显黄褐，全株颜色对比更明显。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，边缘微波状，有时中央下陷，色泽趋于锈紫褐至暗褐；
+          菌褶锈褐至红褐色，弯生至直生，密度中等，不等长；
+          孢子印深锈褐色（Cortinarius 属核心鉴别特征）；菌柄颜色变暗，基部偶有白色菌丝束；
+          整体散发淡辛辣气味；外观已与幼期紫色截然不同，极易误认。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-purple">幼时深蓝紫/紫罗兰色</span>
+          <span class="tag tag-purple">菌幕蛛丝紫色</span>
+          <span class="tag tag-gold">成熟→锈紫褐→暗褐</span>
+          <span class="tag tag-gold">孢子印深锈褐色</span>
+          <span class="tag tag-stone">菌肉紫色调→灰紫</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">半球形→钟形→平展（径3–8cm）</span>
+          <span class="tag tag-stone">中央脐凸，边缘内卷→波状</span>
+          <span class="tag tag-stone">菌柄棒状/基部膨大，4–9cm×0.5–1.5cm</span>
+          <span class="tag tag-stone">实心菌柄，蛛网状菌幕</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-danger">轻微刺鼻/辛辣气</span>
+          <span class="tag tag-stone">隐约萝卜或土腥气</span>
+          <span class="tag tag-stone">无明显甜香</span>
+          <span class="tag tag-danger">气味不足以判断毒性</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-danger">⚠ 禁止品尝</span>
+          <span class="tag tag-stone">据报道微苦/轻辛</span>
+          <span class="tag tag-danger">奥来毒素无味，无法靠口感判断</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr>
+            <th>部位</th>
+            <th>形态描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖表皮</td>
+            <td>表面干燥，覆密集放射状丝状纤维（非胶黏）；幼时鲜紫色，成熟后向锈紫褐转变；边缘初期内卷，成熟后波状或微翻卷</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>弯生至近直生，密度中等，不等长；幼时紫罗兰色，成熟随孢子落下转为锈褐至红褐色；锈褐色孢子粉落于表面后更为明显</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>较薄，质脆；幼时紫色至灰紫色，成熟后逐渐转为灰褐色；受伤不变色；含奥来毒素（Orellanine），任何部分均有毒</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>4–9cm × 0.5–1.5cm；棒状或下部膨大呈球茎状；实心；表面被紫色丝绒状纤维；菌幕破裂后留丝状皮质带（cortinal zone，非真正菌环）</td>
+          </tr>
+          <tr>
+            <td>菌幕（丝膜）</td>
+            <td>蛛网状（cobweb-like），丝质，紫色；连接菌盖边缘与菌柄中上部；破裂后不形成明显菌环，仅留皮质纤维残迹——这是丝膜菌属（Cortinarius）的命名来源与核心标志</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>椭圆形至杏仁形，8–11 × 5–7μm；表面粗糙疣状（verruculose）；深锈褐色；孢子印深锈褐色</td>
+          </tr>
+          <tr>
+            <td>菌托 / 菌环</td>
+            <td>无菌托；无明显环，仅皮质带残迹（区别于鹅膏属的菌环+菌托）</td>
+          </tr>
+          <tr>
+            <td>毒素分布</td>
+            <td>奥来毒素全株均有，耐高温、耐干燥、不因烹饪分解；晒干或煮熟后仍保持毒性，任何处理方式均无法去毒</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-danger"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">⚠ 核心辨识三要素（拒绝采集的理由）</div>
+      <ul class="distinction-list">
+        <li>菌褶<strong>绝无白色</strong>，幼时蓝紫色，成熟后转为深锈褐色——孢子印锈褐是丝膜菌属铁证，不同于鹅膏的白色孢子印</li>
+        <li>菌柄与菌盖之间有<strong>蛛网状丝膜（cortina）</strong>，破裂后留纤维状皮质带，而非鹅膏的完整膜质菌环</li>
+        <li>全株<strong>深蓝紫至紫罗兰色</strong>（幼期），这种饱和冷紫色在可食蘑菇中极为罕见；颜色艳丽本身即为警示信号</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与鹅膏属（Amanita）区别</div>
+        <div style="font-size:13px;color:#a090ac">鹅膏有菌托+完整膜质菌环+白色孢子印；丝膜菌<strong>无菌托·仅蛛网丝膜·锈褐孢子印</strong>——两者毒性机制不同，鹅膏为鹅膏毒素，丝膜菌为奥来毒素</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">中毒特征（与鹅膏中毒对比）</div>
+        <div style="font-size:13px;color:#a090ac">鹅膏中毒数小时发作（肝损伤）；丝膜菌中毒<strong>潜伏期长达2–3周甚至更久</strong>，症状初期不明显（多饮多尿、乏力），晚期进入不可逆肾衰竭，死亡率较高</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:#ede0f5">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">紫晶蜡蘑 <em>Laccaria amethystina</em></div>
+        <div class="confusion-diff">外观上最易混淆——同为艳紫色，但区别在于：蜡蘑菌褶宽厚稀疏（非密集），孢子印白色（非锈褐），无蛛网状丝膜，菌柄细长纤维状；蜡蘑可食，但与丝膜菌混生于同一生境，<strong>极危险</strong></div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">紫蜡蘑 <em>Laccaria laccata</em> f. <em>violacea</em></div>
+        <div class="confusion-diff">区别：菌褶粉紫色（非深蓝紫），宽而稀疏，白色孢子印；菌柄更细，无任何丝膜结构；可食，但幼期颜色相近时仍需谨慎辨别孢子印颜色</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">蓝紫丝膜菌 <em>Cortinarius violaceus</em></div>
+        <div class="confusion-diff">区别：同属丝膜菌，颜色更深暗蓝紫，菌盖表面鳞片更粗，菌柄基部球茎状膨大更明显；孢子更大（13–17μm）；<strong>同样有毒，不可食用</strong>，是本种最常见的近缘混淆种</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">紫丁香蘑 <em>Lepista nuda</em>（紫色杯伞）</div>
+        <div class="confusion-diff">区别：紫丁香蘑全株也呈紫色，但<strong>无蛛网状丝膜</strong>，菌褶不生锈褐孢子粉，孢子印粉白色带淡粉；生于落叶腐殖质（腐生而非菌根）；<strong>此种可食</strong>，是与本种混淆后可能安全的一面，但辨别仍需借助孢子印与丝膜有无</div>
+      </div>
+      <div class="confusion-item safe">
+        <div class="confusion-name" style="color:#6ac08a">✓ 安全参照：锈褐孢子印 = 丝膜菌属 = 高度警惕</div>
+        <div class="confusion-diff">任何见到蛛网丝膜+锈褐孢子印的紫色蘑菇，<strong>一律视为有毒，不得采食</strong>。孢子印是最简单可靠的现场鉴别工具，只需将菌盖盖在白纸上静置1–2小时即可判断</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「蜘蛛丝拉幕 + 锈褐孢子 = 丝膜菌，勿碰」</div>
+        <div class="memory-pill">「紫色越艳越危险，颜色在欺骗你」</div>
+        <div class="memory-pill">「潜伏三周才发病，发现时已晚矣」</div>
+        <div class="memory-pill">「白纸测孢子印，锈褐即撤手」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 毒理与中毒处置 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-danger"></span>
+      <span class="section-title">毒理学 · 中毒机制 · 处置建议</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card danger-card">
+        <div class="value-card-label">核心毒素：奥来毒素（Orellanine）</div>
+        <div class="value-body">双吡啶N-氧化物类毒素；作用机制为干扰细胞氧化磷酸化，导致肾小管上皮细胞凋亡；耐热稳定，任何烹饪方式均无法破坏；亦存在于菌皮（Orelline）及其他丝膜菌亚属成员中</div>
+      </div>
+      <div class="value-card danger-card">
+        <div class="value-card-label">中毒进程</div>
+        <div class="value-body">潜伏期2–3周（偶长达45天）→多尿、口渴、头痛（早期似感冒）→恶心、呕吐、腰背疼痛→血肌酐升高→肾小管坏死→不可逆慢性肾衰竭→透析依赖或肾脏移植</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">历史中毒事件</div>
+        <div class="value-body">1952年波兰中毒事件首次描述奥来毒素；欧洲每年有多例因误将丝膜菌属与紫丁香蘑混淆导致的中毒案例，部分最终接受肾脏移植；中国有零星报道，多发生于云南、贵州等地采集者</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">紧急处置建议</div>
+        <div class="value-body">立即就医并告知采食蘑菇（即使症状未出现）；保留剩余样本或照片供鉴定；潜伏期内定期检查肾功能（血肌酐、尿素氮）；目前无特效解毒剂，以支持治疗为主；肾损伤不可逆时需透析或移植</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">散生至小群生；通常2–8个体成小丛，偶见单生；不形成明显蘑菇圈</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 共生树种</div>
+        <div class="habitat-value">外生菌根菌；与阔叶树共生为主：山毛榉（Fagus）、橡树（Quercus）、桦树（Betula）；偶见于混交林；通常不与松树共生（区别于乳牛肝菌）</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">欧洲广泛分布（英国、法国、德国、斯堪的纳维亚、波兰等）；亚洲：中国（云南、贵州、四川、东北部分地区）、日本；北美偶有记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">欧洲：8–11月（秋季高峰）；中国：7–10月；海拔500–2500m均可见；以温带湿润落叶阔叶林最为常见；土壤偏酸性</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--stone-light);">
+      ⚠ 采集风险提示：紫丝膜菌与紫晶蜡蘑（<em>Laccaria amethystina</em>）、紫丁香蘑（<em>Lepista nuda</em>）混生于同一林地，秋季是高危混淆期。即使有经验的采集者也建议现场留取孢子印后方可判断。
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Cortinarius_purpureus" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://www.mycobank.org/" target="_blank">MycoBank</a> ·
+      <a class="ref-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7010494/" target="_blank">NCBI 奥来毒素研究</a>
+    </div>
+    <div>☠ 剧毒 · 禁止采食 · DNA条形码 ITS已测序</div>
+  </div>
+
+</div>
+</body>
+</html>
