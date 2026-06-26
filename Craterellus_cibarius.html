@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鸡油菌 · Cantharellus cibarius</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #1c1408;
+    --ink-mid: #48380e;
+    --ink-light: #907850;
+    --cream: #faf7ee;
+    --surface: #ffffff;
+
+    /* 金黄主色 */
+    --gold: #c08010;
+    --gold-light: #f0c040;
+    --gold-pale: #fef8dc;
+    --gold-mid: #8a5c08;
+
+    /* 杏黄/蛋黄（菌肉色） */
+    --yolk: #d4940a;
+    --yolk-pale: #fef3cc;
+
+    /* 苔绿（可食标记） */
+    --moss: #4a6c2a;
+    --moss-light: #8ab870;
+    --moss-pale: #edf4e5;
+
+    /* 暖橙（假菌褶色） */
+    --apricot: #c06820;
+    --apricot-pale: #feecd8;
+
+    /* 警示棕（混淆种） */
+    --warn: #9a3a18;
+    --warn-pale: #fceee8;
+
+    --stone: #6a5c30;
+    --stone-light: #a09060;
+
+    --border: rgba(140,100,20,0.13);
+    --border-mid: rgba(140,100,20,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── 顶部横幅 ── */
+  .notice-banner {
+    background: var(--gold);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #e8d8a0;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,10,0,0.68));
+    padding: 24px 20px 16px;
+  }
+
+  .hero-overlay-text {
+    font-size: 12px;
+    color: rgba(255,230,160,0.88);
+    font-style: italic;
+  }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .hero-name-la {
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--apricot);
+    margin-bottom: 4px;
+  }
+
+  .hero-author {
+    font-size: 12px;
+    color: var(--stone-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-gold   { background: var(--gold-pale);    color: var(--gold-mid); }
+  .tag-moss   { background: var(--moss-pale);    color: var(--moss); }
+  .tag-apricot{ background: var(--apricot-pale); color: var(--apricot); }
+  .tag-stone  { background: #f2ece0;             color: var(--stone); }
+  .tag-warn   { background: var(--warn-pale);    color: var(--warn); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-gold   { background: var(--gold); }
+  .dot-moss   { background: var(--moss); }
+  .dot-apricot{ background: var(--apricot); }
+  .dot-stone  { background: var(--stone-light); }
+  .dot-warn   { background: var(--warn); }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .section-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--stone-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── PHOTO LAYOUT：6小图 + 1生境大图 ── */
+  .photo-outer { display: grid; gap: 10px; }
+
+  .photo-grid-6 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .photo-slot {
+    aspect-ratio: 4/3;
+    background: #e8d8a0;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot-wide {
+    aspect-ratio: 16/7;
+    background: #e8d8a0;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot img, .photo-slot-wide img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(20,10,0,0.70);
+    color: #f8e8b0;
+    font-size: 11px;
+    padding: 5px 8px;
+    text-align: center;
+  }
+
+  /* ── GROWTH PHASES ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .phase-label {
+    padding: 4px 0;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .phase-young  { background: var(--moss-pale);    color: var(--moss); }
+  .phase-mid    { background: var(--gold-pale);     color: var(--gold-mid); }
+  .phase-mature { background: var(--apricot-pale);  color: var(--apricot); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .trait-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .trait-name {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  .parts-table td:first-child {
+    font-weight: 500;
+    color: var(--gold-mid);
+    white-space: nowrap;
+    width: 110px;
+  }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── DISTINCTION BOX ── */
+  .distinction-box {
+    background: var(--moss-pale);
+    border: 1px solid rgba(74,108,42,0.28);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .distinction-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--moss);
+    margin-bottom: 10px;
+  }
+
+  .distinction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .distinction-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #2a4020;
+    line-height: 1.6;
+  }
+
+  .distinction-list li::before {
+    content: "·";
+    color: var(--moss);
+    font-size: 16px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  /* ── CONFUSION LIST ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .confusion-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+  }
+
+  .confusion-item.danger { border-left-color: #e07060; }
+
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  /* ── MEMORY ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+
+  .memory-pill {
+    background: var(--gold-pale);
+    border: 1px solid rgba(192,128,16,0.25);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--gold-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── 特色速览栏 ── */
+  .feature-bar {
+    background: linear-gradient(135deg, var(--gold-pale), var(--yolk-pale));
+    border: 1px solid rgba(192,128,16,0.28);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    font-weight: 500;
+  }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  /* ── HABITAT ── */
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .habitat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .habitat-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 6px;
+  }
+
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  /* ── VALUE CARDS ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .value-card-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 8px;
+  }
+
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--stone-light);
+  }
+
+  .ref-link { color: var(--gold-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 顶部横幅 ══ -->
+<div class="notice-banner">
+  🐓 优质食用菌 · 欧洲四大名菌之一 · 注意与毒性近似种区分
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Craterellus_cibarius0.png" alt="鸡油菌主图">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Cantharellus cibarius · 蛋黄金色，假菌褶棱脊状，杏桃香气浓郁</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 鸡油菌科</div>
+    <div class="hero-name-zh">鸡油菌</div>
+    <div class="hero-name-la">Cantharellus cibarius</div>
+    <div class="hero-author">Fr., 1821 · 异名含 Craterellus cibarius</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">优质食用菌</span>
+      <span class="tag tag-moss">无毒</span>
+      <span class="tag tag-gold">外生菌根菌</span>
+      <span class="tag tag-gold">欧洲四大名菌</span>
+      <span class="tag tag-stone">杏桃香气</span>
+      <span class="tag tag-stone">假菌褶</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">鸡油菌 / 黄丝菌 / 杏菌 / 金菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Chanterelle / Golden Chanterelle</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">鸡油菌目 / Cantharellaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">LC（无危）· 广布常见</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">核心识别：假菌褶</span>
+        <span class="fb-value">鸡油菌没有真正的菌褶，而是具有叉状分枝的棱脊状假菌褶（false gills），手感钝而坚韧，不可分离——这是整个鸡油菌目的标志特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">香气特征</span>
+        <span class="fb-value">散发独特的杏桃/水蜜桃香气，轻柔而持久；熟制后转为浓郁果香鸡肉香混合的复合风味，是欧洲高档餐厅最重视的野生菌之一</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">经济地位</span>
+        <span class="fb-value">全球年产量约数万吨，欧洲（波兰、瑞典、德国）为主要产区；无法人工栽培（依赖菌根共生），市场价格长期高企；与松露、牛肝菌、羊肚菌并称欧洲四大名菌</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-outer">
+      <!-- 6张小图 -->
+      <div class="photo-grid-6">
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Craterellus_cibarius1.png" alt="上方菌盖图">
+          <div class="photo-caption">上方菌盖图 · 蛋黄金色 / 边缘波浪内卷</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Craterellus_cibarius2.png" alt="45°仰拍图">
+          <div class="photo-caption">45° 仰拍 · 假菌褶棱脊延伸至菌柄</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Craterellus_cibarius3.png" alt="剖面图">
+          <div class="photo-caption">剖面 · 菌肉白至淡黄 / 实心菌柄</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Craterellus_cibarius4.png" alt="假菌褶面图">
+          <div class="photo-caption">假菌褶面 · 叉状棱脊 / 钝厚不易分离</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Craterellus_cibarius5.png" alt="孢子印图">
+          <div class="photo-caption">孢子印 · 淡黄至奶油白色</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Craterellus_cibarius6.png" alt="特殊细节图">
+          <div class="photo-caption">细节 · 假菌褶叉分与菌柄连续延生</div>
+        </div>
+      </div>
+
+      <!-- 生境图（大图） -->
+      <div class="photo-slot-wide">
+        <img src="https://eumensides.github.io/mashroom/Craterellus_cibarius7.png" alt="生境图">
+        <div class="photo-caption">生境图 · 阔叶/针阔混交林地面散生至群生 / 苔藓落叶层中金黄一片</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-apricot"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖半球形至纽扣状，边缘强烈内卷呈筒状；整体深蛋黄色至金黄色，表面光滑，质地细腻；
+          假菌褶此时短小，仅在菌柄顶端呈浅脊状；菌柄粗壮，实心，与菌盖近同色；
+          杏桃香气已十分明显；肉质洁白致密，富含水分，弹性好。此期品质最佳，市售高档品多取此期。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐平展，边缘开始波浪状起伏、不规则；直径4–8cm；颜色由深金黄略微变淡，呈蛋黄至奶油黄；
+          假菌褶充分发育，清晰的叉状棱脊从菌盖边缘延伸并明显延生至菌柄上部，肉眼可见叉分结构；
+          菌柄向下渐细或等粗，表面光滑，淡黄至奶油白；孢子开始成熟。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展乃至中央下陷如漏斗状，边缘强烈波浪卷曲、不规则裂开；直径可达10–15cm；
+          颜色趋于奶油黄至淡黄，雨后或老熟个体色泽变淡；假菌褶延生明显，棱脊更粗钝，色与菌盖同；
+          孢子印淡黄至奶油白；菌肉受损后缓慢变为淡橙黄，无剧烈变色；
+          香气在成熟后仍浓郁，但肉质变韧，老化后逐渐失水变轻。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-apricot"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-gold">菌盖蛋黄/金黄→奶油黄</span>
+          <span class="tag tag-gold">假菌褶同色略深橙黄</span>
+          <span class="tag tag-stone">菌肉白至淡黄</span>
+          <span class="tag tag-stone">受伤缓慢变淡橙</span>
+          <span class="tag tag-stone">孢子印淡黄/奶油白</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">半球→漏斗状（径3–15cm）</span>
+          <span class="tag tag-stone">边缘波浪卷曲、不规则</span>
+          <span class="tag tag-apricot">假菌褶：叉状棱脊，延生</span>
+          <span class="tag tag-stone">菌柄实心，等粗或基部渐细</span>
+          <span class="tag tag-stone">无菌环，无菌托</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">强烈杏桃/水蜜桃香气</span>
+          <span class="tag tag-moss">轻微花香底调</span>
+          <span class="tag tag-moss">熟制后复合果香+鸡肉香</span>
+          <span class="tag tag-stone">无刺激性，极为愉悦</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">幼时细嫩，肉质饱满</span>
+          <span class="tag tag-moss">熟制后：微辣爽口，果香浓郁</span>
+          <span class="tag tag-stone">生食微辣（含辣味素）</span>
+          <span class="tag tag-stone">老熟后韧性增加</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-apricot"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr>
+            <th>部位</th>
+            <th>形态描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖表皮</td>
+            <td>干燥，光滑，无鳞片；幼时深金黄，成熟后奶油黄；边缘幼时内卷，成熟后波浪状强烈起伏，常不规则开裂；表皮薄，易与菌肉分离</td>
+          </tr>
+          <tr>
+            <td>假菌褶</td>
+            <td>鸡油菌目最关键特征：<strong>非真正菌褶，而是叉状分枝的棱脊状结构</strong>，从菌盖表面自然延伸并延生至菌柄上部；颜色与菌盖相近或略深橙黄；质地钝厚坚韧，手触感如橡皮，不可单独剥离；横截面呈楔形（区别于真菌褶的刀片形）</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色至淡黄色，质地致密，肉厚；受伤后缓慢变淡橙黄，无剧烈变色；气味芳香，富含果香类挥发物（1-辛烯-3-醇等）；不含已知毒素</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>3–8cm × 1–3cm；实心，质地坚韧；颜色与菌盖近同，淡黄至奶油白；光滑，无鳞片；与菌盖之间无明显界限（因假菌褶延生而连续过渡）</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>椭圆形，7–11 × 4.5–6μm；表面光滑，无色至淡黄；孢子印淡黄至奶油白色</td>
+          </tr>
+          <tr>
+            <td>菌环 / 菌托</td>
+            <td>均无（与鹅膏属、蜜环菌的重要区别）</td>
+          </tr>
+          <tr>
+            <td>生化成分</td>
+            <td>富含维生素D（日晒后含量极高）、维生素B群、β-胡萝卜素；含辣味素（生食略辣，熟制消失）；干燥或冷冻后香气部分保留；不含鹅膏毒素、奥来毒素等已知危险毒素</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识三要素</div>
+      <ul class="distinction-list">
+        <li><strong>假菌褶（非真菌褶）</strong>：手触钝厚如橡皮棱脊，叉状分枝，与菌盖连续延生至菌柄，不可单独剥离——真菌褶薄如刀片可轻松剥离，是最一眼的区别</li>
+        <li>全株<strong>蛋黄/金黄色</strong>，质地整体一致，无鳞片，无菌环，无菌托；气味强烈芳香，非土腥气</li>
+        <li><strong>孢子印淡黄至奶油白色</strong>（区别于危险混淆种：绿褶菇为绿色；丝膜菌为锈褐；毒环柄菇为锈褐）</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">假菌褶触感测试</div>
+        <div style="font-size:13px;color:var(--ink-mid)">用指甲轻划：<strong>鸡油菌假褶厚钝，刮不断，感觉像软橡皮</strong>；有毒的卷边桩菇（毒桩菇）或鸡油菌近似种则有真菌褶，薄而锐利，指甲可清晰分开单片</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">香气辅助判断</div>
+        <div style="font-size:13px;color:var(--ink-mid)">真正的鸡油菌杏桃香气显著且持续；危险混淆种<strong>橙黄丝盖伞</strong>（<em>Inocybe aurantiaca</em>）无果香，有土腥/霉味，可辅助排除；但香气仅作参考，孢子印是铁证</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 桔黄裸伞 / 橙色鳞伞 <em>Cortinarius sp. / Omphalotus olearius</em>（杰克灯笼菇）</div>
+        <div class="confusion-diff">杰克灯笼菇颜色橙黄近似，但有真正的刀片状菌褶，菌褶在黑暗中发出绿色荧光；丛生于橄榄树或橡树根际（非散生地面）；食后引起严重胃肠炎，需严格区别</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 橙黄丝盖伞 <em>Inocybe aurantiaca</em></div>
+        <div class="confusion-diff">颜色橙黄相近，体型较小；区别：有真正菌褶（薄而密），孢子印褐色，具丝盖伞属特有的土腥/霉臭气味，无果香；含毒蝇碱，中毒症状为副交感神经兴奋（流涎、出汗、瞳孔缩小）</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">绒边小鸡油菌 <em>Cantharellus friesii</em> / 淡色鸡油菌 <em>C. pallens</em></div>
+        <div class="confusion-diff">同属近缘种，整体形态相近；绒边小鸡油菌体型更小（径1–4cm），菌盖橙色调更深，边缘绒毛感；淡色鸡油菌色更淡；均可食，口味略逊于正品鸡油菌；采集无安全风险</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">假鸡油菌 <em>Hygrophoropsis aurantiaca</em>（橙黄湿伞）</div>
+        <div class="confusion-diff">外形最相近的混淆种：同为橙黄色，帽形相似，但区别在于：<strong>有真正薄而密的菌褶，菌褶橙色深于菌盖，可多次叉分但质感薄锐</strong>，气味无杏桃香；少量食用可引起轻度胃肠不适，不宜食用</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「蛋黄色，假菌褶，杏桃香——三合一才是真鸡油」</div>
+        <div class="memory-pill">「指甲刮不断是假褶，刮得断快放手」</div>
+        <div class="memory-pill">「无环无托散生地，欧洲厨房金疙瘩」</div>
+        <div class="memory-pill">「孢子印奶黄色，安心」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生至散生，偶小群生；不形成明显蘑菇圈；常见于苔藓层或深厚落叶层中，雨后3–5天出菇；同一地点年年可见（菌根稳定），资深采集者多有"保密菌点"</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 共生树种</div>
+        <div class="habitat-value">严格外生菌根菌，无法人工栽培；共生树种广泛：欧洲以山毛榉、橡树、云杉、冷杉为主；中国以栎类（柞树）、松类、冷杉、云杉等为主；喜湿润排水良好的林地</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">北半球广布：欧洲全域（东欧产量最大，波兰、立陶宛为出口主力）；亚洲：中国（云南、四川、西藏、东北、华北）、日本、朝鲜；北美亦有近似种；非洲有少量记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">欧洲：6–10月，夏秋均可；中国云南：6–9月（雨季）；东北：7–9月；适应海拔200–3500m；中高海拔针阔混交林品质最佳，香气更浓</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：采集时注意确认假菌褶（非真菌褶）、果香气味、淡黄孢子印三要素；云南市场有大量商业销售，购买时注意排除假鸡油菌混入；保存以纸袋冷藏为宜，勿用塑料袋闷存。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值 · 烹饪</div>
+        <div class="value-body">欧洲顶级食用菌；适合黄油煎、奶油炖、配蛋或鸡肉；中国常用于炒食、煲汤、与火腿同炒；干燥或冷冻后风味有所损失，以新鲜食用最佳；幼嫩期肉质最细腻，老熟后韧而微苦</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">营养与保健</div>
+        <div class="value-body">富含维生素D2（阳光照射后含量倍增）、维生素C、铁、钾；β-胡萝卜素含量在食用菌中突出（赋予金黄色）；含多糖及抗氧化成分；热量低，适合减重饮食；传统医学用于明目、补益</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">经济价值</div>
+        <div class="value-body">全球重要野生食用菌商品；年产数万吨，欧洲出口额数亿欧元；无法人工栽培，价格长年高企（鲜品30–200元/公斤因产地季节而异）；中国云南、四川为主要出口产区</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">与宿主树木形成互利菌根共生，促进森林养分循环；对土壤理化性质敏感，是林地生态健康的指示物种；气候变化导致欧洲部分地区鸡油菌出菇时间提前、产量波动，受到生态学家关注</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Cantharellus_cibarius" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E9%B8%A1%E6%B2%B9%E8%8F%8C" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://www.sciencedirect.com/science/article/pii/S0308814621002314" target="_blank">营养成分研究</a>
+    </div>
+    <div>IUCN LC · 广布种 · DNA条形码已测序</div>
+  </div>
+
+</div>
+</body>
+</html>
