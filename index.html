@@ -412,7 +412,7 @@
     每一种蘑菇都会留下可供核实的证据——外形、生长阶段、孢子印颜色，甚至误食后的中毒记录。这里按统一档案格式收录野外可能遇到的物种，方便你在见到相似蘑菇时快速比对查证。比对结果仅用于学习与安全识别，<strong>绝不能作为食用依据</strong>。
   </p>
   <div class="hero__meta">
-    <span>标本编号 <b>NO.001–006</b></span>
+    <span>标本编号 <b>NO.001–012</b></span>
     <span>持续收录中</span>
     <span>仅供学习识别 · 请勿采食</span>
   </div>
@@ -492,14 +492,19 @@ const TAXONOMY = {
     {key:'suillaceae',   label:'乳牛肝菌科'},
     {key:'physalacriaceae', label:'小奥德蘑科'},
     {key:'ganodermataceae', label:'灵芝科'},
-    {key:'marasmiaceae',    label:'小皮伞科'}
+    {key:'marasmiaceae',    label:'小皮伞科'},
+    {key:'cortinariaceae',  label:'丝膜菌科'},
+    {key:'cantharellaceae', label:'鸡油菌科'}
   ],
   habitat: [
     {key:'saprotroph', label:'腐生 · 草坪堆肥'},
     {key:'ecm_pine',   label:'外生菌根 · 松科'},
     {key:'ecm_oak',    label:'外生菌根 · 壳斗科'},
     {key:'ecm_larch',  label:'外生菌根 · 落叶松'},
-    {key:'wood_saprotroph', label:'腐生 · 枯木木材'}
+    {key:'wood_saprotroph', label:'腐生 · 枯木木材'},
+    {key:'leaf_saprotroph', label:'腐生 · 枯叶落枝'},
+    {key:'ecm_broadleaf',   label:'外生菌根 · 阔叶树'},
+    {key:'wood_parasite',   label:'寄生 / 腐生 · 树木根际'}
   ]
 };
 
@@ -668,6 +673,60 @@ const mushrooms = [
   image:'https://eumensides.github.io/mashroom/Marasmiellus_androsaceiformis0.png',
 
   url:'https://eumensides.github.io/mashroom/Marasmiellus_androsaceiformis.html'
+},
+  {
+  no:'010',
+  nameZh:'紫丝膜菌',
+  nameLatin:'Cortinarius purpureus',
+  author:'(Bull.) Bidaud, Moënne-Locc. & Reumaux, 1994',
+  commonNames:['紫色丝膜菌','紫晶丝膜菌','Violet webcap'],
+  family:'cortinariaceae',
+  familyLabel:'丝膜菌科 Cortinariaceae',
+  genus:'丝膜菌属 Cortinarius',
+  toxicity:'unknown',
+  spore:'yellowbrown',
+  sporeLabel:'锈褐色',
+  habitats:['ecm_pine','ecm_broadleaf'],
+  blurb:'通体笼罩深紫色的丝膜菌，幼时菌盖、菌褶、菌肉均呈浓郁紫罗兰色，是色彩最鲜艳的菌根菌之一。',
+  keyClue:'辨识关键：全株深紫色，菌柄上残留蛛网状紫色丝膜痕迹，成熟后孢子印锈褐色落于菌褶。',
+  image:'https://eumensides.github.io/mashroom/Cortinarius_purpureus0.png',
+  url:'https://eumensides.github.io/mashroom/Cortinarius_purpureus.html'
+},
+  {
+  no:'011',
+  nameZh:'蜜环菌',
+  nameLatin:'Armillaria mellea',
+  author:'(Vahl) P.Kumm., 1871',
+  commonNames:['榛蘑','蜜色环柄菇','小蜜环菌','Honey fungus','Honey mushroom','Armillariella mellea'],
+  family:'physalacriaceae',
+  familyLabel:'小奥德蘑科 Physalacriaceae',
+  genus:'蜜环菌属 Armillaria',
+  toxicity:'edible',
+  spore:'white',
+  sporeLabel:'白色至奶油白',
+  habitats:['wood_parasite','wood_saprotroph'],
+  blurb:'东北"榛蘑"的真身，秋雨过后成百上千株丛生于腐木根际，地下黑色菌索可在暗处微微发光。旧学名 Armillariella mellea 为同一物种的异名。',
+  keyClue:'辨识关键：蜜黄菌盖中央密布暗褐鳞片，菌柄中上部具显著白色膜质菌环，白色孢子印（区别于伴生剧毒的锈褐孢子印毒环柄菇）。',
+  image:'https://eumensides.github.io/mashroom/Armillariella_mellea0.png',
+  url:'https://eumensides.github.io/mashroom/Armillariella_mellea.html'
+},
+  {
+  no:'012',
+  nameZh:'鸡油菌',
+  nameLatin:'Craterellus cibarius',
+  author:'(Fr.) Courtec. & Caballero, 2013',
+  commonNames:['黄色鸡油菌','杏黄菌','Chanterelle','Pfifferling'],
+  family:'cantharellaceae',
+  familyLabel:'鸡油菌科 Cantharellaceae',
+  genus:'喇叭菌属 Craterellus',
+  toxicity:'edible',
+  spore:'white',
+  sporeLabel:'淡黄至奶油白色',
+  habitats:['ecm_pine','ecm_oak','ecm_broadleaf'],
+  blurb:'欧洲与东亚最受珍视的野生食用菌之一，卵黄色子实体散发淡杏仁果香，是高端餐厅的明星食材。',
+  keyClue:'辨识关键：真菌褶退化为脊状假褶（非刀片状薄褶），用手指可顺着假褶纵向抚摸而无破裂感；整体杏黄橙色，菌肉断面白色。',
+  image:'https://eumensides.github.io/mashroom/Craterellus_cibarius0.png',
+  url:'https://eumensides.github.io/mashroom/Craterellus_cibarius.html'
 }
 ];
 
