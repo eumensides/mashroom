@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长裙竹荪 · Dictyophora indusiata</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食珍品：象牙白/蕾丝调，呼应其精致网纱裙摆 */
+    --ink: #1e1a14;
+    --ink-mid: #463c2e;
+    --ink-light: #8a8070;
+
+    --cream: #fbf8f0;
+    --surface: #ffffff;
+    --surface-warm: #fdfcf6;
+
+    /* 象牙白主色（菌裙） */
+    --ivory: #c4a86e;
+    --ivory-light: #e8d8ac;
+    --ivory-pale: #faf3e0;
+    --ivory-mid: #8a6e34;
+
+    /* 竹绿（生境标记：竹林） */
+    --bamboo: #5a7a3e;
+    --bamboo-light: #94b878;
+    --bamboo-pale: #eef4e6;
+
+    /* 菌帽墨绿孢液色（顶部臭味孢子液特征色） */
+    --spore-olive: #6e6e34;
+    --spore-olive-light: #a3a368;
+    --spore-olive-pale: #f0f0e0;
+
+    /* 暖灰棕 */
+    --stone: #6e6048;
+    --stone-light: #a3967e;
+
+    --warn: #9c5818;
+    --warn-light: #d99850;
+    --warn-pale: #fbf0de;
+
+    --border: rgba(150,120,40,0.13);
+    --border-mid: rgba(150,120,40,0.23);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--ivory-mid);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #ece0c0;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,16,4,0.7));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(244,232,200,0.88); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ivory-mid); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px; font-weight: 700; line-height: 1.2;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--ivory-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-ivory  { background: var(--ivory-pale);  color: var(--ivory-mid); }
+  .tag-bamboo { background: var(--bamboo-pale); color: var(--bamboo); }
+  .tag-olive  { background: var(--spore-olive-pale); color: var(--spore-olive); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-stone  { background: #f0ead8;            color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-ivory  { background: var(--ivory); }
+  .dot-bamboo { background: var(--bamboo); }
+  .dot-olive  { background: var(--spore-olive); }
+  .dot-stone  { background: var(--stone-light); }
+  .dot-warn   { background: var(--warn); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ── PHOTO LAYOUT ── */
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot {
+    aspect-ratio: 4/3; background: #e4d4a8; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot-wide {
+    aspect-ratio: 16/7; background: #e4d4a8; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(20,16,4,0.72); color: #f4e8c8;
+    font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  /* ── GROWTH PHASES ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--bamboo-pale); color: var(--bamboo); }
+  .phase-mid    { background: var(--ivory-pale);  color: var(--ivory-mid); }
+  .phase-mature { background: var(--spore-olive-pale); color: var(--spore-olive); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--ivory-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── 特别注意栏 ── */
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(156,88,24,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a2c08; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  /* ── DISTINCTION BOX ── */
+  .distinction-box { background: var(--bamboo-pale); border: 1px solid rgba(90,122,62,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--bamboo); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #243a16; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--bamboo); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  /* ── CONFUSION TABLE ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--ivory-light);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.danger { border-left-color: #e07060; background: #fdf3ee; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  /* ── MEMORY ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--ivory-pale); border: 1px solid rgba(196,168,110,0.3); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--ivory-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── HABITAT ── */
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  /* ── VALUE CARDS ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 特色展示条 ── */
+  .rhizomorph-bar {
+    background: linear-gradient(135deg, #f0dfb0, #fdf8ec);
+    border: 1px solid rgba(196,168,110,0.32); border-radius: 12px; padding: 18px 20px;
+    margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ivory-mid); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  /* ── 蛋孵化展开过程演示 ── */
+  .latex-demo {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; margin-bottom: 10px;
+  }
+  .latex-step { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
+  .latex-swatch { width: 38px; height: 38px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.08); }
+  .latex-label { font-size: 11px; color: var(--ink-mid); text-align: center; line-height: 1.4; }
+  .latex-arrow { color: var(--stone-light); font-size: 18px; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light);
+  }
+  .ref-link { color: var(--ivory-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .rhizomorph-bar { grid-template-columns: 1fr; }
+    .latex-demo { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🤍 可食用珍品 · "菌中皇后" · 食用前需去除墨绿色孢子液头部
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Dictyophora_indusiata0.png" alt="长裙竹荪主图">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Dictyophora indusiata · 洁白网纱长裙自菌帽垂下，竹林中亭亭玉立</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 鬼笔科（竹荪属）</div>
+    <div class="hero-name-zh">长裙竹荪</div>
+    <div class="hero-name-la">Dictyophora indusiata</div>
+    <div class="hero-author">(Vent.) Desv., 1809</div>
+
+    <div class="tag-row">
+      <span class="tag tag-ivory">食用珍品 · 菌中皇后</span>
+      <span class="tag tag-ivory">网纱长裙（标志特征）</span>
+      <span class="tag tag-bamboo">竹林共生</span>
+      <span class="tag tag-olive">顶部墨绿孢子液</span>
+      <span class="tag tag-stone">出菇极快（数小时）</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">竹荪 / 竹笙 / 网纱菌 / 菌中皇后</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Bamboo Mushroom / Veiled Lady / Bridal Veil Fungus</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">鬼笔目 / Phallaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">部分地区受保护 · 人工栽培已普及</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="rhizomorph-bar">
+      <div class="rh-item">
+        <span class="rh-label">标志结构：网纱菌裙</span>
+        <span class="rh-value">成熟时从菌帽下方垂下一圈洁白精致的网眼状裙摆（菌幕），可延伸至菌柄中下部，是竹荪属（<em>Dictyophora</em>）区别于其他鬼笔科物种的核心特征，也是"长裙"之名的由来</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">惊人生长速度</span>
+        <span class="rh-value">从菌蛋破裂到完全展开菌裙，<strong>整个过程仅需2–4小时</strong>，是已知生长速度最快的大型真菌之一，清晨观察常可见其肉眼可察的伸展</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">食用地位</span>
+        <span class="rh-value">中国传统名贵食材，自古即为宫廷贡品及高端宴席用菌，现已实现规模化人工栽培，是"四大山珍"之一</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ivory"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Dictyophora_indusiata1.png" alt="上方菌盖图">
+        <div class="photo-caption">上方菌盖图 · 钟形网格状菌帽 / 顶部覆墨绿色孢子液</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Dictyophora_indusiata2.png" alt="45°仰拍图">
+        <div class="photo-caption">45° 仰拍 · 洁白网纱裙摆垂落 / 菌柄中空雪白挺立</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Dictyophora_indusiata3.png" alt="剖面图">
+        <div class="photo-caption">剖面 · 菌柄中空海绵状，菌托残留于基部</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Dictyophora_indusiata4.png" alt="管面图">
+        <div class="photo-caption">菌裙网眼特写 · 精致网格如蕾丝纱裙，孔径均匀</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Dictyophora_indusiata5.png" alt="孢子印图">
+        <div class="photo-caption">孢子液 · 墨绿色黏液状（依靠昆虫传播孢子，无传统孢子印）</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Dictyophora_indusiata6.png" alt="特殊细节图">
+        <div class="photo-caption">细节 · 菌蛋破裂瞬间，菌体从卵状包被中伸出特写</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Dictyophora_indusiata7.png" alt="生境图">
+      <div class="photo-caption">生境图 · 竹林腐殖土层中清晨群生，薄雾中网裙若隐若现</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-bamboo"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">菌蛋期</div>
+        <div class="phase-desc">
+          子实体最初呈卵形至球形的"菌蛋"，直径3–6cm，外包白色至浅褐色厚实包被（外菌幕），质地坚韧似鸟蛋；
+          内部胶质层包裹尚未伸展的菌体，剖开可见网纱状结构已雏形可辨，呈紧密折叠状；
+          此阶段尚无明显气味，是采集加工的重要节点之一（部分地区有食用菌蛋的传统）。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">破壳伸展期</div>
+        <div class="phase-desc">
+          菌蛋顶部破裂，菌柄迅速向上伸展，可在<strong>1–2小时内长至10–15cm</strong>；菌柄洁白中空，呈海绵状蜂窝结构，质地轻盈；
+          菌帽呈钟形，表面具网格状凸起，顶部逐渐分泌墨绿色黏液状孢子液，散发特殊气味以吸引昆虫；
+          菌裙开始从菌帽下方舒展垂下，肉眼可见的展开速度令人惊叹。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">盛放期</div>
+        <div class="phase-desc">
+          菌裙完全展开，呈精致网眼状裙摆，可垂至菌柄中下部，洁白如蕾丝，是观赏与食用价值最高的阶段；
+          菌帽顶部墨绿色孢子液继续散发气味吸引蝇类等昆虫前来沾附孢子传播；
+          此状态通常仅<strong>维持数小时</strong>，随后菌裙开始萎缩塌软、菌体逐渐倒伏腐解，生命周期极为短暂。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ivory"></span>
+      <span class="section-title">感官细分</span>
+      <span class="section-badge">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-ivory">菌柄菌裙：洁白如雪</span>
+          <span class="tag tag-olive">菌帽顶部：墨绿色孢子液</span>
+          <span class="tag tag-stone">菌蛋包被：白色至浅褐</span>
+          <span class="tag tag-stone">菌托：灰白色残留</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-ivory">菌帽：钟形，网格状凸起</span>
+          <span class="tag tag-bamboo">菌柄：中空圆柱形，海绵质感</span>
+          <span class="tag tag-ivory">菌裙：精致网眼状，自然垂落</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-olive">孢子液：腐臭味（吸引昆虫）</span>
+          <span class="tag tag-ivory">菌柄菌裙：去除孢子液后清香</span>
+          <span class="tag tag-stone">干制后：独特菌香浓郁</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-bamboo">脆嫩爽滑，质地独特</span>
+          <span class="tag tag-bamboo">滋味清雅，吸汤性强</span>
+          <span class="tag tag-bamboo">常用于煲汤提鲜增香</span>
+          <span class="tag tag-stone">干制品需充分泡发</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.5 菌蛋展开过程演示 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-bamboo"></span>
+      <span class="section-title">破蛋展开过程</span>
+      <span class="section-badge">惊人生长速度</span>
+    </div>
+    <div class="latex-demo">
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#e8dcc0;"></div>
+        <div class="latex-label">凌晨<br>菌蛋静止待发</div>
+      </div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#d4c490;"></div>
+        <div class="latex-label">破壳瞬间<br>菌柄迅速顶出</div>
+      </div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#f0ece0;"></div>
+        <div class="latex-label">1–2小时<br>菌裙快速展开</div>
+      </div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#6e6e34;"></div>
+        <div class="latex-label">数小时后<br>盛放期短暂即逝</div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--ink-light);padding:0 4px;">
+      ⚠ 竹荪盛放期极为短暂，通常出现在<strong>清晨至上午</strong>，过午后菌裙便开始萎缩倒伏；摄影爱好者及采集者若想记录或采集最佳形态，建议在<strong>日出后1–3小时内</strong>前往观察。
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-bamboo"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌蛋（初期）</td><td>卵形至近球形，直径3–6cm，外被白色至浅褐色厚实胶质包被；剖开可见已折叠雏形的网纱结构及菌柄</td></tr>
+          <tr><td>菌帽</td><td>钟形，高2.5–4cm，表面具明显网格状凸起纹理；顶部覆盖墨绿色黏液状孢子液，散发特殊气味以吸引昆虫传播孢子</td></tr>
+          <tr><td>菌裙（菌幕）</td><td><strong>本种最具辨识度的结构</strong>——白色精致网眼状裙摆，自菌帽下方边缘展开下垂，长可达10–20cm，孔径均匀如蕾丝纱网，是竹荪属的标志特征</td></tr>
+          <tr><td>菌柄</td><td>10–20cm × 2–3cm；圆柱形，洁白，中空且呈海绵状蜂窝结构，质地轻盈而有韧性</td></tr>
+          <tr><td>菌托</td><td>基部残留紫灰色至浅褐色杯状菌托（菌蛋外被破裂后的残余部分），与鹅膏属菌托形态略有相似但质地不同</td></tr>
+          <tr><td>孢子液</td><td>墨绿色黏稠液体，附着于菌帽表面网格凹陷处，具强烈腐臭气味；依靠蝇类等昆虫沾附传播孢子，而非依靠风力或孢子印散落</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-bamboo"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li><strong>洁白网纱长裙</strong>自菌帽下垂落，长度可达菌柄中下部，是全属及全科中辨识度最高的形态特征</li>
+        <li>菌帽顶部覆盖<strong>墨绿色孢子液</strong>并散发腐臭气味，依靠昆虫而非风力传播孢子（鬼笔科共有特征）</li>
+        <li>从菌蛋破壳到完全展开<strong>仅需2–4小时</strong>，是已知生长速度最快的大型真菌之一</li>
+        <li>专一伴生于<strong>竹林</strong>腐殖质土壤，多见于竹根周边落叶堆积处，离开竹林环境的野生个体较为罕见</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用提示</div>
+      <ul class="caution-list">
+        <li>食用前必须<strong>去除菌帽及墨绿色孢子液部分</strong>（气味强烈且口感不佳），仅取洁白的菌柄与菌裙部分食用</li>
+        <li>菌蛋期个体也可食用，但需彻底清洗去除外层包被的胶质层</li>
+        <li>新鲜竹荪不易保存，传统多制成<strong>干制品</strong>，食用前需充分泡发；干制过程会大幅增强其特殊菌香</li>
+        <li>本种本身无毒性风险，但采集时仍建议确认生境（竹林）及形态特征，避免与鬼笔科其他罕见物种混淆</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与短裙竹荪的区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">短裙竹荪（<em>Dictyophora duplicata</em>）菌裙<strong>明显更短</strong>，通常仅垂至菌帽下方数厘米，不及菌柄一半长度；长裙竹荪菌裙可垂至菌柄中下部，二者主要依靠菌裙长度区分</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与普通鬼笔区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">普通鬼笔（<em>Phallus impudicus</em>）等近缘种<strong>无网纱菌裙结构</strong>，仅有菌帽与菌柄，外观相对朴素；是否具菌裙是竹荪属与其他鬼笔科属最直观的区分点</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">短裙竹荪 <em>Dictyophora duplicata</em></div>
+        <div class="confusion-diff">同属近缘种，外观高度相似，主要区别在于菌裙长度——短裙竹荪菌裙明显较短，仅垂至菌帽附近；二者均可食用，市场上有时会混称</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">红托竹荪 <em>Dictyophora rubrovolvata</em></div>
+        <div class="confusion-diff">中国西南特有的近缘种，主要区别在于菌托（菌蛋外被）呈<strong>玫瑰红色至紫红色</strong>，而非长裙竹荪的灰白色菌托；同样是名贵食用菌，市场上常与长裙竹荪一同售卖</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">普通鬼笔 <em>Phallus impudicus</em></div>
+        <div class="confusion-diff">同科近缘种，但<strong>无网纱菌裙</strong>，仅具菌帽与菌柄，外观相对朴素；同样依靠墨绿色孢子液吸引昆虫传播，气味更为浓烈，在欧洲分布广泛</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或散生，偶见群生，菌蛋常埋藏于落叶腐殖层下，破壳后单日内即完成整个生命周期，需把握采集时机</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 共生关系</div>
+        <div class="habitat-value">腐生菌，与竹林关系密切，主要分解竹根及周边富含纤维素的腐殖质土壤；野生个体多见于阴湿、排水良好的竹林地表落叶堆积处</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">原产于东亚及东南亚热带、亚热带地区，中国西南（四川、云南、贵州）及华南竹林广布；现已实现规模化人工栽培，全国多地均有种植基地</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">野生竹荪多见于夏秋季（6–9月）雨后竹林；人工栽培可实现周年生产；野生分布以中低海拔竹林为主；清晨日出后是采集盛放期个体的最佳时段</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：野生竹荪生命周期极短，建议在清晨日出后1–3小时内前往竹林观察采集，过晚菌裙易萎缩塌软影响品质；采集后应及时去除孢子液部分并清洗，避免长时间放置产生异味。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ivory"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">中国传统名贵食材，自古为宫廷贡品，现为"竹荪炖鸡""竹荪汤"等经典菜肴的主料；质地脆嫩爽滑，吸汤性极强，是高端宴席及养生汤品的常用食材</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">营养与药用价值</div>
+        <div class="value-body">富含多糖、氨基酸及多种维生素，传统中医认为其具有滋阴润肺、健脾益气等功效；现代研究关注其多糖成分的免疫调节及抗氧化活性</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">经济与产业价值</div>
+        <div class="value-body">人工栽培技术成熟，中国西南、华南多地已形成规模化竹荪种植产业，是重要的山区经济作物及精准扶贫特色产业之一</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">观赏与科普价值</div>
+        <div class="value-body">因其形态优雅独特、生长过程极具观赏性，是自然摄影及真菌科普的热门题材，"菌中皇后"之美誉广为流传，常用于展示真菌世界的奇妙多样性</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Phallus_indusiatus" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E7%AB%B9%E8%8D%AA" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://www.indexfungorum.org/" target="_blank">Index Fungorum</a>
+    </div>
+    <div>菌中皇后 · 中国传统名贵食材 · 人工栽培已普及</div>
+  </div>
+
+</div>
+</body>
+</html>
