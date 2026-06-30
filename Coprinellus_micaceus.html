@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>晶粒小鬼伞 · Coprinellus micaceus</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：轻盈柔和，蜜金/云母调（呼应菌盖表面闪烁的云母状颗粒） */
+    --ink: #221c0c;
+    --ink-mid: #4d4220;
+    --ink-light: #8c7f5c;
+
+    --cream: #fdf9ee;
+    --surface: #ffffff;
+    --surface-warm: #fefbf2;
+
+    /* 蜜金主色 */
+    --gold: #c2872a;
+    --gold-light: #e8bb6c;
+    --gold-pale: #faedce;
+    --gold-mid: #8a5e14;
+
+    /* 云母银灰（菌盖颗粒特征色） */
+    --mica: #9a9478;
+    --mica-light: #c8c2a4;
+    --mica-pale: #f4f2e8;
+
+    /* 墨色（自溶液化警示） */
+    --ink-dark: #3a3424;
+    --ink-dark-light: #6e6650;
+    --ink-dark-pale: #ece8d8;
+
+    /* 暖灰棕 */
+    --stone: #6e5e3e;
+    --stone-light: #a39470;
+
+    --warn: #9c6010;
+    --warn-light: #d99a3a;
+    --warn-pale: #fcf0d8;
+
+    --border: rgba(160,120,20,0.12);
+    --border-mid: rgba(160,120,20,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--gold);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #ede0bc;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(22,18,4,0.7));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(250,232,190,0.88); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gold-mid); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px; font-weight: 700; line-height: 1.2;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--gold-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-gold { background: var(--gold-pale); color: var(--gold-mid); }
+  .tag-mica { background: var(--mica-pale); color: var(--mica); }
+  .tag-dark { background: var(--ink-dark-pale); color: var(--ink-dark); }
+  .tag-warn { background: var(--warn-pale); color: var(--warn); }
+  .tag-stone { background: #f1ecda; color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-gold { background: var(--gold); }
+  .dot-mica { background: var(--mica); }
+  .dot-dark { background: var(--ink-dark-light); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-warn { background: var(--warn); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ── PHOTO LAYOUT ── */
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot {
+    aspect-ratio: 4/3; background: #e8d4a0; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot-wide {
+    aspect-ratio: 16/7; background: #e8d4a0; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(22,18,4,0.72); color: #f7e8c4;
+    font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  /* ── GROWTH PHASES ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--mica-pale);  color: var(--mica); }
+  .phase-mid    { background: var(--gold-pale);  color: var(--gold-mid); }
+  .phase-mature { background: var(--ink-dark-pale); color: var(--ink-dark); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--gold-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── 特别注意栏 ── */
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(156,96,16,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a3008; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  /* ── DISTINCTION BOX ── */
+  .distinction-box { background: var(--mica-pale); border: 1px solid rgba(154,148,120,0.32); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--mica); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #3a3624; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--mica); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  /* ── CONFUSION TABLE ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold-light);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.danger { border-left-color: #e07060; background: #fdf3ee; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  /* ── MEMORY ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--gold-pale); border: 1px solid rgba(194,135,42,0.25); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--gold-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── HABITAT ── */
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  /* ── VALUE CARDS ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 特色展示条 ── */
+  .rhizomorph-bar {
+    background: linear-gradient(135deg, #f3e0ae, #fdf8ec);
+    border: 1px solid rgba(194,135,42,0.3); border-radius: 12px; padding: 18px 20px;
+    margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gold-mid); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  /* ── 自溶过程演示条 ── */
+  .latex-demo {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; margin-bottom: 10px;
+  }
+  .latex-step { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
+  .latex-swatch { width: 38px; height: 38px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.08); }
+  .latex-label { font-size: 11px; color: var(--ink-mid); text-align: center; line-height: 1.4; }
+  .latex-arrow { color: var(--stone-light); font-size: 18px; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light);
+  }
+  .ref-link { color: var(--gold-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .rhizomorph-bar { grid-template-columns: 1fr; }
+    .latex-demo { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  ✨ 可食用 · 朝生暮死，需当天采集当天食用 · 旧学名 Coprinus micaceus
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Coprinellus_micaceus0.png" alt="晶粒小鬼伞主图">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Coprinellus micaceus · 蜜黄色钟形菌盖，表面闪烁云母状细小颗粒</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 鬼伞科（小鬼伞属）</div>
+    <div class="hero-name-zh">晶粒小鬼伞</div>
+    <div class="hero-name-la">Coprinellus micaceus</div>
+    <div class="hero-author">(Bull.) Vilgalys, Hopple & Jacq. Johnson, 2001</div>
+
+    <div class="tag-row">
+      <span class="tag tag-gold">可食（趁鲜食用）</span>
+      <span class="tag tag-mica">云母状颗粒（标志特征）</span>
+      <span class="tag tag-dark">⏱ 朝生暮死 · 自溶液化</span>
+      <span class="tag tag-gold">丛生于腐木根际</span>
+      <span class="tag tag-stone">旧学名 Coprinus micaceus</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">晶粒鬼伞 / 云母鬼伞 / 毛头鬼伞（误称）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Mica Cap / Glistening Inkcap</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">蘑菇目 / Psathyrellaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">LC（无危）· 城乡环境极常见</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="rhizomorph-bar">
+      <div class="rh-item">
+        <span class="rh-label">标志特征：云母状颗粒</span>
+        <span class="rh-value">幼嫩菌盖表面覆盖一层细小、闪亮的云母状颗粒（外菌幕残留），在阳光下熠熠生辉，是中文名"晶粒"的由来，也是属内最具辨识度的视觉特征</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">生命周期极短</span>
+        <span class="rh-value">从破土而出到菌褶自溶液化、整株萎缩消失，<strong>全程往往不超过24小时</strong>，是真菌界生命周期最短暂的代表物种之一</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">命名变迁</span>
+        <span class="rh-value">早期归入鬼伞属，学名为 <em>Coprinus micaceus</em>；2001年依据分子系统学研究被转移至新设立的小鬼伞属 <em>Coprinellus</em></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Coprinellus_micaceus1.png" alt="上方菌盖图">
+        <div class="photo-caption">上方菌盖图 · 蜜黄褐色 / 表面密布云母状细颗粒 / 具放射状沟纹</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Coprinellus_micaceus2.png" alt="45°仰拍图">
+        <div class="photo-caption">45° 仰拍 · 钟形菌盖 / 菌柄纤细中空 / 基部丛生密集</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Coprinellus_micaceus3.png" alt="剖面图">
+        <div class="photo-caption">剖面 · 菌肉极薄，菌柄中空，质地脆弱易碎</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Coprinellus_micaceus4.png" alt="管面图">
+        <div class="photo-caption">褶面 · 幼时白色，迅速转黑并自溶为墨汁状液滴</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Coprinellus_micaceus5.png" alt="孢子印图">
+        <div class="photo-caption">孢子印 · 黑褐色至黑色（典型鬼伞类孢子印）</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Coprinellus_micaceus6.png" alt="特殊细节图">
+        <div class="photo-caption">细节 · 菌盖云母颗粒微距特写，阳光下闪烁如晶粒</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Coprinellus_micaceus7.png" alt="生境图">
+      <div class="photo-caption">生境图 · 城市行道树根际、腐木桩周边丛生密集景观</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-mica"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期（清晨）</div>
+        <div class="phase-desc">
+          菌盖卵形至钟形，未展开，高1.5–3cm；表面蜜黄褐色，密布细小闪亮的<strong>云母状颗粒</strong>（外菌幕残留物，触碰或雨水冲刷易脱落）；
+          边缘具明显放射状沟纹；菌褶白色，密集排列；菌柄细长中空，白色，表面光滑或具细绒毛；
+          菌肉极薄，质地脆弱，丛生于同一基部，常数十株密集簇拥。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">展开期（上午至中午）</div>
+        <div class="phase-desc">
+          菌盖逐渐展开呈钟形至斜钟形，直径可达2.5–4cm；云母颗粒因展开过程逐渐脱落减少；边缘沟纹更加深刻明显；
+          菌褶颜色开始由白转灰，靠近边缘处率先出现变化；
+          菌柄继续伸长，质地依然脆弱，整株仍保持挺立状态，是最佳的观察与采集窗口期。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">自溶期（傍晚至次日）</div>
+        <div class="phase-desc">
+          菌盖边缘开始<strong>自溶液化</strong>，菌褶从边缘向中心逐渐转黑并溶解为黑色墨汁状液滴向下滴落（鬼伞类典型的自溶现象，bell-shaped 至完全萎缩）；
+          整株菌盖边缘上翻、收缩、滴落黑色液体，最终仅剩菌柄顶端残留少许菌盖组织；
+          此过程通常在数小时内完成，是该属"朝生暮死"特性的直观体现，自溶后的个体不可再食用。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">感官细分</span>
+      <span class="section-badge">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-gold">菌盖：蜜黄褐色，中央色深</span>
+          <span class="tag tag-mica">表面颗粒：银灰至浅黄云母光泽</span>
+          <span class="tag tag-dark">菌褶：白 → 灰 → 黑（自溶过程）</span>
+          <span class="tag tag-dark">孢子印：黑褐色至黑色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-gold">菌盖：卵形→钟形→边缘上翻收缩</span>
+          <span class="tag tag-mica">菌柄：细长中空，质地脆弱</span>
+          <span class="tag tag-stone">边缘：放射状沟纹明显</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-gold">幼时清淡蘑菇香</span>
+          <span class="tag tag-stone">自溶期气味转浓略带腐味</span>
+          <span class="tag tag-stone">无刺激性异味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-gold">幼嫩期质地脆嫩</span>
+          <span class="tag tag-gold">滋味清淡略带坚果香</span>
+          <span class="tag tag-warn">⚠ 仅幼嫩未自溶个体可食</span>
+          <span class="tag tag-stone">需现采现做，不耐存放</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.5 自溶过程演示 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-dark"></span>
+      <span class="section-title">自溶液化过程</span>
+      <span class="section-badge">关键生命周期特征</span>
+    </div>
+    <div class="latex-demo">
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#f0e0a8;"></div>
+        <div class="latex-label">清晨破土<br>菌盖紧闭蜜黄色</div>
+      </div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#d4b878;"></div>
+        <div class="latex-label">上午展开<br>云母颗粒渐脱落</div>
+      </div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#8a7a5c;"></div>
+        <div class="latex-label">午后菌褶<br>边缘开始转灰黑</div>
+      </div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#2c2818;"></div>
+        <div class="latex-label">傍晚自溶<br>滴落黑色墨汁状液体</div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--ink-light);padding:0 4px;">
+      ⚠ 自溶（deliquescence）是鬼伞类真菌释放孢子的特殊机制——菌褶组织自我分解为黑色液体，借助液体流动辅助孢子扩散。<strong>食用须趁清晨至上午菌盖尚未开始转黑前采集</strong>，已自溶个体口感与食用价值均大幅下降，不建议食用。
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-mica"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>蜜黄褐色，中央色深；幼时密布<strong>云母状闪亮细颗粒</strong>（外菌幕残留），随生长及雨水冲刷逐渐脱落；边缘具深刻放射状沟纹，反映其下方菌褶的排列位置</td></tr>
+          <tr><td>菌褶</td><td>离生，排列极密；幼时白色，成熟后迅速由灰转黑，并自边缘向中心发生<strong>自溶液化</strong>，转变为黑色墨汁状液体</td></tr>
+          <tr><td>菌肉</td><td>极薄，几乎透明，质地脆弱易碎；气味清淡，幼嫩期略带坚果香气</td></tr>
+          <tr><td>菌柄</td><td>3–10cm × 0.3–0.6cm；圆柱形，中空，白色，表面光滑或具极细绒毛；质地脆弱，极易折断；基部多株丛生联合</td></tr>
+          <tr><td>菌环</td><td>无菌环</td></tr>
+          <tr><td>孢子</td><td>椭圆形，7–10 × 4–6μm；表面光滑，红褐色至黑褐色；<strong>孢子印黑褐色至黑色</strong>，是鬼伞类真菌的共同特征</td></tr>
+          <tr><td>自溶机制</td><td>菌褶组织中的自溶酶在孢子成熟后被激活，使细胞自我分解液化，形成黑色"墨汁"，是该属（曾统称鬼伞属）共有的孢子释放策略</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-mica"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>幼嫩菌盖表面覆盖<strong>闪亮的云母状细颗粒</strong>，在阳光下肉眼可见微微反光，是命名"晶粒"的直接来源</li>
+        <li>菌盖<strong>边缘具深刻放射状沟纹</strong>，几乎延伸至菌盖中央，沟纹深度在鬼伞类中较为显著</li>
+        <li>生命周期极短，菌褶会经历<strong>自溶液化</strong>，从白色到黑色墨汁状液体的转变可在数小时内完成</li>
+        <li>极擅<strong>密集丛生</strong>于腐木、树桩、埋木根际，单丛可达数十至上百株，常见于城市行道树周边</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用须知</div>
+      <ul class="caution-list">
+        <li>必须在<strong>菌褶尚未变黑、未开始自溶前</strong>（通常为清晨至上午）采集，过晚采集的个体口感与品质大幅下降</li>
+        <li>本种<strong>不耐保存</strong>，采集后应尽快烹饪食用，常温存放数小时即可能开始自溶，不适合冷藏隔夜</li>
+        <li>食用本种或同科其他鬼伞类真菌时，应避免同时饮酒——部分鬼伞属近缘种（如墨汁鬼伞）含<strong>鬼伞素</strong>，与酒精同食会引发"双硫仑样反应"（脸红、心悸、恶心等不适），晶粒小鬼伞本身此风险较低但仍建议谨慎</li>
+        <li>采集时应与其他鬼伞类近缘种仔细区分，确认云母状颗粒及生境特征后再食用</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与墨汁鬼伞的区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">墨汁鬼伞（<em>Coprinopsis atramentaria</em>）菌盖<strong>无云母状颗粒</strong>，整体更光滑灰褐，且含较高浓度鬼伞素，食用后饮酒风险显著更高；晶粒小鬼伞菌盖具特征性闪亮颗粒，且不与酒精同食风险相对更低</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与毛头鬼伞的区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">毛头鬼伞（<em>Coprinus comatus</em>，鸡腿菇）<strong>个体明显更大更粗壮</strong>，菌盖呈圆柱形而非钟形，表面具白色鳞片而非云母颗粒，二者体型差异显著，不易混淆</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">毛头鬼伞（鸡腿菇）<em>Coprinus comatus</em></div>
+        <div class="confusion-diff">同为鬼伞类丛生腐生菌，但体型明显更大（高可达15–25cm），菌盖呈圆柱状被覆白色鳞片而非云母颗粒；是更广受欢迎的栽培食用菌</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 墨汁鬼伞 <em>Coprinopsis atramentaria</em></div>
+        <div class="confusion-diff">外观与本种有相似之处，但<strong>菌盖无云母颗粒</strong>，整体更光滑；含较高浓度鬼伞素（coprine），食用后24–72小时内饮酒可引发明显不适反应，需特别留意区分并避免误食后饮酒</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">其他小鬼伞属近缘种（<em>Coprinellus</em> spp.）</div>
+        <div class="confusion-diff">属内存在多种形态相似的小型物种，部分种菌盖颗粒较少或缺失，野外区分需结合菌盖大小、沟纹深度及具体生境综合判断</div>
+      </div>
+    </div>
+
+    <!-- ── 分类地位说明板块 ── -->
+    <div style="margin-top:1.4rem;background:var(--gold-pale);border:1px solid rgba(194,135,42,0.30);border-radius:14px;overflow:hidden;">
+
+      <div style="background:var(--gold);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--mica);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--mica);margin-bottom:8px;">= 旧称（异名）</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Coprinus micaceus</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">(Bull.) Fr., 1838</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              20世纪及以前文献中广泛使用的学名，归入传统意义上的"鬼伞属"<em>Coprinus</em>（当时该属涵盖所有具自溶特性的物种）。
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--gold);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--gold-mid);margin-bottom:8px;">✓ 当前有效名</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Coprinellus micaceus</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">(Bull.) Vilgalys, Hopple & Jacq. Johnson, 2001</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              2001年分子系统学研究确认传统鬼伞属并非单系群，遂将其拆分为四个属：<em>Coprinus</em>（狭义，仅含毛头鬼伞等少数种）、<em>Coprinellus</em>、<em>Coprinopsis</em>、<em>Parasola</em>。本种因此转入新设立的 <em>Coprinellus</em> 属。
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">鬼伞类"大拆分"说明</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--gold);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>拆分背景：</strong>传统鬼伞属（<em>Coprinus</em> s.l.）依据"具自溶特性"这一形态特征归类，但分子系统学研究发现该属物种实际上分散在伞菌目中亲缘关系较远的多个分支，并非自然演化的单一类群（即"非单系"）。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--gold);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>本种的去向：</strong>晶粒小鬼伞与鬼伞科（Psathyrellaceae）内的近缘小型物种聚为一支，被归入新属 <em>Coprinellus</em>（小鬼伞属），与狭义的 <em>Coprinus</em>（含毛头鬼伞）分道扬镳。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--gold);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>文献检索提示：</strong><em>Coprinus micaceus</em> 与 <em>Coprinellus micaceus</em> 指代同一物种，老一辈真菌爱好者及旧版图鉴中仍常见旧学名，检索资料时两者可互通引用。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--mica-pale);border:1px solid rgba(154,148,120,0.32);border-left:4px solid var(--mica);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#3a3624;line-height:1.7;">
+          <strong>🍄 鉴定提示：</strong>遇到丛生于木材、具自溶特性的小型蘑菇时，先确认菌盖<strong>有无云母状颗粒</strong>初步区分本种；再结合体型大小排除毛头鬼伞；最后注意与无颗粒的墨汁鬼伞区分，避免食用后饮酒导致不适。
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「云母闪闪缀菌盖，沟纹深刻到中央」</div>
+        <div class="memory-pill">「朝生暮死墨汁滴，清晨采摘莫迟疑」</div>
+        <div class="memory-pill">「丛生密布腐木旁，孢子印黑认无妨」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">极擅密集丛生，单丛可达数十至上百株，紧密簇拥于同一基部；生长迅速，一夜之间可大量涌现，是城市环境中最常见的"一夜蘑菇"之一</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">木腐生，常见于埋木、腐烂树桩、枯死树根基部，尤其偏好已部分腐朽的阔叶树材；城市行道树根际、公园绿地、庭院草坪边缘均极常见</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">几乎遍布全球温带至亚热带地区，是世界上分布最广泛的蘑菇之一；中国各地城乡环境、欧美城市绿地中均极为常见</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">春至秋季均可出现，雨后1–2天内集中爆发，尤以春末及秋初最为旺盛；海拔适应范围广，平原至低山地区均有分布；务必清晨采集以保证品质</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：清晨或上午采集尚未自溶的幼嫩个体，采集后应在数小时内尽快食用；不建议批量采集存放，因其品质下降速度极快；城市环境采集时注意避开喷洒过农药或除草剂的绿化区域。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">幼嫩期质地脆嫩，滋味清淡略带坚果香，适合快炒或做汤；因极易自溶，市场上罕见销售，多为采集爱好者现采现食，是"分享当下"式食用体验的代表物种</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研价值</div>
+        <div class="value-body">是研究真菌细胞自溶（programmed cell death）机制的重要模式物种之一，其菌褶自溶过程涉及特定酶系统的精确时序激活，对发育生物学研究具参考价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为高效的木材分解者，在城市绿地及自然林分中加速腐木分解、促进养分循环，是城市生态系统中不可或缺的分解者类群之一</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科普教育价值</div>
+        <div class="value-body">因其常见、易识别、生命周期短且可现场观察自溶过程，是自然教育和真菌科普中最常用于演示"蘑菇生命周期"的示范物种之一</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Coprinellus_micaceus" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E6%99%B6%E7%B2%92%E5%B0%8F%E9%AC%BC%E4%BC%9E" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://www.indexfungorum.org/" target="_blank">Index Fungorum</a>
+    </div>
+    <div>IUCN LC · 全球广布 · 旧学名 Coprinus micaceus</div>
+  </div>
+
+</div>
+</body>
+</html>
