@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>红汁乳菇 · Lactarius hatsudake</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：温暖柔和，酒红/赭红调（呼应红汁乳菇暗红乳汁与变绿特性） */
+    --ink: #1f1208;
+    --ink-mid: #4a3020;
+    --ink-light: #8a7260;
+
+    --cream: #fcf3ec;
+    --surface: #ffffff;
+    --surface-warm: #fdf7f0;
+
+    /* 酒红主色 */
+    --wine: #9c3b2e;
+    --wine-light: #c97058;
+    --wine-pale: #fae3da;
+    --wine-mid: #6e2218;
+
+    /* 鲜绿（乳汁变绿这一标志反应） */
+    --green: #4d7a2e;
+    --green-light: #8eb968;
+    --green-pale: #e9f2e1;
+
+    /* 松绿（生境） */
+    --pine: #3f6b50;
+    --pine-light: #82ad8e;
+    --pine-pale: #e8f1ea;
+
+    /* 暖灰棕 */
+    --stone: #6e5a48;
+    --stone-light: #a3907c;
+
+    --warn: #9a4014;
+    --warn-light: #d9763a;
+    --warn-pale: #fceee2;
+
+    --border: rgba(140,40,20,0.12);
+    --border-mid: rgba(140,40,20,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--wine);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #e8cab8;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,8,4,0.7));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(248,210,196,0.88); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--wine); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px; font-weight: 700; line-height: 1.2;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--wine-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-wine  { background: var(--wine-pale);  color: var(--wine-mid); }
+  .tag-green { background: var(--green-pale); color: var(--green); }
+  .tag-pine  { background: var(--pine-pale);  color: var(--pine); }
+  .tag-warn  { background: var(--warn-pale);  color: var(--warn); }
+  .tag-stone { background: #f1e7da;           color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-wine  { background: var(--wine); }
+  .dot-green { background: var(--green); }
+  .dot-pine  { background: var(--pine); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-warn  { background: var(--warn); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ── PHOTO LAYOUT ── */
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot {
+    aspect-ratio: 4/3; background: #e0c0a8; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot-wide {
+    aspect-ratio: 16/7; background: #e0c0a8; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(20,8,4,0.72); color: #f8dcc8;
+    font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  /* ── GROWTH PHASES ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--pine-pale);  color: var(--pine); }
+  .phase-mid    { background: var(--wine-pale);  color: var(--wine-mid); }
+  .phase-mature { background: var(--green-pale); color: var(--green); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--wine-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── 特别注意栏 ── */
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(154,64,20,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a2410; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  /* ── DISTINCTION BOX ── */
+  .distinction-box { background: var(--green-pale); border: 1px solid rgba(77,122,46,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--green); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #243a16; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--green); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  /* ── CONFUSION TABLE ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--wine-light);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.danger { border-left-color: #e07060; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  /* ── MEMORY ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--wine-pale); border: 1px solid rgba(156,59,46,0.25); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--wine-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── HABITAT ── */
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  /* ── VALUE CARDS ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 乳汁变色特色展示 ── */
+  .rhizomorph-bar {
+    background: linear-gradient(135deg, #f6d6c4, #fdf2ea);
+    border: 1px solid rgba(156,59,46,0.3); border-radius: 12px; padding: 18px 20px;
+    margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--wine); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light);
+  }
+  .ref-link { color: var(--wine-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  /* ── 乳汁变色演示条 ── */
+  .latex-demo {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; margin-bottom: 10px;
+  }
+  .latex-step { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
+  .latex-swatch { width: 38px; height: 38px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.08); }
+  .latex-label { font-size: 11px; color: var(--ink-mid); text-align: center; line-height: 1.4; }
+  .latex-arrow { color: var(--stone-light); font-size: 18px; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .rhizomorph-bar { grid-template-columns: 1fr; }
+    .latex-demo { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🍷 可食用优质野生菌 · 中国华南西南秋季著名山珍 · 注意与松乳菇等近缘种区分
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Lactarius_hatsudake0.png" alt="红汁乳菇主图">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Lactarius hatsudake · 灰橙红色菌盖，断面乳汁迅速氧化变为鲜绿色</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 红菇科（乳菇属）</div>
+    <div class="hero-name-zh">红汁乳菇</div>
+    <div class="hero-name-la">Lactarius hatsudake</div>
+    <div class="hero-author">Nobuj. Tanaka, 1890</div>
+
+    <div class="tag-row">
+      <span class="tag tag-pine">可食 · 中国知名山珍</span>
+      <span class="tag tag-green">乳汁迅速变绿（标志特征）</span>
+      <span class="tag tag-wine">暗红橙色乳汁</span>
+      <span class="tag tag-pine">外生菌根 · 松科专一</span>
+      <span class="tag tag-stone">易与松乳菇混淆</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">红汁乳菇 / 松树伞 / 松树菇 / 雁来菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Hatsutake / Saffron-staining Milkcap</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">红菇目 / Russulaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">LC（无危）· 东亚松林常见</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="rhizomorph-bar">
+      <div class="rh-item">
+        <span class="rh-label">标志反应：乳汁迅速变绿</span>
+        <span class="rh-value">受伤或切开后流出暗红橙色乳汁，<strong>数分钟内迅速氧化为鲜绿色</strong>，是该种区别于松乳菇等近缘种的最直观、最快速的鉴别方法</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">地域知名度</span>
+        <span class="rh-value">中国西南、华南秋季松林最重要的野生食用菌之一，云南、四川等地市场常见售卖，民间称"松树菌"</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">命名小知识</span>
+        <span class="rh-value">学名 <em>hatsudake</em> 源自日语"初茸"（はつたけ），意为应季最早出现的乳菇，由日本学者田中延次郎于1890年命名</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-wine"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Lactarius_hatsudake1.png" alt="上方菌盖图">
+        <div class="photo-caption">上方菌盖图 · 灰橙红色 / 环纹较浅 / 表面常具绿色斑块</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Lactarius_hatsudake2.png" alt="45°仰拍图">
+        <div class="photo-caption">45° 仰拍 · 暗橙色菌褶 / 菌柄短粗 / 易见绿色变色痕</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Lactarius_hatsudake3.png" alt="剖面图">
+        <div class="photo-caption">剖面 · 菌肉浅橙，断面乳汁迅速氧化变绿</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Lactarius_hatsudake4.png" alt="管面图">
+        <div class="photo-caption">褶面 · 暗橙红色，受伤处数分钟内转鲜绿斑</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Lactarius_hatsudake5.png" alt="孢子印图">
+        <div class="photo-caption">孢子印 · 淡黄至奶油黄色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Lactarius_hatsudake6.png" alt="特殊细节图">
+        <div class="photo-caption">细节 · 乳汁变绿过程特写，暗红橙转鲜绿色对比</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Lactarius_hatsudake7.png" alt="生境图">
+      <div class="photo-caption">生境图 · 松林针叶层地表 / 秋雨后散生群生景观（中国西南常见）</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pine"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖半球形至凸镜形，边缘内卷，直径3–5cm；表面灰橙红色，环纹较松乳菇浅淡，质地略黏；
+          菌褶暗橙色，密集，弯生；菌柄短粗，灰橙色，质地坚实；
+          切开后流出暗红橙色乳汁，接触空气后<strong>数分钟内迅速转为鲜绿色</strong>，气味清新带松脂气息，菌肉浅橙色致密。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐平展，中央微凹，直径5–8cm；颜色转为灰橙红至暗橙色，表面开始出现明显的绿色变色斑块（乳汁渗出氧化所致）；
+          菌褶颜色加深，受伤处迅速出现鲜绿色变色区；
+          菌柄绿斑增多，质地依然坚实，乳汁分泌仍较旺盛。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，中央凹陷呈浅漏斗状，直径可达8–12cm；表面大面积转为灰绿色至暗绿色斑驳状（乳汁氧化覆盖整个菌盖表面），原本的橙红底色仅在边缘残留；
+          菌褶暗橙转绿，菌肉质地稍松软，乳汁分泌减少但变绿反应依然迅速明显。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-wine"></span>
+      <span class="section-title">感官细分</span>
+      <span class="section-badge">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-wine">菌盖：灰橙红 → 大面积绿斑（成熟）</span>
+          <span class="tag tag-green">乳汁：暗红橙 → 迅速转鲜绿色</span>
+          <span class="tag tag-stone">菌褶：暗橙色，受伤处速现绿斑</span>
+          <span class="tag tag-stone">孢子印：淡黄至奶油黄</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-wine">菌盖：半球形→平展→浅漏斗状</span>
+          <span class="tag tag-pine">菌柄：短粗，质地坚实，常见绿斑</span>
+          <span class="tag tag-stone">环纹：较浅，不如松乳菇明显</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-wine">清新松脂气息</span>
+          <span class="tag tag-stone">成熟后气味转浓郁</span>
+          <span class="tag tag-stone">无刺激性辛辣味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-pine">质地紧实，略带韧性</span>
+          <span class="tag tag-pine">熟制后：滑嫩中带嚼劲</span>
+          <span class="tag tag-pine">滋味鲜美，松木香气突出</span>
+          <span class="tag tag-stone">中国西南传统名菜常用食材</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.5 乳汁变色演示 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-green"></span>
+      <span class="section-title">乳汁变色过程</span>
+      <span class="section-badge">关键鉴别依据</span>
+    </div>
+    <div class="latex-demo">
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#a8462e;"></div>
+        <div class="latex-label">切开瞬间<br>暗红橙色</div>
+      </div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#8a6a2e;"></div>
+        <div class="latex-label">约1分钟<br>颜色开始混浊</div>
+      </div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#5c8a2e;"></div>
+        <div class="latex-label">约3–5分钟<br>转为鲜绿色</div>
+      </div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#3f6b2a;"></div>
+        <div class="latex-label">数十分钟后<br>暗绿色固定</div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--ink-light);padding:0 4px;">
+      ⚠ 注意：红汁乳菇乳汁变色<strong>速度快、转绿彻底</strong>，是野外快速区分本种与松乳菇的最直观方法；松乳菇乳汁变色缓慢且通常只局部转暗绿，不会整体快速变鲜绿。
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pine"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>湿润时略黏；灰橙红色，环纹较浅，成熟后表面大面积出现绿色斑块（乳汁氧化所致）；边缘幼时内卷，成熟渐展开</td></tr>
+          <tr><td>菌褶</td><td>暗橙色，密集，弯生；受伤后渗出乳汁并迅速出现鲜绿色变色斑，是本种最具辨识度的部位之一</td></tr>
+          <tr><td>菌肉</td><td>浅橙色，质地致密；断面遇空气后乳汁迅速氧化转绿，渗透至周边菌肉形成绿色晕染；气味清新带松脂气息</td></tr>
+          <tr><td>菌柄</td><td>2–6cm × 1–2cm；圆柱形，质地坚实；表面灰橙色，常因乳汁渗出而布满绿色斑点或条纹</td></tr>
+          <tr><td>乳汁</td><td><strong>暗红橙色</strong>，受伤后分泌，质地黏稠；接触空气后<strong>数分钟内迅速、彻底转为鲜绿色</strong>（本种核心鉴别特征，反应速度明显快于松乳菇）</td></tr>
+          <tr><td>孢子</td><td>椭圆形，6.5–9 × 5.5–7.5μm；表面具网状纹饰；孢子印淡黄至奶油黄色</td></tr>
+          <tr><td>菌托</td><td>无菌托（区别于鹅膏属）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-green"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖灰橙红色，环纹相对<strong>较浅淡</strong>，成熟个体表面常见大片<strong>绿色斑驳</strong></li>
+        <li>乳汁初始为<strong>暗红橙色</strong>（不如松乳菇鲜亮），是与松乳菇区分的第一层颜色线索</li>
+        <li>乳汁接触空气后<strong>数分钟内迅速转为鲜绿色</strong>，反应速度快且变色彻底，是最可靠的鉴别依据</li>
+        <li>同样专一共生于<strong>松科树木</strong>根际，是中国西南、华南秋季松林最常见的食用乳菇</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用提示</div>
+      <ul class="caution-list">
+        <li>红汁乳菇本身可食，且在中国西南地区有悠久食用传统，但仍建议充分熟制后食用</li>
+        <li>乳菇属中存在多种外观相近但口感辛辣甚至有毒的物种，采集时务必划开菌肉确认乳汁颜色及变绿反应</li>
+        <li>部分个体绿斑过多可能影响外观判断品质，但绿色变色本身是正常生理反应，并非腐败或中毒标志</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与松乳菇的核心区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">松乳菇（<em>L. deliciosus</em>）乳汁<strong>鲜艳胡萝卜橙色</strong>，变色<strong>缓慢且不彻底</strong>；红汁乳菇乳汁<strong>暗红橙色</strong>，变色<strong>迅速且彻底转鲜绿</strong>。野外用刀划开静置1–3分钟即可快速区分</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与白色乳汁乳菇区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">多数乳菇属物种乳汁为<strong>白色</strong>且不变色或变色不明显；红汁乳菇的暗红橙色乳汁及迅速变绿反应已是显著区分标志，不易与白色乳汁物种混淆</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">松乳菇 <em>Lactarius deliciosus</em></div>
+        <div class="confusion-diff">国际知名的同属近缘种，外形、生境高度相似。区别：松乳菇乳汁鲜胡萝卜橙色，变色缓慢且仅局部转暗绿；红汁乳菇乳汁暗红橙色，<strong>数分钟内迅速整体转鲜绿</strong>。详见上方专题对比</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ White Lactarius 系列（白色乳汁类）</div>
+        <div class="confusion-diff">部分白色乳汁的乳菇属物种味极辛辣甚至有毒，但因乳汁为白色而非橙红色，与本种区分相对容易；切开观察乳汁颜色即可快速排除</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">其他东亚乳菇近缘种（如 <em>L. laccatus</em> 系）</div>
+        <div class="confusion-diff">部分东亚分布的乳菇属物种外观相近，需结合具体共生树种、乳汁颜色及变色速度综合判断，野外辨识建议结合孢子印及显微特征核实</div>
+      </div>
+    </div>
+
+    <!-- ── 专题对比板块：红汁乳菇 vs 松乳菇 ── -->
+    <div style="margin-top:1.4rem;background:var(--wine-pale);border:1px solid rgba(156,59,46,0.30);border-radius:14px;overflow:hidden;">
+
+      <div style="background:var(--wine);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">🍷</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">红汁乳菇 vs 松乳菇 专题对比</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Species Comparison</span>
+      </div>
+
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--wine);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--wine-mid);margin-bottom:8px;">本页记录种</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Lactarius hatsudake</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">Nobuj. Tanaka, 1890</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              中文：<strong>红汁乳菇</strong>。乳汁暗红橙色，<strong>受伤后迅速转鲜绿色</strong>；中国西南、华南、日韩松林秋季最常见的食用乳菇之一。
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--green);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--green);margin-bottom:8px;">国际知名近缘种</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Lactarius deliciosus</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">(L.) Gray, 1821</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              中文：<strong>松乳菇</strong>。乳汁鲜胡萝卜橙色，变色缓慢；菌盖环纹更清晰；广布欧亚大陆，是国际市场最知名的乳菇属食用菌。
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">关键特征对比表</div>
+          <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+              <thead>
+                <tr style="background:var(--cream);">
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-mid);font-weight:500;color:var(--stone-light);letter-spacing:.04em;">特征</th>
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-mid);font-weight:500;color:var(--wine-mid);letter-spacing:.04em;">红汁乳菇 L. hatsudake</th>
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-mid);font-weight:500;color:var(--green);letter-spacing:.04em;">松乳菇 L. deliciosus</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background:var(--green-pale);">
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);font-weight:500;">乳汁初始颜色</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">暗红橙色，偏暗淡</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">鲜艳胡萝卜橙色</td>
+                </tr>
+                <tr>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);font-weight:500;">变色反应</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);"><strong>数分钟内迅速变鲜绿色</strong></td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">缓慢转暗酒红，局部转暗绿</td>
+                </tr>
+                <tr style="background:var(--green-pale);">
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);font-weight:500;">菌盖环纹</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">环纹较浅，不甚明显</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">深浅交替，清晰明显</td>
+                </tr>
+                <tr>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);font-weight:500;">菌盖主色调</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">灰橙至暗橙红，偏灰暗</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">橙红色，偏鲜亮</td>
+                </tr>
+                <tr>
+                  <td style="padding:9px 10px;font-weight:500;">主要分布</td>
+                  <td style="padding:9px 10px;">中国、日本、韩国松林广布</td>
+                  <td style="padding:9px 10px;">欧洲、地中海地区，亦见于亚洲</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div style="background:var(--wine-pale);border:1px solid rgba(156,59,46,0.28);border-left:4px solid var(--wine);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a2010;line-height:1.7;">
+          <strong>🔍 野外快速鉴别法：</strong>用刀轻划菌肉或菌褶，<strong>静置观察1–3分钟</strong>——若乳汁迅速大面积转为鲜绿色，为红汁乳菇；若变色缓慢且仅局部转暗红/暗绿，则为松乳菇。两者均为传统食用菌，混淆并不影响食用安全，仅作分类学习参考。
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「暗红乳汁划开看，分钟之内转翠绿」</div>
+        <div class="memory-pill">「灰橙菌盖环纹浅，绿斑布满老熟期」</div>
+        <div class="memory-pill">「松林秋雨初茸出，西南山珍家常炒」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生、散生或群生，秋季雨后常成片出现于松针层下，与松乳菇可能同林混生但通常各自成片分布</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 共生关系</div>
+        <div class="habitat-value">外生菌根菌，与松科（<em>Pinus</em>）树木专一共生，常见于云南松、马尾松、油松等针叶林地表，是中国西南松林秋季最具代表性的食用菌之一</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">主要分布于东亚——中国（云南、四川、贵州、广西等西南华南地区尤为常见）、日本、韩国松林广布；欧洲分布极少，与松乳菇形成地域互补的分布格局</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">中国西南：7–10月（雨季高峰）；华南：8–10月；日韩：9–11月；多见于中低海拔松林，部分高海拔松林（2000m以上）亦有分布；雨后2–4天为最佳采集窗口</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：采集时用刀划开菌肉观察乳汁颜色及变绿速度，快速确认物种；菌盖表面已大面积变绿的成熟个体仍可食用，绿色斑驳并非腐败标志；建议记录采集点松树种类以辅助后续核实。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-wine"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">中国西南地区秋季著名山珍，云南、四川等地市场常见售卖，常用于炒制、炖汤或腌渍；质地紧实滑嫩，松木香气浓郁，是当地秋季野生菌料理的代表品种</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">营养与活性成分</div>
+        <div class="value-body">富含蛋白质及多种矿物质，乳汁中含乳菇烃类（lactarane型萜类）化合物，与松乳菇类似；部分中国地区研究关注其多糖及抗氧化活性</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">经济与市场价值</div>
+        <div class="value-body">在中国云南、四川等地具有成熟的秋季野生菌采集与销售传统，是当地林农重要的季节性经济来源之一，常与松茸、牛肝菌等共同出现在野生菌市场</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研与记录价值</div>
+        <div class="value-body">作为乳菇属橙色乳汁类群（deliciosus 系）在东亚的代表种，是研究该属地理分化、乳汁变色化学机制及菌根共生关系的重要对象</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Lactarius_hatsudake" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E7%BA%A2%E6%B1%81%E4%B9%B3%E8%8F%87" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://www.indexfungorum.org/" target="_blank">Index Fungorum</a>
+    </div>
+    <div>IUCN LC · 东亚松林广布 · 中国西南知名山珍</div>
+  </div>
+
+</div>
+</body>
+</html>
