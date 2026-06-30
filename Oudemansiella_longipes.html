@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长根小奥德蘑 · Oudemansiella longipes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：深褐木质调，呼应其深扎入土的长根特征 */
+    --ink: #1c150c;
+    --ink-mid: #463420;
+    --ink-light: #8a7458;
+
+    --cream: #faf4e8;
+    --surface: #ffffff;
+    --surface-warm: #fcf7ee;
+
+    /* 赭褐主色（菌盖／木质感） */
+    --umber: #7a4e26;
+    --umber-light: #ae825a;
+    --umber-pale: #f0e2cc;
+    --umber-mid: #4e3014;
+
+    /* 土根棕（标志性深根） */
+    --root: #5a3c1e;
+    --root-light: #8a6840;
+    --root-pale: #ece0cc;
+
+    /* 苔绿（木腐生境） */
+    --moss: #4e6e34;
+    --moss-light: #8ead6c;
+    --moss-pale: #ecf2e2;
+
+    /* 暖灰棕 */
+    --stone: #6e5c44;
+    --stone-light: #a3906e;
+
+    --warn: #9c5818;
+    --warn-light: #d99850;
+    --warn-pale: #fbf0de;
+
+    --border: rgba(120,80,30,0.13);
+    --border-mid: rgba(120,80,30,0.23);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--umber);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #ddc49c;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(18,12,4,0.7));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(238,216,180,0.88); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--umber); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px; font-weight: 700; line-height: 1.2;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--umber-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-umber { background: var(--umber-pale); color: var(--umber-mid); }
+  .tag-root  { background: var(--root-pale);  color: var(--root); }
+  .tag-moss  { background: var(--moss-pale);  color: var(--moss); }
+  .tag-warn  { background: var(--warn-pale);  color: var(--warn); }
+  .tag-stone { background: #f0e8d4;           color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-umber { background: var(--umber); }
+  .dot-root  { background: var(--root); }
+  .dot-moss  { background: var(--moss); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-warn  { background: var(--warn); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ── PHOTO LAYOUT ── */
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot {
+    aspect-ratio: 4/3; background: #d8b888; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot-wide {
+    aspect-ratio: 16/7; background: #d8b888; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(18,12,4,0.72); color: #f0dcb8;
+    font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  /* ── GROWTH PHASES ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--umber-pale); color: var(--umber-mid); }
+  .phase-mature { background: var(--root-pale);  color: var(--root); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--umber-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── 特别注意栏 ── */
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(156,88,24,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a2c08; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  /* ── DISTINCTION BOX ── */
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(78,110,52,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #243a16; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  /* ── CONFUSION TABLE ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--umber-light);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.danger { border-left-color: #e07060; background: #fdf3ee; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  /* ── MEMORY ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--umber-pale); border: 1px solid rgba(122,78,38,0.28); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--umber-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── HABITAT ── */
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  /* ── VALUE CARDS ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 特色展示条 ── */
+  .rhizomorph-bar {
+    background: linear-gradient(135deg, #e8cb98, #fbf3e2);
+    border: 1px solid rgba(122,78,38,0.3); border-radius: 12px; padding: 18px 20px;
+    margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--umber-mid); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  /* ── 长根剖面演示 ── */
+  .latex-demo {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; margin-bottom: 10px;
+  }
+  .latex-step { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
+  .latex-swatch { width: 38px; height: 38px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.08); }
+  .latex-label { font-size: 11px; color: var(--ink-mid); text-align: center; line-height: 1.4; }
+  .latex-arrow { color: var(--stone-light); font-size: 18px; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light);
+  }
+  .ref-link { color: var(--umber-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .rhizomorph-bar { grid-template-columns: 1fr; }
+    .latex-demo { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🌰 可食用 · 菌柄深埋假根是其标志特征 · 注意与丛生鬼伞类区分
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Oudemansiella_longipes0.png" alt="长根小奥德蘑主图">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Oudemansiella longipes · 灰褐色菌盖，菌柄向下延伸出极长的深埋假根</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 小奥德蘑科（小奥德蘑属）</div>
+    <div class="hero-name-zh">长根小奥德蘑</div>
+    <div class="hero-name-la">Oudemansiella longipes</div>
+    <div class="hero-author">(Sacc.) Cailleux, 1981</div>
+
+    <div class="tag-row">
+      <span class="tag tag-umber">可食用</span>
+      <span class="tag tag-root">深埋假根（标志特征）</span>
+      <span class="tag tag-moss">木腐生 · 埋木根系</span>
+      <span class="tag tag-umber">菌盖具放射纹</span>
+      <span class="tag tag-stone">单生或散生</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">长根菇 / 露水鸡枞（地方俗称）/ 假根金钱菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Long-rooted Mushroom / Rooting Shank</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">蘑菇目 / Physalacriaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">LC（无危）· 林地常见</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="rhizomorph-bar">
+      <div class="rh-item">
+        <span class="rh-label">标志结构：深埋假根</span>
+        <span class="rh-value">菌柄基部向下延伸出一条细长坚韧的"假根"（pseudorhiza），可深入土壤<strong>10–20cm甚至更深</strong>，直至连接埋藏地下的腐木或树根，是本属命名"长根"的直接来源</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">隐蔽的生长逻辑</span>
+        <span class="rh-value">地表可见的菌盖菌柄仅是子实体的一部分，真正供给养分的腐木或树根埋藏地下，假根起到连接地表与地下养分来源的"输送管"作用</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">采集要点</span>
+        <span class="rh-value">采集时若仅折断地表部分而不挖出完整假根，常导致后续难以确认采集物种及生境，建议尽量完整挖出</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Oudemansiella_longipes1.png" alt="上方菌盖图">
+        <div class="photo-caption">上方菌盖图 · 灰褐色 / 表面具放射状细纹 / 中央色深</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Oudemansiella_longipes2.png" alt="45°仰拍图">
+        <div class="photo-caption">45° 仰拍 · 白色菌褶稀疏 / 菌柄细长纤维质感</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Oudemansiella_longipes3.png" alt="剖面图">
+        <div class="photo-caption">剖面 · 菌肉白色质韧，菌柄纤维状不易折断</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Oudemansiella_longipes4.png" alt="管面图">
+        <div class="photo-caption">褶面 · 白色至浅灰，弯生稀疏不等长</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Oudemansiella_longipes5.png" alt="孢子印图">
+        <div class="photo-caption">孢子印 · 白色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Oudemansiella_longipes6.png" alt="特殊细节图">
+        <div class="photo-caption">细节 · 完整挖出的深埋假根特写，连接地下腐木</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Oudemansiella_longipes7.png" alt="生境图">
+      <div class="photo-caption">生境图 · 阔叶林地表埋木上方单生景观，地表仅露一小段菌柄</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖半球形，边缘内卷，直径2–4cm；表面灰褐色，中央色深，具细微放射状皱纹，质地干燥略具丝光泽；
+          菌褶白色，稀疏，弯生至近离生；菌柄细长，灰褐色，表面具纵向纤维条纹，质地坚韧；
+          地表下方已开始形成假根雏形，向下方腐木延伸，此时地表可见部分较短。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐平展，中央仍微凸，直径4–7cm；放射状皱纹更加明显，颜色保持灰褐色调；
+          菌柄持续伸长，地表以上部分可达8–15cm，质地依然坚韧纤维化；
+          假根继续向下延伸加深，部分个体假根总长度（含地表以上部分）可达20–30cm。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，边缘常呈不规则波状，直径可达7–10cm；颜色转为暗灰褐色，放射纹愈发清晰；
+          菌褶白色至浅灰，孢子印白色；菌柄基部假根已深入地下连接埋藏腐木或树根，整体结构稳固；
+          菌肉质地仍紧实有韧性，是食用价值最佳的阶段。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">感官细分</span>
+      <span class="section-badge">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-umber">菌盖：灰褐 → 暗灰褐，中央色深</span>
+          <span class="tag tag-root">菌柄：灰褐色，纵向纤维纹</span>
+          <span class="tag tag-stone">菌褶：白色至浅灰</span>
+          <span class="tag tag-stone">孢子印：白色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-umber">菌盖：半球形→平展，放射状皱纹</span>
+          <span class="tag tag-root">菌柄：细长，向下延伸为深埋假根</span>
+          <span class="tag tag-stone">假根：可深入地下10–20cm以上</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-umber">清淡蘑菇香</span>
+          <span class="tag tag-stone">无特殊刺激性气味</span>
+          <span class="tag tag-stone">成熟后气味略增浓</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">菌盖：质地细嫩</span>
+          <span class="tag tag-warn">菌柄基部纤维化，质韧需去除</span>
+          <span class="tag tag-moss">熟制后滋味清甜</span>
+          <span class="tag tag-stone">常取菌盖及菌柄上段食用</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.5 假根剖面演示 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-root"></span>
+      <span class="section-title">假根深度剖面</span>
+      <span class="section-badge">关键结构特征</span>
+    </div>
+    <div class="latex-demo">
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#9a8050;"></div>
+        <div class="latex-label">地表可见<br>菌盖 + 菌柄上段</div>
+      </div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#7a5c34;"></div>
+        <div class="latex-label">地表下0–10cm<br>菌柄延续变细</div>
+      </div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#5a3c1e;"></div>
+        <div class="latex-label">地表下10–20cm<br>假根纤维状延伸</div>
+      </div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step">
+        <div class="latex-swatch" style="background:#3a2810;"></div>
+        <div class="latex-label">更深处<br>连接埋藏腐木或树根</div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--ink-light);padding:0 4px;">
+      💡 假根并非真正的植物学意义上的"根"，而是菌柄基部菌丝高度纤维化、伸长形成的特化结构，本质上仍是菌柄的延伸部分，作用是连接地表子实体与地下营养来源（通常为埋藏的腐朽树根或木材）。
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>干燥，具丝光泽；灰褐至暗灰褐色，中央色深，表面具明显放射状细纹（呈辐射状皱褶或裂纹）；边缘幼时内卷，成熟后展开常呈波状</td></tr>
+          <tr><td>菌褶</td><td>白色至浅灰，弯生至近离生，排列较稀疏，不等长，质地脆嫩</td></tr>
+          <tr><td>菌肉</td><td>白色，菌盖部分质地细嫩，菌柄部分质地纤维化偏韧；气味清淡，无特殊刺激性</td></tr>
+          <tr><td>菌柄</td><td>地表以上8–15cm，地表以下假根部分可再延伸10–20cm甚至更深；圆柱形，灰褐色，表面具纵向纤维条纹，质地坚韧不易折断</td></tr>
+          <tr><td>假根（pseudorhiza）</td><td><strong>本种最具辨识度的结构</strong>——菌柄基部向下延伸的细长纤维状结构，深入土壤直至连接地下埋藏的腐木或树根，是判断本种最直观的依据</td></tr>
+          <tr><td>孢子</td><td>椭圆形至近球形，表面光滑，无色透明；孢子印白色</td></tr>
+          <tr><td>菌环 / 菌托</td><td>均无（区别于鹅膏属及部分具环物种）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌柄基部向下延伸出<strong>细长坚韧的假根</strong>，深入地下连接埋藏腐木，是本种区别于绝大多数地表生长蘑菇的最直观特征</li>
+        <li>菌盖表面具明显<strong>放射状细纹</strong>，质地干燥具丝光泽，区别于黏滑型菌盖物种</li>
+        <li>通常<strong>单生或散生</strong>而非密集丛生，与同科部分丛生木腐菌（如金针菇、假蜜环菌）的生长方式形成对比</li>
+        <li>白色孢子印，菌褶稀疏白色，菌肉气味清淡，整体形态朴素低调，需结合假根特征综合判断</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 采集与食用提示</div>
+      <ul class="caution-list">
+        <li>采集时<strong>务必小心完整挖出假根</strong>，仅折断地表部分会丢失重要鉴别特征，也不利于确认生境是否为腐木而非活树</li>
+        <li>菌柄基部及假根部分质地高度纤维化，<strong>通常不食用</strong>，建议仅取菌盖及菌柄上段嫩部食用</li>
+        <li>建议熟制后食用，避免生食可能引起的轻微肠胃不适</li>
+        <li>本属及相近属内存在部分形态相似但少见记录的物种，野外鉴定建议结合假根深度、连接基质及菌盖纹理综合判断</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与小奥德蘑属近缘种区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">同属其他种（如 <em>O. mucida</em> 黏小奥德蘑）菌盖<strong>表面黏滑</strong>且常具荧光特性；长根小奥德蘑菌盖<strong>干燥具丝光泽</strong>，且以深长假根为最显著区分特征</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与金针菇 / 假蜜环菌区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">金针菇与假蜜环菌均为<strong>密集丛生</strong>于地表可见腐木；长根小奥德蘑通常<strong>单生或散生</strong>，且具地表不可见的深埋假根，地表仅露出菌柄一部分，生长方式差异明显</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">黏小奥德蘑 <em>Oudemansiella mucida</em></div>
+        <div class="confusion-diff">同属近缘种，菌盖表面<strong>黏滑透明</strong>，常生长于山毛榉等阔叶树活树或枯枝高处，部分种具弱发光性；与本种的干燥菌盖及深埋假根形成鲜明对比</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">其他具假根的蘑菇近缘种</div>
+        <div class="confusion-diff">部分鹅膏属、丝盖伞属物种也可能具浅假根结构，但深度与坚韧程度通常不及本种；需结合菌环菌托有无、孢子印颜色等综合排除</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 注意与剧毒鹅膏属幼期个体区分</div>
+        <div class="confusion-diff">部分剧毒鹅膏（如某些鹅膏属物种）基部也可能呈延伸状，但具有明确的<strong>菌托结构</strong>而非纤维状假根；长根小奥德蘑无菌托无菌环，挖出基部观察是否存在杯状菌托是关键排除步骤</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或散生，偶见小范围聚生，地表仅露出菌盖及部分菌柄，真正的菌丝营养来源（埋藏腐木）位于地下，不易察觉</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">木腐生，菌丝分解地下埋藏的朽木、树根或深埋木屑；常见于阔叶林地表，尤其是曾经历砍伐或自然倒伏后根系逐渐腐朽掩埋的林地</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广布于亚洲温带至亚热带阔叶林区，中国南北各地林区均有记录；东亚（日本、韩国）及部分东南亚地区亦常见</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">夏秋季（6–10月）为主要出菇期，雨后林地地表零星出现；低海拔至中海拔阔叶林均有分布，采集需仔细观察地表细微凸起或菌柄露头</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：采集时建议用小铲沿菌柄方向小心向下挖掘，尽量保持假根完整以便确认物种及观察其连接的腐木类型；切勿用力拔扯导致假根断裂在土中，丢失重要鉴定依据。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">菌盖及菌柄上段质地细嫩、滋味清甜，可炒制或炖汤；因菌柄基部及假根纤维化明显，食用时通常仅取嫩部，整体食用价值中等，地方性食用记录多见于亚洲乡野</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为木材腐生分解者，有效分解地下埋藏的朽木及树根残体，促进森林生态系统中木质纤维素的循环利用，对维持林地土壤健康具积极作用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研与记录价值</div>
+        <div class="value-body">其独特的深埋假根结构是研究真菌菌丝定位营养源、子实体形成机制的有趣案例，也是说明"地表可见子实体仅为冰山一角"这一真菌学概念的典型示范物种</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科普教育价值</div>
+        <div class="value-body">完整挖掘并展示其深长假根的过程极具教学演示效果，常用于自然教育中讲解真菌地下菌丝网络及子实体与营养源关系的直观案例</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Oudemansiella" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E9%95%BF%E6%A0%B9%E8%8F%87" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://www.indexfungorum.org/" target="_blank">Index Fungorum</a>
+    </div>
+    <div>IUCN LC · 阔叶林地表常见 · 标志性深埋假根结构</div>
+  </div>
+
+</div>
+</body>
+</html>
