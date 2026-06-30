@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>假蜜环菌 · Armillaria tabescens</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：温暖、柔和、秋日棕褐调（区别于蜜环菌的蜜黄调，假蜜环菌整体更偏栗褐/锈橙） */
+    --ink: #1f1608;
+    --ink-mid: #4a3a22;
+    --ink-light: #8a7a5c;
+    --cream: #fbf6ec;
+    --surface: #ffffff;
+    --surface-warm: #fdf8ee;
+
+    /* 栗橙主色（无环、鳞片粗大） */
+    --rust: #b5631e;
+    --rust-light: #e0974a;
+    --rust-pale: #fcecd8;
+    --rust-mid: #7a4012;
+
+    /* 暖褐（菌柄、鳞片色） */
+    --amber: #8c5a22;
+    --amber-light: #d29a48;
+    --amber-pale: #fcf0d8;
+
+    /* 苔绿（可食标记） */
+    --moss: #4a6c2a;
+    --moss-light: #8ab870;
+    --moss-pale: #edf4e5;
+
+    /* 暗橙警示（生食有毒/丛生密集） */
+    --warn: #9c4416;
+    --warn-light: #d9763a;
+    --warn-pale: #fcece4;
+
+    /* 暖灰棕 */
+    --stone: #6a5a3a;
+    --stone-light: #a3906c;
+
+    --border: rgba(120,80,30,0.12);
+    --border-mid: rgba(120,80,30,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── 温和提示横幅 ── */
+  .notice-banner {
+    background: var(--rust);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #ecdcc4;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,12,4,0.7));
+    padding: 24px 20px 16px;
+  }
+
+  .hero-overlay-text {
+    font-size: 12px;
+    color: rgba(244,220,180,0.85);
+    font-style: italic;
+  }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .hero-name-la {
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--amber);
+    margin-bottom: 4px;
+  }
+
+  .hero-author {
+    font-size: 12px;
+    color: var(--stone-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-rust   { background: var(--rust-pale);   color: var(--rust-mid); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-amber  { background: var(--amber-pale);  color: var(--amber); }
+  .tag-stone  { background: #f0e9d8;            color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-rust  { background: var(--rust); }
+  .dot-moss  { background: var(--moss); }
+  .dot-warn  { background: var(--warn); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-amber { background: var(--amber); }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .section-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--stone-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── PHOTO LAYOUT ── */
+  .photo-outer { display: grid; gap: 10px; }
+
+  .photo-grid-6 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .photo-slot {
+    aspect-ratio: 4/3;
+    background: #e4d6b8;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot-wide {
+    aspect-ratio: 16/7;
+    background: #e4d6b8;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot img, .photo-slot-wide img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(20,12,4,0.72);
+    color: #f2e2c4;
+    font-size: 11px;
+    padding: 5px 8px;
+    text-align: center;
+  }
+
+  /* ── GROWTH PHASES ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .phase-label {
+    padding: 4px 0;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--rust-pale);  color: var(--rust-mid); }
+  .phase-mature { background: var(--amber-pale); color: var(--amber); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .trait-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .trait-name {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  .parts-table td:first-child {
+    font-weight: 500;
+    color: var(--rust-mid);
+    white-space: nowrap;
+    width: 110px;
+  }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── 特别注意栏 ── */
+  .caution-box {
+    background: var(--warn-pale);
+    border: 1px solid rgba(156,68,22,0.28);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .caution-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--warn);
+    margin-bottom: 10px;
+  }
+
+  .caution-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .caution-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #5a2410;
+    line-height: 1.6;
+  }
+
+  .caution-list li::before {
+    content: "!";
+    color: var(--warn);
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.6;
+    flex-shrink: 0;
+  }
+
+  /* ── DISTINCTION BOX ── */
+  .distinction-box {
+    background: var(--moss-pale);
+    border: 1px solid rgba(74,108,42,0.28);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .distinction-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--moss);
+    margin-bottom: 10px;
+  }
+
+  .distinction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .distinction-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #2a4020;
+    line-height: 1.6;
+  }
+
+  .distinction-list li::before {
+    content: "·";
+    color: var(--moss);
+    font-size: 16px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  /* ── CONFUSION TABLE ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .confusion-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--rust-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+  }
+
+  .confusion-item.danger { border-left-color: #e07060; }
+
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  /* ── MEMORY ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+
+  .memory-pill {
+    background: var(--rust-pale);
+    border: 1px solid rgba(181,99,30,0.25);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--rust-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── HABITAT ── */
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .habitat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .habitat-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 6px;
+  }
+
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  /* ── VALUE CARDS ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .value-card-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 8px;
+  }
+
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 无环对比特色展示 ── */
+  .rhizomorph-bar {
+    background: linear-gradient(135deg, #fce6c8, #fdf6e8);
+    border: 1px solid rgba(181,99,30,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--rust);
+    font-weight: 500;
+  }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--stone-light);
+  }
+
+  .ref-link { color: var(--rust-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .rhizomorph-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  🍯 可食用物种 · 但生食有毒，须充分熟制 · 注意与蜜环菌、毒环柄菇区分
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Armillaria_tabescens0.png" alt="假蜜环菌主图">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Armillaria tabescens · 黄褐色丛生，菌柄无环，密集簇生于树木根际</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 小奥德蘑科（蜜环菌属）</div>
+    <div class="hero-name-zh">假蜜环菌</div>
+    <div class="hero-name-la">Armillaria tabescens</div>
+    <div class="hero-author">(Scop.) Emel, 1921 · 异名 Armillariella tabescens</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">可食（熟制）</span>
+      <span class="tag tag-warn">⚠ 生食有毒</span>
+      <span class="tag tag-rust">无菌环（核心特征）</span>
+      <span class="tag tag-rust">植物病原菌</span>
+      <span class="tag tag-stone">腐生 / 寄生兼性</span>
+      <span class="tag tag-stone">易与蜜环菌混淆</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">假蜜环菌 / 无环蜜环菌 / 罗松菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Ringless Honey Fungus / Ringless Honey Mushroom</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">蘑菇目 / Physalacriaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">LC（无危）· 广布常见</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="rhizomorph-bar">
+      <div class="rh-item">
+        <span class="rh-label">标志特征：无菌环</span>
+        <span class="rh-value">菌柄从头到尾光滑无环，是区分蜜环菌属"有环"与"无环"两大类群的关键依据，也是中文名"假"字的来源</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">生态角色</span>
+        <span class="rh-value">兼性寄生—腐生：常见于活树根基、树桩及腐木，是导致果树、林木根腐病的重要病原菌之一</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">生长方式纪录</span>
+        <span class="rh-value">极擅大丛聚生，单个树桩基部可同时涌出数十至上百枚子实体，密集程度常超过同属的蜜环菌</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <!-- 6张小图 -->
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Armillaria_tabescens1.png" alt="上方菌盖图">
+        <div class="photo-caption">上方菌盖图 · 黄褐至锈褐色 / 中央鳞片粗大 / 边缘薄而开裂</div>
+      </div>
+
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Armillaria_tabescens2.png" alt="45°仰拍图">
+        <div class="photo-caption">45° 仰拍 · 淡黄菌褶 / 菌柄光滑无环 / 基部丛生联合</div>
+      </div>
+
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Armillaria_tabescens3.png" alt="剖面图">
+        <div class="photo-caption">剖面 · 菌肉米白偏黄 / 菌柄纤维致密微韧</div>
+      </div>
+
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Armillaria_tabescens4.png" alt="管面图">
+        <div class="photo-caption">褶面 · 淡黄→锈褐，弯生稀密不一，无环残留</div>
+      </div>
+
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Armillaria_tabescens5.png" alt="孢子印图">
+        <div class="photo-caption">孢子印 · 白色至奶油白（与蜜环菌一致的关键鉴别项）</div>
+      </div>
+
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Armillaria_tabescens6.png" alt="特殊细节图">
+        <div class="photo-caption">细节 · 菌柄基部光滑过渡，无菌环、无环痕，仅纤维状鳞屑</div>
+      </div>
+    </div>
+
+    <!-- 生境图（大图） -->
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Armillaria_tabescens7.png" alt="生境图">
+      <div class="photo-caption">生境图 · 活树根基、果树根部及腐木桩 / 秋季大丛聚生景观</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖半球形至钝锥形，边缘内卷，直径1.5–3.5cm；表面淡黄褐至蜜褐色，中央密布细小直立的暗褐色纤毛状鳞片，鳞片较蜜环菌更粗糙、更易脱落；
+          菌褶白色至淡黄，弯生，排列紧密；菌柄从基部即无环迹，表面光滑或略带细纤维，奶白偏黄；基部与邻近个体紧密粘连丛生；
+          幼时菌肉乳白，质地细嫩，气味清淡。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐平展，中央仍微凸，直径3.5–7cm；颜色加深为黄褐至锈橙色，鳞片向边缘扩散但密度降低，边缘渐薄且常呈不规则开裂状；
+          菌褶颜色由白转淡黄，密度中等，部分个体出现褶缘锈斑；
+          菌柄全程保持光滑无环，仅顶部略带细小纤维残留，颜色与菌盖相近或略浅，向下渐深为黄棕色；基部丛生粘结现象愈发明显，单丛可达数十株。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展甚至边缘翻卷上扬，中央微凹陷，直径可达7–12cm；表面锈褐至深褐色，边缘极薄常呈撕裂状或波状；
+          菌褶淡黄至锈褐，密布白色孢子粉，孢子印白色至奶油白；
+          菌柄依然全程无环（终其一生不会形成菌环，与蜜环菌的核心区别），表面纤维质感增强，基部丛生联合呈致密菌丛基座；菌肉成熟后稍韧，气味转浓。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">感官细分</span>
+      <span class="section-badge">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-rust">菌盖：黄褐 → 锈橙 → 深褐</span>
+          <span class="tag tag-amber">菌柄：奶白偏黄 → 黄棕</span>
+          <span class="tag tag-stone">菌褶：白 → 淡黄 → 锈斑</span>
+          <span class="tag tag-stone">孢子印：白至奶油白</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-rust">菌盖：半球形→平展，边缘薄而开裂</span>
+          <span class="tag tag-amber">菌柄：圆柱形，基部丛生联合，无环</span>
+          <span class="tag tag-stone">鳞片：直立细毛状，较粗糙易脱落</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-rust">幼时清淡蘑菇香</span>
+          <span class="tag tag-stone">成熟后气味转浓郁略带土腥</span>
+          <span class="tag tag-stone">老熟个体偶带轻微霉味</span>
+          <span class="tag tag-stone">无刺激性异味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-warn">⚠ 生食有毒，胃肠不适</span>
+          <span class="tag tag-moss">熟制后：质地稍韧，略带嚼劲</span>
+          <span class="tag tag-moss">滋味较蜜环菌稍逊，仍属可食佳味</span>
+          <span class="tag tag-stone">老熟个体偏柴，建议趁嫩采食</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr>
+            <th>部位</th>
+            <th>形态描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖表皮</td>
+            <td>干燥不黏，幼时密布暗褐色细毛状鳞片，质感较蜜环菌更粗糙；底色淡黄褐至锈橙；鳞片随生长逐渐脱落，成熟个体中央可近光滑；边缘薄，常见放射状开裂或波状起伏</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>弯生或近延生，白色至淡黄，成熟后转锈褐色斑点；排列中等密度，不等长，质地略脆</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色至米黄，质地较蜜环菌稍韧；气味温和，幼时清淡；含水溶性刺激成分，生食可致胃肠不适，需充分熟制后食用</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>4–12cm × 0.4–1.2cm；圆柱形，基部常与多株联合呈密集丛生；表面光滑或具细纤维，<strong>全程无菌环</strong>；颜色奶白偏黄，向下渐转黄棕</td>
+          </tr>
+          <tr>
+            <td>菌环</td>
+            <td><strong>无菌环</strong> —— 此为本种与蜜环菌（<em>A. mellea</em>）最核心、最直观的形态区别，是鉴定该种的首要依据</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>椭圆形，6–9 × 4–6μm；表面光滑，无色透明；孢子印白色至奶油白，与蜜环菌相近，需依靠菌环有无来区分两者</td>
+          </tr>
+          <tr>
+            <td>菌索</td>
+            <td>可形成黑褐色绳状菌索，但相对蜜环菌而言数量较少、发育程度较弱；常见于侵染树根周边土壤中</td>
+          </tr>
+          <tr>
+            <td>菌托</td>
+            <td>无菌托（区别于鹅膏属）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>大丛密集聚生于活树根基、树桩、腐木——聚生规模常比蜜环菌更夸张，单丛可达上百枚</li>
+        <li>菌盖黄褐至锈橙色，中央覆<strong>粗糙直立的细毛状鳞片</strong>，随生长易脱落；边缘薄而常开裂</li>
+        <li>菌柄<strong>全程光滑无环</strong>（终生不形成菌环）——这是与蜜环菌区分的唯一可靠且最直观的特征</li>
+        <li><strong>白色孢子印</strong>（与蜜环菌一致，故孢子印颜色不能作为二者区分依据，必须看菌环）</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用前必读：生食有毒！</div>
+      <ul class="caution-list">
+        <li>假蜜环菌同蜜环菌一样含水溶性刺激成分，生食或未熟透食用可引起恶心、呕吐、腹泻等胃肠道反应</li>
+        <li>必须充分煮熟（沸水焯煮10分钟以上或彻底炒透），水溶性成分加热后分解；焯水后建议弃汤</li>
+        <li>因菌柄较纤维化，建议优先选取幼嫩个体，老熟个体口感偏柴且风味下降</li>
+        <li>个体敏感性存在差异，初次食用建议少量尝试，确认无不良反应后再正常食用</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与蜜环菌的核心区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">蜜环菌（<em>A. mellea</em>）菌柄中上部有<strong>显著白色膜质菌环</strong>；假蜜环菌菌柄<strong>从头到尾光滑无环</strong>。其余特征（孢子印白色、丛生木材根际、鳞片菌盖）高度相似，菌环有无是唯一可靠区分点</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与鹅膏属（Amanita）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">鹅膏有<strong>菌托</strong>（基部杯状包被）+ 白色孢子印；假蜜环菌<strong>无菌托</strong>，密集丛生于木材或树根基部；鹅膏通常单生或散生于土，不丛生于木</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">蜜环菌 <em>Armillaria mellea</em>（有环）</div>
+        <div class="confusion-diff">同属近缘种，外观、生境、孢子印颜色高度相似。区别：<strong>蜜环菌菌柄中上部具显著白色膜质菌环</strong>，假蜜环菌则终生无环；蜜环菌鳞片相对更细密贴生，假蜜环菌鳞片更粗糙且易脱落</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 毒环柄菇 / 秋环柄菇 <em>Galerina marginata</em></div>
+        <div class="confusion-diff">极危险！含鹅膏毒素（α-鹅膏毒肽），常与蜜环菌属混生于同一腐木。区别：毒环柄菇<strong>菌盖更小（1–4cm）且具菌环</strong>，菌褶及孢子印均为锈褐色；假蜜环菌孢子印白色、无环、个体明显更大更粗壮。采集时务必逐株核查孢子印及菌环</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 簇生沿丝伞 <em>Hypholoma fasciculare</em>（硫磺菌）</div>
+        <div class="confusion-diff">同为丛生腐木、颜色也偏黄，但硫磺菌菌盖呈更鲜艳的硫磺黄色，菌褶初期黄绿色后变紫褐，孢子印紫褐色；有毒，食后引起强烈胃肠反应，与假蜜环菌的白色孢子印明显不同</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">奥德蘑属近缘种 <em>Oudemansiella</em> spp.</div>
+        <div class="confusion-diff">部分种同样丛生于木材且菌柄无环，但菌盖表面通常更黏滑或更光泽，菌肉质地与气味也有差异；需结合菌褶密度与生境综合判断</div>
+      </div>
+    </div>
+
+    <!-- ── 分类地位说明板块 ── -->
+    <div style="margin-top:1.4rem;background:var(--rust-pale);border:1px solid rgba(181,99,30,0.30);border-radius:14px;overflow:hidden;">
+
+      <!-- 板块标题 -->
+      <div style="background:var(--rust);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <!-- 三列对比卡 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--moss);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--moss);margin-bottom:8px;">✓ 本页记录种 · 当前有效名</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Armillaria tabescens</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">(Scop.) Emel, 1921</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              中文：<strong>假蜜环菌</strong>。国际公认的有效学名，收录于 Index Fungorum、MycoBank 及所有主流真菌数据库，属 <em>Armillaria</em> 属（蜜环菌属）下的"无环"类群。
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--stone-light);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone);margin-bottom:8px;">= 旧称（异名）</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Armillariella tabescens</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">(Scop.) Singer, 1956</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              与 <em>Armillaria tabescens</em> 指代<strong>完全相同的物种</strong>，因 <em>Armillariella</em> 属并入 <em>Armillaria</em> 而成为异名，已不再使用。
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--amber);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--amber);margin-bottom:8px;">真正的蜜环菌</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Armillaria mellea</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">(Vahl) P.Kumm., 1871</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              中文：<strong>蜜环菌</strong>。与假蜜环菌同属、外形相近，但菌柄中上部具<strong>显著白色菌环</strong>为最大区别；同样可食，但需熟制处理。
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 核心关系说明 -->
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称关系与混淆说明</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--rust);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>"假"字的由来：</strong>中文俗名"假蜜环菌"源于其外观与蜜环菌（俗称"真"蜜环菌）高度相似，却<strong>缺少蜜环菌标志性的白色菌环</strong>，故得名"假"——即"形似而不全似"，并非毒性或可食性上的"假冒"。
+              </div>
+            </div>
+
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--rust);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>易被混淆的命名陷阱：</strong>部分中文资料曾将蜜环菌的旧学名 <em>Armillariella mellea</em> 误当作"假蜜环菌"的学名，实属张冠李戴——<em>Armillariella mellea</em> 实为蜜环菌本身的异名，与假蜜环菌无关；假蜜环菌真正对应的学名是 <em>Armillaria tabescens</em>（及其旧称 <em>Armillariella tabescens</em>）。
+              </div>
+            </div>
+
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--rust);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>属级地位稳定：</strong>与蜜环菌不同，假蜜环菌在分类学历史上的属级归属争议较小，长期稳定置于 <em>Armillaria</em> 属（曾用 <em>Armillariella</em>），核心鉴定特征（无菌环）也始终未变。
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 关键近缘种对比表 -->
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">蜜环菌属（<em>Armillaria</em>）关键近缘种对比</div>
+          <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+              <thead>
+                <tr style="background:var(--cream);">
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-mid);font-weight:500;color:var(--stone-light);letter-spacing:.04em;">学名</th>
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-mid);font-weight:500;color:var(--stone-light);letter-spacing:.04em;">中文名</th>
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-mid);font-weight:500;color:var(--stone-light);letter-spacing:.04em;">菌环</th>
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-mid);font-weight:500;color:var(--stone-light);letter-spacing:.04em;">菌盖色</th>
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-mid);font-weight:500;color:var(--stone-light);letter-spacing:.04em;">备注</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background:var(--moss-pale);">
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);font-style:italic;font-weight:500;">Armillaria tabescens</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);"><strong>假蜜环菌</strong></td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);color:var(--warn);">✗ 无菌环</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">黄褐至锈褐，鳞片较粗</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">本页记录种；可食但需熟制</td>
+                </tr>
+                <tr>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);font-style:italic;font-weight:500;">Armillariella tabescens</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">假蜜环菌（旧称）</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);color:var(--warn);">✗ 同上</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">同上</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);color:var(--stone-light);">= <em>A. tabescens</em> 的异名，同一物种</td>
+                </tr>
+                <tr style="background:var(--amber-pale);">
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);font-style:italic;font-weight:500;">Armillaria mellea</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);"><strong>蜜环菌</strong></td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);color:var(--moss);">✓ 明显白色膜质环</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">蜜黄→黄褐，中央深鳞</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">真正的蜜环菌；国际有效名</td>
+                </tr>
+                <tr>
+                  <td style="padding:9px 10px;font-style:italic;font-weight:500;">Armillaria ostoyae</td>
+                  <td style="padding:9px 10px;">深色蜜环菌</td>
+                  <td style="padding:9px 10px;color:var(--moss);">✓ 有环</td>
+                  <td style="padding:9px 10px;">深褐，鳞片更密更粗</td>
+                  <td style="padding:9px 10px;">俄勒冈州"地球最大生物"所属种</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 命名简史 -->
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">命名简史</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--rust);text-align:right;padding-right:12px;border-right:2px solid rgba(181,99,30,0.25);">1772</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">Scopoli 以 <em>Agaricus tabescens</em> 首次描述此种</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--rust);text-align:right;padding-right:12px;border-right:2px solid rgba(181,99,30,0.25);">1921</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">Emel 将其转移定名为 <em>Armillaria tabescens</em>——此名称延续为今日国际有效名</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--rust);text-align:right;padding-right:12px;border-right:2px solid rgba(181,99,30,0.25);">1956</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">Singer 将其纳入 <em>Armillariella</em> 属，形成 <em>Armillariella tabescens</em>，该名称在20世纪中后期文献中常见</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--rust);text-align:right;padding-right:12px;border-right:2px solid rgba(181,99,30,0.25);">20世纪末</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">分子系统学研究确认其与蜜环菌（<em>A. mellea</em>）为姐妹种，菌环有无是稳定可靠的形态分界标志</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;">
+              <div style="font-size:12px;font-weight:700;color:var(--rust);text-align:right;padding-right:12px;border-right:2px solid rgba(181,99,30,0.25);">现今</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;"><em>Armillariella</em> 属并入 <em>Armillaria</em>；<em>Armillariella tabescens</em> 被处理为 <em>Armillaria tabescens</em> 的异名，Index Fungorum 及 Species Fungorum 均有明确记录</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 实践提示 -->
+        <div style="background:var(--amber-pale);border:1px solid rgba(140,90,34,0.28);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#4a2c08;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>野外见到蜜环菌属类群时，首先确认<strong>菌柄是否有白色菌环</strong>——有环为蜜环菌（<em>Armillaria mellea</em>），无环则为假蜜环菌（<em>Armillaria tabescens</em>）。两者均为可食种，均需充分熟制，孢子印同为白色不能作为区分依据。文献检索时，<em>Armillariella tabescens</em> 与 <em>Armillaria tabescens</em> 为同一物种，可互通引用。
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「光柄无环是假蜜，丛生根际辨真伪」</div>
+        <div class="memory-pill">「黄褐鳞片粗又糙，密布菌盖中央俏」</div>
+        <div class="memory-pill">「白孢相同难凭辨，唯有菌环定分晓」</div>
+        <div class="memory-pill">「先焯后炒毒素走，生嚼一口肚子愁」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">大型丛生，常数十至上百株紧密聚生于同一基部；聚生密度通常高于蜜环菌；秋季雨后批量爆发出菇，可持续数周</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">腐生兼寄生：常见于阔叶树（尤其橡树、栎树类）及部分果树（如桃、李、葡萄）的活树根基、树桩、倒木；在温暖湿润地区也常见于地表看似土生，实为埋木或根系上出菇；是果园与城市行道树根腐病的重要病原</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">主要分布于温暖至亚热带地区——北美东南部（尤以美国东南各州常见）、地中海沿岸欧洲、东亚温暖地区；中国分布于华南、华东、西南等温暖地区，相对蜜环菌更偏好温暖气候</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">中国华南华东：9–11月（秋雨后高峰期）；地中海地区：9–12月；美国东南部：8–11月；多见于低海拔温暖地带，海拔分布范围相对蜜环菌更窄；雨后3–7天为最佳采集窗口</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：采集时逐株检查菌柄是否有环（无环为本种），并确认孢子印为白色；警惕混入同样丛生且具菌环的毒环柄菇（<em>Galerina marginata</em>），建议对每个采集点留取孢子印及拍摄菌柄全貌照片备查。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">熟制后可食，在美国东南部及地中海地区有一定民间食用传统，常用于炖煮或炒制；口感较蜜环菌略柴，鲜味中等；幼嫩期品质最佳，老熟个体纤维感增强，不宜单独清炒</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用与保健价值</div>
+        <div class="value-body">与蜜环菌同属，亦含多糖等活性成分，相关药理研究较蜜环菌少，民间药用传统不及蜜环菌广泛，目前以食用价值为主，保健应用尚处探索阶段</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态危害</div>
+        <div class="value-body">是重要的林木与果树根腐病病原菌之一，尤其对果园（桃、葡萄等）和城市绿化树木构成显著威胁；通过根部接触及土壤传播侵染邻近树木，导致树势衰弱甚至死亡</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研与记录价值</div>
+        <div class="value-body">作为蜜环菌属中"无环类群"的代表种，是研究该属菌环演化与种间分化的重要模式物种；其与蜜环菌的姐妹种关系及分子系统学位置已被多项研究确认</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Armillaria_tabescens" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E5%81%87%E8%9C%9C%E7%8E%AF%E8%8F%8C" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://www.indexfungorum.org/" target="_blank">Index Fungorum</a>
+    </div>
+    <div>IUCN LC · 广布常见 · 蜜环菌属姐妹种</div>
+  </div>
+
+</div>
+</body>
+</html>
