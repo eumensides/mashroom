@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>晶盖粉褶菌 · Entoloma clypeatum</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食但近缘剧毒种众多：玫瑰灰调 + 警示橙点缀，温和中带审慎 */
+    --ink: #221a16;
+    --ink-mid: #4a392f;
+    --ink-light: #8a7568;
+
+    --cream: #faf3ec;
+    --surface: #ffffff;
+    --surface-warm: #fdf8f2;
+
+    /* 玫瑰灰主色（呼应粉褶菌的粉灰色孢子印与菌褶） */
+    --rose: #9c5a52;
+    --rose-light: #c98e84;
+    --rose-pale: #f6e6e1;
+    --rose-mid: #6e372f;
+
+    /* 梨木棕（生境标记：梨树/蔷薇科） */
+    --pear: #7a5a2e;
+    --pear-light: #b8965e;
+    --pear-pale: #f3ecdc;
+
+    /* 暗灰粉（孢子印特征色） */
+    --spore-rose: #b8807a;
+    --spore-pale: #f6e8e4;
+
+    /* 暖灰棕 */
+    --stone: #6e5a4c;
+    --stone-light: #a3907e;
+
+    /* 警示：本属近缘剧毒种 */
+    --warn: #a3341c;
+    --warn-light: #d97050;
+    --warn-pale: #fbe6dc;
+
+    --border: rgba(140,70,50,0.13);
+    --border-mid: rgba(140,70,50,0.23);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--rose-mid);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #ddc4ba;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,10,8,0.7));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,210,200,0.88); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--rose-mid); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px; font-weight: 700; line-height: 1.2;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--rose-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-rose  { background: var(--rose-pale);  color: var(--rose-mid); }
+  .tag-pear  { background: var(--pear-pale);  color: var(--pear); }
+  .tag-warn  { background: var(--warn-pale);  color: var(--warn); }
+  .tag-stone { background: #f0e6dc;           color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-rose { background: var(--rose); }
+  .dot-pear { background: var(--pear); }
+  .dot-warn { background: var(--warn); }
+  .dot-stone { background: var(--stone-light); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ── PHOTO LAYOUT ── */
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot {
+    aspect-ratio: 4/3; background: #d8b8ac; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot-wide {
+    aspect-ratio: 16/7; background: #d8b8ac; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(20,10,8,0.72); color: #f4ddd4;
+    font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  /* ── GROWTH PHASES ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--pear-pale);  color: var(--pear); }
+  .phase-mid    { background: var(--rose-pale);  color: var(--rose-mid); }
+  .phase-mature { background: var(--spore-pale); color: var(--rose-mid); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--rose-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── 特别注意栏 ── */
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(163,52,28,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a2010; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  /* ── DISTINCTION BOX ── */
+  .distinction-box { background: var(--pear-pale); border: 1px solid rgba(122,90,46,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--pear); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #3a2c12; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--pear); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  /* ── CONFUSION TABLE ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--rose-light);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.danger { border-left-color: #c23a1c; background: #fdf3ee; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  /* ── MEMORY ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--rose-pale); border: 1px solid rgba(156,90,82,0.25); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--rose-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── HABITAT ── */
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  /* ── VALUE CARDS ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 特色展示条 ── */
+  .rhizomorph-bar {
+    background: linear-gradient(135deg, #ecd2c6, #fdf3ec);
+    border: 1px solid rgba(156,90,82,0.3); border-radius: 12px; padding: 18px 20px;
+    margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--rose-mid); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light);
+  }
+  .ref-link { color: var(--rose-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .rhizomorph-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🌸 可食用 · 但粉褶菌属含多种剧毒近缘种 · 务必严格核实孢子印与生境后再考虑食用
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Entoloma_clypeatum0.png" alt="晶盖粉褶菌主图">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Entoloma clypeatum · 灰褐色菌盖，早春生于梨、苹果等蔷薇科树木周边</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 粉褶菌科（粉褶菌属）</div>
+    <div class="hero-name-zh">晶盖粉褶菌</div>
+    <div class="hero-name-la">Entoloma clypeatum</div>
+    <div class="hero-author">(L.) P. Kumm., 1871</div>
+
+    <div class="tag-row">
+      <span class="tag tag-pear">可食（需谨慎）</span>
+      <span class="tag tag-rose">粉红色孢子印（属级特征）</span>
+      <span class="tag tag-pear">蔷薇科树木伴生</span>
+      <span class="tag tag-pear">早春出菇</span>
+      <span class="tag tag-warn">⚠ 本属含剧毒近缘种</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">梨树蘑 / 晶盖粉孔菌 / 盾形斜盖伞</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Shield Pinkgill / Plum Entoloma</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">蘑菇目 / Entolomataceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">LC（无危）· 局部地区常见</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="rhizomorph-bar">
+      <div class="rh-item">
+        <span class="rh-label">标志特征：粉红色孢子印</span>
+        <span class="rh-value">粉褶菌属（<em>Entoloma</em>）的标志性特征——成熟菌褶及孢子印呈独特的<strong>粉红至肉粉色</strong>，是鉴别该属的核心依据，也是与许多白孢菌区分的第一道关卡</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">生境专一性</span>
+        <span class="rh-value">几乎只出现在<strong>蔷薇科</strong>果树（梨、苹果、山楂、李等）根际周边，是判断该种最重要的环境线索之一，故俗称"梨树蘑"</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">食用须知</span>
+        <span class="rh-value">本种传统上被视为可食，欧洲部分地区有早春采食习俗，但<strong>粉褶菌属内存在多种已知含肠胃毒素甚至原浆毒素的近缘种</strong>，新手务必谨慎，不建议单凭外观自行采食</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rose"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Entoloma_clypeatum1.png" alt="上方菌盖图">
+        <div class="photo-caption">上方菌盖图 · 灰褐色 / 中央色深似盾 / 表面具丝光泽</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Entoloma_clypeatum2.png" alt="45°仰拍图">
+        <div class="photo-caption">45° 仰拍 · 粉灰色菌褶 / 菌柄细长偏白 / 边缘不规则波状</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Entoloma_clypeatum3.png" alt="剖面图">
+        <div class="photo-caption">剖面 · 菌肉白色，质地紧实，具淡淡面粉气味</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Entoloma_clypeatum4.png" alt="管面图">
+        <div class="photo-caption">褶面 · 幼时灰白，成熟转粉红色，弯生稀疏不等长</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Entoloma_clypeatum5.png" alt="孢子印图">
+        <div class="photo-caption">孢子印 · 粉红色至肉粉色（属级关键鉴别特征）</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Entoloma_clypeatum6.png" alt="特殊细节图">
+        <div class="photo-caption">细节 · 菌柄基部与梨树根系伴生特写，无菌环无菌托</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Entoloma_clypeatum7.png" alt="生境图">
+      <div class="photo-caption">生境图 · 早春梨树、苹果树下草地丛生景观</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pear"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖钟形至半球形，边缘内卷，直径3–6cm；表面灰褐至浅褐色，具丝绢光泽，中央颜色更深，似盾牌状（"盾形"之名由来）；
+          菌褶幼时灰白色，弯生，排列密集；菌柄白色至浅灰，细长，表面具纵向纤维；
+          菌肉白色，具特征性的<strong>淡面粉气味</strong>（生面粉味），是早期识别的重要线索之一。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐平展，边缘展开，直径6–9cm；颜色转为均匀的灰褐色，丝光泽减弱，表面渐显纤维状条纹；
+          菌褶颜色开始转变，由灰白逐渐过渡为淡粉色，预示孢子成熟；
+          菌柄延长，质地仍紧实，面粉气味更加明显，部分个体伴有轻微泥土味。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，中央微凹，边缘常呈不规则波状或开裂，直径可达9–12cm；颜色转为暗灰褐色；
+          菌褶<strong>转为典型的粉红色</strong>，是本属最具辨识度的成熟特征；孢子印同步呈粉红至肉粉色；
+          菌柄基部常带土壤附着，质地稍松软，气味浓郁。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rose"></span>
+      <span class="section-title">感官细分</span>
+      <span class="section-badge">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-rose">菌盖：灰褐 → 暗灰褐，中央色深</span>
+          <span class="tag tag-pear">菌柄：白色至浅灰</span>
+          <span class="tag tag-rose">菌褶：灰白 → 粉红色（成熟标志）</span>
+          <span class="tag tag-rose">孢子印：粉红至肉粉色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-rose">菌盖：钟形→半球形→平展，中央盾状凸起</span>
+          <span class="tag tag-pear">菌柄：细长圆柱形，无环无托</span>
+          <span class="tag tag-stone">边缘：成熟后常波状或不规则开裂</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-pear">显著面粉味（生面团气息）</span>
+          <span class="tag tag-stone">成熟后伴随泥土气息</span>
+          <span class="tag tag-stone">无刺激性辛辣或恶臭</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-pear">熟制后：质地细嫩</span>
+          <span class="tag tag-pear">风味带淡淡面粉香</span>
+          <span class="tag tag-warn">⚠ 个体差异大，部分人群食后不适</span>
+          <span class="tag tag-stone">不建议生食</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pear"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>干燥，具丝绢状光泽，灰褐至暗灰褐色，中央色深似盾牌；边缘幼时内卷，成熟后展开并常呈不规则波状或开裂</td></tr>
+          <tr><td>菌褶</td><td>弯生，排列密集；幼时灰白色，随孢子成熟逐渐转为<strong>粉红色</strong>，是粉褶菌属的标志性特征</td></tr>
+          <tr><td>菌肉</td><td>白色，质地紧实；具显著<strong>面粉气味</strong>（似生面团），这一气味是早期野外初步识别的重要参考，但不能作为唯一判定依据</td></tr>
+          <tr><td>菌柄</td><td>5–10cm × 0.8–1.5cm；圆柱形，白色至浅灰，表面具纵向纤维状条纹；基部常附着土壤或落叶碎屑</td></tr>
+          <tr><td>菌环</td><td>无菌环</td></tr>
+          <tr><td>菌托</td><td>无菌托（区别于鹅膏属，二者均可能生长于类似环境，需特别注意区分）</td></tr>
+          <tr><td>孢子</td><td>多角形（典型粉褶菌属孢子特征），8–11 × 7–9μm；表面具棱角；<strong>孢子印粉红至肉粉色</strong>，是确认本属物种最可靠的实验室级证据</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-warn"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>几乎<strong>专一伴生于蔷薇科果树</strong>（梨、苹果、山楂、李、樱桃等）根际周边，远离此类树木出现的个体需高度警惕是否误判</li>
+        <li><strong>早春</strong>（多数蘑菇尚未大量出菇的季节）出现，是判断时节的重要线索</li>
+        <li>菌肉具显著<strong>面粉气味</strong>，凑近嗅闻菌褶或断面可辅助初步判断</li>
+        <li>成熟菌褶及<strong>孢子印呈粉红色</strong>，必须通过孢子印实测确认，不能仅凭肉眼菌褶颜色判断（幼时菌褶仍为灰白色，易误判为白孢菌）</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠⚠ 极重要食用警示：粉褶菌属高风险！</div>
+      <ul class="caution-list">
+        <li>粉褶菌属（<em>Entoloma</em>）是已知含有<strong>多种剧毒乃至致死种</strong>的属，部分近缘种含与鹅膏毒素类似的肝肾损害型毒素，误食可致死</li>
+        <li>晶盖粉褶菌与多种本属毒种在<strong>幼嫩期形态高度相似</strong>，仅凭菌盖颜色和形状极难可靠区分，必须结合生境（蔷薇科树木）、季节（早春）、孢子印（粉红色）综合判断</li>
+        <li><strong>强烈不建议非专业人士自行采食</strong>本种或粉褶菌属任何物种；即便是公认可食的个体，也建议小量尝试并煮熟后食用</li>
+        <li>若食后出现恶心、呕吐、腹痛等症状，应立即就医并携带样本供专业鉴定，切勿自行判断为"普通肠胃不适"</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与白孢菌的区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">幼嫩个体菌褶灰白，极易与口蘑属、伞菌属等白孢食用菌混淆；<strong>必须等待菌褶转粉或制作孢子印确认</strong>后再考虑食用，幼嫩期切勿仅凭外观采食</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与鹅膏属幼期个体区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">部分剧毒鹅膏幼期外观也较朴素；鹅膏属具<strong>菌托与菌环</strong>，孢子印白色；晶盖粉褶菌无菌托无菌环，孢子印粉红色，需仔细检查基部是否有杯状菌托残留</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠⚠ 剧毒粉褶菌 <em>Entoloma sinuatum</em>（致命白霜杯伞型粉褶菌）</div>
+        <div class="confusion-diff">欧洲已知的剧毒蘑菇中毒事件元凶之一，外观与晶盖粉褶菌相似但通常<strong>个体更大、菌盖更宽、菌肉更厚</strong>，常生于阔叶林（橡树、山毛榉）而非果树周边；含强烈肠胃毒素，曾致多起严重中毒甚至死亡案例。<strong>二者野外极易混淆，是本种最危险的近缘种</strong></div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 其他粉褶菌属近缘种（Entoloma spp.）</div>
+        <div class="confusion-diff">粉褶菌属内有大量形态相近、毒性未知或确认有毒的物种，许多种类仅能通过显微孢子结构、化学反应区分；野外条件下风险极高，不建议依赖肉眼鉴定食用</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">白蘑菇类（口蘑属 <em>Agaricus</em> 幼期）</div>
+        <div class="confusion-diff">幼嫩期菌褶颜色相近，但口蘑属孢子印为<strong>巧克力褐色</strong>而非粉红色，且通常不专一伴生于蔷薇科果树；孢子印检测可快速排除</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">丛生或群生，常呈环状或弧形围绕单株果树根际分布（菌根环效应），单次出菇可持续1–2周</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 共生关系</div>
+        <div class="habitat-value">与蔷薇科（<em>Rosaceae</em>）果树根系存在密切的菌根或腐生关联，常见树种包括梨树、苹果树、山楂、李树、樱桃等果园及庭院栽培树木周边草地</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广布于欧洲、北美及亚洲温带地区，凡有蔷薇科果树栽培的区域均可能出现；中国华北、华东果园周边亦有零星记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">早春3–5月（果树开花前后），是该种区别于多数秋季出菇蘑菇的重要时节特征；部分地区秋季亦可见第二次小规模出菇；多见于低海拔果园及庭院环境</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：<strong>本种鉴定难度较高，强烈建议在有经验的真菌学者陪同或专业鉴定确认后再考虑食用</strong>；采集时务必记录伴生树种、出菇季节，并保留完整菌柄基部以检查有无菌托；制作孢子印确认颜色是必不可少的鉴定步骤。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rose"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">欧洲部分地区（尤其地中海沿岸）有早春采食传统，常用于炒制；风味带淡面粉香，但因鉴定风险高，多数地区的真菌学会及科普资料均建议谨慎对待或避免食用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">毒理与安全研究价值</div>
+        <div class="value-body">作为粉褶菌属中"可食与剧毒近缘种共存"的典型案例，是蘑菇中毒预防科普及鉴定培训中的重要教学物种，常用于说明"外观相似不代表毒性相同"的核心原则</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态指示价值</div>
+        <div class="value-body">其专一伴生于蔷薇科果树的特性，使其可作为果园生态及土壤菌根状态的间接指示物种之一，对果树健康研究具一定参考价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研价值</div>
+        <div class="value-body">粉褶菌属物种分类复杂、近缘种众多，是真菌分子系统学持续研究的热点类群之一，本种作为该属较早被描述和研究的物种具有分类学参考意义</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Entoloma_clypeatum" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E6%99%B6%E7%9B%96%E7%B2%89%E8%93%9D%E8%8F%8C" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://www.indexfungorum.org/" target="_blank">Index Fungorum</a>
+    </div>
+    <div>IUCN LC · 早春果树伴生 · 本属含剧毒近缘种，采食需高度谨慎</div>
+  </div>
+
+</div>
+</body>
+</html>
