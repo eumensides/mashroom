@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>细褐鳞蘑菇 · Agaricus praeclaresquamosus</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+  :root{
+    /* 有毒：暗铅灰+苯酚黄警示调 */
+    --ink:#16130e;--ink-mid:#3a3220;--ink-light:#7a7060;
+    --cream:#f6f2e8;--surface:#ffffff;
+    --lead:#4a4a3a;--lead-light:#7a7a62;--lead-pale:#eeece0;--lead-mid:#2e2e22;
+    --phenol:#b8a018;--phenol-light:#dcc84a;--phenol-pale:#f8f2cc;
+    --warn:#9a3010;--warn-light:#d06040;--warn-pale:#fae8de;
+    --stone:#6a6050;--stone-light:#a09888;
+    --border:rgba(80,76,50,0.15);--border-mid:rgba(80,76,50,0.26);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans SC',sans-serif;font-weight:300;background:var(--cream);color:var(--ink);line-height:1.75;font-size:15px;}
+  .notice-banner{background:var(--warn);color:#fff;text-align:center;padding:10px 20px;font-size:13px;font-weight:500;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;gap:10px;}
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:500px;border-bottom:1px solid var(--border-mid);}
+  .hero-image-slot{background:#ccc8ae;position:relative;overflow:hidden;min-height:420px;}
+  .hero-image-slot img{width:100%;height:100%;object-fit:cover;display:block;}
+  .hero-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(14,12,6,.72));padding:24px 20px 16px;}
+  .hero-overlay-text{font-size:12px;color:rgba(234,226,190,.88);font-style:italic;}
+  .hero-info{padding:3rem 2.5rem;display:flex;flex-direction:column;justify-content:center;background:var(--surface);}
+  .hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--lead);margin-bottom:12px;}
+  .hero-name-zh{font-family:'Noto Serif SC',serif;font-size:36px;font-weight:700;line-height:1.2;color:var(--ink);margin-bottom:6px;}
+  .hero-name-la{font-style:italic;font-size:16px;font-weight:300;color:var(--lead);margin-bottom:4px;}
+  .hero-author{font-size:12px;color:var(--stone-light);margin-bottom:1.5rem;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem;}
+  .tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500;}
+  .tag-warn{background:var(--warn-pale);color:var(--warn);}
+  .tag-phenol{background:var(--phenol-pale);color:#7a6a08;}
+  .tag-lead{background:var(--lead-pale);color:var(--lead);}
+  .tag-stone{background:#f0ece0;color:var(--stone);}
+  .hero-taxonomy{border-top:1px solid var(--border);padding-top:1rem;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  .taxon-item{display:flex;flex-direction:column;}
+  .taxon-label{font-size:11px;color:var(--stone-light);font-weight:400;}
+  .taxon-value{font-size:13px;color:var(--ink);font-weight:500;}
+  .page-wrap{max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .section{margin-bottom:2.5rem;}
+  .section-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:8px;border-bottom:1px solid var(--border-mid);}
+  .section-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .dot-warn{background:var(--warn);}
+  .dot-phenol{background:var(--phenol);}
+  .dot-lead{background:var(--lead);}
+  .dot-stone{background:var(--stone-light);}
+  .section-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:var(--ink);}
+  .section-badge{margin-left:auto;font-size:11px;font-weight:500;color:var(--stone-light);letter-spacing:.06em;text-transform:uppercase;}
+  .photo-grid-6{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .photo-slot{aspect-ratio:4/3;background:#c8c4a0;border-radius:8px;overflow:hidden;position:relative;border:1px solid var(--border-mid);}
+  .photo-slot-wide{aspect-ratio:16/7;background:#c8c4a0;border-radius:8px;overflow:hidden;position:relative;border:1px solid var(--border-mid);}
+  .photo-slot img,.photo-slot-wide img{width:100%;height:100%;object-fit:cover;display:block;}
+  .photo-caption{position:absolute;bottom:0;left:0;right:0;background:rgba(14,12,6,.74);color:#f0e8c0;font-size:11px;padding:5px 8px;text-align:center;}
+  .phase-list{display:flex;flex-direction:column;gap:12px;}
+  .phase-card{display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .phase-label{padding:4px 0;font-size:12px;font-weight:500;text-align:center;border-radius:6px;}
+  .phase-young{background:var(--lead-pale);color:var(--lead);}
+  .phase-mid{background:var(--phenol-pale);color:#6a5808;}
+  .phase-mature{background:var(--warn-pale);color:var(--warn);}
+  .phase-desc{font-size:13px;color:var(--ink-mid);line-height:1.7;}
+  .traits-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .trait-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .trait-name{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:8px;}
+  .trait-tags{display:flex;flex-wrap:wrap;gap:5px;}
+  .parts-table{width:100%;border-collapse:collapse;}
+  .parts-table th{text-align:left;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);padding:8px 12px;border-bottom:1px solid var(--border-mid);background:var(--cream);}
+  .parts-table td{padding:10px 12px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink);}
+  .parts-table td:first-child{font-weight:500;color:var(--lead);white-space:nowrap;width:110px;}
+  .parts-table tr:last-child td{border-bottom:none;}
+  .caution-box{background:var(--warn-pale);border:1px solid rgba(154,48,16,.3);border-radius:12px;padding:18px 20px;margin-bottom:1rem;}
+  .caution-title{font-size:13px;font-weight:500;color:var(--warn);margin-bottom:10px;}
+  .caution-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+  .caution-list li{display:flex;gap:10px;font-size:13px;color:#581808;line-height:1.6;}
+  .caution-list li::before{content:"!";color:var(--warn);font-weight:700;font-size:13px;line-height:1.6;flex-shrink:0;}
+  .distinction-box{background:var(--phenol-pale);border:1px solid rgba(184,160,24,.3);border-radius:12px;padding:18px 20px;margin-bottom:1rem;}
+  .distinction-title{font-size:13px;font-weight:500;color:#6a5808;margin-bottom:10px;}
+  .distinction-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+  .distinction-list li{display:flex;gap:10px;font-size:13px;color:#3c3408;line-height:1.6;}
+  .distinction-list li::before{content:"·";color:var(--phenol);font-size:16px;line-height:1.4;flex-shrink:0;}
+  .confusion-list{display:flex;flex-direction:column;gap:8px;}
+  .confusion-item{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--lead-light);border-radius:0 10px 10px 0;padding:12px 16px;}
+  .confusion-item.safe{border-left-color:#6a9a5a;}
+  .confusion-name{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:3px;}
+  .confusion-name em{color:var(--stone-light);}
+  .confusion-diff{font-size:12px;color:var(--ink-mid);line-height:1.6;}
+  .memory-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1rem;}
+  .memory-pill{background:var(--lead-pale);border:1px solid rgba(74,74,58,.22);border-radius:8px;padding:8px 14px;font-size:13px;font-style:italic;color:var(--lead);font-family:'Noto Serif SC',serif;}
+  .habitat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .habitat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .habitat-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:6px;}
+  .habitat-value{font-size:13px;color:var(--ink);line-height:1.7;}
+  .value-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .value-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .value-card-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:8px;}
+  .value-body{font-size:13px;color:var(--ink-mid);line-height:1.7;}
+  .feature-bar{background:linear-gradient(135deg,#e8e4cc,#f6f2e4);border:1px solid rgba(74,74,58,.28);border-radius:12px;padding:18px 20px;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+  .fb-item{display:flex;flex-direction:column;gap:4px;}
+  .fb-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--lead);font-weight:500;}
+  .fb-value{font-size:13px;color:var(--ink-mid);line-height:1.5;}
+  /* 变黄反应演示 */
+  .stain-demo{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:10px;}
+  .stain-step{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;}
+  .stain-swatch{width:38px;height:38px;border-radius:50%;border:2px solid rgba(0,0,0,.08);}
+  .stain-label{font-size:11px;color:var(--ink-mid);text-align:center;line-height:1.4;}
+  .stain-arrow{color:var(--stone-light);font-size:18px;}
+  .page-footer{border-top:1px solid var(--border-mid);padding-top:1.5rem;margin-top:3rem;display:flex;justify-content:space-between;font-size:12px;color:var(--stone-light);}
+  .ref-link{color:var(--lead);text-decoration:none;}
+  .ref-link:hover{text-decoration:underline;}
+  @media(max-width:600px){
+    .hero{grid-template-columns:1fr;}.photo-grid-6{grid-template-columns:1fr 1fr;}.traits-grid,.habitat-grid,.value-grid{grid-template-columns:1fr;}.hero-taxonomy{grid-template-columns:1fr;}.phase-card{grid-template-columns:1fr;}.hero-name-zh{font-size:28px;}.feature-bar{grid-template-columns:1fr;}.stain-demo{flex-wrap:wrap;}
+  }
+</style>
+</head>
+<body>
+<div class="notice-banner">⚠ 有毒蘑菇 · 含苯酚类毒素 · 致胃肠炎型中毒 · 切勿食用</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Agaricus_praeclaresquamosus0.png" alt="细褐鳞蘑菇主图">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Agaricus praeclaresquamosus · 灰褐色鳞片密布，受伤后菌肉迅速变铬黄色并散发苯酚气味</div>
+    </div>
+  </div>
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 蘑菇科（蘑菇属）</div>
+    <div class="hero-name-zh">细褐鳞蘑菇</div>
+    <div class="hero-name-la">Agaricus praeclaresquamosus</div>
+    <div class="hero-author">Freeman, 1979</div>
+    <div class="tag-row">
+      <span class="tag tag-warn">⚠ 有毒</span>
+      <span class="tag tag-phenol">受伤变铬黄（苯酚反应）</span>
+      <span class="tag tag-warn">散发苯酚/墨水气味</span>
+      <span class="tag tag-lead">易误认为可食蘑菇属</span>
+      <span class="tag tag-stone">草地 · 阔叶林缘</span>
+    </div>
+    <div class="hero-taxonomy">
+      <div class="taxon-item"><span class="taxon-label">中文俗名</span><span class="taxon-value">细褐鳞蘑菇 / 毒蘑菇 / 铅绿蘑菇（部分地区）</span></div>
+      <div class="taxon-item"><span class="taxon-label">英文名</span><span class="taxon-value">Flat-topped Mushroom / Burning Agaric</span></div>
+      <div class="taxon-item"><span class="taxon-label">目 / 科</span><span class="taxon-value">蘑菇目 / Agaricaceae</span></div>
+      <div class="taxon-item"><span class="taxon-label">毒性类型</span><span class="taxon-value">胃肠炎型 · 含苯酚类毒素</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+  <!-- 0. 速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item"><span class="fb-label">核心危险：苯酚变黄反应</span><span class="fb-value">受伤或切开后菌肉<strong>迅速变为铬黄色</strong>，同时散发浓烈苯酚（石炭酸/消毒水）气味，这是含苯酚类毒素蘑菇属物种的共同警示信号</span></div>
+      <div class="fb-item"><span class="fb-label">混淆风险极高</span><span class="fb-value">蘑菇属（<em>Agaricus</em>）内既有双孢蘑菇等优质食用种，又有多种有毒种，<strong>外形相近程度在食用菌属中名列前茅</strong>，变色反应和气味测试是区分毒性种的必要步骤</span></div>
+      <div class="fb-item"><span class="fb-label">中毒症状</span><span class="fb-value">胃肠炎型：食后0.5–2小时出现恶心、呕吐、腹泻、腹痛，通常无生命危险但症状剧烈；部分敏感个体反应更重</span></div>
+    </div>
+  </div>
+
+  <!-- 1. 图片 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-lead"></span><span class="section-title">图片标签</span><span class="section-badge">可视化记录</span></div>
+    <div class="photo-grid-6" style="margin-bottom:10px;">
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Agaricus_praeclaresquamosus1.png" alt="上方菌盖图"><div class="photo-caption">上方菌盖图 · 灰褐鳞片密布 / 中央扁平 / 表面干燥</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Agaricus_praeclaresquamosus2.png" alt="45°仰拍图"><div class="photo-caption">45° 仰拍 · 菌褶粉红→褐色 / 菌环膜质下垂 / 菌柄基部稍膨大</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Agaricus_praeclaresquamosus3.png" alt="剖面图"><div class="photo-caption">剖面 · 切开后菌肉迅速变铬黄色（重要毒性警示）</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Agaricus_praeclaresquamosus4.png" alt="管面图"><div class="photo-caption">褶面 · 幼时粉红，成熟后巧克力褐，离生</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Agaricus_praeclaresquamosus5.png" alt="孢子印图"><div class="photo-caption">孢子印 · 深巧克力褐色（属级特征）</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Agaricus_praeclaresquamosus6.png" alt="特殊细节图"><div class="photo-caption">细节 · 变黄反应特写：切面暴露后30秒内变色对比</div></div>
+    </div>
+    <div class="photo-slot-wide"><img src="https://eumensides.github.io/mashroom/Agaricus_praeclaresquamosus7.png" alt="生境图"><div class="photo-caption">生境图 · 公园草地、阔叶林缘常见出没，常被误认为口蘑或双孢蘑菇</div></div>
+  </div>
+
+  <!-- 2. 生长周期 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-lead"></span><span class="section-title">形态特征 · 生长周期</span><span class="section-badge">结构标签</span></div>
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">菌盖球形，直径3–5cm，被白色外菌幕包裹；鳞片灰褐至深褐，细密；菌褶初期粉红色；菌柄白色，基部略膨大；菌肉白色，切开即散发轻微苯酚气味，迅速变淡黄。</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">菌盖逐渐平展，直径5–9cm，表面灰褐色鳞片清晰可见；菌褶转为粉褐色；菌环膜质、白色，位于菌柄中上部；受伤后菌肉变黄速度加快，苯酚气味更加浓烈。</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">菌盖完全平展，中央扁平或略凹，直径可达9–14cm；鳞片略扩散；菌褶深巧克力褐至近黑；孢子印深褐色；整体散发强烈苯酚/消毒水气味，菌体任何受损部位均迅速变铬黄。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-phenol"></span><span class="section-title">感官细分</span><span class="section-badge">颜色 · 形状 · 气味 · 变色</span></div>
+    <div class="traits-grid">
+      <div class="trait-card"><div class="trait-name">颜色</div><div class="trait-tags"><span class="tag tag-lead">菌盖：白色底，灰褐鳞片叠覆</span><span class="tag tag-phenol">菌肉切面：速变铬黄色</span><span class="tag tag-stone">菌褶：粉红→粉褐→巧克力褐</span><span class="tag tag-stone">孢子印：深巧克力褐</span></div></div>
+      <div class="trait-card"><div class="trait-name">形状</div><div class="trait-tags"><span class="tag tag-lead">菌盖：球形→平展，中央扁平</span><span class="tag tag-stone">鳞片：灰褐色，细密向心排列</span><span class="tag tag-lead">菌环：膜质，白色，位于中上部</span></div></div>
+      <div class="trait-card"><div class="trait-name">气味（关键警示）</div><div class="trait-tags"><span class="tag tag-warn">强烈苯酚/石炭酸/消毒水气味</span><span class="tag tag-warn">老熟后气味尤为强烈</span><span class="tag tag-phenol">即使不切开也可闻到刺激气味</span></div></div>
+      <div class="trait-card"><div class="trait-name">变色反应（核心鉴别）</div><div class="trait-tags"><span class="tag tag-phenol">切开或受伤→30秒内变铬黄</span><span class="tag tag-warn">基部变色尤为明显</span><span class="tag tag-warn">变色＋苯酚气味＝双重警示</span></div></div>
+    </div>
+  </div>
+
+  <!-- 3.5 变黄反应演示 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-phenol"></span><span class="section-title">苯酚变黄反应过程</span><span class="section-badge">最重要野外鉴别法</span></div>
+    <div class="stain-demo">
+      <div class="stain-step"><div class="stain-swatch" style="background:#f4f0e4;"></div><div class="stain-label">切开瞬间<br>菌肉白色</div></div>
+      <div class="stain-arrow">→</div>
+      <div class="stain-step"><div class="stain-swatch" style="background:#e8d860;"></div><div class="stain-label">约10–30秒<br>迅速泛黄</div></div>
+      <div class="stain-arrow">→</div>
+      <div class="stain-step"><div class="stain-swatch" style="background:#c8b818;"></div><div class="stain-label">1–2分钟<br>铬黄色固定</div></div>
+      <div class="stain-arrow">→</div>
+      <div class="stain-step"><div class="stain-swatch" style="background:#a89810;"></div><div class="stain-label">基部变色<br>最为深浓</div></div>
+    </div>
+    <div style="font-size:12px;color:var(--ink-light);padding:0 4px;">⚠ 野外鉴定法：用指甲或小刀轻划菌柄基部，同时凑近嗅闻——若<strong>30秒内变铬黄色且散发苯酚/消毒水气味</strong>，应立即视为有毒种，停止采集。可食性蘑菇属物种菌肉变黄更缓慢或不变黄（如双孢蘑菇），且不具苯酚气味。</div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-lead"></span><span class="section-title">各部位详情</span></div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>白色底色上叠覆<strong>灰褐至深褐色细密鳞片</strong>，中央鳞片最密，向边缘逐渐稀疏；干燥；幼时球形，成熟后中央扁平特征明显</td></tr>
+          <tr><td>菌褶</td><td>离生（不与菌柄相连），幼时粉红，成熟后转深巧克力褐至近黑；密集不等长</td></tr>
+          <tr><td>菌肉</td><td>白色，<strong>切开后迅速变铬黄色</strong>（尤以基部最明显）；散发强烈苯酚/石炭酸气味，是含苯酚毒素蘑菇属物种的核心毒性鉴别指标</td></tr>
+          <tr><td>菌柄</td><td>5–10cm × 1–2cm；白色，基部略膨大；表面光滑或略有纤维；受伤后同样迅速变黄</td></tr>
+          <tr><td>菌环</td><td>白色，膜质，单层，位于菌柄中上部，边缘平整</td></tr>
+          <tr><td>孢子</td><td>椭圆形，4.5–6 × 3–4μm；<strong>孢子印深巧克力褐色</strong>，是蘑菇属全体共有的属级特征</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-warn"></span><span class="section-title">特殊区分点</span><span class="section-badge">反向记忆</span></div>
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识三要素（缺一不可）</div>
+      <ul class="distinction-list">
+        <li>受伤/切开后<strong>迅速变铬黄色</strong>（30秒内），尤以菌柄基部最明显——这是判断含苯酚毒素蘑菇属物种的首要测试</li>
+        <li>同时散发<strong>强烈苯酚/消毒水/石炭酸气味</strong>——气味与变色同步出现，双重确认</li>
+        <li><strong>深巧克力褐色孢子印</strong>——验证蘑菇属归属，排除混淆的其他科属（白孢、粉孢菌类）</li>
+      </ul>
+    </div>
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠⚠ 关键警示：蘑菇属内食用种与毒种混淆风险极高</div>
+      <ul class="caution-list">
+        <li>蘑菇属（<em>Agaricus</em>）内食用种（双孢蘑菇、大肥蘑菇等）与毒种（细褐鳞蘑菇、毒黄蘑菇等）在外形上极为接近，仅凭菌盖颜色或形状无法可靠区分</li>
+        <li>在野外采集任何蘑菇属物种时，<strong>变色测试（划伤菌柄基部观察30秒）+ 气味测试（凑近嗅闻）是必做步骤</strong>，而非可选步骤</li>
+        <li>出现铬黄色变色 + 苯酚气味中任一项，即应视为有毒，放弃采集</li>
+        <li>中毒后出现症状请立即就医，携带样本或拍照记录中毒蘑菇</li>
+      </ul>
+    </div>
+    <div style="margin-top:1.5rem;"><div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:10px;">相似易混淆物种（重要对比）</div></div>
+    <div class="confusion-list">
+      <div class="confusion-item safe"><div class="confusion-name" style="color:#3a6a2a;">✓ 双孢蘑菇 <em>Agaricus bisporus</em>（可食）</div><div class="confusion-diff">最常见的栽培蘑菇，外形与本种高度相似。区别：双孢蘑菇菌盖近光滑无明显褐色鳞片；菌柄切开后<strong>变色极缓慢</strong>（轻微变淡粉），<strong>无苯酚气味</strong>，具淡淡蘑菇清香</div></div>
+      <div class="confusion-item safe"><div class="confusion-name" style="color:#3a6a2a;">✓ 大肥蘑菇 <em>Agaricus augustus</em>（可食）</div><div class="confusion-diff">个体明显更大，菌盖具暗褐色平伏鳞片；受伤后菌肉变黄，但<strong>气味为杏仁香而非苯酚</strong>，气味性质是区分的关键</div></div>
+      <div class="confusion-item"><div class="confusion-name" style="color:var(--warn);">⚠ 毒黄蘑菇 <em>Agaricus xanthodermus</em></div><div class="confusion-diff">同样含苯酚毒素的近缘有毒种，与本种中毒机制一致；区别在于菌盖颜色更白、鳞片更少，但同样呈现<strong>变铬黄+苯酚气味</strong>的双重特征，危害与本种相当</div></div>
+    </div>
+
+    <div style="margin-top:1.2rem;"><div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「鳞片灰褐细密覆，划基变黄闻消毒」</div>
+      <div class="memory-pill">「蘑菇属中毒种众，变色气味双验证」</div>
+      <div class="memory-pill">「可食蘑菇无酚味，切后速黄即须弃」</div>
+    </div></div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-stone"></span><span class="section-title">群落生境 · 分布采集</span></div>
+    <div class="habitat-grid">
+      <div class="habitat-card"><div class="habitat-label">生长方式</div><div class="habitat-value">单生或散生，偶见小群聚生，秋雨后易集中出现于草坪或林缘地表</div></div>
+      <div class="habitat-card"><div class="habitat-label">生境 · 基质</div><div class="habitat-value">腐殖质丰富的草地、公园草坪、阔叶林缘及混交林下地表，偶见于城市绿化带；与多数可食蘑菇属物种生境高度重叠，加剧误采风险</div></div>
+      <div class="habitat-card"><div class="habitat-label">地区分布</div><div class="habitat-value">广布于北半球温带地区，北美、欧洲、亚洲均有记录；中国各省均有分布，常见于公园、学校、社区绿地等城市环境</div></div>
+      <div class="habitat-card"><div class="habitat-label">出菇季节</div><div class="habitat-value">夏秋季（6–11月），雨后高峰期；与双孢蘑菇等可食种同期出现，在城市绿地中极易引发误采误食事件</div></div>
+    </div>
+  </div>
+
+  <!-- 7. 价值 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-lead"></span><span class="section-title">毒理与科普价值</span></div>
+    <div class="value-grid">
+      <div class="value-card"><div class="value-card-label">毒性机制</div><div class="value-body">主要毒素为苯酚类化合物（phenolic compounds），直接刺激消化道黏膜，引发胃肠炎型中毒；与含鹅膏毒素的剧毒种不同，通常无迟发性肝肾损害，症状较快出现也较快恢复</div></div>
+      <div class="value-card"><div class="value-card-label">城市误采高风险</div><div class="value-body">因与双孢蘑菇等栽培食用种外形相近，且常出现于城市绿地，是城市居民自采蘑菇中毒事件的高频肇因物种之一；建议城市居民切勿自行采食草坪或绿地上的野生蘑菇</div></div>
+      <div class="value-card"><div class="value-card-label">科普教育价值</div><div class="value-card-label" style="margin-top:8px;color:var(--ink-mid);font-size:13px;">是讲解"蘑菇属不等于安全"这一核心真菌安全概念的典型物种，有效说明同属物种内食用种与毒种共存、仅凭外观无法区分的风险</div></div>
+      <div class="value-card"><div class="value-card-label">鉴别培训价值</div><div class="value-body">变色反应测试（划伤变黄）和气味测试（苯酚气味）是真菌鉴定培训课程中最具教学演示价值的操作性测试之一，以本种为例可生动说明化学测试在野外安全鉴定中的重要性</div></div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>参考来源：<a class="ref-link" href="https://en.wikipedia.org/wiki/Agaricus_praeclaresquamosus" target="_blank">Wikipedia EN</a> · <a class="ref-link" href="https://www.indexfungorum.org/" target="_blank">Index Fungorum</a></div>
+    <div>有毒 · 切勿食用 · 变铬黄+苯酚气味为双重警示</div>
+  </div>
+</div>
+</body>
+</html>
