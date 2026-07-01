@@ -1,0 +1,55 @@
+name: 转换图片为 WebP 格式
+
+on:
+  push:
+    paths:
+      - '**.png'
+      - '**.jpg'
+      - '**.jpeg'
+  workflow_dispatch:   # 允许手动触发，用于处理已有图片
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # 允许 workflow 推送回仓库
+
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 安装 WebP 工具
+        run: sudo apt-get install -y webp
+
+      - name: 批量转换 PNG / JPG → WebP
+        run: |
+          converted=0
+          # 遍历所有 png/jpg/jpeg，跳过已有同名 webp 的文件
+          find . -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) \
+            ! -path "./.git/*" | while read src; do
+            dst="${src%.*}.webp"
+            # 若 webp 已存在且比源文件新，跳过
+            if [ -f "$dst" ] && [ "$dst" -nt "$src" ]; then
+              echo "跳过（已是最新）: $dst"
+              continue
+            fi
+            cwebp -q 82 "$src" -o "$dst"
+            echo "已转换: $src → $dst"
+            converted=$((converted + 1))
+          done
+          echo "本次共转换 $converted 张图片"
+
+      - name: 提交 WebP 文件
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A "*.webp"
+          # 若没有新文件则跳过提交
+          if git diff --cached --quiet; then
+            echo "没有新的 WebP 文件，无需提交"
+          else
+            git commit -m "🖼 自动转换图片为 WebP 格式"
+            git push
+          fi
