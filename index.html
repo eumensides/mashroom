@@ -81,7 +81,7 @@ button{font:inherit;border:none;background:none;cursor:pointer;}
 .filter-toggle.open .filter-toggle__arrow{transform:rotate(180deg);}
 .collapsible{overflow:hidden;max-height:0;transition:max-height .35s cubic-bezier(.4,0,.2,1),opacity .28s ease;opacity:0;}
 .collapsible.open{max-height:700px;opacity:1;}
-@media(min-width:700px){.filter-toggle{display:none;}.collapsible{max-height:none!important;opacity:1!important;overflow:visible;}}
+@media(min-width:700px){.filter-toggle{display:flex;}.collapsible{max-height:0;opacity:0;overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1),opacity .28s ease;}.collapsible.open{max-height:700px!important;opacity:1!important;overflow:visible;}}
 @media(max-width:699px){.controls{padding:.8rem 1rem;}.meta-row{margin-top:.6em;}.chipgroups{margin-top:.75rem;gap:.6rem;}.chipgroup__label{font-size:.7rem;}.chip{font-size:.8rem;padding:.28em .75em;}}
 
 .grid-wrap{max-width:1100px;margin:0 auto;padding:2.2rem clamp(1.2rem,5vw,3.5rem) 4rem;}
@@ -157,6 +157,24 @@ button{font:inherit;border:none;background:none;cursor:pointer;}
 .contact-about strong{color:var(--gold);}
 
 @media(prefers-reduced-motion:reduce){*{animation-duration:0.001ms!important;transition-duration:0.001ms!important;}html{scroll-behavior:auto;}}
+
+/* ══ DIARY LOG ══ */
+.diary-section{margin-top:1.4rem;}
+.diary-header{font-family:var(--serif);font-size:1.1rem;font-weight:900;color:var(--cream);margin-bottom:.9rem;display:flex;align-items:center;gap:.5em;}
+.diary-header::before{content:"";width:1.2em;height:1px;background:var(--gold);display:inline-block;}
+.diary-header::after{content:"";flex:1;height:1px;background:var(--line);display:inline-block;}
+.diary-timeline{display:flex;flex-direction:column;gap:0;position:relative;}
+.diary-timeline::before{content:"";position:absolute;left:.55rem;top:.4rem;bottom:.4rem;width:1px;background:var(--line);}
+.diary-entry{display:flex;gap:.9rem;position:relative;padding:.55rem 0;}
+.diary-dot{width:1.1rem;height:1.1rem;border-radius:50%;flex:none;margin-top:.22em;position:relative;z-index:1;border:2px solid var(--bg);}
+.diary-dot.dot-milestone{background:var(--gold);}
+.diary-dot.dot-tool{background:#5C7A4B;}
+.diary-dot.dot-normal{background:var(--ink-soft);}
+.diary-body{}
+.diary-date{font-family:var(--mono);font-size:.72rem;color:var(--gold);letter-spacing:.04em;margin-bottom:.18em;}
+.diary-text{font-size:.83rem;color:var(--cream-dim);line-height:1.65;}
+.diary-text a{color:var(--gold);text-decoration:underline;word-break:break-all;}
+
 </style>
 </head>
 <body>
@@ -170,7 +188,7 @@ button{font:inherit;border:none;background:none;cursor:pointer;}
     <h1 class="hero__title">菌物志</h1>
     <p class="hero__lede">每一种蘑菇都会留下可供核实的证据——外形、生长阶段、孢子印颜色，甚至误食后的中毒记录。这里按统一档案格式收录野外可能遇到的物种，方便快速比对查证。比对结果仅用于学习与安全识别，<strong>绝不能作为食用依据</strong>。</p>
     <div class="hero__meta">
-      <span>标本编号 <b>NO.001–019</b></span>
+      <span>标本编号 <b>NO.001–021</b></span>
       <span>持续收录中</span>
       <span>仅供学习识别 · 请勿采食</span>
     </div>
@@ -230,10 +248,13 @@ button{font:inherit;border:none;background:none;cursor:pointer;}
 <div id="page-map" class="page">
   <div class="map-header">
     <h2>🗺 蘑菇打卡地图</h2>
-    <button class="map-add-btn" id="mapAddBtn">＋ 添加打卡点</button>
+    <div style="display:flex;gap:.6em;flex-wrap:wrap;">
+      <button class="map-add-btn" id="locateBtn" style="background:rgba(201,162,39,.18);border:1.4px solid var(--gold);color:var(--gold);">📍 定位当前位置</button>
+      <button class="map-add-btn" id="mapAddBtn">＋ 添加打卡点</button>
+    </div>
   </div>
   <div id="mushroom-map"></div>
-  <p class="map-tip">💡 点击地图任意位置可选取坐标，或手动输入经纬度；打卡记录保存在本地浏览器中</p>
+  <p class="map-tip">💡 点击「定位当前位置」可自动跳转到您所在地点；点击地图任意位置可选取坐标添加打卡点；打卡记录保存在本地浏览器中</p>
 </div>
 
 <!-- ════════════════════════════════
@@ -256,12 +277,95 @@ button{font:inherit;border:none;background:none;cursor:pointer;}
     </div>
     <div class="contact-about">
       <strong>关于菌物志</strong><br><br>
-      本站收录野外常见蘑菇 19 种（持续增补中），每种均按统一档案格式记录形态特征、生长周期、孢子印颜色及混淆种对比，供学习与安全识别参考。<br><br>
+      本站收录野外常见蘑菇 21 种（持续增补中），每种均按统一档案格式记录形态特征、生长周期、孢子印颜色及混淆种对比，供学习与安全识别参考。<br><br>
       所有物种信息均为学术参考，<strong>不构成任何食用或药用建议</strong>。野外蘑菇鉴定须结合实物、孢子印及专业指导，请勿仅凭图片采食。<br><br>
       图片部分来源于网络，如有侵权请联系作者删除。
     </div>
+
+    <!-- 创建日志 -->
+    <div class="diary-section">
+      <div class="diary-header">🪵 建站日志</div>
+      <div class="diary-timeline">
+        <div class="diary-entry">
+          <span class="diary-dot dot-milestone"></span>
+          <div class="diary-body">
+            <div class="diary-date">2025 · 06 · 05</div>
+            <div class="diary-text">从真菌界物种库下载了 <strong>29,243 个物种表</strong>，开始整理备选物种清单。</div>
+          </div>
+        </div>
+        <div class="diary-entry">
+          <span class="diary-dot dot-normal"></span>
+          <div class="diary-body">
+            <div class="diary-date">2026 · 05</div>
+            <div class="diary-text">开始整理崂山发现的 494 个蘑菇，规划网站的呈现方案与表达方向。看到别人用 AI 做的植物分类网站（<a href="https://mp.weixin.qq.com/s/RPGl0zmqT7MNogHPtrtrlQ" target="_blank">参考链接</a>）深受启发。</div>
+          </div>
+        </div>
+        <div class="diary-entry">
+          <span class="diary-dot dot-normal"></span>
+          <div class="diary-body">
+            <div class="diary-date">2026 · 06 · 11</div>
+            <div class="diary-text">对真菌界接近三万物种进行梳理，确定以<strong>担子菌门-蘑菇纲</strong>为主，初步筛选出 487 种蘑菇，再结合国内毒蘑菇资料补充，并进行蘑菇结构讲解。</div>
+          </div>
+        </div>
+        <div class="diary-entry">
+          <span class="diary-dot dot-tool"></span>
+          <div class="diary-body">
+            <div class="diary-date">2026 · 06 · 12</div>
+            <div class="diary-text">尝试使用 <strong>Genspark</strong> 生图软件制作了一张蘑菇结构图。</div>
+          </div>
+        </div>
+        <div class="diary-entry">
+          <span class="diary-dot dot-tool"></span>
+          <div class="diary-body">
+            <div class="diary-date">2026 · 06 · 15</div>
+            <div class="diary-text">利用 <strong>Claude</strong> 制作黏盖乳牛肝菌介绍网页，再用 Claude 生成生图关键词，最后用 Genspark 制作了 7 张黏盖乳牛肝菌图片。</div>
+          </div>
+        </div>
+        <div class="diary-entry">
+          <span class="diary-dot dot-tool"></span>
+          <div class="diary-body">
+            <div class="diary-date">2026 · 06 · 16–18</div>
+            <div class="diary-text">利用 <strong>Claude 和 Genspark</strong> 完成了 6 个蘑菇物种的介绍网页。</div>
+          </div>
+        </div>
+        <div class="diary-entry">
+          <span class="diary-dot dot-milestone"></span>
+          <div class="diary-body">
+            <div class="diary-date">2026 · 06 · 19</div>
+            <div class="diary-text">利用 <strong>Claude</strong> 将 6 个蘑菇物种介绍网页用一个<strong>汇总网页</strong>有机串联——本站正式成形！</div>
+          </div>
+        </div>
+        <div class="diary-entry">
+          <span class="diary-dot dot-tool"></span>
+          <div class="diary-body">
+            <div class="diary-date">2026 · 06 · 20</div>
+            <div class="diary-text">利用 <strong>GitHub Code</strong> 通过批量压缩图片格式转化方式，对网页图片加载速度做了优化。</div>
+          </div>
+        </div>
+        <div class="diary-entry">
+          <span class="diary-dot dot-normal"></span>
+          <div class="diary-body">
+            <div class="diary-date">2026 · 06 · 25</div>
+            <div class="diary-text">由于 Claude/Genspark 额度受限，改用 <strong>ChatGPT / Gemini / 豆包</strong>辅助，又新增 3 个蘑菇物种，累计汇总 <strong>9 个</strong>介绍网页。</div>
+          </div>
+        </div>
+        <div class="diary-entry">
+          <span class="diary-dot dot-milestone"></span>
+          <div class="diary-body">
+            <div class="diary-date">2026 · 06 · 29</div>
+            <div class="diary-text">又新增 3 个蘑菇物种，累计 <strong>12 个</strong>。仿照植物科普站新增<strong>收藏、定位打卡及联系作者</strong>功能。</div>
+          </div>
+        </div>
+        <div class="diary-entry">
+          <span class="diary-dot dot-milestone"></span>
+          <div class="diary-body">
+            <div class="diary-date">2026 · 06 · 30</div>
+            <div class="diary-text">累计新增至 <strong>19 个</strong>蘑菇物种。Claude 一次提问可生成两个蘑菇网页。图片生成准确度：<strong>Gemini &gt; Genspark</strong>。计划将创作日志载入联系页，并邀请更多爱好者共建。</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
 <!-- ════════════════════════════════
      MODAL: 添加打卡点
@@ -316,7 +420,7 @@ const TAXONOMY={
 };
 const TOX_BG={deadly:'var(--tox-deadly-bg)',toxic:'var(--tox-toxic-bg)',unknown:'var(--tox-unknown-bg)',edible:'var(--tox-edible-bg)'};
 const TOX_FG={deadly:'var(--tox-deadly-fg)',toxic:'var(--tox-toxic-fg)',unknown:'var(--tox-unknown-fg)',edible:'var(--tox-edible-fg)'};
-const SPORE_COLOR={green:'var(--spore-green)',white:'var(--spore-white)',pink:'var(--spore-pink)',yellowbrown:'var(--spore-yellowbrown)',olivebrown:'var(--spore-olivebrown)',rustbrown:'#9B6A3A',black:'#2a2a2a'};
+const SPORE_COLOR={green:'var(--spore-green)',white:'var(--spore-white)',pink:'var(--spore-pink)',yellowbrown:'var(--spore-yellowbrown)',olivebrown:'var(--spore-olivebrown)',rustbrown:'#9B6A3A',black:'#2a2a2a','dark brown':'#4A2E10'};
 
 const mushrooms=[
   {no:'001',nameZh:'大青褶伞',nameLatin:'Chlorophyllum molybdites',author:'(G. Mey.) Massee, 1898',commonNames:['摩根小伞','青褶环伞','铅绿褶菇','绿褶菇','ICU菇'],family:'agaricaceae',familyLabel:'蘑菇科 Agaricaceae',genus:'青褶伞属 Chlorophyllum',toxicity:'deadly',spore:'green',sporeLabel:'暗绿色（铅绿色）',habitats:['saprotroph'],blurb:'草坪上最常见的"美丽陷阱"，是我国胃肠炎型蘑菇中毒事件数量最多的物种之一。',keyClue:'辨识关键：菌柄从头到尾光滑无鳞，菌褶成熟后转为青绿至铅绿色。',image:'https://eumensides.github.io/mashroom/Chlorophyllum_molybdites0.png',url:'https://eumensides.github.io/mashroom/Chlorophyllum_molybdites.html'},
@@ -337,7 +441,9 @@ const mushrooms=[
   {no:'016',nameZh:'晶盖粉褶菌',nameLatin:'Entoloma clypeatum',author:'(L.) P.Kumm., 1871',commonNames:['盾形粉褶菌','蔷薇粉褶菌','Shield pinkgill'],family:'entolomataceae',familyLabel:'粉褶菌科 Entolomataceae',genus:'粉褶菌属 Entoloma',toxicity:'toxic',spore:'pink',sporeLabel:'肉粉色（多角形孢子）',habitats:['saprotroph','ecm_broadleaf'],blurb:'早春出现于蔷薇科树木附近的粉褶菌，外形与可食种相近，含致吐毒素，误食可引发严重胃肠炎。',keyClue:'辨识关键：菌盖灰褐色，表面无明显纹路，成熟后菌褶转为典型粉红色，孢子印肉粉色。',image:'https://eumensides.github.io/mashroom/Entoloma_clypeatum0.png',url:'https://eumensides.github.io/mashroom/Entoloma_clypeatum.html'},
   {no:'017',nameZh:'晶粒小鬼伞',nameLatin:'Coprinellus micaceus',author:'(Bull.) Vilgalys, Hopple & Jacq. Johnson, 2001',commonNames:['云母小鬼伞','闪光鬼伞','Glistening inkcap','Mica cap'],family:'psathyrellaceae',familyLabel:'脆柄菇科 Psathyrellaceae',genus:'小鬼伞属 Coprinellus',toxicity:'edible',spore:'black',sporeLabel:'黑色',habitats:['wood_saprotroph','dung_saprotroph'],blurb:'菌盖幼时密布金色闪光晶粒（后消失），成熟后菌褶自溶成黑色墨汁状液体，是最常见的墨汁菌之一。',keyClue:'辨识关键：幼时菌盖蜜黄色并覆白色闪光颗粒，成熟后边缘开始自溶为黑色液体（墨汁化）。',image:'https://eumensides.github.io/mashroom/Coprinellus_micaceus0.png',url:'https://eumensides.github.io/mashroom/Coprinellus_micaceus.html'},
   {no:'018',nameZh:'长根小奥德蘑',nameLatin:'Oudemansiella longipes',author:'(P.Kumm.) Moser, 1967',commonNames:['长根菇','深根菇','Rooting shank','Deep root mushroom'],family:'physalacriaceae',familyLabel:'小奥德蘑科 Physalacriaceae',genus:'小奥德蘑属 Oudemansiella',toxicity:'edible',spore:'white',sporeLabel:'白色',habitats:['wood_saprotroph'],blurb:'最显著特征是极细长的假根状菌柄，可深插土中接触腐木，菌盖表面具明显的放射状皱纹。',keyClue:'辨识关键：菌柄纤细且具有深埋土中的长假根，菌盖灰褐色伞状，表面干燥有绒毛状纹理。',image:'https://eumensides.github.io/mashroom/Oudemansiella_longipes0.png',url:'https://eumensides.github.io/mashroom/Oudemansiella_longipes.html'},
-  {no:'019',nameZh:'长裙竹荪',nameLatin:'Dictyophora indusiata',author:'(Vent.) Desv., 1809',commonNames:['竹荪','面纱女士','网状鬼笔','Bamboo fungus','Veiled lady'],family:'phallaceae',familyLabel:'鬼笔科 Phallaceae',genus:'竹荪属 Dictyophora',toxicity:'edible',spore:'olivebrown',sporeLabel:'橄榄褐色',habitats:['bamboo_saprotroph','leaf_saprotroph'],blurb:'以精美网状菌裙著称，被誉为"真菌皇后"，是珍贵的食药两用菌，竹林及阔叶林腐殖质层中可见。',keyClue:'辨识关键：成熟时菌柄从卵形菌蛋中伸出，中部悬挂白色精致网格状菌裙（indusium），顶部菌盖有臭味黏液。',image:'https://eumensides.github.io/mashroom/Dictyophora_indusiata0.png',url:'https://eumensides.github.io/mashroom/Dictyophora_indusiata.html'}
+  {no:'019',nameZh:'长裙竹荪',nameLatin:'Dictyophora indusiata',author:'(Vent.) Desv., 1809',commonNames:['竹荪','面纱女士','网状鬼笔','Bamboo fungus','Veiled lady'],family:'phallaceae',familyLabel:'鬼笔科 Phallaceae',genus:'竹荪属 Dictyophora',toxicity:'edible',spore:'olivebrown',sporeLabel:'橄榄褐色',habitats:['bamboo_saprotroph','leaf_saprotroph'],blurb:'以精美网状菌裙著称，被誉为"真菌皇后"，是珍贵的食药两用菌，竹林及阔叶林腐殖质层中可见。',keyClue:'辨识关键：成熟时菌柄从卵形菌蛋中伸出，中部悬挂白色精致网格状菌裙（indusium），顶部菌盖有臭味黏液。',image:'https://eumensides.github.io/mashroom/Dictyophora_indusiata0.png',url:'https://eumensides.github.io/mashroom/Dictyophora_indusiata.html'},
+  {no:'020',nameZh:'细褐鳞蘑菇',nameLatin:'Agaricus praeclaresquamosus',author:'Freeman, 1979',commonNames:['暗鳞蘑菇','细鳞蘑菇','Flat-topped mushroom'],family:'agaricaceae',familyLabel:'蘑菇科 Agaricaceae',genus:'蘑菇属 Agaricus',toxicity:'toxic',spore:'dark brown',sporeLabel:'深褐色至巧克力褐色',habitats:['saprotroph'],blurb:'外形与可食用蘑菇属物种相似，但伤后菌肉及菌柄变黄，并散发强烈苯酚（墨水）气味，误食可致胃肠炎。',keyClue:'辨识关键：切断菌柄后肉质迅速变黄，气味如苯酚或墨水，菌盖中央密布暗褐细鳞片。',image:'https://eumensides.github.io/mashroom/Agaricus_praeclaresquamosus0.png',url:'https://eumensides.github.io/mashroom/Agaricus_praeclaresquamosus.html'},
+  {no:'021',nameZh:'香亚环乳菇',nameLatin:'Lactarius subzonarius',author:'Hongo, 1957',commonNames:['亚环乳菇','环带乳菇'],family:'russulaceae',familyLabel:'红菇科 Russulaceae',genus:'乳菇属 Lactarius',toxicity:'edible',spore:'yellowbrown',sporeLabel:'淡黄褐色至奶油色',habitats:['ecm_pine','ecm_oak','ecm_broadleaf'],blurb:'东亚常见的乳菇属物种，乳汁白色不变色，菌盖具隐约同心环纹，具清淡香气，可食但风味平淡。',keyClue:'辨识关键：乳汁白色且不变色（区别于松乳菇），菌盖肉桂褐色，具模糊同心环带，无刺激味。',image:'https://eumensides.github.io/mashroom/Lactarius_subzonarius0.png',url:'https://eumensides.github.io/mashroom/Lactarius_subzonarius.html'}
 ];
 
 mushrooms.forEach(m=>{
@@ -532,6 +638,30 @@ function openAddModal(lat,lng){
   document.getElementById('addPinModal').style.display='flex';
 }
 document.getElementById('mapAddBtn').addEventListener('click',()=>{pendingLatLng=null;openAddModal('','');});
+
+/* ── 定位当前位置 ── */
+let locateMarker=null;
+document.getElementById('locateBtn').addEventListener('click',()=>{
+  if(!map){alert('请先打开地图页面');return;}
+  const btn=document.getElementById('locateBtn');
+  btn.textContent='⏳ 定位中…';btn.disabled=true;
+  if(!navigator.geolocation){alert('您的浏览器不支持 GPS 定位');btn.textContent='📍 定位当前位置';btn.disabled=false;return;}
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const lat=pos.coords.latitude,lng=pos.coords.longitude;
+    map.setView([lat,lng],15);
+    if(locateMarker) map.removeLayer(locateMarker);
+    const locIcon=L.divIcon({
+      html:`<div style="background:#3A7BD5;color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 0 0 4px rgba(58,123,213,.3),0 2px 8px rgba(0,0,0,.4);border:2px solid #fff;">📍</div>`,
+      className:'',iconAnchor:[14,14],popupAnchor:[0,-16]
+    });
+    locateMarker=L.marker([lat,lng],{icon:locIcon}).addTo(map);
+    locateMarker.bindPopup(`<div style="font-family:sans-serif;line-height:1.5;"><strong>📍 您当前的位置</strong><br><span style="font-size:.78rem;color:#666;">${lat.toFixed(5)}, ${lng.toFixed(5)}</span><br><span style="font-size:.75rem;color:#888;">精度：±${Math.round(pos.coords.accuracy)}m</span></div>`).openPopup();
+    btn.textContent='📍 定位当前位置';btn.disabled=false;
+  },err=>{
+    const msg={1:'已拒绝位置权限，请在浏览器设置中开启',2:'无法获取位置信息，请检查网络或 GPS',3:'定位超时，请重试'}[err.code]||'定位失败';
+    alert(msg);btn.textContent='📍 定位当前位置';btn.disabled=false;
+  },{enableHighAccuracy:true,timeout:10000,maximumAge:0});
+});
 document.getElementById('cancelPinBtn').addEventListener('click',()=>{
   document.getElementById('addPinModal').style.display='none';
   if(tempMarker){map.removeLayer(tempMarker);tempMarker=null;}
