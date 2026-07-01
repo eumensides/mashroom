@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>香亚环乳菇 · Lactarius subzonarius</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+  :root{
+    /* 可食物种：温暖蜜杏调，区别于松乳菇的胡萝卜橙、红汁乳菇的暗酒红 */
+    --ink:#1e1508;--ink-mid:#4a3818;--ink-light:#8a7858;
+    --cream:#fdf7ec;--surface:#ffffff;
+    --apricot:#c8882a;--apricot-light:#e8b86a;--apricot-pale:#faecd6;--apricot-mid:#8a5c10;
+    --pine:#3e6a38;--pine-light:#7aaa6c;--pine-pale:#ecf2e4;
+    --stone:#6e5c3c;--stone-light:#a39070;
+    --warn:#9a5010;--warn-pale:#faf0de;
+    --border:rgba(160,120,20,0.13);--border-mid:rgba(160,120,20,0.23);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans SC',sans-serif;font-weight:300;background:var(--cream);color:var(--ink);line-height:1.75;font-size:15px;}
+  .notice-banner{background:var(--apricot-mid);color:#fff;text-align:center;padding:10px 20px;font-size:13px;font-weight:500;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;gap:10px;}
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:500px;border-bottom:1px solid var(--border-mid);}
+  .hero-image-slot{background:#e8cfa0;position:relative;overflow:hidden;min-height:420px;}
+  .hero-image-slot img{width:100%;height:100%;object-fit:cover;display:block;}
+  .hero-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(20,12,2,.7));padding:24px 20px 16px;}
+  .hero-overlay-text{font-size:12px;color:rgba(248,226,180,.88);font-style:italic;}
+  .hero-info{padding:3rem 2.5rem;display:flex;flex-direction:column;justify-content:center;background:var(--surface);}
+  .hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--apricot-mid);margin-bottom:12px;}
+  .hero-name-zh{font-family:'Noto Serif SC',serif;font-size:36px;font-weight:700;line-height:1.2;color:var(--ink);margin-bottom:6px;}
+  .hero-name-la{font-style:italic;font-size:16px;font-weight:300;color:var(--apricot-mid);margin-bottom:4px;}
+  .hero-author{font-size:12px;color:var(--stone-light);margin-bottom:1.5rem;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem;}
+  .tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500;}
+  .tag-apricot{background:var(--apricot-pale);color:var(--apricot-mid);}
+  .tag-pine{background:var(--pine-pale);color:var(--pine);}
+  .tag-warn{background:var(--warn-pale);color:var(--warn);}
+  .tag-stone{background:#f0e8d8;color:var(--stone);}
+  .hero-taxonomy{border-top:1px solid var(--border);padding-top:1rem;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  .taxon-item{display:flex;flex-direction:column;}
+  .taxon-label{font-size:11px;color:var(--stone-light);font-weight:400;}
+  .taxon-value{font-size:13px;color:var(--ink);font-weight:500;}
+  .page-wrap{max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .section{margin-bottom:2.5rem;}
+  .section-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:8px;border-bottom:1px solid var(--border-mid);}
+  .section-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .dot-apricot{background:var(--apricot);}
+  .dot-pine{background:var(--pine);}
+  .dot-stone{background:var(--stone-light);}
+  .section-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:var(--ink);}
+  .section-badge{margin-left:auto;font-size:11px;font-weight:500;color:var(--stone-light);letter-spacing:.06em;text-transform:uppercase;}
+  .photo-grid-6{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .photo-slot{aspect-ratio:4/3;background:#d8c090;border-radius:8px;overflow:hidden;position:relative;border:1px solid var(--border-mid);}
+  .photo-slot-wide{aspect-ratio:16/7;background:#d8c090;border-radius:8px;overflow:hidden;position:relative;border:1px solid var(--border-mid);}
+  .photo-slot img,.photo-slot-wide img{width:100%;height:100%;object-fit:cover;display:block;}
+  .photo-caption{position:absolute;bottom:0;left:0;right:0;background:rgba(20,12,2,.72);color:#f8e4c0;font-size:11px;padding:5px 8px;text-align:center;}
+  .phase-list{display:flex;flex-direction:column;gap:12px;}
+  .phase-card{display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .phase-label{padding:4px 0;font-size:12px;font-weight:500;text-align:center;border-radius:6px;}
+  .phase-young{background:var(--pine-pale);color:var(--pine);}
+  .phase-mid{background:var(--apricot-pale);color:var(--apricot-mid);}
+  .phase-mature{background:#f0e8cc;color:var(--stone);}
+  .phase-desc{font-size:13px;color:var(--ink-mid);line-height:1.7;}
+  .traits-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .trait-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .trait-name{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:8px;}
+  .trait-tags{display:flex;flex-wrap:wrap;gap:5px;}
+  .parts-table{width:100%;border-collapse:collapse;}
+  .parts-table th{text-align:left;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);padding:8px 12px;border-bottom:1px solid var(--border-mid);background:var(--cream);}
+  .parts-table td{padding:10px 12px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink);}
+  .parts-table td:first-child{font-weight:500;color:var(--apricot-mid);white-space:nowrap;width:110px;}
+  .parts-table tr:last-child td{border-bottom:none;}
+  .caution-box{background:var(--warn-pale);border:1px solid rgba(154,80,16,.28);border-radius:12px;padding:18px 20px;margin-bottom:1rem;}
+  .caution-title{font-size:13px;font-weight:500;color:var(--warn);margin-bottom:10px;}
+  .caution-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+  .caution-list li{display:flex;gap:10px;font-size:13px;color:#4a2808;line-height:1.6;}
+  .caution-list li::before{content:"!";color:var(--warn);font-weight:700;font-size:13px;line-height:1.6;flex-shrink:0;}
+  .distinction-box{background:var(--pine-pale);border:1px solid rgba(62,106,56,.28);border-radius:12px;padding:18px 20px;margin-bottom:1rem;}
+  .distinction-title{font-size:13px;font-weight:500;color:var(--pine);margin-bottom:10px;}
+  .distinction-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+  .distinction-list li{display:flex;gap:10px;font-size:13px;color:#24381a;line-height:1.6;}
+  .distinction-list li::before{content:"·";color:var(--pine);font-size:16px;line-height:1.4;flex-shrink:0;}
+  .confusion-list{display:flex;flex-direction:column;gap:8px;}
+  .confusion-item{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--apricot-light);border-radius:0 10px 10px 0;padding:12px 16px;}
+  .confusion-item.danger{border-left-color:#c04030;background:#fdf2ee;}
+  .confusion-name{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:3px;}
+  .confusion-name em{color:var(--stone-light);}
+  .confusion-diff{font-size:12px;color:var(--ink-mid);line-height:1.6;}
+  .memory-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1rem;}
+  .memory-pill{background:var(--apricot-pale);border:1px solid rgba(200,136,42,.25);border-radius:8px;padding:8px 14px;font-size:13px;font-style:italic;color:var(--apricot-mid);font-family:'Noto Serif SC',serif;}
+  .habitat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .habitat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .habitat-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:6px;}
+  .habitat-value{font-size:13px;color:var(--ink);line-height:1.7;}
+  .value-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .value-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .value-card-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:8px;}
+  .value-body{font-size:13px;color:var(--ink-mid);line-height:1.7;}
+  .feature-bar{background:linear-gradient(135deg,#f0ddb0,#fdf7e8);border:1px solid rgba(200,136,42,.3);border-radius:12px;padding:18px 20px;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+  .fb-item{display:flex;flex-direction:column;gap:4px;}
+  .fb-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--apricot-mid);font-weight:500;}
+  .fb-value{font-size:13px;color:var(--ink-mid);line-height:1.5;}
+  /* 乳汁演示 */
+  .latex-demo{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:10px;}
+  .latex-step{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;}
+  .latex-swatch{width:38px;height:38px;border-radius:50%;border:2px solid rgba(0,0,0,.08);}
+  .latex-label{font-size:11px;color:var(--ink-mid);text-align:center;line-height:1.4;}
+  .latex-arrow{color:var(--stone-light);font-size:18px;}
+  .page-footer{border-top:1px solid var(--border-mid);padding-top:1.5rem;margin-top:3rem;display:flex;justify-content:space-between;font-size:12px;color:var(--stone-light);}
+  .ref-link{color:var(--apricot-mid);text-decoration:none;}
+  .ref-link:hover{text-decoration:underline;}
+  @media(max-width:600px){.hero{grid-template-columns:1fr;}.photo-grid-6{grid-template-columns:1fr 1fr;}.traits-grid,.habitat-grid,.value-grid{grid-template-columns:1fr;}.hero-taxonomy{grid-template-columns:1fr;}.phase-card{grid-template-columns:1fr;}.hero-name-zh{font-size:28px;}.feature-bar{grid-template-columns:1fr;}.latex-demo{flex-wrap:wrap;}}
+</style>
+</head>
+<body>
+<div class="notice-banner">🍑 可食用 · 乳汁白色不变色 · 与辛辣型白乳汁乳菇仔细区分</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Lactarius_subzonarius0.png" alt="香亚环乳菇主图">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Lactarius subzonarius · 蜜杏色菌盖，具模糊同心环纹，白色乳汁味道温和</div>
+    </div>
+  </div>
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 红菇科（乳菇属）</div>
+    <div class="hero-name-zh">香亚环乳菇</div>
+    <div class="hero-name-la">Lactarius subzonarius</div>
+    <div class="hero-author">Hongo, 1957</div>
+    <div class="tag-row">
+      <span class="tag tag-pine">可食用</span>
+      <span class="tag tag-apricot">白色乳汁·不变色</span>
+      <span class="tag tag-apricot">模糊同心环纹</span>
+      <span class="tag tag-pine">外生菌根·松科</span>
+      <span class="tag tag-stone">东亚松林特有种</span>
+    </div>
+    <div class="hero-taxonomy">
+      <div class="taxon-item"><span class="taxon-label">中文俗名</span><span class="taxon-value">香亚环乳菇 / 亚环乳菇</span></div>
+      <div class="taxon-item"><span class="taxon-label">英文名</span><span class="taxon-value">Subzonate Milkcap</span></div>
+      <div class="taxon-item"><span class="taxon-label">目 / 科</span><span class="taxon-value">红菇目 / Russulaceae</span></div>
+      <div class="taxon-item"><span class="taxon-label">保护状态</span><span class="taxon-value">LC（无危）· 东亚松林可见</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+  <!-- 0. 速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item"><span class="fb-label">乳汁特征：白色不变色</span><span class="fb-value">受伤或切开后流出白色乳汁，<strong>不变色</strong>（既不变绿也不变黄），是区别于松乳菇系橙色乳汁类群的关键依据，也是白乳汁类群内判断可食性的重要参考</span></div>
+      <div class="fb-item"><span class="fb-label">环纹特征</span><span class="fb-value">菌盖具浅淡的同心环纹（"亚环"之名由来），但环纹<strong>不如松乳菇清晰</strong>，颜色接近，在湿润条件下相对明显，干燥后易消失</span></div>
+      <div class="fb-item"><span class="fb-label">食用注意</span><span class="fb-value">乳汁口感温和，无明显辛辣苦味，是白乳汁乳菇中<strong>可食性判断相对有利</strong>的信号；但同属辛辣白乳汁乳菇众多，需结合多项特征综合判断</span></div>
+    </div>
+  </div>
+
+  <!-- 1. 图片 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-apricot"></span><span class="section-title">图片标签</span><span class="section-badge">可视化记录</span></div>
+    <div class="photo-grid-6" style="margin-bottom:10px;">
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Lactarius_subzonarius1.png" alt="上方菌盖图"><div class="photo-caption">上方菌盖图 · 蜜杏至赭黄色 / 模糊同心环纹 / 中央微凹</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Lactarius_subzonarius2.png" alt="45°仰拍图"><div class="photo-caption">45° 仰拍 · 白色菌褶密集 / 菌柄同色短粗</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Lactarius_subzonarius3.png" alt="剖面图"><div class="photo-caption">剖面 · 菌肉白色，流出白色乳汁，不变色</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Lactarius_subzonarius4.png" alt="管面图"><div class="photo-caption">褶面 · 白色至浅奶油色，弯生稠密</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Lactarius_subzonarius5.png" alt="孢子印图"><div class="photo-caption">孢子印 · 浅奶油黄至淡黄白色</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Lactarius_subzonarius6.png" alt="特殊细节图"><div class="photo-caption">细节 · 白色乳汁滴落特写，滴出后30分钟仍保持白色</div></div>
+    </div>
+    <div class="photo-slot-wide"><img src="https://eumensides.github.io/mashroom/Lactarius_subzonarius7.png" alt="生境图"><div class="photo-caption">生境图 · 东亚松林地表针叶腐殖层，与松乳菇可能混生于同一林分</div></div>
+  </div>
+
+  <!-- 2. 生长周期 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-pine"></span><span class="section-title">形态特征 · 生长周期</span><span class="section-badge">结构标签</span></div>
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">菌盖半球形，边缘内卷，直径3–5cm；表面蜜杏至赭黄色，具浅淡模糊同心环纹（有时仅在边缘隐约可辨）；菌褶白色密集，弯生；菌柄短粗，与菌盖同色；切开后流出白色乳汁，口感温和无明显辛辣。</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">菌盖平展，中央微凹，直径5–8cm；环纹在湿润条件下略显清晰，干燥后趋于消失；菌褶仍白色，乳汁分泌旺盛；菌柄延长，质地坚实。</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">菌盖完全平展，中央凹陷，直径可达8–12cm；颜色转为赭褐色；乳汁分泌减少，口感略有轻微苦感（仍属温和范围）；孢子印淡奶油黄色。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-apricot"></span><span class="section-title">感官细分</span><span class="section-badge">颜色 · 形状 · 气味 · 口感</span></div>
+    <div class="traits-grid">
+      <div class="trait-card"><div class="trait-name">颜色</div><div class="trait-tags"><span class="tag tag-apricot">菌盖：蜜杏→赭黄→赭褐</span><span class="tag tag-stone">菌褶：白色至浅奶油</span><span class="tag tag-stone">乳汁：白色，不变色</span><span class="tag tag-stone">孢子印：浅奶油黄</span></div></div>
+      <div class="trait-card"><div class="trait-name">形状</div><div class="trait-tags"><span class="tag tag-apricot">菌盖：半球形→平展→中央凹陷</span><span class="tag tag-stone">环纹：浅淡模糊，干燥后易消失</span><span class="tag tag-stone">菌柄：短粗，同色，质坚</span></div></div>
+      <div class="trait-card"><div class="trait-name">气味</div><div class="trait-tags"><span class="tag tag-apricot">清淡蘑菇香，略带松脂气息</span><span class="tag tag-stone">无刺激性辛辣异味</span></div></div>
+      <div class="trait-card"><div class="trait-name">口感（乳汁）</div><div class="trait-tags"><span class="tag tag-pine">乳汁温和，无明显辛辣</span><span class="tag tag-pine">熟制后质地紧实</span><span class="tag tag-warn">成熟期略有轻微苦感</span></div></div>
+    </div>
+  </div>
+
+  <!-- 3.5 乳汁不变色演示 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-stone"></span><span class="section-title">乳汁变色对比</span><span class="section-badge">关键鉴别依据</span></div>
+    <div class="latex-demo">
+      <div class="latex-step"><div class="latex-swatch" style="background:#f8f4ea;"></div><div class="latex-label">切开瞬间<br>白色乳汁</div></div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step"><div class="latex-swatch" style="background:#f4f0e4;"></div><div class="latex-label">5分钟后<br>仍为白色</div></div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step"><div class="latex-swatch" style="background:#ede8d8;"></div><div class="latex-label">30分钟后<br>略微泛黄（干燥）</div></div>
+      <div class="latex-arrow">→</div>
+      <div class="latex-step"><div class="latex-swatch" style="background:#e8e0c8;"></div><div class="latex-label">不变绿<br>不变橙 / 红</div></div>
+    </div>
+    <div style="font-size:12px;color:var(--ink-light);padding:0 4px;">香亚环乳菇乳汁<strong>始终保持白色</strong>，不出现橙色（松乳菇）、暗红变绿（红汁乳菇）等明显变色反应，仅随水分蒸发略微泛淡黄，是白乳汁类群的典型特征。白色乳汁不变色本身<strong>不能作为可食的充分证据</strong>——同属辛辣白乳汁乳菇（如辣乳菇、绒边乳菇）同样乳汁白色，需结合口感（无辛辣）和生境综合判断。</div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-pine"></span><span class="section-title">各部位详情</span></div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>干燥略具光泽；蜜杏至赭褐色；具浅淡同心环纹，湿润时相对清晰，干燥后趋于消失；边缘幼时内卷，成熟后展开</td></tr>
+          <tr><td>菌褶</td><td>白色至浅奶油色，密集，弯生至稍延生；受伤后渗出白色乳汁</td></tr>
+          <tr><td>菌肉</td><td>白色，质地紧实；乳汁白色，<strong>不变色</strong>；口感温和，成熟期轻微苦感</td></tr>
+          <tr><td>菌柄</td><td>3–6cm × 1–2cm；圆柱形，与菌盖同色，质地坚实；表面光滑</td></tr>
+          <tr><td>乳汁</td><td><strong>白色，受伤后分泌，不变色</strong>（既不变橙/红，也不变绿）；口感温和，仅有轻微苦感</td></tr>
+          <tr><td>孢子</td><td>椭圆形，具网状纹；孢子印淡奶油黄色</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 区分点 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-pine"></span><span class="section-title">特殊区分点</span><span class="section-badge">反向记忆</span></div>
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖蜜杏至赭褐色，具<strong>浅淡模糊的同心环纹</strong>（"亚环"之名即源于此：似有环纹但不清晰明显）</li>
+        <li>乳汁<strong>白色且不变色</strong>，口感温和无明显辛辣，是白乳汁类群中可食性判断的有利信号</li>
+        <li>专一生长于<strong>松科</strong>树木根际，东亚松林（日本、中国南方松林）的典型伴生种</li>
+        <li>孢子印<strong>淡奶油黄色</strong>，菌褶白色，无任何橙色或绿色成分（排除松乳菇、红汁乳菇）</li>
+      </ul>
+    </div>
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 白色乳汁≠可食：重要警示</div>
+      <ul class="caution-list">
+        <li>乳菇属中白色乳汁物种极多，其中大量为辛辣有毒或食用价值极低的物种；乳汁白色本身<strong>绝对不能作为可食的判断依据</strong></li>
+        <li>采食前务必测试乳汁口感：取少量乳汁于舌尖，若出现<strong>明显辛辣灼烧感</strong>，即应放弃食用</li>
+        <li>与松乳菇、红汁乳菇混生时需仔细区分：先确认乳汁颜色（白色 vs 橙/暗红色），再确认变色反应</li>
+      </ul>
+    </div>
+    <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:10px;margin-top:1.5rem;">相似易混淆物种</div>
+    <div class="confusion-list">
+      <div class="confusion-item"><div class="confusion-name">松乳菇 <em>Lactarius deliciosus</em> / 红汁乳菇 <em>L. hatsudake</em></div><div class="confusion-diff">最常见的同林近缘种；区别：两者乳汁均为橙色系（胡萝卜橙或暗红橙），香亚环乳菇乳汁为<strong>白色</strong>，颜色差异一目了然</div></div>
+      <div class="confusion-item danger"><div class="confusion-name" style="color:#9a2010;">⚠ 辣乳菇 <em>Lactarius piperatus</em>（白乳汁，极辛辣）</div><div class="confusion-diff">同样白色乳汁不变色，但乳汁<strong>口感极度辛辣灼烧</strong>，菌盖更白更大、菌褶更密集；食用可引起强烈胃肠不适，口感测试（舌尖沾少量乳汁）是最可靠区分方式</div></div>
+      <div class="confusion-item danger"><div class="confusion-name" style="color:#9a2010;">⚠ 绒边乳菇 <em>Lactarius torminosus</em>（有毒）</div><div class="confusion-diff">白色乳汁，辛辣，含毒素；菌盖边缘具明显绒毛状内卷毛茸，与香亚环乳菇的相对光滑边缘差异明显；生食可致严重胃肠炎</div></div>
+    </div>
+    <div style="margin-top:1.2rem;"><div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「杏黄菌盖浅环纹，白汁温和亚环名」</div>
+      <div class="memory-pill">「白汁不辣方可食，变色辛辣皆须弃」</div>
+      <div class="memory-pill">「松林伴生东亚种，孢印淡黄奶油色」</div>
+    </div></div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-stone"></span><span class="section-title">群落生境 · 分布采集</span></div>
+    <div class="habitat-grid">
+      <div class="habitat-card"><div class="habitat-label">生长方式</div><div class="habitat-value">单生或散生，秋季雨后出现于松针腐殖层下，与松乳菇、红汁乳菇可能同林分布</div></div>
+      <div class="habitat-card"><div class="habitat-label">生境 · 共生关系</div><div class="habitat-value">外生菌根菌，与松科（<em>Pinus</em>）树木专一共生，典型生境为针叶林地表</div></div>
+      <div class="habitat-card"><div class="habitat-label">地区分布</div><div class="habitat-value">东亚特有种，分布于中国（华南、华东、西南松林）、日本（由Hongo于1957年基于日本标本描述命名）、朝鲜半岛</div></div>
+      <div class="habitat-card"><div class="habitat-label">采集季节</div><div class="habitat-value">秋季8–10月为主要出菇期；采集时务必对每株个体分别测试乳汁口感，避免混入辛辣白乳汁近缘种</div></div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>参考来源：<a class="ref-link" href="https://www.indexfungorum.org/" target="_blank">Index Fungorum</a> · Hongo, T. (1957) Sci. Rep. Saikyo Univ.</div>
+    <div>IUCN LC · 东亚松林特有 · 白色乳汁不变色</div>
+  </div>
+</div>
+</body>
+</html>
