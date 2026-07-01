@@ -158,6 +158,26 @@ button{font:inherit;border:none;background:none;cursor:pointer;}
 
 @media(prefers-reduced-motion:reduce){*{animation-duration:0.001ms!important;transition-duration:0.001ms!important;}html{scroll-behavior:auto;}}
 
+/* ══ 地图预览浮条 ══ */
+.map-preview-bar{
+  position:absolute;bottom:calc(var(--nav-h) + 10px);left:50%;transform:translateX(-50%) translateY(20px);
+  z-index:400;display:none;align-items:center;gap:.7em;
+  background:rgba(18,20,15,.96);backdrop-filter:blur(12px);
+  border:1.5px solid var(--gold);border-radius:999px;
+  padding:.55em .7em .55em 1em;
+  box-shadow:0 4px 24px rgba(0,0,0,.5);
+  white-space:nowrap;
+  transition:opacity .22s ease,transform .22s ease;
+  opacity:0;
+}
+.map-preview-bar.show{display:flex;opacity:1;transform:translateX(-50%) translateY(0);}
+.map-preview-bar__coords{font-family:var(--mono);font-size:.78rem;color:var(--cream-dim);}
+.map-preview-bar__coords b{color:var(--gold);}
+.map-preview-bar__add{background:var(--gold);color:var(--bg-deep);border:none;border-radius:999px;padding:.38em .95em;font-family:var(--mono);font-size:.78rem;font-weight:700;cursor:pointer;transition:opacity .15s;}
+.map-preview-bar__add:hover{opacity:.85;}
+.map-preview-bar__cancel{background:transparent;border:none;color:var(--cream-dim);font-size:1.1rem;cursor:pointer;padding:0 .2em;line-height:1;transition:color .15s;}
+.map-preview-bar__cancel:hover{color:#e85d5d;}
+
 /* ══ DIARY LOG ══ */
 .diary-section{margin-top:1.4rem;}
 .diary-header{font-family:var(--serif);font-size:1.1rem;font-weight:900;color:var(--cream);margin-bottom:.9rem;display:flex;align-items:center;gap:.5em;}
@@ -253,8 +273,16 @@ button{font:inherit;border:none;background:none;cursor:pointer;}
       <button class="map-add-btn" id="mapAddBtn">＋ 添加打卡点</button>
     </div>
   </div>
-  <div id="mushroom-map"></div>
-  <p class="map-tip">💡 点击「定位当前位置」可自动跳转到您所在地点；点击地图任意位置可选取坐标添加打卡点；打卡记录保存在本地浏览器中</p>
+  <div style="position:relative;">
+    <div id="mushroom-map"></div>
+    <!-- 点击地图后出现的预览浮条 -->
+    <div class="map-preview-bar" id="mapPreviewBar">
+      <span class="map-preview-bar__coords" id="previewCoords">正在选点…</span>
+      <button class="map-preview-bar__add" id="previewAddBtn">＋ 添加打卡点</button>
+      <button class="map-preview-bar__cancel" id="previewCancelBtn" title="取消">✕</button>
+    </div>
+  </div>
+  <p class="map-tip">💡 点击地图选取位置，出现橙色标记后再点「添加打卡点」；点「定位当前位置」可跳转到您所在地点</p>
 </div>
 
 <!-- ════════════════════════════════
@@ -599,6 +627,39 @@ function goPage(name){
 let map,tempMarker,pendingLatLng=null;
 let pins=JSON.parse(localStorage.getItem('mushroom_pins')||'[]');
 
+/* 预览标记图标（橙色脉冲圈） */
+function makeTempIcon(){
+  return L.divIcon({
+    html:`<div style="position:relative;width:36px;height:36px;">
+      <div style="position:absolute;inset:0;border-radius:50%;background:rgba(201,162,39,.25);animation:pulse 1.4s ease-out infinite;"></div>
+      <div style="position:absolute;top:4px;left:4px;width:28px;height:28px;border-radius:50% 50% 50% 0;background:#C9A227;transform:rotate(-45deg);box-shadow:0 2px 10px rgba(201,162,39,.6);border:2px solid #fff;">
+        <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform:rotate(45deg);font-size:13px;">📌</span>
+      </div>
+    </div>
+    <style>@keyframes pulse{0%{transform:scale(1);opacity:.8}70%{transform:scale(2.2);opacity:0}100%{transform:scale(2.2);opacity:0}}</style>`,
+    className:'',iconAnchor:[18,30],popupAnchor:[0,-32]
+  });
+}
+
+const previewBar=document.getElementById('mapPreviewBar');
+const previewCoords=document.getElementById('previewCoords');
+
+function showPreviewBar(lat,lng){
+  previewCoords.innerHTML=`<b>${lat.toFixed(5)}</b>, <b>${lng.toFixed(5)}</b>`;
+  previewBar.style.display='flex';
+  /* 触发过渡动画 */
+  requestAnimationFrame(()=>requestAnimationFrame(()=>previewBar.classList.add('show')));
+}
+function hidePreviewBar(){
+  previewBar.classList.remove('show');
+  setTimeout(()=>{previewBar.style.display='none';},220);
+}
+function clearTempMarker(){
+  if(tempMarker){map.removeLayer(tempMarker);tempMarker=null;}
+  pendingLatLng=null;
+  hidePreviewBar();
+}
+
 function initMap(){
   map=L.map('mushroom-map',{zoomControl:true}).setView([35,105],4);
   L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',{
@@ -607,15 +668,29 @@ function initMap(){
     maxZoom:18
   }).addTo(map);
   pins.forEach(addPinToMap);
+
+  /* 点击地图：放置橙色预览标记 + 显示浮条，不弹窗 */
   map.on('click',e=>{
     pendingLatLng=e.latlng;
     if(tempMarker) map.removeLayer(tempMarker);
-    tempMarker=L.marker(e.latlng,{opacity:.65}).addTo(map);
-    openAddModal(e.latlng.lat.toFixed(5),e.latlng.lng.toFixed(5));
+    tempMarker=L.marker(e.latlng,{icon:makeTempIcon(),zIndexOffset:500}).addTo(map);
+    showPreviewBar(e.latlng.lat,e.latlng.lng);
   });
+
   const sel=document.getElementById('pinMushroomSelect');
   mushrooms.forEach(m=>{const opt=document.createElement('option');opt.value=m.no;opt.textContent=`NO.${m.no} ${m.nameZh}`;sel.appendChild(opt);});
 }
+
+/* 浮条上的"添加打卡点"按钮 → 弹出填写弹窗 */
+document.getElementById('previewAddBtn').addEventListener('click',()=>{
+  if(!pendingLatLng) return;
+  openAddModal(pendingLatLng.lat.toFixed(5),pendingLatLng.lng.toFixed(5));
+});
+
+/* 浮条上的取消 ✕ */
+document.getElementById('previewCancelBtn').addEventListener('click',()=>{
+  clearTempMarker();
+});
 
 function addPinToMap(pin){
   const m=mushrooms.find(x=>x.no===pin.no)||{nameZh:pin.label||'未知',nameLatin:'',url:'#'};
@@ -640,7 +715,7 @@ function openAddModal(lat,lng){
   document.getElementById('pinNote').value='';
   document.getElementById('addPinModal').style.display='flex';
 }
-document.getElementById('mapAddBtn').addEventListener('click',()=>{pendingLatLng=null;openAddModal('','');});
+document.getElementById('mapAddBtn').addEventListener('click',()=>{clearTempMarker();openAddModal('','');});
 
 /* ── 定位当前位置 ── */
 let locateMarker=null;
@@ -667,8 +742,7 @@ document.getElementById('locateBtn').addEventListener('click',()=>{
 });
 document.getElementById('cancelPinBtn').addEventListener('click',()=>{
   document.getElementById('addPinModal').style.display='none';
-  if(tempMarker){map.removeLayer(tempMarker);tempMarker=null;}
-  pendingLatLng=null;
+  clearTempMarker();
 });
 document.getElementById('confirmPinBtn').addEventListener('click',()=>{
   const lat=parseFloat(document.getElementById('pinLat').value);
@@ -679,9 +753,9 @@ document.getElementById('confirmPinBtn').addEventListener('click',()=>{
   const pin={id:Date.now().toString(),no,lat,lng,note};
   pins.push(pin);localStorage.setItem('mushroom_pins',JSON.stringify(pins));
   addPinToMap(pin);
-  if(tempMarker){map.removeLayer(tempMarker);tempMarker=null;}
+  clearTempMarker();
   document.getElementById('addPinModal').style.display='none';
-  map.setView([lat,lng],12);pendingLatLng=null;
+  map.setView([lat,lng],14);
 });
 document.getElementById('addPinModal').addEventListener('click',e=>{if(e.target===e.currentTarget) document.getElementById('cancelPinBtn').click();});
 function deletePin(id){
