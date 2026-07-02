@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>隐花青鹅膏 · Amanita manginiana</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+  :root{
+    /* 剧毒：深灰绿+碳黑警戒调，呼应鹅膏属的致命性 */
+    --ink:#0e120a;--ink-mid:#2a3020;--ink-light:#687060;
+    --cream:#f0f2ec;--surface:#ffffff;
+    --deadly:#1e3a18;--deadly-light:#4a6a3c;--deadly-pale:#e2ecd8;--deadly-mid:#12260e;
+    --toxic:#7a2010;--toxic-light:#c04a30;--toxic-pale:#fae0d8;
+    --skull:#3a3a2c;--skull-light:#6a6a52;--skull-pale:#ecece0;
+    --stone:#5a5e4e;--stone-light:#9a9e8e;
+    --border:rgba(30,58,24,0.16);--border-mid:rgba(30,58,24,0.28);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans SC',sans-serif;font-weight:300;background:var(--cream);color:var(--ink);line-height:1.75;font-size:15px;}
+  .notice-banner{background:var(--deadly);color:#c8e0b0;text-align:center;padding:12px 20px;font-size:14px;font-weight:700;letter-spacing:.06em;display:flex;align-items:center;justify-content:center;gap:10px;border-bottom:3px solid var(--toxic);}
+  .sub-banner{background:#1a2a14;color:#a0b890;text-align:center;padding:7px 20px;font-size:12px;letter-spacing:.04em;}
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:500px;border-bottom:2px solid var(--border-mid);}
+  .hero-image-slot{background:#2a3020;position:relative;overflow:hidden;min-height:420px;}
+  .hero-image-slot img{width:100%;height:100%;object-fit:cover;display:block;}
+  .hero-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(8,12,4,.85));padding:24px 20px 16px;}
+  .hero-overlay-text{font-size:12px;color:rgba(180,210,140,.88);font-style:italic;}
+  .hero-info{padding:3rem 2.5rem;display:flex;flex-direction:column;justify-content:center;background:var(--surface);border-left:4px solid var(--deadly);}
+  .hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--deadly);margin-bottom:12px;}
+  .hero-name-zh{font-family:'Noto Serif SC',serif;font-size:36px;font-weight:700;line-height:1.2;color:var(--ink);margin-bottom:6px;}
+  .hero-name-la{font-style:italic;font-size:16px;font-weight:300;color:var(--deadly);margin-bottom:4px;}
+  .hero-author{font-size:12px;color:var(--stone-light);margin-bottom:1.5rem;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem;}
+  .tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500;}
+  .tag-deadly{background:var(--deadly);color:#c8e8a8;}
+  .tag-toxic{background:var(--toxic-pale);color:var(--toxic);}
+  .tag-skull{background:var(--skull-pale);color:var(--skull);}
+  .tag-stone{background:#eeeee4;color:var(--stone);}
+  .hero-taxonomy{border-top:1px solid var(--border);padding-top:1rem;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  .taxon-item{display:flex;flex-direction:column;}
+  .taxon-label{font-size:11px;color:var(--stone-light);font-weight:400;}
+  .taxon-value{font-size:13px;color:var(--ink);font-weight:500;}
+  .page-wrap{max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .section{margin-bottom:2.5rem;}
+  .section-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:8px;border-bottom:1px solid var(--border-mid);}
+  .section-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .dot-deadly{background:var(--deadly);}
+  .dot-toxic{background:var(--toxic);}
+  .dot-skull{background:var(--skull);}
+  .dot-stone{background:var(--stone-light);}
+  .section-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:var(--ink);}
+  .section-badge{margin-left:auto;font-size:11px;font-weight:500;color:var(--stone-light);letter-spacing:.06em;text-transform:uppercase;}
+  .photo-grid-6{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .photo-slot{aspect-ratio:4/3;background:#3a4030;border-radius:8px;overflow:hidden;position:relative;border:1px solid var(--border-mid);}
+  .photo-slot-wide{aspect-ratio:16/7;background:#3a4030;border-radius:8px;overflow:hidden;position:relative;border:1px solid var(--border-mid);}
+  .photo-slot img,.photo-slot-wide img{width:100%;height:100%;object-fit:cover;display:block;}
+  .photo-caption{position:absolute;bottom:0;left:0;right:0;background:rgba(8,12,4,.8);color:#b8d898;font-size:11px;padding:5px 8px;text-align:center;}
+  .phase-list{display:flex;flex-direction:column;gap:12px;}
+  .phase-card{display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .phase-label{padding:4px 0;font-size:12px;font-weight:500;text-align:center;border-radius:6px;}
+  .phase-young{background:var(--deadly-pale);color:var(--deadly);}
+  .phase-mid{background:var(--skull-pale);color:var(--skull);}
+  .phase-mature{background:var(--toxic-pale);color:var(--toxic);}
+  .phase-desc{font-size:13px;color:var(--ink-mid);line-height:1.7;}
+  .traits-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .trait-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .trait-name{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:8px;}
+  .trait-tags{display:flex;flex-wrap:wrap;gap:5px;}
+  .parts-table{width:100%;border-collapse:collapse;}
+  .parts-table th{text-align:left;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);padding:8px 12px;border-bottom:1px solid var(--border-mid);background:var(--cream);}
+  .parts-table td{padding:10px 12px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink);}
+  .parts-table td:first-child{font-weight:500;color:var(--deadly);white-space:nowrap;width:110px;}
+  .parts-table tr:last-child td{border-bottom:none;}
+  .deadly-box{background:#f8faee;border:2px solid var(--toxic);border-radius:12px;padding:20px 22px;margin-bottom:1rem;}
+  .deadly-title{font-size:14px;font-weight:700;color:var(--toxic);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+  .deadly-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .deadly-list li{display:flex;gap:10px;font-size:13px;color:#4a1008;line-height:1.65;}
+  .deadly-list li::before{content:"☠";color:var(--toxic);font-size:12px;line-height:1.8;flex-shrink:0;}
+  .distinction-box{background:var(--deadly-pale);border:1px solid rgba(30,58,24,.28);border-radius:12px;padding:18px 20px;margin-bottom:1rem;}
+  .distinction-title{font-size:13px;font-weight:500;color:var(--deadly);margin-bottom:10px;}
+  .distinction-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+  .distinction-list li{display:flex;gap:10px;font-size:13px;color:#182810;line-height:1.6;}
+  .distinction-list li::before{content:"·";color:var(--deadly);font-size:16px;line-height:1.4;flex-shrink:0;}
+  .confusion-list{display:flex;flex-direction:column;gap:8px;}
+  .confusion-item{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--deadly-light);border-radius:0 10px 10px 0;padding:12px 16px;}
+  .confusion-item.safe{border-left-color:#6a9a5a;background:#f4faf0;}
+  .confusion-name{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:3px;}
+  .confusion-name em{color:var(--stone-light);}
+  .confusion-diff{font-size:12px;color:var(--ink-mid);line-height:1.6;}
+  .memory-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1rem;}
+  .memory-pill{background:var(--deadly-pale);border:1px solid rgba(30,58,24,.22);border-radius:8px;padding:8px 14px;font-size:13px;font-style:italic;color:var(--deadly);font-family:'Noto Serif SC',serif;}
+  .habitat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .habitat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .habitat-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:6px;}
+  .habitat-value{font-size:13px;color:var(--ink);line-height:1.7;}
+  .value-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .value-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .value-card-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:8px;}
+  .value-body{font-size:13px;color:var(--ink-mid);line-height:1.7;}
+  .feature-bar{background:linear-gradient(135deg,#d8e8c0,#edf4e4);border:1px solid rgba(30,58,24,.3);border-radius:12px;padding:18px 20px;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+  .fb-item{display:flex;flex-direction:column;gap:4px;}
+  .fb-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--deadly);font-weight:500;}
+  .fb-value{font-size:13px;color:var(--ink-mid);line-height:1.5;}
+  .toxin-timeline{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:10px;}
+  .tl-row{display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:start;padding:6px 0;border-bottom:1px solid var(--border);}
+  .tl-row:last-child{border-bottom:none;}
+  .tl-time{font-family:'Noto Serif SC',serif;font-size:12px;font-weight:700;color:var(--toxic);text-align:right;padding-right:12px;border-right:2px solid rgba(122,32,16,.25);}
+  .tl-desc{font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:4px;}
+  .page-footer{border-top:1px solid var(--border-mid);padding-top:1.5rem;margin-top:3rem;display:flex;justify-content:space-between;font-size:12px;color:var(--stone-light);}
+  .ref-link{color:var(--deadly);text-decoration:none;}
+  .ref-link:hover{text-decoration:underline;}
+  @media(max-width:600px){.hero{grid-template-columns:1fr;}.photo-grid-6{grid-template-columns:1fr 1fr;}.traits-grid,.habitat-grid,.value-grid{grid-template-columns:1fr;}.hero-taxonomy{grid-template-columns:1fr;}.phase-card{grid-template-columns:1fr;}.hero-name-zh{font-size:28px;}.feature-bar{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="notice-banner">☠ 剧毒蘑菇 · 含鹅膏毒肽 · 延迟发病 · 致肝肾衰竭 · 可致死</div>
+<div class="sub-banner">外形酷似鸡枞菌 · 华南地区致死性中毒事件高频肇因种 · 绝对禁止采食</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Amanita_manginiana0.png" alt="隐花青鹅膏主图">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Amanita manginiana · 灰白至灰褐菌盖，具菌环与白色菌托，外形极似鸡枞菌，却含致死性鹅膏毒肽</div>
+    </div>
+  </div>
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 鹅膏菌科（鹅膏属）</div>
+    <div class="hero-name-zh">隐花青鹅膏</div>
+    <div class="hero-name-la">Amanita manginiana</div>
+    <div class="hero-author">Har. & Pat., 1900</div>
+    <div class="tag-row">
+      <span class="tag tag-deadly">☠ 剧毒 · 可致死</span>
+      <span class="tag tag-toxic">含鹅膏毒肽</span>
+      <span class="tag tag-toxic">延迟发病6–24小时</span>
+      <span class="tag tag-skull">俗称"草鸡枞"</span>
+      <span class="tag tag-skull">华南致死中毒高频种</span>
+    </div>
+    <div class="hero-taxonomy">
+      <div class="taxon-item"><span class="taxon-label">中文俗名</span><span class="taxon-value">草鸡枞 / 青鹅膏 / 假鸡枞 / 隐花青鹅膏</span></div>
+      <div class="taxon-item"><span class="taxon-label">英文名</span><span class="taxon-value">Mangin's Amanita / False Termite Mushroom</span></div>
+      <div class="taxon-item"><span class="taxon-label">目 / 科</span><span class="taxon-value">蘑菇目 / Amanitaceae</span></div>
+      <div class="taxon-item"><span class="taxon-label">毒性类型</span><span class="taxon-value">肝肾损害型 · 鹅膏毒肽（amatoxins）</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- 0. 速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item"><span class="fb-label">核心危险：酷似鸡枞菌</span><span class="fb-value">华南地区民众有挖食白蚁窝附近"鸡枞菌"的传统，本种因外形、颜色与鸡枞高度相似，且同样生长于白蚁窝周边，每年导致<strong>多起致死性中毒事件</strong></span></div>
+      <div class="fb-item"><span class="fb-label">毒素特点：延迟发病</span><span class="fb-value">鹅膏毒肽（α-鹅膏毒肽为主）食后<strong>6–24小时才出现症状</strong>，中间存在"假愈期"，易被误认为已无碍，导致延误就医，肝肾损害持续进展</span></div>
+      <div class="fb-item"><span class="fb-label">致死机制</span><span class="fb-value">鹅膏毒肽抑制RNA聚合酶II，阻断蛋白质合成，导致肝细胞大量坏死，继而引发急性肝衰竭、肝肾综合征，重症患者在中毒后<strong>5–10天内死亡</strong></span></div>
+    </div>
+    <!-- 中毒进程时间轴 -->
+    <div class="section-header" style="margin-top:0;"><span class="section-dot dot-toxic"></span><span class="section-title">中毒进程时间轴</span><span class="section-badge">鹅膏毒肽中毒典型过程</span></div>
+    <div class="toxin-timeline">
+      <div class="tl-row"><div class="tl-time">0–6h</div><div class="tl-desc">食入后无明显症状，或仅有轻微不适（<strong>潜伏期</strong>），极易被误以为"无毒"而延误就医</div></div>
+      <div class="tl-row"><div class="tl-time">6–24h</div><div class="tl-desc">出现恶心、呕吐、腹泻、腹痛等胃肠道症状，症状较剧烈（<strong>胃肠炎期</strong>）</div></div>
+      <div class="tl-row"><div class="tl-time">1–3天</div><div class="tl-desc">胃肠症状减轻或消失，患者自我感觉好转（<strong>假愈期</strong>——最危险阶段，此时肝肾损伤正在进行，切勿放松警惕）</div></div>
+      <div class="tl-row"><div class="tl-time">3–5天</div><div class="tl-desc">肝功能指标急剧异常升高，出现黄疸、肝区疼痛，进入<strong>内脏损害期</strong></div></div>
+      <div class="tl-row"><div class="tl-time">5–10天</div><div class="tl-desc">重症患者出现急性肝衰竭、肝肾综合征，可发生<strong>死亡</strong>；轻症患者在积极治疗下可能缓慢恢复</div></div>
+    </div>
+  </div>
+
+  <!-- 1. 图片 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-deadly"></span><span class="section-title">图片标签</span><span class="section-badge">可视化记录</span></div>
+    <div class="photo-grid-6" style="margin-bottom:10px;">
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Amanita_manginiana1.png" alt="上方菌盖图"><div class="photo-caption">上方菌盖图 · 灰白至灰褐色 / 中央隆起 / 表面近光滑</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Amanita_manginiana2.png" alt="45°仰拍图"><div class="photo-caption">45° 仰拍 · 白色菌褶离生 / 菌环膜质白色 / 菌柄白色基部有菌托</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Amanita_manginiana3.png" alt="剖面图"><div class="photo-caption">剖面 · 菌肉白色，无变色反应，气味温和（勿被外表欺骗）</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Amanita_manginiana4.png" alt="管面图"><div class="photo-caption">褶面 · 白色，离生，密集，勿与真鸡枞菌的弯生菌褶混淆</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Amanita_manginiana5.png" alt="孢子印图"><div class="photo-caption">孢子印 · 白色（鹅膏属全体特征）</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Amanita_manginiana6.png" alt="特殊细节图"><div class="photo-caption">细节 · 基部白色杯状菌托特写（致命警示：任何有菌托的蘑菇须高度警惕）</div></div>
+    </div>
+    <div class="photo-slot-wide"><img src="https://eumensides.github.io/mashroom/Amanita_manginiana7.png" alt="生境图"><div class="photo-caption">生境图 · 华南阔叶林白蚁窝周边草地 / 外形酷似鸡枞菌生境</div></div>
+  </div>
+
+  <!-- 2. 生长周期 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-skull"></span><span class="section-title">形态特征 · 生长周期</span><span class="section-badge">结构标签</span></div>
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期（菌蛋）</div>
+        <div class="phase-desc">子实体幼时被白色卵形外菌幕包裹，酷似鸡枞菌幼体；菌蛋期含毒量同样极高，不可食用。剖开菌蛋可见折叠状菌帽、菌柄雏形及菌托雏形，凡见此剖面须立即识别为鹅膏属。</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">菌盖钟形，直径4–8cm，灰白至灰褐色，中央隆起，表面光滑或略具细纹；菌褶白色密集，<strong>离生</strong>（不与菌柄接触）；菌柄白色细长，具白色膜质菌环；基部具白色厚实杯状菌托——这是鹅膏属的绝对标志，不可忽视。</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">菌盖平展，直径可达8–14cm，颜色转灰褐，中央微凸；整体气味温和，与鸡枞菌的淡香气颇为相近；外观毫无"毒蘑菇"的警示感——正是这种无害外表使其成为华南地区致死中毒事件的主角。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-skull"></span><span class="section-title">感官细分</span><span class="section-badge">颜色 · 形状 · 气味（均无警示性）</span></div>
+    <div class="traits-grid">
+      <div class="trait-card"><div class="trait-name">颜色</div><div class="trait-tags"><span class="tag tag-skull">菌盖：灰白→灰褐，中央色深</span><span class="tag tag-skull">菌柄菌褶：白色</span><span class="tag tag-skull">菌托：白色，杯状</span><span class="tag tag-skull">孢子印：白色</span></div></div>
+      <div class="trait-card"><div class="trait-name">形状</div><div class="trait-tags"><span class="tag tag-skull">菌盖：钟形→平展，中央微凸</span><span class="tag tag-deadly">菌环：膜质白色，位于中上部</span><span class="tag tag-deadly">菌托：白色杯状，包裹基部（致命标志）</span></div></div>
+      <div class="trait-card"><div class="trait-name">气味（高度欺骗性）</div><div class="trait-tags"><span class="tag tag-skull">温和菌香，无异味</span><span class="tag tag-skull">不含任何警示性气味</span><span class="tag tag-toxic">无法通过嗅觉判断毒性</span></div></div>
+      <div class="trait-card"><div class="trait-name">口感（不可尝试）</div><div class="trait-tags"><span class="tag tag-toxic">⚠ 绝对不可尝试</span><span class="tag tag-skull">据中毒者描述口感正常</span><span class="tag tag-toxic">味觉无法判断毒性</span></div></div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-deadly"></span><span class="section-title">各部位详情</span></div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>灰白至灰褐色，中央色深，表面近光滑或略具细放射纹；干燥；直径4–14cm</td></tr>
+          <tr><td>菌褶</td><td>白色，密集，<strong>离生</strong>（完全不与菌柄接触，在菌柄附近有明显空隙）——与鸡枞菌菌褶弯生的重要形态差异</td></tr>
+          <tr><td>菌肉</td><td>白色，无变色反应，气味温和，含鹅膏毒肽但无任何感官警示</td></tr>
+          <tr><td>菌柄</td><td>8–15cm × 1–2cm；白色，较细长；表面光滑或具细纤维；基部嵌入白色杯状菌托</td></tr>
+          <tr><td>菌环</td><td>白色，膜质，位于菌柄中上部，幼时完整，成熟后易破碎下垂</td></tr>
+          <tr><td>菌托</td><td><strong>白色厚实的杯状菌托</strong>——这是鹅膏属最具辨识度的结构，是所有剧毒鹅膏的"死亡警告"。采集时若发现基部有白色袋状或杯状包被，必须立即停止采集</td></tr>
+          <tr><td>孢子</td><td>椭圆形，表面光滑；孢子印白色（鹅膏属全体共有特征）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-toxic"></span><span class="section-title">特殊区分点 · 与鸡枞菌对比</span><span class="section-badge">反向记忆 · 生死之别</span></div>
+    <div class="deadly-box">
+      <div class="deadly-title">☠ 为什么"草鸡枞"如此危险——与真鸡枞菌的混淆原因</div>
+      <ul class="deadly-list">
+        <li>两者均可见于<strong>华南阔叶林白蚁窝周边</strong>，生境高度重叠，且均在雨季大量出现</li>
+        <li>菌盖颜色（灰白至灰褐）、形态（中央隆起的钟形至平展）、气味（温和菌香）均与鸡枞菌颇为相似</li>
+        <li>民间长期以来将"白蚁窝旁的白色/灰色蘑菇"统称为"鸡枞"，缺乏区分意识</li>
+        <li>本种中毒有6–24小时潜伏期，食后不立即出现症状，进一步降低了对毒性的警惕</li>
+      </ul>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:1rem;overflow-x:auto;">
+      <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:10px;">一表看清：隐花青鹅膏 vs 鸡枞菌</div>
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+        <thead><tr style="background:var(--cream);">
+          <th style="text-align:left;padding:7px 10px;border-bottom:1px solid var(--border-mid);color:var(--stone-light);">特征</th>
+          <th style="text-align:left;padding:7px 10px;border-bottom:1px solid var(--border-mid);color:var(--toxic);">隐花青鹅膏（剧毒）</th>
+          <th style="text-align:left;padding:7px 10px;border-bottom:1px solid var(--border-mid);color:#3a6a2a;">鸡枞菌（可食）</th>
+        </tr></thead>
+        <tbody>
+          <tr style="background:#fdf8f0;"><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:500;">菌托</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--toxic);"><strong>有白色杯状菌托</strong></td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:#3a6a2a;">无菌托（基部有菌柄延伸）</td></tr>
+          <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:500;">菌环</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">有膜质白色菌环</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">无明显菌环</td></tr>
+          <tr style="background:#fdf8f0;"><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:500;">菌褶</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);"><strong>离生</strong>（菌柄附近有空隙）</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">弯生或延生</td></tr>
+          <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:500;">孢子印</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">白色</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">白色至浅奶油</td></tr>
+          <tr style="background:#fdf8f0;"><td style="padding:8px 10px;font-weight:500;">生命安全</td><td style="padding:8px 10px;color:var(--toxic);">食入可致死</td><td style="padding:8px 10px;color:#3a6a2a;">安全可食</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:10px;margin-top:1.5rem;">相似易混淆物种</div>
+    <div class="confusion-list">
+      <div class="confusion-item safe"><div class="confusion-name" style="color:#3a6a2a;">✓ 鸡枞菌 <em>Termitomyces albuminosus</em>（可食）</div><div class="confusion-diff">真正的鸡枞菌——区别：<strong>无菌托</strong>（基部仅有假根深入白蚁窝），菌褶弯生而非离生，菌盖中央有明显凸起脐状（"鸡枞脐"），气味更为浓郁独特；体型通常更大</div></div>
+      <div class="confusion-item"><div class="confusion-name" style="color:var(--toxic);">☠ 白毒鹅膏 <em>Amanita verna</em>（剧毒）</div><div class="confusion-diff">同属剧毒种，整体纯白，同样含鹅膏毒肽，同样有白色菌托+菌环；危险程度相当，需同样警惕</div></div>
+      <div class="confusion-item"><div class="confusion-name" style="color:var(--toxic);">☠ 致命鹅膏 <em>Amanita phalloides</em>（剧毒）</div><div class="confusion-diff">全球最著名的剧毒蘑菇，菌盖黄绿色，同样含鹅膏毒肽；菌托+菌环+白色孢子印是共同识别标志</div></div>
+    </div>
+    <div style="margin-top:1.2rem;"><div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「白托有环莫采食，鹅膏属内皆须慎」</div>
+      <div class="memory-pill">「白蚁窝旁非皆枞，验托验环保性命」</div>
+      <div class="memory-pill">「假愈一日肝受损，延迟发病更可怕」</div>
+    </div></div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-stone"></span><span class="section-title">群落生境 · 分布采集</span></div>
+    <div class="habitat-grid">
+      <div class="habitat-card"><div class="habitat-label">生长方式</div><div class="habitat-value">单生或散生，常见于白蚁窝（termite mound）周边地表，与真鸡枞菌的出菇位置高度重叠，是误采的主要场景</div></div>
+      <div class="habitat-card"><div class="habitat-label">生境</div><div class="habitat-value">华南及东南亚热带、亚热带阔叶林；与白蚁（尤其是土白蚁属）有密切的外生菌根关联，常大量出现于白蚁丘周边土壤</div></div>
+      <div class="habitat-card"><div class="habitat-label">地区分布</div><div class="habitat-value">中国华南（广东、广西、云南、福建等）、东南亚（越南、缅甸等）热带亚热带地区；是中国南方每年夏季野生蘑菇中毒死亡事件的主要肇因种之一</div></div>
+      <div class="habitat-card"><div class="habitat-label">出菇季节</div><div class="habitat-value">华南夏季雨期（5–9月），与真鸡枞菌出菇期完全重叠，此期间为中毒高风险季节，相关卫生部门通常发布专项预警</div></div>
+    </div>
+    <div style="margin-top:10px;background:#f8faee;border:2px solid var(--toxic);border-radius:10px;padding:14px 16px;font-size:13px;color:#4a1008;line-height:1.7;">
+      <strong>⚠ 致命提示：</strong>任何在华南地区白蚁窝附近采集"鸡枞菌"的行为都存在极高的误采本种的风险。<strong>唯一安全的建议是：不采、不食、不传</strong>。如已食用后出现任何不适，无论症状是否严重，均须立即前往医院急诊，并告知医生有食用野生蘑菇史。
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>参考来源：<a class="ref-link" href="https://en.wikipedia.org/wiki/Amanita_manginiana" target="_blank">Wikipedia EN</a> · <a class="ref-link" href="https://www.indexfungorum.org/" target="_blank">Index Fungorum</a> · 中国疾控中心蘑菇中毒防控指南</div>
+    <div>☠ 剧毒 · 含鹅膏毒肽 · 延迟发病 · 绝对禁止采食</div>
+  </div>
+</div>
+</body>
+</html>
