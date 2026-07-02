@@ -176,7 +176,9 @@
   .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
   .section {
   margin-bottom: 2.5rem;
-  display: flow-root; /* 新增这一行，创建BFC，彻底锁住内部所有margin，不会穿出红框 */
+  display: flow-root;
+  /* 新增两行隔离缓冲，阻断顶部穿透 */
+  padding: 0.01px 0;
 }
 
   .section-header {
