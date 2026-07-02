@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>亚稀褶红菇 · Russula subnigricans</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+  :root{
+    --ink:#0e0a08;--ink-mid:#2c1c14;--ink-light:#6a5044;
+    --cream:#f2ede8;--surface:#ffffff;
+    --charcoal:#2a1e18;--charcoal-light:#5a4038;--charcoal-pale:#eae0d8;
+    --blood:#8c1c10;--blood-light:#c04030;--blood-pale:#fae0d8;
+    --ember:#5c2010;--ember-light:#9a4828;--ember-pale:#f5ddd0;
+    --stone:#6a5040;--stone-light:#a08878;
+    --border:rgba(90,40,30,0.18);--border-mid:rgba(90,40,30,0.30);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans SC',sans-serif;font-weight:300;background:var(--cream);color:var(--ink);line-height:1.75;font-size:15px;}
+  .notice-banner{background:var(--charcoal);color:#e8c0a8;text-align:center;padding:12px 20px;font-size:14px;font-weight:700;letter-spacing:.06em;display:flex;align-items:center;justify-content:center;gap:10px;border-bottom:3px solid var(--blood);}
+  .sub-banner{background:#1e1410;color:#b08070;text-align:center;padding:7px 20px;font-size:12px;letter-spacing:.04em;}
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:500px;border-bottom:2px solid var(--border-mid);}
+  .hero-image-slot{background:#3a2820;position:relative;overflow:hidden;min-height:420px;}
+  .hero-image-slot img{width:100%;height:100%;object-fit:cover;display:block;}
+  .hero-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,4,2,.88));padding:24px 20px 16px;}
+  .hero-overlay-text{font-size:12px;color:rgba(220,180,160,.88);font-style:italic;}
+  .hero-info{padding:3rem 2.5rem;display:flex;flex-direction:column;justify-content:center;background:var(--surface);border-left:4px solid var(--blood);}
+  .hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--blood);margin-bottom:12px;}
+  .hero-name-zh{font-family:'Noto Serif SC',serif;font-size:34px;font-weight:700;line-height:1.2;color:var(--ink);margin-bottom:6px;}
+  .hero-name-la{font-style:italic;font-size:16px;font-weight:300;color:var(--blood);margin-bottom:4px;}
+  .hero-author{font-size:12px;color:var(--stone-light);margin-bottom:1.5rem;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem;}
+  .tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500;}
+  .tag-blood{background:var(--blood);color:#fde8e0;}
+  .tag-ember{background:var(--ember-pale);color:var(--ember);}
+  .tag-charcoal{background:var(--charcoal-pale);color:var(--charcoal);}
+  .tag-stone{background:#eeebe4;color:var(--stone);}
+  .hero-taxonomy{border-top:1px solid var(--border);padding-top:1rem;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  .taxon-item{display:flex;flex-direction:column;}
+  .taxon-label{font-size:11px;color:var(--stone-light);font-weight:400;}
+  .taxon-value{font-size:13px;color:var(--ink);font-weight:500;}
+  .page-wrap{max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .section{margin-bottom:2.5rem;}
+  .section-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:8px;border-bottom:1px solid var(--border-mid);}
+  .section-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .dot-blood{background:var(--blood);}
+  .dot-ember{background:var(--ember);}
+  .dot-charcoal{background:var(--charcoal-light);}
+  .dot-stone{background:var(--stone-light);}
+  .section-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:var(--ink);}
+  .section-badge{margin-left:auto;font-size:11px;font-weight:500;color:var(--stone-light);letter-spacing:.06em;text-transform:uppercase;}
+  .photo-grid-6{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .photo-slot{aspect-ratio:4/3;background:#3a2820;border-radius:8px;overflow:hidden;position:relative;border:1px solid var(--border-mid);}
+  .photo-slot-wide{aspect-ratio:16/7;background:#3a2820;border-radius:8px;overflow:hidden;position:relative;border:1px solid var(--border-mid);}
+  .photo-slot img,.photo-slot-wide img{width:100%;height:100%;object-fit:cover;display:block;}
+  .photo-caption{position:absolute;bottom:0;left:0;right:0;background:rgba(10,4,2,.8);color:#e0c0b0;font-size:11px;padding:5px 8px;text-align:center;}
+  .phase-list{display:flex;flex-direction:column;gap:12px;}
+  .phase-card{display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .phase-label{padding:4px 0;font-size:12px;font-weight:500;text-align:center;border-radius:6px;}
+  .phase-young{background:var(--charcoal-pale);color:var(--charcoal);}
+  .phase-mid{background:var(--ember-pale);color:var(--ember);}
+  .phase-mature{background:var(--blood-pale);color:var(--blood);}
+  .phase-desc{font-size:13px;color:var(--ink-mid);line-height:1.7;}
+  .traits-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .trait-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .trait-name{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:8px;}
+  .trait-tags{display:flex;flex-wrap:wrap;gap:5px;}
+  .parts-table{width:100%;border-collapse:collapse;}
+  .parts-table th{text-align:left;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);padding:8px 12px;border-bottom:1px solid var(--border-mid);background:var(--cream);}
+  .parts-table td{padding:10px 12px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink);}
+  .parts-table td:first-child{font-weight:500;color:var(--blood);white-space:nowrap;width:110px;}
+  .parts-table tr:last-child td{border-bottom:none;}
+  .deadly-box{background:#fdf4f0;border:2px solid var(--blood);border-radius:12px;padding:20px 22px;margin-bottom:1rem;}
+  .deadly-title{font-size:14px;font-weight:700;color:var(--blood);margin-bottom:12px;}
+  .deadly-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .deadly-list li{display:flex;gap:10px;font-size:13px;color:#4a1008;line-height:1.65;}
+  .deadly-list li::before{content:"☠";color:var(--blood);font-size:12px;line-height:1.8;flex-shrink:0;}
+  .distinction-box{background:var(--charcoal-pale);border:1px solid rgba(42,30,24,.25);border-radius:12px;padding:18px 20px;margin-bottom:1rem;}
+  .distinction-title{font-size:13px;font-weight:500;color:var(--charcoal);margin-bottom:10px;}
+  .distinction-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+  .distinction-list li{display:flex;gap:10px;font-size:13px;color:#201008;line-height:1.6;}
+  .distinction-list li::before{content:"·";color:var(--charcoal-light);font-size:16px;line-height:1.4;flex-shrink:0;}
+  .confusion-list{display:flex;flex-direction:column;gap:8px;}
+  .confusion-item{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--ember-light);border-radius:0 10px 10px 0;padding:12px 16px;}
+  .confusion-item.safe{border-left-color:#6a8a5a;background:#f4faf0;}
+  .confusion-name{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:3px;}
+  .confusion-name em{color:var(--stone-light);}
+  .confusion-diff{font-size:12px;color:var(--ink-mid);line-height:1.6;}
+  .memory-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1rem;}
+  .memory-pill{background:var(--ember-pale);border:1px solid rgba(92,32,16,.22);border-radius:8px;padding:8px 14px;font-size:13px;font-style:italic;color:var(--ember);font-family:'Noto Serif SC',serif;}
+  .habitat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .habitat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .habitat-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:6px;}
+  .habitat-value{font-size:13px;color:var(--ink);line-height:1.7;}
+  .value-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .value-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .value-card-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:8px;}
+  .value-body{font-size:13px;color:var(--ink-mid);line-height:1.7;}
+  .feature-bar{background:linear-gradient(135deg,#e8d0c8,#f8ece8);border:1px solid rgba(90,40,30,.28);border-radius:12px;padding:18px 20px;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+  .fb-item{display:flex;flex-direction:column;gap:4px;}
+  .fb-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--blood);font-weight:500;}
+  .fb-value{font-size:13px;color:var(--ink-mid);line-height:1.5;}
+  .toxin-timeline{display:flex;flex-direction:column;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:10px;}
+  .tl-row{display:grid;grid-template-columns:90px 1fr;gap:0;border-bottom:1px solid var(--border);}
+  .tl-row:last-child{border-bottom:none;}
+  .tl-time{font-size:12px;font-weight:700;color:var(--blood);text-align:right;padding:10px 12px;background:var(--cream);border-right:2px solid rgba(140,28,16,.22);}
+  .tl-desc{font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding:10px 14px;}
+  .stain-demo{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:10px;}
+  .stain-step{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;}
+  .stain-swatch{width:38px;height:38px;border-radius:50%;border:2px solid rgba(0,0,0,.08);}
+  .stain-label{font-size:11px;color:var(--ink-mid);text-align:center;line-height:1.4;}
+  .stain-arrow{color:var(--stone-light);font-size:18px;}
+  .page-footer{border-top:1px solid var(--border-mid);padding-top:1.5rem;margin-top:3rem;display:flex;justify-content:space-between;font-size:12px;color:var(--stone-light);}
+  .ref-link{color:var(--blood);text-decoration:none;}
+  .ref-link:hover{text-decoration:underline;}
+  @media(max-width:600px){.hero{grid-template-columns:1fr;}.photo-grid-6{grid-template-columns:1fr 1fr;}.traits-grid,.habitat-grid,.value-grid{grid-template-columns:1fr;}.hero-taxonomy{grid-template-columns:1fr;}.phase-card{grid-template-columns:1fr;}.hero-name-zh{font-size:28px;}.feature-bar{grid-template-columns:1fr;}.stain-demo{flex-wrap:wrap;}}
+</style>
+</head>
+<body>
+<div class="notice-banner">☠ 剧毒蘑菇 · 横纹肌溶解型毒素 · 致肾衰竭与心脏骤停 · 绝对禁止采食</div>
+<div class="sub-banner">中国南方夏秋季蘑菇中毒死亡事件首要肇因种 · 俗称"火炭菌"因其受伤变黑如炭</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Russula_subnigricans0.png" alt="亚稀褶红菇主图">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Russula subnigricans · 灰白至灰褐菌盖，受伤后菌肉缓慢变红再变黑，菌褶稀疏（亚稀褶）</div>
+    </div>
+  </div>
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 红菇科（红菇属）</div>
+    <div class="hero-name-zh">亚稀褶红菇</div>
+    <div class="hero-name-la">Russula subnigricans</div>
+    <div class="hero-author">Hongo, 1955</div>
+    <div class="tag-row">
+      <span class="tag tag-blood">☠ 剧毒 · 横纹肌溶解</span>
+      <span class="tag tag-blood">含环丙-2-烯甲酸</span>
+      <span class="tag tag-ember">受伤变红→变黑（炭）</span>
+      <span class="tag tag-ember">菌褶稀疏（亚稀褶）</span>
+      <span class="tag tag-charcoal">俗称火炭菌</span>
+    </div>
+    <div class="hero-taxonomy">
+      <div class="taxon-item"><span class="taxon-label">中文俗名</span><span class="taxon-value">火炭菌 / 亚稀褶红菇 / 变黑红菇</span></div>
+      <div class="taxon-item"><span class="taxon-label">英文名</span><span class="taxon-value">Blackening Russula / Coal Russula</span></div>
+      <div class="taxon-item"><span class="taxon-label">目 / 科</span><span class="taxon-value">红菇目 / Russulaceae</span></div>
+      <div class="taxon-item"><span class="taxon-label">毒性类型</span><span class="taxon-value">横纹肌溶解型 · 环丙-2-烯甲酸</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- 0. 速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item"><span class="fb-label">独特毒素：横纹肌溶解</span><span class="fb-value">主要毒素为<strong>环丙-2-烯甲酸（cycloprop-2-ene carboxylic acid）</strong>，是目前已知唯一确认能引起横纹肌溶解综合征的蘑菇毒素，与鹅膏毒肽的靶器官（肝）完全不同——本种直接攻击骨骼肌</span></div>
+      <div class="fb-item"><span class="fb-label">中国南方首要杀手</span><span class="fb-value">每年夏秋季节中国华南（广西、广东、贵州等）野生蘑菇中毒死亡事件中，本种是<strong>导致死亡人数最多的单一物种</strong>，民间因其形似可食红菇而屡屡误采</span></div>
+      <div class="fb-item"><span class="fb-label">受伤变黑是警示</span><span class="fb-value">菌肉受伤后<strong>先缓慢变红，再慢慢变黑如炭</strong>——"火炭菌"之名由此而来；这一变色过程是其最直观的外部警示信号，但民间往往不知其为剧毒的表现</span></div>
+    </div>
+
+    <!-- 中毒进程时间轴 -->
+    <div class="section-header" style="margin-top:0;"><span class="section-dot dot-blood"></span><span class="section-title">中毒进程时间轴</span><span class="section-badge">横纹肌溶解型特征进程</span></div>
+    <div class="toxin-timeline">
+      <div class="tl-row"><div class="tl-time">0–2h</div><div class="tl-desc"><strong>潜伏期：</strong>无明显症状，或轻微恶心不适，极易被忽视</div></div>
+      <div class="tl-row"><div class="tl-time">2–6h</div><div class="tl-desc"><strong>胃肠期：</strong>恶心、呕吐、腹痛腹泻，与普通食物中毒难以区分</div></div>
+      <div class="tl-row"><div class="tl-time">6–24h</div><div class="tl-desc"><strong>肌溶期启动：</strong>出现全身肌肉酸痛、乏力、茶色/深褐色尿液（肌红蛋白尿）——<strong>这是横纹肌溶解最关键的早期信号，必须立即急诊</strong></div></div>
+      <div class="tl-row"><div class="tl-time">1–3天</div><div class="tl-desc"><strong>急性期：</strong>横纹肌持续溶解，肌酸激酶（CK）急剧升高，肌红蛋白沉积于肾小管，引发<strong>急性肾衰竭</strong></div></div>
+      <div class="tl-row"><div class="tl-time">3–7天</div><div class="tl-desc"><strong>危重期：</strong>严重肾衰竭需透析治疗，可出现心律失常、<strong>心脏骤停</strong>，重症患者在1周内死亡</div></div>
+    </div>
+  </div>
+
+  <!-- 1. 图片 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-charcoal"></span><span class="section-title">图片标签</span><span class="section-badge">可视化记录</span></div>
+    <div class="photo-grid-6" style="margin-bottom:10px;">
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Russula_subnigricans1.png" alt="上方菌盖图"><div class="photo-caption">上方菌盖图 · 灰白至灰褐色 / 表面干燥无光泽 / 中央微凹</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Russula_subnigricans2.png" alt="45°仰拍图"><div class="photo-caption">45° 仰拍 · 菌褶稀疏（亚稀褶）/ 白色菌柄短粗 / 无菌环无菌托</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Russula_subnigricans3.png" alt="剖面图"><div class="photo-caption">剖面 · 菌肉白色→受伤缓慢变红→再变黑（变色过程约30–60分钟）</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Russula_subnigricans4.png" alt="管面图"><div class="photo-caption">褶面 · 菌褶稀疏（间距大于可食稀褶红菇）/ 受伤处变黑特写</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Russula_subnigricans5.png" alt="孢子印图"><div class="photo-caption">孢子印 · 白色（红菇属标志特征）</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Russula_subnigricans6.png" alt="特殊细节图"><div class="photo-caption">细节 · 受伤后变黑的炭状区域特写，与"火炭"之名高度吻合</div></div>
+    </div>
+    <div class="photo-slot-wide"><img src="https://eumensides.github.io/mashroom/Russula_subnigricans7.png" alt="生境图"><div class="photo-caption">生境图 · 华南阔叶林或混交林地表 / 与多种可食红菇同期同林出现</div></div>
+  </div>
+
+  <!-- 2. 生长周期 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-ember"></span><span class="section-title">形态特征 · 生长周期</span><span class="section-badge">结构标签</span></div>
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">菌盖半球形，直径3–5cm，灰白色；菌褶白色，<strong>排列稀疏</strong>（褶间距明显宽于同属可食种）；菌柄短粗，白色坚实；无菌环无菌托；菌肉白色，受伤后数分钟内即开始缓慢变色。</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">菌盖平展，直径5–9cm，颜色由灰白转灰褐，干燥无光泽，表面偶有细小裂纹；菌褶依然稀疏，白色；受伤部位<strong>先变红（约10–20分钟），再缓慢变黑（约30–60分钟）</strong>——此时"火炭"特征最为直观。</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">菌盖中央深凹，直径可达9–13cm，颜色转暗灰褐；边缘常开裂；整株老熟个体因氧化变色而外观发黑；孢子印白色；整体外观朴素，毫无剧毒蘑菇的"视觉警示感"，是其危险性的核心原因。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-blood"></span><span class="section-title">感官细分</span><span class="section-badge">颜色 · 形状 · 变色</span></div>
+    <div class="traits-grid">
+      <div class="trait-card"><div class="trait-name">颜色</div><div class="trait-tags"><span class="tag tag-charcoal">菌盖：灰白→灰褐→暗灰黑</span><span class="tag tag-blood">菌肉受伤：白→红→黑（炭状）</span><span class="tag tag-charcoal">菌褶：白色，受伤变黑</span><span class="tag tag-charcoal">孢子印：白色</span></div></div>
+      <div class="trait-card"><div class="trait-name">形状</div><div class="trait-tags"><span class="tag tag-charcoal">菌盖：半球形→平展→中央凹陷</span><span class="tag tag-ember">菌褶：稀疏（核心特征）</span><span class="tag tag-charcoal">菌柄：短粗，白色，无环无托</span></div></div>
+      <div class="trait-card"><div class="trait-name">气味（无警示性）</div><div class="trait-tags"><span class="tag tag-charcoal">温和蘑菇气息</span><span class="tag tag-charcoal">略有辛辣感（口感测试绝对禁止）</span><span class="tag tag-blood">气味无法判断毒性</span></div></div>
+      <div class="trait-card"><div class="trait-name">变色反应（关键警示）</div><div class="trait-tags"><span class="tag tag-blood">受伤→约10–20分钟变红</span><span class="tag tag-blood">继续→约30–60分钟变黑</span><span class="tag tag-ember">变黑如炭=剧毒警示</span></div></div>
+    </div>
+  </div>
+
+  <!-- 3.5 变色演示 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-blood"></span><span class="section-title">受伤变色过程</span><span class="section-badge">最重要野外识别特征</span></div>
+    <div class="stain-demo">
+      <div class="stain-step"><div class="stain-swatch" style="background:#f0ece4;"></div><div class="stain-label">受伤瞬间<br>菌肉白色</div></div>
+      <div class="stain-arrow">→</div>
+      <div class="stain-step"><div class="stain-swatch" style="background:#c84840;"></div><div class="stain-label">约10–20分钟<br>缓慢变红</div></div>
+      <div class="stain-arrow">→</div>
+      <div class="stain-step"><div class="stain-swatch" style="background:#4a2820;"></div><div class="stain-label">约30–60分钟<br>变成深褐红</div></div>
+      <div class="stain-arrow">→</div>
+      <div class="stain-step"><div class="stain-swatch" style="background:#1a1008;"></div><div class="stain-label">最终变黑<br>如烧焦炭块</div></div>
+    </div>
+    <div style="font-size:12px;color:var(--ink-light);padding:0 4px;">⚠ 关键：本种变色过程<strong>较慢（需10–60分钟）</strong>，不同于某些快速变色的红菇。野外若发现变色这一现象，必须视为剧毒标志。与本种最危险的混淆种是<strong>稀褶红菇</strong>（<em>R. vesca</em>变型）等可食红菇，需通过菌褶密度和变色速度仔细区分。</div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-charcoal"></span><span class="section-title">各部位详情</span></div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>灰白至灰褐色，干燥无光泽，中央稍深；表面可有细小裂纹；中央随成熟逐渐凹陷；无黏滑感</td></tr>
+          <tr><td>菌褶</td><td><strong>亚稀褶</strong>——本种命名核心，菌褶间距明显比多数红菇属宽，褶片较厚；白色，受伤后缓慢变红再变黑</td></tr>
+          <tr><td>菌肉</td><td>白色，坚实；<strong>受伤后先变红（约10–20分钟）再变黑（约30–60分钟）</strong>；含环丙-2-烯甲酸，无嗅觉可察觉的毒性指征</td></tr>
+          <tr><td>菌柄</td><td>3–6cm × 1.5–3cm；白色，短粗，坚实；受伤后同样变黑；无菌环无菌托</td></tr>
+          <tr><td>孢子</td><td>球形至近球形，表面具刺疣网纹；孢子印<strong>白色</strong>（红菇属全体共有特征）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-blood"></span><span class="section-title">特殊区分点</span><span class="section-badge">生死关键</span></div>
+    <div class="deadly-box">
+      <div class="deadly-title">☠ 最危险的混淆场景：与稀褶红菇的区分</div>
+      <ul class="deadly-list">
+        <li><strong>亚稀褶红菇（本种·剧毒）vs 稀褶红菇（<em>Russula nigricans</em>变型·有争议）</strong>：两者均菌褶稀疏、受伤变黑，民间统称"黑菇"，是华南地区最危险的混淆组合</li>
+        <li>区别要点：稀褶红菇变色更快（约数分钟即变黑，通常先变红色更明显）；本种变色过程更缓慢（10–60分钟），且部分个体变红阶段可持续较长</li>
+        <li>仅凭肉眼和野外观察<strong>极难可靠区分</strong>，建议完全放弃采食任何受伤变黑的红菇属物种</li>
+        <li><strong>民间鉴定传说（如银针变色、大蒜变黑）均已证明对鉴别本种无效</strong>，不可依赖</li>
+      </ul>
+    </div>
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识特征（亦用于识别风险）</div>
+      <ul class="distinction-list">
+        <li>菌褶<strong>亚稀疏</strong>（间距宽）——红菇属中菌褶稀疏者需格外警惕</li>
+        <li>受伤后<strong>缓慢变红再变黑</strong>（整个过程约30–60分钟）</li>
+        <li>菌盖<strong>灰白至灰褐色</strong>，无环无托，整体外观朴素</li>
+        <li>孢子印白色（无法作为食用安全依据，仅用于确认红菇属归属）</li>
+      </ul>
+    </div>
+    <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:10px;margin-top:1.5rem;">相似易混淆物种</div>
+    <div class="confusion-list">
+      <div class="confusion-item"><div class="confusion-name" style="color:var(--blood);">⚠ 稀褶红菇 <em>Russula nigricans</em></div><div class="confusion-diff">外形与本种极为相近，同样菌褶稀疏、受伤变黑；稀褶红菇本身毒性存在争议（部分资料列为可食，但已有中毒记录）；<strong>与本种的混淆是华南地区中毒死亡最常见的场景</strong>，建议一律视为危险物种，不采不食</div></div>
+      <div class="confusion-item safe"><div class="confusion-name" style="color:#3a6a2a;">✓ 多种可食红菇（<em>Russula</em> spp.·菌褶密集）</div><div class="confusion-diff">大多数可食红菇属物种菌褶<strong>排列密集</strong>，与本种的稀疏菌褶有明显差异；受伤后颜色变化不明显或变化方向不同（不变黑）；仍建议逐株确认</div></div>
+      <div class="confusion-item"><div class="confusion-name" style="color:var(--blood);">⚠ 点柄黑红菇等其他变黑红菇</div><div class="confusion-diff">红菇属内存在其他受伤或老熟后变黑的物种；<strong>任何出现受伤变黑现象的红菇均应谨慎对待</strong>，建议不采不食，以绝后患</div></div>
+    </div>
+    <div style="margin-top:1.2rem;"><div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「亚稀褶宽白→红→黑，火炭之名道凶险」</div>
+      <div class="memory-pill">「红菇褶稀变色黑，华南致死首恶名」</div>
+      <div class="memory-pill">「变黑红菇一概弃，茶尿出现速急诊」</div>
+    </div></div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-stone"></span><span class="section-title">群落生境 · 分布采集</span></div>
+    <div class="habitat-grid">
+      <div class="habitat-card"><div class="habitat-label">生长方式</div><div class="habitat-value">单生或散生，夏秋季雨后出现于阔叶林地表，与多种可食红菇同期同林出现，加剧误采风险</div></div>
+      <div class="habitat-card"><div class="habitat-label">生境</div><div class="habitat-value">外生菌根菌，与壳斗科（栎树、栗树等）阔叶树共生，偏好湿热的亚热带常绿阔叶林地表腐殖土层</div></div>
+      <div class="habitat-card"><div class="habitat-label">地区分布</div><div class="habitat-value">中国华南（广西、广东、福建、湖南、贵州、云南等）为主要分布区；日本亦有记录（命名地）；是中国南方每年夏秋季死亡性蘑菇中毒事件的首要肇因种</div></div>
+      <div class="habitat-card"><div class="habitat-label">出菇季节</div><div class="habitat-value">夏秋季（6–10月），雨后高峰；与当地可食红菇出菇期完全重叠，在"红菇季"期间为最高风险种</div></div>
+    </div>
+    <div style="margin-top:10px;background:#fdf4f0;border:2px solid var(--blood);border-radius:10px;padding:14px 16px;font-size:13px;color:#4a1008;line-height:1.75;">
+      <strong>☠ 紧急提示：</strong>若食用疑似红菇后出现<strong>尿液颜色变深（茶色、可乐色、酱油色）</strong>，这是横纹肌溶解的特征性信号，<strong>必须立即前往急诊，不可等待观察</strong>，告知医生有食用野生蘑菇史并携带样本或照片。时间就是肾脏，延误就医是死亡的主要原因之一。
+    </div>
+  </div>
+
+  <!-- 7. 价值 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-ember"></span><span class="section-title">毒理与科研价值</span></div>
+    <div class="value-grid">
+      <div class="value-card"><div class="value-card-label">毒素发现意义</div><div class="value-body">其独特毒素环丙-2-烯甲酸由中国科学家于2012年前后从本种中分离确认，是迄今唯一已知能直接引起横纹肌溶解综合征的蘑菇毒素，对理解蘑菇毒性多样性具有里程碑意义</div></div>
+      <div class="value-card"><div class="value-card-label">公共卫生价值</div><div class="value-body">本种是推动中国建立野生蘑菇中毒防控与预警体系的重要驱动力之一；因其每年致死人数众多，相关中毒流行病学研究、临床治疗方案的建立均以本种为重要参照对象</div></div>
+      <div class="value-card"><div class="value-card-label">科普教育核心案例</div><div class="value-body">本种是中国真菌安全科普中最重要的教育案例之一，有效说明"红菇不等于安全""变黑红菇必须放弃""银针大蒜检测法无效"等核心科普知识</div></div>
+      <div class="value-card"><div class="value-card-label">毒理学研究价值</div><div class="value-body">其独特的肌溶毒素为研究骨骼肌损伤机制、肌红蛋白肾毒性提供了新的研究工具，环丙-2-烯甲酸的作用靶点与机制仍是活跃的毒理学研究领域</div></div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>参考来源：<a class="ref-link" href="https://en.wikipedia.org/wiki/Russula_subnigricans" target="_blank">Wikipedia EN</a> · <a class="ref-link" href="https://baike.baidu.com/item/%E4%BA%9A%E7%A8%80%E8%A4%B6%E7%BA%A2%E8%8F%87" target="_blank">百度百科</a> · 中国科学院昆明植物研究所蘑菇中毒研究</div>
+    <div>☠ 剧毒 · 横纹肌溶解 · 中国南方致死首要种</div>
+  </div>
+</div>
+</body>
+</html>
