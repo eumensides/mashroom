@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>硬皮地星 · Astraeus hygrometricus</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+  :root{
+    /* 不可食但非毒：沉稳大地褐/星尘灰调，呼应其开裂如星的独特形态 */
+    --ink:#1a1510;--ink-mid:#3e3020;--ink-light:#7a6a54;
+    --cream:#f5f0e6;--surface:#ffffff;
+    --earth:#7a5e34;--earth-light:#b09060;--earth-pale:#ede0c0;--earth-mid:#4e3818;
+    --bark:#5a4830;--bark-light:#8a7458;--bark-pale:#ece0cc;
+    --star:#9a8050;--star-light:#c4a870;--star-pale:#f4ecd4;
+    --stone:#6a5e48;--stone-light:#a09070;
+    --warn:#8a6020;--warn-pale:#f5ead4;
+    --border:rgba(120,90,40,0.14);--border-mid:rgba(120,90,40,0.25);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans SC',sans-serif;font-weight:300;background:var(--cream);color:var(--ink);line-height:1.75;font-size:15px;}
+  .notice-banner{background:var(--earth-mid);color:#e8d4a8;text-align:center;padding:10px 20px;font-size:13px;font-weight:500;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;gap:10px;}
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:500px;border-bottom:1px solid var(--border-mid);}
+  .hero-image-slot{background:#c8b480;position:relative;overflow:hidden;min-height:420px;}
+  .hero-image-slot img{width:100%;height:100%;object-fit:cover;display:block;}
+  .hero-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(16,12,4,.72));padding:24px 20px 16px;}
+  .hero-overlay-text{font-size:12px;color:rgba(236,218,172,.88);font-style:italic;}
+  .hero-info{padding:3rem 2.5rem;display:flex;flex-direction:column;justify-content:center;background:var(--surface);}
+  .hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--earth-mid);margin-bottom:12px;}
+  .hero-name-zh{font-family:'Noto Serif SC',serif;font-size:36px;font-weight:700;line-height:1.2;color:var(--ink);margin-bottom:6px;}
+  .hero-name-la{font-style:italic;font-size:16px;font-weight:300;color:var(--earth-mid);margin-bottom:4px;}
+  .hero-author{font-size:12px;color:var(--stone-light);margin-bottom:1.5rem;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem;}
+  .tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500;}
+  .tag-earth{background:var(--earth-pale);color:var(--earth-mid);}
+  .tag-bark{background:var(--bark-pale);color:var(--bark);}
+  .tag-star{background:var(--star-pale);color:var(--star);}
+  .tag-warn{background:var(--warn-pale);color:var(--warn);}
+  .tag-stone{background:#ede8d8;color:var(--stone);}
+  .hero-taxonomy{border-top:1px solid var(--border);padding-top:1rem;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  .taxon-item{display:flex;flex-direction:column;}
+  .taxon-label{font-size:11px;color:var(--stone-light);font-weight:400;}
+  .taxon-value{font-size:13px;color:var(--ink);font-weight:500;}
+  .page-wrap{max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .section{margin-bottom:2.5rem;}
+  .section-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:8px;border-bottom:1px solid var(--border-mid);}
+  .section-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .dot-earth{background:var(--earth);}
+  .dot-bark{background:var(--bark);}
+  .dot-star{background:var(--star);}
+  .dot-stone{background:var(--stone-light);}
+  .section-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:var(--ink);}
+  .section-badge{margin-left:auto;font-size:11px;font-weight:500;color:var(--stone-light);letter-spacing:.06em;text-transform:uppercase;}
+  .photo-grid-6{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .photo-slot{aspect-ratio:4/3;background:#c0a868;border-radius:8px;overflow:hidden;position:relative;border:1px solid var(--border-mid);}
+  .photo-slot-wide{aspect-ratio:16/7;background:#c0a868;border-radius:8px;overflow:hidden;position:relative;border:1px solid var(--border-mid);}
+  .photo-slot img,.photo-slot-wide img{width:100%;height:100%;object-fit:cover;display:block;}
+  .photo-caption{position:absolute;bottom:0;left:0;right:0;background:rgba(16,12,4,.72);color:#ecd8a8;font-size:11px;padding:5px 8px;text-align:center;}
+  .phase-list{display:flex;flex-direction:column;gap:12px;}
+  .phase-card{display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .phase-label{padding:4px 0;font-size:12px;font-weight:500;text-align:center;border-radius:6px;}
+  .phase-young{background:var(--earth-pale);color:var(--earth-mid);}
+  .phase-mid{background:var(--star-pale);color:var(--star);}
+  .phase-mature{background:var(--bark-pale);color:var(--bark);}
+  .phase-desc{font-size:13px;color:var(--ink-mid);line-height:1.7;}
+  .traits-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .trait-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .trait-name{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:8px;}
+  .trait-tags{display:flex;flex-wrap:wrap;gap:5px;}
+  .parts-table{width:100%;border-collapse:collapse;}
+  .parts-table th{text-align:left;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);padding:8px 12px;border-bottom:1px solid var(--border-mid);background:var(--cream);}
+  .parts-table td{padding:10px 12px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink);}
+  .parts-table td:first-child{font-weight:500;color:var(--earth-mid);white-space:nowrap;width:110px;}
+  .parts-table tr:last-child td{border-bottom:none;}
+  .info-box{background:var(--earth-pale);border:1px solid rgba(122,94,52,.28);border-radius:12px;padding:18px 20px;margin-bottom:1rem;}
+  .info-title{font-size:13px;font-weight:500;color:var(--earth-mid);margin-bottom:10px;}
+  .info-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+  .info-list li{display:flex;gap:10px;font-size:13px;color:#3a2810;line-height:1.6;}
+  .info-list li::before{content:"·";color:var(--earth);font-size:16px;line-height:1.4;flex-shrink:0;}
+  .confusion-list{display:flex;flex-direction:column;gap:8px;}
+  .confusion-item{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--earth-light);border-radius:0 10px 10px 0;padding:12px 16px;}
+  .confusion-name{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:3px;}
+  .confusion-name em{color:var(--stone-light);}
+  .confusion-diff{font-size:12px;color:var(--ink-mid);line-height:1.6;}
+  .memory-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1rem;}
+  .memory-pill{background:var(--star-pale);border:1px solid rgba(154,128,80,.25);border-radius:8px;padding:8px 14px;font-size:13px;font-style:italic;color:var(--star);font-family:'Noto Serif SC',serif;}
+  .habitat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .habitat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .habitat-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:6px;}
+  .habitat-value{font-size:13px;color:var(--ink);line-height:1.7;}
+  .value-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .value-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .value-card-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:8px;}
+  .value-body{font-size:13px;color:var(--ink-mid);line-height:1.7;}
+  .feature-bar{background:linear-gradient(135deg,#e8d8a8,#f8f0d8);border:1px solid rgba(122,94,52,.3);border-radius:12px;padding:18px 20px;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+  .fb-item{display:flex;flex-direction:column;gap:4px;}
+  .fb-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--earth-mid);font-weight:500;}
+  .fb-value{font-size:13px;color:var(--ink-mid);line-height:1.5;}
+  /* 湿度感应演示 */
+  .hygro-demo{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:10px;}
+  .hygro-step{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;}
+  .hygro-swatch{width:50px;height:50px;display:flex;align-items:center;justify-content:center;font-size:26px;}
+  .hygro-label{font-size:11px;color:var(--ink-mid);text-align:center;line-height:1.4;}
+  .hygro-arrow{color:var(--stone-light);font-size:18px;}
+  .page-footer{border-top:1px solid var(--border-mid);padding-top:1.5rem;margin-top:3rem;display:flex;justify-content:space-between;font-size:12px;color:var(--stone-light);}
+  .ref-link{color:var(--earth-mid);text-decoration:none;}
+  .ref-link:hover{text-decoration:underline;}
+  @media(max-width:600px){.hero{grid-template-columns:1fr;}.photo-grid-6{grid-template-columns:1fr 1fr;}.traits-grid,.habitat-grid,.value-grid{grid-template-columns:1fr;}.hero-taxonomy{grid-template-columns:1fr;}.phase-card{grid-template-columns:1fr;}.hero-name-zh{font-size:28px;}.feature-bar{grid-template-columns:1fr;}.hygro-demo{flex-wrap:wrap;}}
+</style>
+</head>
+<body>
+<div class="notice-banner">⭐ 不可食用（质地木质化）· 非毒 · 重要外生菌根菌 · 极具观赏与科研价值</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Astraeus_hygrometricus0.png" alt="硬皮地星主图">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Astraeus hygrometricus · 外壁开裂如星，湿润时展开干燥时卷合，形如天然湿度计</div>
+    </div>
+  </div>
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 地星科（地星属）</div>
+    <div class="hero-name-zh">硬皮地星</div>
+    <div class="hero-name-la">Astraeus hygrometricus</div>
+    <div class="hero-author">(Pers.) Morgan, 1889</div>
+    <div class="tag-row">
+      <span class="tag tag-earth">不可食（木质化）</span>
+      <span class="tag tag-star">外壁开裂如星（标志特征）</span>
+      <span class="tag tag-star">湿感运动（天然湿度计）</span>
+      <span class="tag tag-bark">外生菌根菌</span>
+      <span class="tag tag-stone">药用研究价值</span>
+    </div>
+    <div class="hero-taxonomy">
+      <div class="taxon-item"><span class="taxon-label">中文俗名</span><span class="taxon-value">硬皮地星 / 土星菌 / 感湿地星</span></div>
+      <div class="taxon-item"><span class="taxon-label">英文名</span><span class="taxon-value">Hygroscopic Earthstar / Barometer Earthstar</span></div>
+      <div class="taxon-item"><span class="taxon-label">目 / 科</span><span class="taxon-value">地星目 / Diplocystidiaceae</span></div>
+      <div class="taxon-item"><span class="taxon-label">保护状态</span><span class="taxon-value">LC（无危）· 干旱沙质林地常见</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+  <!-- 0. 速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item"><span class="fb-label">标志特征：开星运动</span><span class="fb-value">外壁（外包被）由革质层组成，干燥时向内卷合呈球形，湿润时<strong>向外展开如星状</strong>，露出内包被顶部的散孢孔；此湿感运动可在数分钟内完成，是天然的"生物湿度计"</span></div>
+      <div class="fb-item"><span class="fb-label">分类学地位</span><span class="fb-value">传统上归入地星科，但分子系统学研究表明其与硬皮马勃属关系更近，现归入 Diplocystidiaceae；"hygrometricus"（感湿的）直接描述其吸湿运动特性</span></div>
+      <div class="fb-item"><span class="fb-label">不可食原因</span><span class="fb-value">外壁及包被均高度木质化革质化，完全无法食用；内部孢粉（孢子粉）成熟后散发有轻微刺激性，吸入大量孢子粉可能引起呼吸道不适，应避免近距离挤压成熟个体</span></div>
+    </div>
+  </div>
+
+  <!-- 1. 图片 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-earth"></span><span class="section-title">图片标签</span><span class="section-badge">可视化记录</span></div>
+    <div class="photo-grid-6" style="margin-bottom:10px;">
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Astraeus_hygrometricus1.png" alt="展开图"><div class="photo-caption">展开状态（湿润）· 外壁裂成7–15瓣向外展开如星，内包被球形暴露</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Astraeus_hygrometricus2.png" alt="45°视角"><div class="photo-caption">45° 视角 · 内包被顶端散孢孔特写 / 外壁网裂纹路</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Astraeus_hygrometricus3.png" alt="剖面图"><div class="photo-caption">剖面 · 幼时菌肉白色，成熟后孢体变为橄榄褐色孢粉</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Astraeus_hygrometricus4.png" alt="收合状态"><div class="photo-caption">收合状态（干燥）· 外壁向内卷合包裹内包被，呈球形或多角形</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Astraeus_hygrometricus5.png" alt="孢粉图"><div class="photo-caption">孢粉 · 成熟孢体呈橄榄褐至茶褐色粉末状，由顶端散孢孔释放</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Astraeus_hygrometricus6.png" alt="特殊细节图"><div class="photo-caption">细节 · 外壁内表面网裂纹路（区别于真地星属的特征）</div></div>
+    </div>
+    <div class="photo-slot-wide"><img src="https://eumensides.github.io/mashroom/Astraeus_hygrometricus7.png" alt="生境图"><div class="photo-caption">生境图 · 干旱沙质土壤松林地表，雨后群生展开如繁星散落</div></div>
+  </div>
+
+  <!-- 2. 生长阶段 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-bark"></span><span class="section-title">形态特征 · 生长阶段</span><span class="section-badge">结构标签</span></div>
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期（未开裂）</div>
+        <div class="phase-desc">子实体球形至卵形，直径2–5cm，完全被坚韧的外包被（外壁）包裹；表面粗糙，灰褐至赭褐色，具泥沙附着；剖开内部为白色，孢体尚未成熟；外壁已隐约可见将来开裂的网纹。</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">展开期（开裂散孢）</div>
+        <div class="phase-desc">随雨水或湿度升高，外壁从顶部开始径向开裂，分裂为<strong>7–15个（通常10–12个）革质裂瓣</strong>，向外伸展形成星状（湿润时）；内包被（内球）暴露，顶端有圆形散孢孔；湿感运动可在数分钟内完成展开，干燥后迅速回缩合拢。</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期（孢粉释放）</div>
+        <div class="phase-desc">内球通过顶端散孢孔，在风吹、雨滴拍打或动物踩踏时释放橄榄褐色孢粉；外壁裂瓣可长期保留，一个成熟个体可经历多次湿润展开-干燥收合的循环，寿命可达数年；老熟个体裂瓣逐渐破碎腐解。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-star"></span><span class="section-title">感官细分</span><span class="section-badge">颜色 · 形状 · 质地</span></div>
+    <div class="traits-grid">
+      <div class="trait-card"><div class="trait-name">颜色</div><div class="trait-tags"><span class="tag tag-earth">外壁：灰褐至赭褐，内表面浅</span><span class="tag tag-bark">内包被：灰白→灰褐（成熟）</span><span class="tag tag-star">孢粉：橄榄褐至茶褐色</span></div></div>
+      <div class="trait-card"><div class="trait-name">形状</div><div class="trait-tags"><span class="tag tag-earth">幼时：球形至卵形</span><span class="tag tag-star">展开后：星形，7–15裂瓣</span><span class="tag tag-bark">内包被：球形，顶端圆形散孢孔</span></div></div>
+      <div class="trait-card"><div class="trait-name">质地</div><div class="trait-tags"><span class="tag tag-earth">外壁：革质、木质化，极坚韧</span><span class="tag tag-bark">内包被：薄纸质</span><span class="tag tag-stone">整体无食用价值，勿尝试</span></div></div>
+      <div class="trait-card"><div class="trait-name">气味</div><div class="trait-tags"><span class="tag tag-earth">幼时无明显气味</span><span class="tag tag-warn">成熟孢粉：轻微刺激性</span><span class="tag tag-stone">避免近距离吸入大量孢粉</span></div></div>
+    </div>
+  </div>
+
+  <!-- 3.5 湿感运动演示 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-star"></span><span class="section-title">湿感运动演示</span><span class="section-badge">天然湿度计</span></div>
+    <div class="hygro-demo">
+      <div class="hygro-step"><div class="hygro-swatch">🟤</div><div class="hygro-label">干燥状态<br>外壁卷合收拢<br>呈球形或多角形</div></div>
+      <div class="hygro-arrow">→ 遇湿润 →</div>
+      <div class="hygro-step"><div class="hygro-swatch">⭐</div><div class="hygro-label">湿润状态<br>裂瓣外翻展开<br>星形充分展开</div></div>
+      <div class="hygro-arrow">→ 干燥后 →</div>
+      <div class="hygro-step"><div class="hygro-swatch">🟤</div><div class="hygro-label">再次干燥<br>重新收合<br>循环可达数年</div></div>
+    </div>
+    <div style="font-size:12px;color:var(--ink-light);padding:0 4px;">硬皮地星的湿感运动（hygroscopic movement）由外壁两层组织（内层纤维方向不同）的差异性收缩膨胀驱动，完全是物理机制而非主动运动。这一特性使其成为民间判断天气湿度的"生物晴雨表"，英文俗名 Barometer Earthstar 由此而来。同一个体在适宜条件下可完成数十次乃至数百次的展开-收合循环。</div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-bark"></span><span class="section-title">各部位详情</span></div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>外包被（外壁）</td><td>革质、木质化，厚实坚韧；由外层（假薄壁组织，吸水膨胀）和内层（拟薄壁组织，干燥收缩）构成，两层差异导致湿感运动；展开后裂为7–15个弧形裂瓣，内表面常具网纹状裂纹</td></tr>
+          <tr><td>内包被（内球）</td><td>球形，直径1–3cm；薄纸质，灰白至灰褐色；顶端具1个圆形散孢孔（apical pore），无基座或基座极不明显（区别于真地星属）</td></tr>
+          <tr><td>孢体</td><td>幼时白色坚实，成熟后转为橄榄褐至茶褐色孢粉；孢粉由孢丝（capillitia）和孢子混合组成，经散孢孔随风或机械扰动释放</td></tr>
+          <tr><td>孢子</td><td>球形，直径7–11μm；表面具短刺状纹饰；无色至浅褐色，在显微镜下可见装饰纹路</td></tr>
+          <tr><td>菌索</td><td>基部常具菌丝组成的基座或菌丝束连接于土壤及枯落叶层</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-earth"></span><span class="section-title">特殊区分点</span><span class="section-badge">反向记忆</span></div>
+    <div class="info-box">
+      <div class="info-title">核心辨识四要素</div>
+      <ul class="info-list">
+        <li><strong>湿润展开、干燥收合的星形外壁</strong>是最直观特征，展开后裂瓣数通常为10–12个</li>
+        <li>外壁内表面具<strong>网裂纹路</strong>（cracking pattern），是区别于真地星属（<em>Geastrum</em>）的重要依据之一</li>
+        <li>内包被顶端<strong>散孢孔无明显管状突起</strong>（真地星属通常具明显管状孔），且内包被<strong>几乎无基座</strong></li>
+        <li>专一生长于<strong>干旱贫瘠沙质土壤</strong>，尤其常见于松林地表，是土壤贫瘠与外生菌根树种共存环境的生态指示物种</li>
+      </ul>
+    </div>
+    <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:10px;">相似易混淆物种</div>
+    <div class="confusion-list">
+      <div class="confusion-item"><div class="confusion-name">真地星属 <em>Geastrum</em> spp.</div><div class="confusion-diff">外形最相似的近缘类群，同样具有星形外壁开裂结构；区别：真地星属外壁<strong>不具湿感运动特性</strong>（不会因湿干而开合），且通常具明显基座（基盘）及管状散孢孔突起；硬皮地星的湿感运动是其最独特的生物学特征</div></div>
+      <div class="confusion-item"><div class="confusion-name">硬皮马勃 <em>Scleroderma</em> spp.</div><div class="confusion-diff">同样生长于贫瘠沙质土壤、形态略圆，但硬皮马勃<strong>无星形开裂外壁</strong>，顶端不规则撕裂散孢，整体不具湿感运动；硬皮马勃有轻微毒性，误食可引起胃肠不适</div></div>
+    </div>
+    <div style="margin-top:1.2rem;"><div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「星形外壁感湿开，干燥收合如花苞」</div>
+      <div class="memory-pill">「内壁网纹无明座，区别地星一眼辨」</div>
+      <div class="memory-pill">「松林沙地多见它，天然湿度计功奇」</div>
+    </div></div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-stone"></span><span class="section-title">群落生境 · 分布采集</span></div>
+    <div class="habitat-grid">
+      <div class="habitat-card"><div class="habitat-label">生长方式</div><div class="habitat-value">单生或散生，偶见群生，常半埋于沙质土壤中，展开后外壁裂瓣平铺于地表，酷似星形装饰</div></div>
+      <div class="habitat-card"><div class="habitat-label">生境 · 共生关系</div><div class="habitat-value">外生菌根菌，与松科等针叶树及部分壳斗科树木共生；偏好干旱贫瘠的沙质或砂壤土，是沙质松林生态系统的指示物种</div></div>
+      <div class="habitat-card"><div class="habitat-label">地区分布</div><div class="habitat-value">全球热带至温带地区广布，中国南北均有记录，尤其常见于华南、西南及华北沙质松林地带；是世界上分布最广的地星类真菌之一</div></div>
+      <div class="habitat-card"><div class="habitat-label">出现季节</div><div class="habitat-value">秋末至翌年春季出现新鲜子实体；成熟个体（外壁开裂后）可在地表保留数年；雨后是观察其展开状态的最佳时机</div></div>
+    </div>
+  </div>
+
+  <!-- 7. 价值 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-earth"></span><span class="section-title">价值评估</span></div>
+    <div class="value-grid">
+      <div class="value-card"><div class="value-card-label">药用研究价值</div><div class="value-body">传统医学中硬皮地星孢粉有外用止血功效记录；现代研究关注其多糖成分的免疫调节活性，以及孢子中特殊化合物的抗肿瘤和抗菌潜力，是药用真菌研究的关注物种之一</div></div>
+      <div class="value-card"><div class="value-card-label">生态与指示价值</div><div class="value-body">作为外生菌根菌，对维持松林等特定植被群落的健康具重要作用；其对干旱贫瘠沙质环境的适应性使其成为相关生态系统健康状态的指示物种</div></div>
+      <div class="value-card"><div class="value-card-label">科研价值</div><div class="value-body">湿感运动机制是生物物理学研究的重要课题，其外壁差异层结构被视为自然界"天然双金属片"原理的生物实现；在分子系统学上属于地星类重要的参照物种</div></div>
+      <div class="value-card"><div class="value-card-label">科普与观赏价值</div><div class="value-body">其独特的星形形态与可观察的湿感运动使其成为自然教育和真菌科普中最受欢迎的演示物种之一，在雨后的松林探访中令人印象深刻，是拍摄自然主题照片的热门对象</div></div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>参考来源：<a class="ref-link" href="https://en.wikipedia.org/wiki/Astraeus_hygrometricus" target="_blank">Wikipedia EN</a> · <a class="ref-link" href="https://baike.baidu.com/item/%E7%A1%AC%E7%9A%AE%E5%9C%B0%E6%98%9F" target="_blank">百度百科</a> · <a class="ref-link" href="https://www.indexfungorum.org/" target="_blank">Index Fungorum</a></div>
+    <div>IUCN LC · 全球广布 · 湿感运动天然湿度计</div>
+  </div>
+</div>
+</body>
+</html>
