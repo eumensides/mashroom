@@ -174,7 +174,10 @@
 
   /* ── LAYOUT ── */
   .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
-  .section { margin-bottom: 2.5rem; }
+  .section {
+  margin-bottom: 2.5rem;
+  display: flow-root; /* 新增这一行，创建BFC，彻底锁住内部所有margin，不会穿出红框 */
+}
 
   .section-header {
     display: flex;
@@ -608,7 +611,6 @@
 
   <!-- 1. 图片标签 -->
   <div class="section">
-    ...剩下原有代码不动...
     <div class="section-header">
       <span class="section-dot dot-honey"></span>
       <span class="section-title">图片标签</span>
