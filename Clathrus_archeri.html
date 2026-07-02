@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿切尔笼头菌 · Clathrus archeri</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+  :root{
+    --ink:#14080e;--ink-mid:#32101e;--ink-light:#6e4858;
+    --cream:#f4eef2;--surface:#ffffff;
+    --crimson:#8c1830;--crimson-light:#c04858;--crimson-pale:#fae0e6;--crimson-mid:#5c0c1e;
+    --tentacle:#7a1828;--tentacle-light:#b84858;--tentacle-pale:#f8dde4;
+    --spore-olive:#5c5018;--spore-olive-light:#9a8c40;--spore-olive-pale:#f0ece0;
+    --stone:#645060;--stone-light:#a09098;
+    --border:rgba(140,24,48,0.16);--border-mid:rgba(140,24,48,0.28);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans SC',sans-serif;font-weight:300;background:var(--cream);color:var(--ink);line-height:1.75;font-size:15px;}
+  .notice-banner{background:var(--crimson-mid);color:#f0c8d0;text-align:center;padding:10px 20px;font-size:13px;font-weight:500;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;gap:10px;}
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:500px;border-bottom:1px solid var(--border-mid);}
+  .hero-image-slot{background:#3a1422;position:relative;overflow:hidden;min-height:420px;}
+  .hero-image-slot img{width:100%;height:100%;object-fit:cover;display:block;}
+  .hero-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(14,4,10,.80));padding:24px 20px 16px;}
+  .hero-overlay-text{font-size:12px;color:rgba(240,190,210,.88);font-style:italic;}
+  .hero-info{padding:3rem 2.5rem;display:flex;flex-direction:column;justify-content:center;background:var(--surface);}
+  .hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--crimson-mid);margin-bottom:12px;}
+  .hero-name-zh{font-family:'Noto Serif SC',serif;font-size:36px;font-weight:700;line-height:1.2;color:var(--ink);margin-bottom:6px;}
+  .hero-name-la{font-style:italic;font-size:16px;font-weight:300;color:var(--crimson);margin-bottom:4px;}
+  .hero-author{font-size:12px;color:var(--stone-light);margin-bottom:1.5rem;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem;}
+  .tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500;}
+  .tag-crimson{background:var(--crimson-pale);color:var(--crimson-mid);}
+  .tag-olive{background:var(--spore-olive-pale);color:var(--spore-olive);}
+  .tag-stone{background:#eeecf0;color:var(--stone);}
+  .hero-taxonomy{border-top:1px solid var(--border);padding-top:1rem;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  .taxon-item{display:flex;flex-direction:column;}
+  .taxon-label{font-size:11px;color:var(--stone-light);font-weight:400;}
+  .taxon-value{font-size:13px;color:var(--ink);font-weight:500;}
+  .page-wrap{max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .section{margin-bottom:2.5rem;}
+  .section-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:8px;border-bottom:1px solid var(--border-mid);}
+  .section-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .dot-crimson{background:var(--crimson);}
+  .dot-olive{background:var(--spore-olive);}
+  .dot-stone{background:var(--stone-light);}
+  .section-title{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:var(--ink);}
+  .section-badge{margin-left:auto;font-size:11px;font-weight:500;color:var(--stone-light);letter-spacing:.06em;text-transform:uppercase;}
+  .photo-grid-6{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .photo-slot{aspect-ratio:4/3;background:#3a1422;border-radius:8px;overflow:hidden;position:relative;border:1px solid var(--border-mid);}
+  .photo-slot-wide{aspect-ratio:16/7;background:#3a1422;border-radius:8px;overflow:hidden;position:relative;border:1px solid var(--border-mid);}
+  .photo-slot img,.photo-slot-wide img{width:100%;height:100%;object-fit:cover;display:block;}
+  .photo-caption{position:absolute;bottom:0;left:0;right:0;background:rgba(14,4,10,.78);color:#f0c8d0;font-size:11px;padding:5px 8px;text-align:center;}
+  .phase-list{display:flex;flex-direction:column;gap:12px;}
+  .phase-card{display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .phase-label{padding:4px 0;font-size:12px;font-weight:500;text-align:center;border-radius:6px;}
+  .phase-young{background:#f0eef4;color:var(--stone);}
+  .phase-mid{background:var(--crimson-pale);color:var(--crimson-mid);}
+  .phase-mature{background:var(--spore-olive-pale);color:var(--spore-olive);}
+  .phase-desc{font-size:13px;color:var(--ink-mid);line-height:1.7;}
+  .traits-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .trait-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .trait-name{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:8px;}
+  .trait-tags{display:flex;flex-wrap:wrap;gap:5px;}
+  .parts-table{width:100%;border-collapse:collapse;}
+  .parts-table th{text-align:left;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);padding:8px 12px;border-bottom:1px solid var(--border-mid);background:var(--cream);}
+  .parts-table td{padding:10px 12px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink);}
+  .parts-table td:first-child{font-weight:500;color:var(--crimson-mid);white-space:nowrap;width:110px;}
+  .parts-table tr:last-child td{border-bottom:none;}
+  .info-box{background:var(--crimson-pale);border:1px solid rgba(140,24,48,.28);border-radius:12px;padding:18px 20px;margin-bottom:1rem;}
+  .info-title{font-size:13px;font-weight:500;color:var(--crimson-mid);margin-bottom:10px;}
+  .info-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+  .info-list li{display:flex;gap:10px;font-size:13px;color:#3c0c18;line-height:1.6;}
+  .info-list li::before{content:"·";color:var(--crimson);font-size:16px;line-height:1.4;flex-shrink:0;}
+  .confusion-list{display:flex;flex-direction:column;gap:8px;}
+  .confusion-item{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--crimson-light);border-radius:0 10px 10px 0;padding:12px 16px;}
+  .confusion-name{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:3px;}
+  .confusion-name em{color:var(--stone-light);}
+  .confusion-diff{font-size:12px;color:var(--ink-mid);line-height:1.6;}
+  .memory-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1rem;}
+  .memory-pill{background:var(--crimson-pale);border:1px solid rgba(140,24,48,.22);border-radius:8px;padding:8px 14px;font-size:13px;font-style:italic;color:var(--crimson-mid);font-family:'Noto Serif SC',serif;}
+  .habitat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .habitat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .habitat-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:6px;}
+  .habitat-value{font-size:13px;color:var(--ink);line-height:1.7;}
+  .value-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .value-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .value-card-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--stone-light);margin-bottom:8px;}
+  .value-body{font-size:13px;color:var(--ink-mid);line-height:1.7;}
+  .feature-bar{background:linear-gradient(135deg,#f0d8e0,#f8eef2);border:1px solid rgba(140,24,48,.28);border-radius:12px;padding:18px 20px;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+  .fb-item{display:flex;flex-direction:column;gap:4px;}
+  .fb-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--crimson-mid);font-weight:500;}
+  .fb-value{font-size:13px;color:var(--ink-mid);line-height:1.5;}
+  .egg-demo{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:10px;}
+  .egg-step{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;}
+  .egg-icon{font-size:28px;line-height:1;}
+  .egg-label{font-size:11px;color:var(--ink-mid);text-align:center;line-height:1.4;}
+  .egg-arrow{color:var(--stone-light);font-size:18px;}
+  .page-footer{border-top:1px solid var(--border-mid);padding-top:1.5rem;margin-top:3rem;display:flex;justify-content:space-between;font-size:12px;color:var(--stone-light);}
+  .ref-link{color:var(--crimson-mid);text-decoration:none;}
+  .ref-link:hover{text-decoration:underline;}
+  @media(max-width:600px){.hero{grid-template-columns:1fr;}.photo-grid-6{grid-template-columns:1fr 1fr;}.traits-grid,.habitat-grid,.value-grid{grid-template-columns:1fr;}.hero-taxonomy{grid-template-columns:1fr;}.phase-card{grid-template-columns:1fr;}.hero-name-zh{font-size:28px;}.feature-bar{grid-template-columns:1fr;}.egg-demo{flex-wrap:wrap;}}
+</style>
+</head>
+<body>
+<div class="notice-banner">🪸 不可食用 · 气味奇臭 · 外形奇异如异星生物 · 观赏与科研价值极高</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Clathrus_archeri0.png" alt="阿切尔笼头菌主图">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Clathrus archeri · 鲜红触手状裂瓣张开，覆盖墨绿色孢子液，散发腐臭气味</div>
+    </div>
+  </div>
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 鬼笔科（笼头菌属）</div>
+    <div class="hero-name-zh">阿切尔笼头菌</div>
+    <div class="hero-name-la">Clathrus archeri</div>
+    <div class="hero-author">(Berk.) Dring, 1980</div>
+    <div class="tag-row">
+      <span class="tag tag-crimson">不可食用（臭味剧烈）</span>
+      <span class="tag tag-crimson">触手状鲜红裂瓣</span>
+      <span class="tag tag-olive">墨绿孢子液（奇臭）</span>
+      <span class="tag tag-crimson">从菌蛋破壳展开</span>
+      <span class="tag tag-stone">入侵种 · 原产南半球</span>
+    </div>
+    <div class="hero-taxonomy">
+      <div class="taxon-item"><span class="taxon-label">中文俗名</span><span class="taxon-value">阿切尔笼头菌 / 章鱼蘑菇 / 红魔爪</span></div>
+      <div class="taxon-item"><span class="taxon-label">英文名</span><span class="taxon-value">Devil's Fingers / Octopus Stinkhorn / Starfish Fungus</span></div>
+      <div class="taxon-item"><span class="taxon-label">目 / 科</span><span class="taxon-value">鬼笔目 / Phallaceae</span></div>
+      <div class="taxon-item"><span class="taxon-label">原产地</span><span class="taxon-value">澳大利亚 / 新西兰 · 已广泛入侵北半球</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- 0. 速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item"><span class="fb-label">形态震撼：触手状裂瓣</span><span class="fb-value">成熟后从白色菌蛋中破壳伸出<strong>4–8条鲜红至朱红色的触手状裂瓣</span>，高5–10cm，顶端连接或分离，覆有墨绿色黏液孢子液，如同外星生物，是真菌界最具视觉冲击力的物种之一</span></div>
+      <div class="fb-item"><span class="fb-label">传播策略：以臭传孢</span><span class="fb-value">墨绿色孢子液散发<strong>极度腐臭气味</strong>（类似腐肉），吸引苍蝇、甲虫等腐食昆虫前来沾附孢子，然后飞往他处传播——与竹荪的腐臭传播机制异曲同工</span></div>
+      <div class="fb-item"><span class="fb-label">入侵物种</span><span class="fb-value">原产于澳大利亚、新西兰，随羊毛贸易及土壤交流扩散至欧洲、北美、东亚；在部分欧洲国家已成为有记录的<strong>外来入侵真菌</strong>，中国近年亦有记录增多趋势</span></div>
+    </div>
+  </div>
+
+  <!-- 1. 图片 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-crimson"></span><span class="section-title">图片标签</span><span class="section-badge">可视化记录</span></div>
+    <div class="photo-grid-6" style="margin-bottom:10px;">
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Clathrus_archeri1.png" alt="上方图"><div class="photo-caption">俯视图 · 4–8条触手状裂瓣向外展开，顶端汇聚或分离</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Clathrus_archeri2.png" alt="45°仰拍图"><div class="photo-caption">45° 视角 · 裂瓣表面鲜红海绵状质感 / 墨绿孢子液分布</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Clathrus_archeri3.png" alt="剖面图"><div class="photo-caption">剖面 · 幼时菌蛋白色，可见已折叠的裂瓣雏形及胶质层</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Clathrus_archeri4.png" alt="孢子液图"><div class="photo-caption">孢子液特写 · 墨绿色黏稠液体，散发腐肉奇臭以吸引昆虫</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Clathrus_archeri5.png" alt="菌蛋图"><div class="photo-caption">菌蛋期 · 白色卵形，半埋土中，外表无任何惊艳迹象</div></div>
+      <div class="photo-slot"><img src="https://eumensides.github.io/mashroom/Clathrus_archeri6.png" alt="破壳图"><div class="photo-caption">破壳瞬间 · 白色菌蛋顶部破裂，鲜红裂瓣开始迅速伸展</div></div>
+    </div>
+    <div class="photo-slot-wide"><img src="https://eumensides.github.io/mashroom/Clathrus_archeri7.png" alt="生境图"><div class="photo-caption">生境图 · 林缘腐殖草地散生 / 周边常见被孢子液吸引的蝇类聚集</div></div>
+  </div>
+
+  <!-- 2. 生长阶段 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-crimson"></span><span class="section-title">形态特征 · 生长阶段</span><span class="section-badge">结构标签</span></div>
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">菌蛋期</div>
+        <div class="phase-desc">子实体最初为白色至灰白色卵形"菌蛋"，直径3–6cm，半埋于腐殖土中，表面光滑，由白色胶质外菌幕包裹；外观与竹荪菌蛋相似，剖开可见已折叠的鲜红裂瓣雏形及大量胶质包裹。气味尚不明显，是本种最常被无意间踩踏或误触的阶段。</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">破壳展开期</div>
+        <div class="phase-desc">菌蛋顶部破裂，<strong>4–8条（通常4–5条）鲜红至朱红色裂瓣</strong>迅速向上伸展，高度可在1–3小时内达到5–10cm；裂瓣表面呈海绵状，内部中空，顶端互相连接或游离分叉；覆有墨绿色黏液孢子液（产孢体），散发极强腐臭气味。</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">孢散期与衰败期</div>
+        <div class="phase-desc">裂瓣充分展开，顶端向外弯曲展开如触手，孢子液被昆虫大量沾附传播；展开状态通常仅维持<strong>1–2天</strong>，随后裂瓣颜色由鲜红转暗红，逐渐萎缩塌软，孢子液耗尽后腐解消失，整个地上部分在数天内完全消失。</div>
+      </div>
+    </div>
+
+    <!-- 破壳展开演示 -->
+    <div style="margin-top:1rem;">
+      <div class="section-header"><span class="section-dot dot-olive"></span><span class="section-title">破壳展开过程</span></div>
+      <div class="egg-demo">
+        <div class="egg-step"><div class="egg-icon">🥚</div><div class="egg-label">菌蛋期<br>白色静默</div></div>
+        <div class="egg-arrow">→</div>
+        <div class="egg-step"><div class="egg-icon">🌺</div><div class="egg-label">破壳<br>裂瓣开始伸出</div></div>
+        <div class="egg-arrow">→</div>
+        <div class="egg-step"><div class="egg-icon">🪸</div><div class="egg-label">1–3小时<br>触手全展</div></div>
+        <div class="egg-arrow">→</div>
+        <div class="egg-step"><div class="egg-icon">🦟</div><div class="egg-label">臭气引蝇<br>孢子传播</div></div>
+        <div class="egg-arrow">→</div>
+        <div class="egg-step"><div class="egg-icon">💀</div><div class="egg-label">1–2天后<br>萎缩腐解消失</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-crimson"></span><span class="section-title">感官细分</span><span class="section-badge">颜色 · 形状 · 气味</span></div>
+    <div class="traits-grid">
+      <div class="trait-card"><div class="trait-name">颜色</div><div class="trait-tags"><span class="tag tag-crimson">裂瓣：鲜红至朱红，视觉冲击强</span><span class="tag tag-olive">孢子液：墨绿至橄榄黑</span><span class="tag tag-stone">菌蛋：白色至灰白</span><span class="tag tag-stone">菌托残留：白色</span></div></div>
+      <div class="trait-card"><div class="trait-name">形状</div><div class="trait-tags"><span class="tag tag-crimson">裂瓣：触手状，4–8条，中空海绵质</span><span class="tag tag-stone">幼时：卵形菌蛋</span><span class="tag tag-crimson">整体：如异形章鱼或星形</span></div></div>
+      <div class="trait-card"><div class="trait-name">气味（极度强烈）</div><div class="trait-tags"><span class="tag tag-olive">孢子液：腐肉奇臭，令人作呕</span><span class="tag tag-olive">数米外即可闻到</span><span class="tag tag-stone">气味随昆虫沾附减弱后消失</span></div></div>
+      <div class="trait-card"><div class="trait-name">质地（不可食原因）</div><div class="trait-tags"><span class="tag tag-crimson">裂瓣：中空海绵状，质软无韧性</span><span class="tag tag-olive">覆有大量恶臭孢子液</span><span class="tag tag-stone">无任何食用价值</span></div></div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-crimson"></span><span class="section-title">各部位详情</span></div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌蛋（外菌幕）</td><td>白色至灰白色，厚实胶质，卵形，直径3–6cm；剖开可见大量白色胶质包裹已折叠的鲜红裂瓣雏形；基部有白色菌索连接于腐殖质</td></tr>
+          <tr><td>裂瓣（产孢体臂）</td><td><strong>4–8条</strong>，鲜红至朱红色，高5–10cm，中空海绵状，表面具细小网孔；顶端游离或两两相接；不具真正的伞盖结构——与笼头菌属的兄弟种有所不同</td></tr>
+          <tr><td>孢子液（产孢体）</td><td>墨绿色黏稠液体，附着于裂瓣内侧及顶端；含孢子，散发腐肉奇臭以吸引苍蝇等腐食昆虫传播孢子</td></tr>
+          <tr><td>菌托残留</td><td>破壳后白色菌蛋的残余部分包裹于裂瓣基部，形成明显的白色杯托状残留</td></tr>
+          <tr><td>孢子</td><td>椭圆形，4–6 × 1.5–2μm，表面光滑</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-crimson"></span><span class="section-title">特殊区分点</span><span class="section-badge">反向记忆</span></div>
+    <div class="info-box">
+      <div class="info-title">核心辨识四要素</div>
+      <ul class="info-list">
+        <li><strong>4–8条鲜红触手状裂瓣</strong>从白色菌蛋破壳伸出，形如章鱼或海星——在真菌界具有唯一性的视觉辨识度</li>
+        <li>裂瓣<strong>不形成网格笼状结构</strong>（区别于同属的笼头菌 <em>C. ruber</em>），各裂瓣顶端游离或仅轻微相连</li>
+        <li><strong>极度腐臭气味</strong>（腐肉气息）是野外发现前的嗅觉预警，数米外即可察觉</li>
+        <li>常见周围聚集<strong>大量蝇类昆虫</strong>——这是循气味找到本种的有效线索</li>
+      </ul>
+    </div>
+    <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:10px;margin-top:1.5rem;">相似易混淆物种</div>
+    <div class="confusion-list">
+      <div class="confusion-item"><div class="confusion-name">红笼头菌 <em>Clathrus ruber</em>（同属）</div><div class="confusion-diff">同属近缘种，同样鲜红色，但裂瓣相互联结形成<strong>完整网格笼状结构</strong>（如红色球笼），而非本种的游离触手状裂瓣；二者的形态差异一目了然，但同样不可食</div></div>
+      <div class="confusion-item"><div class="confusion-name">竹荪 <em>Dictyophora</em> spp.（菌蛋期）</div><div class="confusion-diff">菌蛋期外形相近，同属鬼笔科，均由白色菌蛋发育；但竹荪菌蛋成熟后伸出白色中空菌柄并展开网纱菌裙，不形成鲜红触手；竹荪可食，本种不可食，需特别注意菌蛋破壳后的形态</div></div>
+      <div class="confusion-item"><div class="confusion-name">普通鬼笔 <em>Phallus impudicus</em>（同科）</div><div class="confusion-diff">同科近缘，均由白色菌蛋发育，均依靠腐臭孢子液传播；但鬼笔破壳后形成<strong>单一圆柱形菌柄+钟形菌帽结构</strong>，无触手裂瓣；形态差异显著</div></div>
+    </div>
+
+    <!-- 分类地位说明 -->
+    <div style="margin-top:1.4rem;background:var(--crimson-pale);border:1px solid rgba(140,24,48,.28);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--crimson-mid);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#f0c8d0;letter-spacing:.04em;">分类地位与入侵历史</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(240,200,208,.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy & Invasion</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <span style="background:var(--crimson);color:#fde8ec;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">原产地</span>
+          <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">本种原产于<strong>澳大利亚、新西兰及塔斯马尼亚</strong>，由当地殖民地植物学家收集命名（Berk., 1845），属名 <em>archeri</em> 为纪念植物学家 William Henry Archer。</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <span style="background:var(--crimson);color:#fde8ec;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">入侵路径</span>
+          <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">随19–20世纪<strong>羊毛贸易及军队物资运输</strong>传入欧洲（最早记录于1914年法国，此后迅速蔓延欧洲各国）；亦通过绿化植物及苗木引种传入北美及东亚，现已成为欧洲多国记录的外来入侵真菌。</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <span style="background:var(--crimson);color:#fde8ec;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">中国现状</span>
+          <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">中国记录近年明显增多，华东、华南、西南多地均有标本记录，可能随绿化苗木引种或贸易传入；目前尚无充分数据评估其对本土生态系统的影响。</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;"><div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「鲜红触手蛋中出，章鱼恶臭苍蝇来」</div>
+      <div class="memory-pill">「游离裂瓣不成笼，区别红笼一望知」</div>
+      <div class="memory-pill">「南半球客入侵来，菌蛋外观莫大意」</div>
+    </div></div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-stone"></span><span class="section-title">群落生境 · 分布采集</span></div>
+    <div class="habitat-grid">
+      <div class="habitat-card"><div class="habitat-label">生长方式</div><div class="habitat-value">单生或散生，偶见小群出现；菌蛋半埋土中，子实体破壳后地上部分仅存活1–2天即腐解消失，需把握观察时机</div></div>
+      <div class="habitat-card"><div class="habitat-label">生境 · 基质</div><div class="habitat-value">腐生，分解富含腐殖质的土壤及腐木；常见于林缘草地、花园、公园绿地、腐殖质丰富的土壤；不与植物形成菌根关系</div></div>
+      <div class="habitat-card"><div class="habitat-label">地区分布</div><div class="habitat-value">原产南半球（澳大利亚/新西兰），已入侵欧洲（法、德、英、意等国）、北美、东亚；中国各省近年均有零星记录，尤以华东、华南较多见</div></div>
+      <div class="habitat-card"><div class="habitat-label">出现季节</div><div class="habitat-value">秋季（8–11月）为主要出现期，与竹荪同属鬼笔科而有相近的秋季出菇规律；雨后腐殖土中可见新鲜菌蛋；闻臭找菌是发现成熟个体的有效方式</div></div>
+    </div>
+  </div>
+
+  <!-- 7. 价值 -->
+  <div class="section">
+    <div class="section-header"><span class="section-dot dot-crimson"></span><span class="section-title">价值评估</span></div>
+    <div class="value-grid">
+      <div class="value-card"><div class="value-card-label">观赏与摄影价值</div><div class="value-body">真菌界最具视觉冲击力的物种之一，鲜红触手状裂瓣与墨绿孢子液的强烈色彩对比使其成为自然摄影师、真菌爱好者的梦寐以求对象；一经发现常引发强烈讨论</div></div>
+      <div class="value-card"><div class="value-card-label">科研价值</div><div class="value-body">作为研究鬼笔目真菌形态演化（从笼状到触手状）的关键物种，以及腐臭气味化合物（dimethyl sulfide等）的产生机制，具有真菌生化与形态学研究价值</div></div>
+      <div class="value-card"><div class="value-card-label">生物入侵研究价值</div><div class="value-body">作为有记录的外来入侵真菌，是研究真菌入侵生态学、评估入侵真菌对本土菌根共生体系潜在影响的重要案例物种</div></div>
+      <div class="value-card"><div class="value-card-label">科普教育价值</div><div class="value-body">以形态极端奇异而著称，是普及"蘑菇形态多样性远超想象"这一科普理念的完美示范物种；常被用于打破公众对蘑菇"伞形"的固有认知</div></div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>参考来源：<a class="ref-link" href="https://en.wikipedia.org/wiki/Clathrus_archeri" target="_blank">Wikipedia EN</a> · <a class="ref-link" href="https://baike.baidu.com/item/%E7%AC%BC%E5%A4%B4%E8%8F%8C" target="_blank">百度百科</a> · <a class="ref-link" href="https://www.indexfungorum.org/" target="_blank">Index Fungorum</a></div>
+    <div>外来入侵种 · 不可食 · 真菌界最奇异物种之一</div>
+  </div>
+</div>
+</body>
+</html>
