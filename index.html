@@ -208,7 +208,7 @@ button{font:inherit;border:none;background:none;cursor:pointer;}
     <h1 class="hero__title">菌物志</h1>
     <p class="hero__lede">每一种蘑菇都会留下可供核实的证据——外形、生长阶段、孢子印颜色，甚至误食后的中毒记录。这里按统一档案格式收录野外可能遇到的物种，方便快速比对查证。比对结果仅用于学习与安全识别，<strong>绝不能作为食用依据</strong>。</p>
     <div class="hero__meta">
-      <span>标本编号 <b>NO.001–021</b></span>
+      <span>标本编号 <b>NO.001–025</b></span>
       <span>持续收录中</span>
       <span>仅供学习识别 · 请勿采食</span>
     </div>
@@ -305,7 +305,7 @@ button{font:inherit;border:none;background:none;cursor:pointer;}
     </div>
     <div class="contact-about">
       <strong>关于菌物志</strong><br><br>
-      本站收录野外常见蘑菇 21 种（持续增补中），每种均按统一档案格式记录形态特征、生长周期、孢子印颜色及混淆种对比，供学习与安全识别参考。<br><br>
+      本站收录野外常见蘑菇 25 种（持续增补中），每种均按统一档案格式记录形态特征、生长周期、孢子印颜色及混淆种对比，供学习与安全识别参考。<br><br>
       所有物种信息均为学术参考，<strong>不构成任何食用或药用建议</strong>。野外蘑菇鉴定须结合实物、孢子印及专业指导，请勿仅凭图片采食。<br><br>
       图片部分来源于网络，如有侵权请联系作者删除。
     </div>
@@ -388,7 +388,21 @@ button{font:inherit;border:none;background:none;cursor:pointer;}
           <span class="diary-dot dot-milestone"></span>
           <div class="diary-body">
             <div class="diary-date">2026 · 06 · 30</div>
-            <div class="diary-text">累计新增至 <strong>19 个</strong>蘑菇物种。Claude 一次提问可生成两个蘑菇网页。图片生成准确度：<strong>Gemini &gt; Genspark</strong>。计划将创作日志载入联系页，并邀请更多爱好者共建。</div>
+            <div class="diary-text">累计新增至 <strong>21 个</strong>蘑菇物种。Claude 一次提问可生成两个蘑菇网页。图片生成准确度：<strong>Gemini &gt; Genspark</strong>。计划将创作日志载入联系页，并邀请更多爱好者共建。</div>
+          </div>
+        </div>
+        <div class="diary-entry">
+          <span class="diary-dot dot-tool"></span>
+          <div class="diary-body">
+            <div class="diary-date">2026 · 07 · 01</div>
+            <div class="diary-text">尝试使用 <strong>Gemini 专属 Gem 模块</strong>建立智能流程，可惜太傻瓜（容易降智）；优化图片国内展示速度，添加 <code>cdn.jsdelivr.net/gh/eumensides/mashroom@main/</code> 格式的国内 CDN 加速；通过使用<strong>高德免 API 版本</strong>优化了地图页面国内用户无法正常加载的问题；根据 Claude 建议在 GitHub 上传 png/jpg 图片<strong>自动转换成 WebP 压缩图片</strong>的自动化工作流。</div>
+          </div>
+        </div>
+        <div class="diary-entry">
+          <span class="diary-dot dot-milestone"></span>
+          <div class="diary-body">
+            <div class="diary-date">2026 · 07 · 02</div>
+            <div class="diary-text">安装 Python，通过下载 Python 对 <strong>21 个 HTML 网页</strong>进行批量图片链接格式替换，以及设计根据用户网络环境<strong>优先加载 WebP、网速差才加载 PNG</strong> 的加载策略。</div>
           </div>
         </div>
       </div>
@@ -444,7 +458,7 @@ button{font:inherit;border:none;background:none;cursor:pointer;}
 const TAXONOMY={
   toxicity:[{key:'deadly',label:'剧毒'},{key:'toxic',label:'有毒'},{key:'unknown',label:'疑似有毒'},{key:'edible',label:'可食用'}],
   spore:[{key:'green',label:'暗绿色'},{key:'white',label:'白色'},{key:'pink',label:'肉粉色'},{key:'yellowbrown',label:'黄褐色'},{key:'olivebrown',label:'橄榄褐色'},{key:'rustbrown',label:'锈褐色'},{key:'black',label:'黑色'}],
-  family:[{key:'agaricaceae',label:'蘑菇科'},{key:'amanitaceae',label:'鹅膏菌科'},{key:'boletaceae',label:'牛肝菌科'},{key:'suillaceae',label:'乳牛肝菌科'},{key:'physalacriaceae',label:'小奥德蘑科'},{key:'ganodermataceae',label:'灵芝科'},{key:'marasmiaceae',label:'小皮伞科'},{key:'cortinariaceae',label:'丝膜菌科'},{key:'cantharellaceae',label:'鸡油菌科'},{key:'russulaceae',label:'红菇科'},{key:'entolomataceae',label:'粉褶菌科'},{key:'psathyrellaceae',label:'脆柄菇科'},{key:'oudemansiellaceae',label:'小奥德蘑科'},{key:'phallaceae',label:'鬼笔科'}],
+  family:[{key:'agaricaceae',label:'蘑菇科'},{key:'amanitaceae',label:'鹅膏菌科'},{key:'boletaceae',label:'牛肝菌科'},{key:'suillaceae',label:'乳牛肝菌科'},{key:'physalacriaceae',label:'小奥德蘑科'},{key:'ganodermataceae',label:'灵芝科'},{key:'marasmiaceae',label:'小皮伞科'},{key:'cortinariaceae',label:'丝膜菌科'},{key:'cantharellaceae',label:'鸡油菌科'},{key:'russulaceae',label:'红菇科'},{key:'entolomataceae',label:'粉褶菌科'},{key:'psathyrellaceae',label:'脆柄菇科'},{key:'oudemansiellaceae',label:'小奥德蘑科'},{key:'phallaceae',label:'鬼笔科'},{key:'astraeaceae',label:'硬皮地星科'},{key:'clathraceae',label:'笼头菌科'}],
   habitat:[{key:'saprotroph',label:'腐生 · 草坪堆肥'},{key:'ecm_pine',label:'外生菌根 · 松科'},{key:'ecm_oak',label:'外生菌根 · 壳斗科'},{key:'ecm_larch',label:'外生菌根 · 落叶松'},{key:'ecm_broadleaf',label:'外生菌根 · 阔叶树'},{key:'wood_saprotroph',label:'腐生 · 枯木木材'},{key:'leaf_saprotroph',label:'腐生 · 枯叶落枝'},{key:'wood_parasite',label:'寄生/腐生 · 树木根际'},{key:'dung_saprotroph',label:'腐生 · 粪土腐殖质'},{key:'bamboo_saprotroph',label:'腐生 · 竹林腐殖质'}]
 };
 const TOX_BG={deadly:'var(--tox-deadly-bg)',toxic:'var(--tox-toxic-bg)',unknown:'var(--tox-unknown-bg)',edible:'var(--tox-edible-bg)'};
@@ -472,7 +486,11 @@ const mushrooms=[
   {no:'018',nameZh:'长根小奥德蘑',nameLatin:'Oudemansiella longipes',author:'(P.Kumm.) Moser, 1967',commonNames:['长根菇','深根菇','Rooting shank','Deep root mushroom'],family:'physalacriaceae',familyLabel:'小奥德蘑科 Physalacriaceae',genus:'小奥德蘑属 Oudemansiella',toxicity:'edible',spore:'white',sporeLabel:'白色',habitats:['wood_saprotroph'],blurb:'最显著特征是极细长的假根状菌柄，可深插土中接触腐木，菌盖表面具明显的放射状皱纹。',keyClue:'辨识关键：菌柄纤细且具有深埋土中的长假根，菌盖灰褐色伞状，表面干燥有绒毛状纹理。',image:'https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Oudemansiella_longipes0.png',url:'https://eumensides.github.io/mashroom/Oudemansiella_longipes.html'},
   {no:'019',nameZh:'长裙竹荪',nameLatin:'Dictyophora indusiata',author:'(Vent.) Desv., 1809',commonNames:['竹荪','面纱女士','网状鬼笔','Bamboo fungus','Veiled lady'],family:'phallaceae',familyLabel:'鬼笔科 Phallaceae',genus:'竹荪属 Dictyophora',toxicity:'edible',spore:'olivebrown',sporeLabel:'橄榄褐色',habitats:['bamboo_saprotroph','leaf_saprotroph'],blurb:'以精美网状菌裙著称，被誉为"真菌皇后"，是珍贵的食药两用菌，竹林及阔叶林腐殖质层中可见。',keyClue:'辨识关键：成熟时菌柄从卵形菌蛋中伸出，中部悬挂白色精致网格状菌裙（indusium），顶部菌盖有臭味黏液。',image:'https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Dictyophora_indusiata0.png',url:'https://eumensides.github.io/mashroom/Dictyophora_indusiata.html'},
   {no:'020',nameZh:'细褐鳞蘑菇',nameLatin:'Agaricus praeclaresquamosus',author:'Freeman, 1979',commonNames:['暗鳞蘑菇','细鳞蘑菇','Flat-topped mushroom'],family:'agaricaceae',familyLabel:'蘑菇科 Agaricaceae',genus:'蘑菇属 Agaricus',toxicity:'toxic',spore:'dark brown',sporeLabel:'深褐色至巧克力褐色',habitats:['saprotroph'],blurb:'外形与可食用蘑菇属物种相似，但伤后菌肉及菌柄变黄，并散发强烈苯酚（墨水）气味，误食可致胃肠炎。',keyClue:'辨识关键：切断菌柄后肉质迅速变黄，气味如苯酚或墨水，菌盖中央密布暗褐细鳞片。',image:'https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_praeclaresquamosus0.png',url:'https://eumensides.github.io/mashroom/Agaricus_praeclaresquamosus.html'},
-  {no:'021',nameZh:'香亚环乳菇',nameLatin:'Lactarius subzonarius',author:'Hongo, 1957',commonNames:['亚环乳菇','环带乳菇'],family:'russulaceae',familyLabel:'红菇科 Russulaceae',genus:'乳菇属 Lactarius',toxicity:'edible',spore:'yellowbrown',sporeLabel:'淡黄褐色至奶油色',habitats:['ecm_pine','ecm_oak','ecm_broadleaf'],blurb:'东亚常见的乳菇属物种，乳汁白色不变色，菌盖具隐约同心环纹，具清淡香气，可食但风味平淡。',keyClue:'辨识关键：乳汁白色且不变色（区别于松乳菇），菌盖肉桂褐色，具模糊同心环带，无刺激味。',image:'https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lactarius_subzonarius0.png',url:'https://eumensides.github.io/mashroom/Lactarius_subzonarius.html'}
+  {no:'021',nameZh:'香亚环乳菇',nameLatin:'Lactarius subzonarius',author:'Hongo, 1957',commonNames:['亚环乳菇','环带乳菇'],family:'russulaceae',familyLabel:'红菇科 Russulaceae',genus:'乳菇属 Lactarius',toxicity:'edible',spore:'yellowbrown',sporeLabel:'淡黄褐色至奶油色',habitats:['ecm_pine','ecm_oak','ecm_broadleaf'],blurb:'东亚常见的乳菇属物种，乳汁白色不变色，菌盖具隐约同心环纹，具清淡香气，可食但风味平淡。',keyClue:'辨识关键：乳汁白色且不变色（区别于松乳菇），菌盖肉桂褐色，具模糊同心环带，无刺激味。',image:'https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lactarius_subzonarius0.png',url:'https://eumensides.github.io/mashroom/Lactarius_subzonarius.html'},
+  {no:'022',nameZh:'隐花青鹅膏',nameLatin:'Amanita manginiana',author:'Har. & Pat., 1900',commonNames:['花纹鹅膏','假豹斑鹅膏','Spring amanita'],family:'amanitaceae',familyLabel:'鹅膏菌科 Amanitaceae',genus:'鹅膏属 Amanita',toxicity:'deadly',spore:'white',sporeLabel:'白色',habitats:['ecm_pine','ecm_oak','ecm_broadleaf'],blurb:'外形酷似可食物种，却含鹅膏毒素（amatoxin），误食可致严重肝肾损伤甚至死亡，东亚地区中毒事件记录较多。',keyClue:'辨识关键：菌盖灰褐色，菌环宿存，菌托明显杯状，菌肉及孢子印纯白——具备鹅膏属剧毒四件套。',image:'https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_manginiana0.png',url:'https://eumensides.github.io/mashroom/Amanita_manginiana.html'},
+  {no:'023',nameZh:'硬皮地星',nameLatin:'Astraeus hygrometricus',author:'(Pers.) Morgan, 1889',commonNames:['湿度地星','吸湿地星','Hygroscopic earthstar','Barometer earthstar'],family:'astraeaceae',familyLabel:'硬皮地星科 Astraeaceae',genus:'硬皮地星属 Astraeus',toxicity:'unknown',spore:'dark brown',sporeLabel:'深褐色',habitats:['ecm_pine','ecm_oak','saprotroph'],blurb:'外皮可随湿度开合的"气象员蘑菇"，干燥时星瓣向内卷曲包裹孢子球，受潮后重新展开呈星形。',keyClue:'辨识关键：无菌柄，成熟后外皮开裂呈星状，中央孢子球破顶孔散粉，干湿均可见开合运动。',image:'https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Astraeus_hygrometricus0.png',url:'https://eumensides.github.io/mashroom/Astraeus_hygrometricus.html'},
+  {no:'024',nameZh:'亚稀褶红菇',nameLatin:'Russula subnigricans',author:'Hongo, 1955',commonNames:['亚黑红菇','密褶黑菇','Subnigricant russula'],family:'russulaceae',familyLabel:'红菇科 Russulaceae',genus:'红菇属 Russula',toxicity:'deadly',spore:'white',sporeLabel:'白色至奶油白',habitats:['ecm_pine','ecm_broadleaf','ecm_oak'],blurb:'外观与常见红菇相似，却含横纹肌溶解毒素，是中国南方致人横纹肌溶解综合征（rhabdomyolysis）中毒死亡的主要元凶之一。',keyClue:'辨识关键：菌褶极稀疏（区别于密褶黑菇），菌盖灰褐至黑褐色，受伤后肉质缓慢变红再转黑，无辛辣味。',image:'https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_subnigricans0.png',url:'https://eumensides.github.io/mashroom/Russula_subnigricans.html'},
+  {no:'025',nameZh:'阿切尔笼头菌',nameLatin:'Clathrus archeri',author:'(Berk.) Dring, 1980',commonNames:['章鱼鬼笔','红星头菌','Devil\'s fingers','Octopus stinkhorn'],family:'clathraceae',familyLabel:'笼头菌科 Clathraceae',genus:'笼头菌属 Clathrus',toxicity:'unknown',spore:'olivebrown',sporeLabel:'橄榄褐色',habitats:['saprotroph','leaf_saprotroph'],blurb:'因形似血红章鱼触角而俗称"章鱼鬼笔"，原产澳大利亚，现已随木材贸易传播至欧亚各地，散发腐肉恶臭以吸引蝇类传播孢子。',keyClue:'辨识关键：从白色卵形菌蛋中破出4–8条猩红色手指状菌臂向外展开，内侧覆恶臭黏稠孢子体。',image:'https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clathrus_archeri0.png',url:'https://eumensides.github.io/mashroom/Clathrus_archeri.html'}
 ];
 
 mushrooms.forEach(m=>{
@@ -550,7 +568,7 @@ function cardHTML(m,idx){
   const habitatTxt=m.habitats.map(habitatLabel).join(' · ');
   const isFav=favs.has(m.no);
   return `<div class="card" style="animation-delay:${Math.min(idx*45,360)}ms">
-    <a href="${m.url}" style="display:contents;">
+    <a href="${m.url}" style="display:contents;" onclick="sessionStorage.setItem('browse_scroll',document.getElementById('page-browse').scrollTop)">
       <div class="card__media">
         <img src="${m.image}" alt="${m.nameZh}" loading="lazy" onerror="this.style.display='none';this.closest('.card__media').querySelector('.card__fallback').style.display='flex';">
         <div class="card__fallback">🍄</div>
@@ -579,6 +597,14 @@ function render(){
   cardGrid.innerHTML=visible.map((m,i)=>cardHTML(m,i)).join('');
   emptyState.style.display=visible.length?'none':'block';
   resultCount.innerHTML=`共 <b>${mushrooms.length}</b> 份标本 · 已显示 <b>${visible.length}</b> 份`;
+  /* 如果是从详情页返回（页面历史含#back标记），恢复上次滚动位置 */
+  const savedY=sessionStorage.getItem('browse_scroll');
+  if(savedY!==null&&document.getElementById('page-browse').classList.contains('active')){
+    requestAnimationFrame(()=>{
+      document.getElementById('page-browse').scrollTop=parseInt(savedY,10);
+      sessionStorage.removeItem('browse_scroll');
+    });
+  }
 }
 
 /* ── 收藏页 ── */
@@ -768,6 +794,19 @@ function deletePin(id){
 /* ── 初始化 ── */
 updateFavBadge();
 render();
+
+/* 浏览器后退键返回时恢复滚动位置（bfcache 场景） */
+window.addEventListener('pageshow',e=>{
+  if(e.persisted){
+    const savedY=sessionStorage.getItem('browse_scroll');
+    if(savedY!==null){
+      requestAnimationFrame(()=>{
+        document.getElementById('page-browse').scrollTop=parseInt(savedY,10);
+        sessionStorage.removeItem('browse_scroll');
+      });
+    }
+  }
+});
 </script>
 </body>
 </html>
