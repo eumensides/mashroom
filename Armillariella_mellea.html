@@ -92,6 +92,15 @@
     display: block;
   }
 
+  /* picture 标签本身也需要撑满容器 */
+  .hero-image-slot picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+  }
+
   .hero-overlay {
     position: absolute;
     bottom: 0; left: 0; right: 0;
@@ -174,12 +183,7 @@
 
   /* ── LAYOUT ── */
   .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
- .section {
-  margin-bottom: 2.5rem;
-  display: flow-root;
-  padding: 16px 20px;
-  border: 1px solid red; /* 临时调试边框，看清红框边界 */
-}
+  .section { margin-bottom: 2.5rem; }
 
   .section-header {
     display: flex;
@@ -248,6 +252,15 @@
     width: 100%; height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  /* picture 标签在画廊里也需要撑满 */
+  .photo-slot picture, .photo-slot-wide picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
   }
 
   .photo-caption {
@@ -592,6 +605,7 @@
 
 <!-- ══ MAIN CONTENT ══ -->
 <div class="page-wrap">
+
   <!-- 0. 特色速览 -->
   <div class="section">
     <div class="rhizomorph-bar">
@@ -609,7 +623,6 @@
       </div>
     </div>
   </div>
-  <!-- 0. 特色速览 END -->
 
   <!-- 1. 图片标签 -->
   <div class="section">
