@@ -254,13 +254,11 @@
     display: block;
   }
 
-  /* picture 标签在画廊里也需要撑满 */
+  /* photo-slot 有 aspect-ratio，picture 只需 block + 撑满即可 */
   .photo-slot picture, .photo-slot-wide picture {
     display: block;
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0; left: 0;
   }
 
   .photo-caption {
