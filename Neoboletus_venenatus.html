@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>有毒新牛肝菌 · Neoboletus venenatus（毒新牛肝菌 · 剧毒）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #1a1815;
+    --ink-mid: #4a4640;
+    --ink-light: #8a8478;
+    --cream: #f5f2ec;
+    --surface: #ffffff;
+
+    --moss: #4a5c28;
+    --moss-light: #b8c48a;
+    --moss-pale: #eef1e2;
+
+    --amber: #8b5e1a;
+    --amber-light: #d4a24a;
+    --amber-pale: #fbf0da;
+
+    --rust: #8b3a1a;
+    --rust-pale: #fceee8;
+
+    /* 蓝变反应色（牛肝菌共同鉴别色） */
+    --bruise: #2a5a8b;
+    --bruise-light: #6a9ac0;
+    --bruise-pale: #e4eef7;
+
+    /* 剧毒警示主色：深锈红 */
+    --toxic: #7a1f22;
+    --toxic-light: #d99a9c;
+    --toxic-pale: #f7e3e3;
+
+    --spore: #5a4c30;
+    --spore-light: #c0b088;
+    --spore-pale: #f2eee0;
+
+    --border: rgba(60,50,40,0.14);
+    --border-mid: rgba(60,50,40,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .toxic-banner {
+    background: var(--toxic);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #d8cdb8; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(20,10,8,0.72)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,210,205,0.85); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--toxic); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--ink-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--ink-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-moss { background: var(--moss-pale); color: var(--moss); }
+  .tag-amber { background: var(--amber-pale); color: var(--amber); }
+  .tag-rust { background: var(--rust-pale); color: var(--rust); }
+  .tag-ink { background: #ece8e0; color: var(--ink-mid); }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+  .tag-spore { background: var(--spore-pale); color: var(--spore); }
+  .tag-bruise { background: var(--bruise-pale); color: var(--bruise); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-moss { background: var(--moss); }
+  .dot-amber { background: var(--amber); }
+  .dot-rust { background: var(--rust); }
+  .dot-ink { background: var(--ink-mid); }
+  .dot-toxic { background: var(--toxic); }
+  .dot-spore { background: var(--spore); }
+  .dot-bruise { background: var(--bruise); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--ink-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #e0dccc; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #e0dccc; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); grid-column: span 3; }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20,10,8,0.74); color: #f2e2dd; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--amber-pale);  color: var(--amber); }
+  .phase-mature { background: var(--toxic-pale);  color: var(--toxic); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--toxic); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--toxic-pale); border: 1px solid rgba(122,31,34,0.32); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 700; color: var(--toxic); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a1214; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--toxic); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--spore-pale); border: 1px solid rgba(90,76,48,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--spore); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #3a3018; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--spore); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--amber-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--toxic); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--ink-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--toxic-pale); border: 1px solid rgba(122,31,34,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--toxic); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .toxin-bar {
+    background: linear-gradient(135deg, #f7e3e3, #f5f2ec);
+    border: 1px solid rgba(122,31,34,0.32);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--toxic); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-light); }
+  .ref-link { color: var(--toxic); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .toxin-bar { grid-template-columns: 1fr; }
+    .photo-slot-wide { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 剧毒警示横幅 ══ -->
+<div class="toxic-banner">
+  ☠️ 剧毒物种 · 胃肠炎型中毒 · 严重可致命 · 切勿采食 · 常被误认为可食的"白葱"出售
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus0.png" alt="有毒新牛肝菌主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Neoboletus venenatus · 菌盖黄褐色，菌肉受伤变蓝，含牛肝菌毒素（bolevenine）</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 牛肝菌科 · 新牛肝菌属</div>
+    <div class="hero-name-zh">有毒新牛肝菌</div>
+    <div class="hero-name-la">Neoboletus venenatus</div>
+    <div class="hero-author">(Nagas.) G.Wu & Zhu L.Yang · 又称"毒新牛肝菌"</div>
+
+    <div class="tag-row">
+      <span class="tag tag-toxic">☠ 剧毒 · 禁止食用</span>
+      <span class="tag tag-rust">胃肠炎型中毒</span>
+      <span class="tag tag-bruise">切割/挤压变蓝</span>
+      <span class="tag tag-amber">牛肝菌毒素 bolevenine</span>
+      <span class="tag tag-ink">易与"白葱"混淆</span>
+      <span class="tag tag-spore">见手青类混淆种</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">毒新牛肝菌 / 见手青类混淆种</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">中毒类型</span>
+        <span class="taxon-value">急性胃肠炎型（非致幻型）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">牛肝菌目 Boletales / 牛肝菌科 Boletaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分布</span>
+        <span class="taxon-value">中国西南部（云南等地）</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="toxin-bar">
+      <div class="rh-item">
+        <span class="rh-label">核心毒素：牛肝菌毒素</span>
+        <span class="rh-value">含 bolevenine（牛肝菌毒素），食用后6小时内引发剧烈胃肠炎反应，严重者可危及生命</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">最大风险：易混淆销售</span>
+        <span class="rh-value">外观与可食用的玫黄黄肉牛肝菌（俗称"白葱"）相近，常被误采、误认、混入市场销售，是云南野生菌中毒的重要致因之一</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">共同特征：伤变蓝</span>
+        <span class="rh-value">与兰茂牛肝菌等"见手青"类群一样，菌肉受伤后变蓝，但变蓝反应本身不代表可食，切勿以"变蓝=见手青=能吃"作判断依据</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 黄褐至褐黄色，表面微绒毛</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 菌柄近圆柱形至倒棒状，基部膨大</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉米黄色，切开后变蓝</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus4.png" alt="管面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">管面 · 淡黄至黄褐或橄榄黄，伤变蓝，孔口细小而圆</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 橄榄褐色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 菌柄麸状鳞片与顶端网纹特写</div>
+      </div>
+
+      <div class="photo-slot-wide">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus7.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Neoboletus_venenatus7.png" alt="生境图" loading="lazy">
+        </picture>
+        <div class="photo-caption">生境图 · 中国西南针阔混交林地生，常与可食种混生</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖半球形，直径5–10cm，边缘明显内卷，表面干燥、密布微绒毛，色泽黄褐；管孔尚不明显，颜色淡黄；
+          菌柄近圆柱形，顶部奶黄至浅黄色，中下部已显黄褐色调，被细微麸状鳞片；菌肉米黄色，切开后逐渐显现蓝变反应。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖渐平展，直径10–18cm，色泽加深为褐黄色，边缘变薄；菌管层转为黄褐至橄榄黄色，孔口小而圆，触压后迅速变蓝；
+          菌柄增粗增高，基部开始膨大，麸状鳞片更明显，顶端偶见网纹雏形；菌肉变蓝反应更为剧烈。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，直径可达25cm，黄褐至褐黄色，边缘变薄且可能轻微开裂；管孔层橄榄黄至暗黄褐，伤变蓝反应显著；
+          菌柄高8–15cm，直径2–4cm，基部明显膨大，中下部黄褐至褐色，麸状鳞片密布，顶端网纹清晰可见；菌肉质地变脆，毒素含量维持在较高水平，此阶段外观与可食"白葱"最易混淆，误采风险最高。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-amber">菌盖黄褐→褐黄色</span>
+          <span class="tag tag-ink">菌肉米黄至黄色</span>
+          <span class="tag tag-bruise">受伤/切割后变蓝</span>
+          <span class="tag tag-ink">菌管淡黄→橄榄黄</span>
+          <span class="tag tag-spore">孢子印橄榄褐色</span>
+          <span class="tag tag-amber">菌柄顶端奶黄，下部褐色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">半球形→平展（径5–25cm）</span>
+          <span class="tag tag-ink">边缘幼时内卷，成熟平展</span>
+          <span class="tag tag-amber">菌柄近圆柱形至倒棒状</span>
+          <span class="tag tag-amber">基部常膨大</span>
+          <span class="tag tag-ink">柄被麸状鳞片，顶端偶具网纹</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">气味平淡，无特殊香气</span>
+          <span class="tag tag-ink">与可食种在气味上难以区分</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感 / 毒性</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">☠ 剧毒，严禁任何方式食用</span>
+          <span class="tag tag-rust">熟制亦不能解毒</span>
+          <span class="tag tag-rust">6小时内引发剧烈胃肠炎</span>
+          <span class="tag tag-ink">质地较脆，硬度较高</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr><th>部位</th><th>形态描述</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径5–25cm，表面干燥，黄褐色至褐黄色，密布微绒毛；边缘较薄，幼时略内卷，成熟后平展</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>米黄色至黄色，质地较脆；受伤后（切割或挤压）迅速变为蓝色，含牛肝菌毒素（bolevenine），此毒素不因烹煮而失活，充分熟制不能解毒</td>
+          </tr>
+          <tr>
+            <td>菌管与孔口</td>
+            <td>菌管层淡黄色至黄褐色或橄榄黄色，伤变蓝色；孔口小而圆，颜色与菌管一致</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>近圆柱形至倒棒状，高8–15cm，直径2–4cm，基部常膨大；顶部奶黄至浅黄色，中下部黄褐至褐色，被麸状鳞片，有时顶端具网纹；实心，质地较硬</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>孢子印橄榄褐色</td>
+          </tr>
+          <tr>
+            <td>菌托 / 菌环</td>
+            <td>均无</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-spore"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖<strong>黄褐至褐黄色</strong>（非兰茂牛肝菌的暗红棕色），表面密布微绒毛</li>
+        <li>菌柄近圆柱形至倒棒状，<strong>基部常明显膨大</strong>，被麸状鳞片，顶端偶具网纹</li>
+        <li>菌肉、菌管受伤后<strong>迅速变蓝</strong>——与可食"见手青"类群共有此反应，不能仅凭变蓝判断是否可食</li>
+        <li>中毒类型为<strong>急性胃肠炎型</strong>（非致幻），6小时内出现剧烈呕吐、腹痛、腹泻，严重可致命</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">☠ 剧毒警示：严禁采食，任何烹饪方式均无法解毒</div>
+      <ul class="caution-list">
+        <li>含牛肝菌毒素（bolevenine），是明确的胃肠炎型毒蘑菇，食用后6小时内出现剧烈恶心、呕吐、腹痛、腹泻等症状，严重时可危及生命，须立即就医</li>
+        <li>该毒素不因高温烹煮而失活，与部分"生食有毒、熟制可食"的物种（如蜜环菌）机制完全不同，切勿套用"炒熟就安全"的经验</li>
+        <li>本种常被误认为可食用的玫黄黄肉牛肝菌（白葱）而被采集、销售，购买野生牛肝菌务必认准信誉商家及权威鉴定信息</li>
+        <li>干制后更难通过肉眼鉴别，误食风险显著提高，如需食用来源不明的干牛肝菌，建议先经专业机构鉴定</li>
+        <li>该种也被列入2013年以来云南223起中毒事件系统分析中鉴定出的47种有毒蘑菇及6种"见手青类"有毒牛肝菌之一</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与兰茂牛肝菌（红葱）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">兰茂牛肝菌菌盖<strong>暗红棕色</strong>，中毒类型为<strong>神经精神型</strong>（致幻，充分熟制后可安全食用）；本种菌盖<strong>黄褐色</strong>，中毒类型为<strong>胃肠炎型</strong>，无论如何烹饪都<strong>不可食用</strong>，两者风险性质完全不同，绝不可混为一谈</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与玫黄黄肉牛肝菌（白葱）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">白葱可食（充分熟制后），菌盖偏灰褐色；本种菌盖黄褐色调更深，菌柄基部膨大更明显；二者外观极相近，是市场混淆误售的高发组合，普通消费者难以准确区分，建议一律避免采购来源不明的散装"见手青"</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic)">⚠ 兰茂牛肝菌（红葱）<em>Lanmaoa asiatica</em></div>
+        <div class="confusion-diff">同为"见手青"变蓝类群，但菌盖暗红棕色、中毒类型为神经精神型且熟制后可安全食用；本种黄褐色、胃肠炎型且绝对不可食用，二者外观差异需仔细分辨，切勿因"都是见手青"而放松警惕</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">玫黄黄肉牛肝菌（白葱）<em>Butyriboletus roseoflavus</em></div>
+        <div class="confusion-diff">可食用种（须充分熟制），菌盖偏灰褐色，是本种最容易被误认、误售的对象，市场上曾发生因混淆二者而导致的中毒事件</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic)">⚠ 华丽新牛肝菌 <em>Neoboletus magnificus</em></div>
+        <div class="confusion-diff">同属新牛肝菌属，外观相近，也属于需谨慎处理的"见手青"混淆类群，采集及市场流通中常与本种及兰茂牛肝菌混杂</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic)">⚠ 薄瓤牛肝菌 <em>Baorangia pseudocalopus</em></div>
+        <div class="confusion-diff">同为2013年以来云南中毒事件分析中鉴定出的胃肠炎型有毒牛肝菌之一，外观同样与可食牛肝菌相近，务必通过专业鉴定而非经验判断</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.4rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「黄褐盖下藏杀机，变蓝不代表能吃」</div>
+        <div class="memory-pill">「白葱易与毒新混，六时内吐泻见分明」</div>
+        <div class="memory-pill">「炒足半天也无用，胃肠型毒非致幻」</div>
+        <div class="memory-pill">「见手青不是一家人，红黄褐白细分辨」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ink"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">散生至群生，常与可食用的近缘种混生，增加了野外误采、市场误售的风险</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境</div>
+        <div class="habitat-value">地生，多见于针阔混交林及相关林地土壤，与树木形成外生菌根关系</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国西南部（云南等地）为主要报道区域，是当地"见手青"类中毒事件的重要致因物种之一</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">中毒高发季节</div>
+        <div class="habitat-value">与其他牛肝菌类似，集中在雨季野生菌大量上市的季节，需格外警惕市场散装"见手青"的来源</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      安全提示：野生牛肝菌种类繁杂、形态相近，普通人极难通过肉眼准确区分可食种与本种等有毒种；强烈建议不自行采集不明来源的野生牛肝菌，购买时选择正规、有鉴定资质的渠道，出现中毒症状后第一时间就医并保留样品供专业机构鉴定。
+    </div>
+  </div>
+
+  <!-- 7. 危害评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">危害评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">毒性与临床表现</div>
+        <div class="value-body">含牛肝菌毒素（bolevenine），食用后6小时内出现剧烈恶心、呕吐、腹痛、腹泻，严重者可发展为脱水、电解质紊乱乃至危及生命，需紧急就医补液及对症治疗</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">公共卫生风险</div>
+        <div class="value-body">是2013年以来云南223起蘑菇中毒事件系统分析中鉴定出的47种有毒蘑菇之一，也是6种"见手青类"有毒牛肝菌之一，因与可食种混淆而导致的群体性中毒事件时有报道</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">鉴定难度</div>
+        <div class="value-body">新鲜个体尚可凭经验区分，但干制后颜色、质地变化使鉴别难度大幅提升，往往需借助分子生物学手段才能准确鉴定，是干制野生菌中毒风险高于新鲜品的重要原因</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研与防控价值</div>
+        <div class="value-body">对本种及其近缘可食种的形态与分子鉴别特征研究，是野生菌中毒防控科普及市场监管的重要基础；相关研究也持续推动毒蘑菇快速鉴定技术的发展</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://m.sohu.com/a/898139688_696142" target="_blank">健康教育·牛肝菌中毒识别</a> ·
+      <a class="ref-link" href="https://niohp.chinacdc.cn/zdkz/zdkp/202108/t20210802_232263.htm" target="_blank">中国疾控中心·牛肝菌的奥秘知多少</a> ·
+      <a class="ref-link" href="https://www.sohu.com/a/570698874_120544400" target="_blank">见手青类中毒事件系统分析</a>
+    </div>
+    <div>胃肠炎型剧毒种 · 严禁采食 · 易与可食种混淆</div>
+  </div>
+
+</div>
+</body>
+</html>
