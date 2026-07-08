@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>橙黄蜡伞 · Hygrocybe persistens（有毒）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 有毒物种：暖橙警示配色，蜡质光泽感 */
+    --ink: #241a08;
+    --ink-mid: #4a3820;
+    --ink-light: #8a7858;
+    --cream: #faf3e6;
+    --surface: #ffffff;
+
+    --amber: #b8720c;
+    --amber-light: #e8a83c;
+    --amber-pale: #fdf0d4;
+    --amber-mid: #7a4a08;
+
+    --rust: #9a4a12;
+    --rust-light: #d4823c;
+    --rust-pale: #fbe8d8;
+
+    --toxic: #8a1f1a;
+    --toxic-light: #d99a90;
+    --toxic-pale: #f8e4e0;
+
+    --stone: #6a6048;
+    --stone-light: #9a9078;
+    --stone-pale: #f0ede2;
+
+    --border: rgba(120,90,20,0.12);
+    --border-mid: rgba(120,90,20,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .toxic-banner {
+    background: var(--toxic);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #e8dcc0; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(20,12,4,0.72)); padding:24px 20px 16px; }
+  .hero-overlay-text { font-size:12px; color:rgba(250,230,190,0.9); font-style:italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--toxic); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--amber); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-amber { background: var(--amber-pale); color: var(--amber-mid); }
+  .tag-rust  { background: var(--rust-pale);  color: var(--rust); }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+  .tag-stone { background: var(--stone-pale); color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-amber { background: var(--amber); }
+  .dot-rust  { background: var(--rust); }
+  .dot-toxic { background: var(--toxic); }
+  .dot-stone { background: var(--stone-light); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #fdf0d4, #fbf6ea);
+    border: 1px solid rgba(184,114,12,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--amber-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #e8dcc0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #e8dcc0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20,12,4,0.72); color: #f5e8d0; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--amber-pale); color: var(--amber-mid); }
+  .phase-mid    { background: var(--rust-pale);  color: var(--rust); }
+  .phase-mature { background: var(--toxic-pale); color: var(--toxic); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--amber-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--toxic-pale); border: 1px solid rgba(138,31,26,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--toxic); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a1410; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--toxic); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--amber-pale); border: 1px solid rgba(184,114,12,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--amber-mid); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #4a2e08; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--amber); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--amber-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--toxic); background: var(--toxic-pale); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--amber-pale); border: 1px solid rgba(184,114,12,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--amber-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card.toxic-card { border-left: 3px solid var(--toxic); }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--amber-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toxic-banner">⚠️ 记录中的有毒真菌 · 生食/误食可致胃肠不适 · 严禁采食，仅供学习识别</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens0.png" alt="橙黄蜡伞主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Hygrocybe persistens · 橙黄尖锥形菌盖，黏滑光亮，菌柄干燥纤维状</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 蜡伞科（湿伞属）</div>
+    <div class="hero-name-zh">橙黄蜡伞</div>
+    <div class="hero-name-la">Hygrocybe persistens</div>
+    <div class="hero-author">(Britzelm.) Singer, 1951 · 常并入 Hygrocybe acutoconica 复合群</div>
+
+    <div class="tag-row">
+      <span class="tag tag-toxic">⚠ 记录有毒</span>
+      <span class="tag tag-rust">胃肠不适型</span>
+      <span class="tag tag-amber">不变黑（关键特征）</span>
+      <span class="tag tag-stone">孢子印白色</span>
+      <span class="tag tag-stone">草地生态指示种</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">橙黄蜡伞（中文俗名尚未统一）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Persistent Waxcap</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Hygrophoraceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">易混淆种</span>
+        <span class="taxon-value">变黑蜡伞 <em>Hygrocybe conica</em></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志特征：不变黑</span>
+        <span class="fb-value">全株老化或受伤后不发生黑变，是区别于同科"变黑蜡伞"类群最重要的野外识别特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">质地反差</span>
+        <span class="fb-value">菌盖黏滑光亮，菌柄却干燥不黏——蜡质菌盖与干燥菌柄的强烈反差是蜡伞属内部重要区分线索</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">生态角色</span>
+        <span class="fb-value">蜡伞科（Waxcap）是国际公认的古老未开垦草地生态指示类群，本种及近缘种对草地生态评估具重要参考价值</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 尖锥形 / 橙黄至橙红 / 中央色深</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 蜡质菌褶 / 干燥纤维状菌柄</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉薄，淡黄色，菌柄松软至中空</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens4.png" alt="菌褶面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">菌褶面 · 蜡黄色，稀疏加厚，离生至弯生</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 白色（蜡伞科典型特征）</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 老熟不变黑对比 / 边缘撕裂条纹</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide" style="margin-top:10px;">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Hygrocybe_persistens7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 栎树/月桂林下枯落物层与沿海草地</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          菌盖尖锥形，顶部具明显持久的乳突，边缘内卷，直径0.5–2cm；表面湿润时黏滑光亮，橙黄色，中央颜色更深近橙红；
+          菌褶淡黄色，稀疏，质地蜡状；菌柄细长圆柱形，干燥不黏（与菌盖的黏滑形成鲜明反差），表面纤维状，淡黄色，基部偏白。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">中期</div>
+        <div class="phase-desc">
+          菌盖逐渐张开呈钟形至广钟形，仍保留中央尖锐乳突，直径2–4cm；边缘条纹显现，湿润时略透明；
+          橙黄至橙红色，中心色深向边缘转淡黄；菌褶变宽，蜡黄色，与菌柄呈离生或近弯生；
+          菌柄伸长达4–6cm，表面呈纵向纤维状且常扭曲，基部偏白。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展至边缘翻卷上翘，直径可达4–7cm，边缘常撕裂或呈不规则波状；
+          全株老化或受伤后<strong>不发生黑变</strong>（本种最关键鉴别特征，种加词"persistens"即"持久的"之意，指此性状持久稳定）；
+          菌褶蜡质感明显，稀疏加厚；菌柄常纵向开裂；孢子印白色。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-amber">菌盖橙黄→橙红（中央深）</span>
+          <span class="tag tag-rust">边缘转淡黄</span>
+          <span class="tag tag-amber">菌褶淡黄→蜡黄</span>
+          <span class="tag tag-stone">菌柄黄至橙黄，基部偏白</span>
+          <span class="tag tag-stone">孢子印白色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">尖锥形→广钟形→平展（径0.5–7cm）</span>
+          <span class="tag tag-amber">中央乳突持久保留</span>
+          <span class="tag tag-stone">边缘老熟撕裂上翘</span>
+          <span class="tag tag-rust">菌柄纵向扭曲/开裂</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">气味清淡，近无味</span>
+          <span class="tag tag-stone">无明显刺激性气味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">⚠ 记录有毒，不可尝试</span>
+          <span class="tag tag-stone">味淡，质地蜡质</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>湿润时黏滑光亮，干燥后转哑光；橙黄至橙红色，中央色深，边缘具透明细条纹，老熟后边缘常撕裂并上翘</td></tr>
+          <tr><td>菌褶</td><td>离生至近弯生，质地呈蜡状，稀疏且较厚，淡黄至蜡黄色，不等长</td></tr>
+          <tr><td>菌肉</td><td>薄，淡黄色；气味与口感均清淡；老熟或受伤后不变黑</td></tr>
+          <tr><td>菌柄</td><td>细长圆柱形，2–6cm×3–12mm；表面干燥不黏（与菌盖反差明显），纵向纤维状，常扭转或纵裂，基部偏白色，内部松软至中空</td></tr>
+          <tr><td>菌环 · 菌托</td><td>无菌环，无菌托</td></tr>
+          <tr><td>孢子</td><td>椭圆形，光滑，无色透明；孢子印白色</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识要素</div>
+      <ul class="distinction-list">
+        <li>全株老化或受伤后<strong>不发生黑变</strong>——区别于同科"变黑蜡伞"类群最重要的特征</li>
+        <li>菌盖黏滑光亮，<strong>菌柄却干燥不黏</strong>，这种质地反差是蜡伞属内部区分的关键线索</li>
+        <li>菌盖尖锥形，中央乳突持久保留，即使完全展平仍清晰可见</li>
+        <li><strong>白色孢子印</strong>；生长于草地或林下枯落物，不与树木形成专性菌根关系</li>
+      </ul>
+    </div>
+
+    <div class="caution-box">
+      <div class="caution-title">⚠ 食用前必读：记录有毒，请勿采食</div>
+      <ul class="caution-list">
+        <li>本种在多份西方真菌学资料中被列入"有毒真菌"名录，虽非剧毒致命，但可能引起胃肠不适</li>
+        <li>目前毒理学研究数据有限，安全边界不明确，不应以"体型小、颜色鲜艳"为由尝试食用</li>
+        <li>蜡伞科整体是古老未开垦草地的重要生态指示类群，具重要保护和科研价值，应观察记录而非采摘</li>
+        <li>野外遇到色泽鲜艳的蜡伞类真菌，应一律按"潜在有毒"处理</li>
+      </ul>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic)">⚠ 变黑蜡伞 <em>Hygrocybe conica</em></div>
+        <div class="confusion-diff">外形与本种极为相似，同为橙黄色尖锥形菌盖，但全株受伤或老化后会<strong>迅速变黑</strong>，是最直接的野外区分特征；该种同样被记录为有毒，不可食用</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">黄蜡伞 <em>Hygrocybe chlorophana</em></div>
+        <div class="confusion-diff">菌盖同样呈黄色，但菌柄与菌盖同样黏滑（本种菌柄干燥不黏），且菌盖不呈尖锥形，多为扁半球形</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">近似橙黄蜡伞类群（国内草甸报道）</div>
+        <div class="confusion-diff">国内高山草甸及沿海草地也有类似橙黄色蜡伞类真菌的零星记录，具体物种鉴定需依赖孢子显微测量及分子数据，不建议仅凭外观采集</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.2rem;">
+    <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「橙黄尖顶不变黑，持久之名由此得」</div>
+      <div class="memory-pill">「盖粘柄干两重天，蜡质菌褶稀又宽」</div>
+      <div class="memory-pill">「鲜艳草地藏警示，望而却步保平安」</div>
+      <div class="memory-pill">「古老草甸看蜡伞，生态指标胜貌颜」</div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生、散生至群生，不形成大型丛聚；个体间通常保持一定间距</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">阔叶林（栎树、月桂等）枯落物层，沙质或石灰质土壤，草地/牧场；不与树木形成专性菌根关系，营养方式尚不完全明确</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">北美西海岸（加州红杉林下常见）、欧洲地中海沿岸多有记录；中国相关报道有限，蜡伞科在国内主要见于高山草甸及部分林缘草地</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">秋季至初冬为主，暖温带气候下可延续至深冬；多见于低海拔沿海丘陵至中海拔草甸</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      观察建议：野外记录时注意拍摄触碰/老化前后对比照，确认是否变黑，这是与变黑蜡伞区分的关键证据；蜡伞科物种多为草地生态健康的指示类群，建议采用摄影记录代替采集。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card toxic-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">被记录为有毒真菌，缺乏充分毒理学数据，不建议采食；无已知的传统食用记录</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态指示价值</div>
+        <div class="value-body">蜡伞科（Waxcap）真菌被广泛用作古老未开垦草地生态系统健康程度的指示类群（CHEGD真菌评估体系），本种及近缘种对草地保护评估具重要参考意义</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研价值</div>
+        <div class="value-body">"不变黑"这一性状在蜡伞属分类中具有重要鉴别意义，也是研究该属色素稳定性与酶促褐变机制的良好案例</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科普教育价值</div>
+        <div class="value-body">与外形高度相似但会变黑的有毒近缘种形成鲜明对比，是野外教学中"细节特征优先于整体印象"辨识训练的良好素材</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://www.mykoweb.com/CAF/species/Hygrocybe_acutoconica.html" target="_blank">MykoWeb California Fungi</a> ·
+      <a class="ref-link" href="https://ultimate-mushroom.com/poisonous/689-hygrocybe-acutoconica.html" target="_blank">Ultimate Mushroom Guide</a>
+    </div>
+    <div>记录有毒 · 孢子印白色 · 草地生态指示种</div>
+  </div>
+
+</div>
+</body>
+</html>
