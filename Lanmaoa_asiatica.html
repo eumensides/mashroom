@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>兰茂牛肝菌 · Lanmaoa asiatica（红葱 · 见手青）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：温暖红葱色调，兼具"血色"警示感（因需熟制警示） */
+    --ink: #24140f;
+    --ink-mid: #4a2e22;
+    --ink-light: #8a6a58;
+    --cream: #fbf3ee;
+    --surface: #ffffff;
+    --surface-warm: #fdf6f0;
+
+    /* 红葱主色 */
+    --scallion: #a8321e;
+    --scallion-light: #d96a4a;
+    --scallion-pale: #fbe4dc;
+    --scallion-mid: #7a2312;
+
+    /* 暖褐（菌柄、干制色） */
+    --amber: #8b5a1a;
+    --amber-light: #d4943a;
+    --amber-pale: #fdf0d8;
+
+    /* 苔绿（可食标记） */
+    --moss: #4a6c2a;
+    --moss-light: #8ab870;
+    --moss-pale: #edf4e5;
+
+    /* 蓝变反应（关键鉴别色，两种见手青共用） */
+    --bruise: #2a5a8b;
+    --bruise-light: #6a9ac0;
+    --bruise-pale: #e4eef7;
+
+    /* 警示（生食/半熟致幻中毒） */
+    --warn: #9a3a18;
+    --warn-light: #d4703a;
+    --warn-pale: #fceee8;
+
+    --stone: #6a5648;
+    --stone-light: #a08870;
+
+    --border: rgba(140,60,40,0.12);
+    --border-mid: rgba(140,60,40,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--scallion);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #e8d0c0; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(30,10,4,0.7));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(250,220,200,0.85); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--scallion); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--scallion-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-scallion { background: var(--scallion-pale); color: var(--scallion-mid); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-amber  { background: var(--amber-pale);  color: var(--amber); }
+  .tag-bruise { background: var(--bruise-pale); color: var(--bruise); }
+  .tag-stone  { background: #f2e8e0;            color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-scallion { background: var(--scallion); }
+  .dot-moss  { background: var(--moss); }
+  .dot-warn  { background: var(--warn); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-amber { background: var(--amber); }
+  .dot-bruise { background: var(--bruise); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #e4cdba; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #e4cdba; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(30,10,4,0.72); color: #f7e4d8; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--amber-pale);  color: var(--amber); }
+  .phase-mature { background: var(--scallion-pale);  color: var(--scallion-mid); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--scallion-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(154,58,24,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a2010; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(74,108,42,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2a4020; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--scallion-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: #c0301a; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--scallion-pale); border: 1px solid rgba(168,50,30,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--scallion-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .bruise-bar {
+    background: linear-gradient(135deg, #e4eef7, #fdf6f0);
+    border: 1px solid rgba(42,90,139,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--bruise); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--scallion-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .bruise-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  🧅 可食用物种（云南名品"红葱"）· 但必须充分熟制 15–25 分钟 · 半生食用可致幻中毒
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica0.png" alt="兰茂牛肝菌主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Lanmaoa asiatica · 菌盖暗红棕色，与云南松形成外生菌根，触碰即变蓝</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 牛肝菌科 · 兰茂牛肝菌属</div>
+    <div class="hero-name-zh">兰茂牛肝菌</div>
+    <div class="hero-name-la">Lanmaoa asiatica</div>
+    <div class="hero-author">G.Wu & Zhu L.Yang · 属名纪念明代兰茂（《滇南本草》作者，"牛肝菌"一词首创者）</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">可食（须充分熟制）</span>
+      <span class="tag tag-warn">⚠ 半生食用致幻中毒</span>
+      <span class="tag tag-bruise">切割/触碰变蓝</span>
+      <span class="tag tag-scallion">"见手青"代表种</span>
+      <span class="tag tag-amber">外生菌根真菌</span>
+      <span class="tag tag-stone">云南头水菌</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">红葱 / 红葱菌 / 见手青（红见手）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Asian bolete (bluing bolete)</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">牛肝菌目 Boletales / 牛肝菌科 Boletaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分布</span>
+        <span class="taxon-value">中国云南为主 · 菲律宾科迪勒拉行政区</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="bruise-bar">
+      <div class="rh-item">
+        <span class="rh-label">标志反应：伤变蓝</span>
+        <span class="rh-value">菌肉、菌管受切割或挤压后迅速氧化变蓝，是"见手青"类群共同的鉴别特征，但本身并非毒性来源</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">共生关系</span>
+        <span class="rh-value">与云南松（Pinus yunnanensis）形成外生菌根，雨季（6–8月）大量出菇，为"头水菌"中最早上市的品种之一</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">中毒类型</span>
+        <span class="rh-value">神经精神型（致幻为主），与胃肠炎型的有毒新牛肝菌等"见手青"同类完全不同，须严格区分处理方式</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-scallion"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 暗红棕色 / 绒毛质感 / 边缘微内卷</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 菌柄粗短肥厚 / 柄面裂环纹</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉切开数秒内迅速变蓝</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica4.png" alt="管面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">管面 · 黄绿至橄榄黄，触压变蓝，孔口细小</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 橄榄褐至锈褐色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 柄面纵向裂环纹理特写</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lanmaoa_asiatica7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 云南松林下地生，雨季群生于松林、混交林中</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖半球形，直径2–5cm，边缘明显内卷；表面暗红棕色，绒毛感强，尚未开裂；菌管未完全暴露，管口黄色，触压后缓慢转蓝；
+          菌柄粗短，白色至淡黄色，柄面尚光滑或仅见细微裂纹；菌肉米黄色，切开后数秒内即氧化变蓝，是雨季头水菌的典型代表。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖渐平展，直径5–10cm，暗红棕至褐红色加深，表面绒毛渐稀疏，偶见细小龟裂；管孔层黄绿色转橄榄黄，受伤变蓝反应更迅速明显；
+          菌柄增粗，柄面裂纹呈纵向网状或环状，颜色由白转淡黄；菌肉质地仍脆嫩，变蓝反应达到高峰。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展乃至微翻卷，直径可达10–15cm，色泽转为褐红或暗棕红，绒毛几近脱落，表面略显粗糙；
+          管孔层橄榄黄至暗黄绿，孔口增大；菌柄裂环纹更加明显粗深，基部常有虫蛀痕迹；菌肉质地转松软，变蓝反应仍存在但速度稍缓，风味达到顶峰但也是致幻毒素含量较高的阶段，须格外注意熟制时间。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-scallion">菌盖暗红棕→褐红色</span>
+          <span class="tag tag-amber">菌柄白→淡黄（裂环处偏黄）</span>
+          <span class="tag tag-stone">管口黄绿→橄榄黄</span>
+          <span class="tag tag-bruise">切割/触碰后迅速变蓝</span>
+          <span class="tag tag-stone">孢子印橄榄褐至锈褐</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">半球形→平展（径5–15cm）</span>
+          <span class="tag tag-stone">边缘幼时内卷</span>
+          <span class="tag tag-scallion">菌柄粗短肥厚</span>
+          <span class="tag tag-scallion">柄面纵向裂环纹</span>
+          <span class="tag tag-stone">菌盖表面绒毛质感</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-scallion">近似葱香（"葱菌"得名由来）</span>
+          <span class="tag tag-stone">菌香浓郁，无刺激性异味</span>
+          <span class="tag tag-stone">老熟后气味转厚重</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-warn">⚠ 生食/半熟：致幻，严禁食用</span>
+          <span class="tag tag-moss">充分熟制后：滑嫩鲜美</span>
+          <span class="tag tag-moss">公认云南最美味牛肝菌之一</span>
+          <span class="tag tag-stone">质地细嫩，无明显苦味</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr><th>部位</th><th>形态描述</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖表皮</td>
+            <td>干燥，具细密绒毛，幼时暗红棕色，成熟后转褐红色；边缘幼时内卷，成熟渐平展，偶见细小龟裂纹；不黏滑</td>
+          </tr>
+          <tr>
+            <td>菌管与孔口</td>
+            <td>直生或近离生，黄绿色至橄榄黄色，密集细小，孔口多角形；受伤或触压后迅速变为靛蓝色，是本种最直观的鉴别特征之一</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>米黄色至淡黄色，质地脆嫩；切割后数秒内即氧化变蓝，稍后蓝色可部分回淡；含羟基地衣枕酸衍生物（如杂色乳牛肝菌酸），为变色反应来源，本身并非致幻毒素</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>粗短而肥厚，圆柱形至棒状；表面白色至淡黄色，具明显纵向裂环纹（网状裂纹），基部常膨大；实心，质地紧密</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>纺锤形至近椭圆形，表面光滑；孢子印橄榄褐至锈褐色</td>
+          </tr>
+          <tr>
+            <td>菌托 / 菌环</td>
+            <td>均无（区别于鹅膏属及部分环柄菇属）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖暗红棕至褐红色，表面绒毛质感明显（非光滑，非黏滑）——"红葱"之名由此而来</li>
+        <li>菌柄<strong>粗短肥厚</strong>，柄面具纵向裂环纹，与松树（尤其云南松）根部共生</li>
+        <li>切开或触碰菌肉、菌管后<strong>数秒内迅速变蓝</strong>，是"见手青"类群的共同标志</li>
+        <li>中毒类型为<strong>神经精神型</strong>（致幻为主，见"小人国"幻觉），与胃肠炎型的有毒新牛肝菌等混淆种完全不同</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用前必读：必须充分熟制！</div>
+      <ul class="caution-list">
+        <li>生食或半熟食用可导致神经精神型中毒，潜伏期约12–24小时，主要表现为幻视（"看见小人"）、谵妄、头晕及躁狂，个别病例神经精神症状可持续一个多月</li>
+        <li>须持续高温炒制15–25分钟以上，确保受热均匀、彻底断生，方可有效破坏其中的致幻活性成分</li>
+        <li>云南多地餐馆有专门烹饪规范，要求顾客用餐时禁酒，部分餐厅还会留样以备送医核查</li>
+        <li>大规模临床数据显示此类中毒对肝肾等重要脏器无明显损害，经及时治疗预后良好，但切勿因此掉以轻心</li>
+        <li>干制品经分子生物学鉴定前很难与有毒种类区分，干牛肝菌中毒风险高于新鲜品，购买干货须认准正规渠道</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与有毒新牛肝菌区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">有毒新牛肝菌菌盖<strong>黄褐至褐黄色</strong>（非暗红棕），中毒类型为<strong>胃肠炎型</strong>（非致幻）；兰茂牛肝菌菌盖偏暗红，中毒以神经精神症状为主，两者处理方式和风险性质完全不同</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">变蓝反应验证法</div>
+        <div style="font-size:13px;color:var(--ink-mid)">用指甲轻划菌管面或切开菌肉，静置10–30秒观察颜色变化：迅速转为靛蓝色即为"见手青"类群共同特征，是野外初步识别的实用方法，但不能替代专业物种鉴定</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 有毒新牛肝菌 <em>Neoboletus venenatus</em></div>
+        <div class="confusion-diff">同属易混淆的"见手青"家族，但菌盖<strong>黄褐色</strong>（非暗红），中毒类型为<strong>胃肠炎型</strong>，进食后6小时内出现剧烈呕吐腹泻，严重可致命；采集时须严格分辨颜色与产地信息</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 华丽新牛肝菌 <em>Neoboletus magnificus</em></div>
+        <div class="confusion-diff">同为"见手青"家族成员，外观与兰茂牛肝菌相近，也需充分熟制，市场上二者常混杂出售，普通人难以凭肉眼准确区分</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">玫黄黄肉牛肝菌（白葱）<em>Butyriboletus roseoflavus</em></div>
+        <div class="confusion-diff">同为"见手青"美味代表，但菌盖颜色偏灰褐色而非红棕色，菌肉黄色调更浓；同样需充分熟制后食用，被视为与红葱并列的最美味牛肝菌</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.4rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「红葱暗褐绒毛盖，一刀下去满身青」</div>
+        <div class="memory-pill">「松林雨后头水鲜，炒足廿分方可眠」</div>
+        <div class="memory-pill">「半生落肚见小人，神经致幻非肠胃」</div>
+        <div class="memory-pill">「同是见手青，红葱白葱毒新分」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">散生至群生，雨后成片出菇，是每年雨季最早上市的"头水菌"品种之一</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 共生关系</div>
+        <div class="habitat-value">外生菌根真菌，与云南松（Pinus yunnanensis）形成共生关系，多见于松林及针阔混交林地表</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国西南部云南省为主要产区；菲律宾科迪勒拉行政区亦有分布（当地称 Sedesdem）</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 中毒高峰</div>
+        <div class="habitat-value">雨季6–8月为出菇及市场供应高峰，中毒事件也集中于此时段；海拔多在云南中部松林分布区</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集与食用建议：购买或采集后务必彻底清洗、切片，并以旺火持续炒制15–25分钟以上；避免与其他不明品种牛肝菌混炒；食用期间禁酒；如出现幻觉、恶心等症状应及时就医并保留样品供鉴定。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-scallion"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">充分熟制后被公认为云南最美味的野生牛肝菌之一，质地滑嫩，风味鲜浓；云南本地经典做法为高油温爆炒配蒜片、辣椒，是雨季餐桌上的珍馐</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">文化与历史价值</div>
+        <div class="value-body">属名 Lanmaoa 纪念明代医药学家兰茂，其著作《滇南本草》最早使用"牛肝菌"一词；本种是云南饮食文化中"头水菌""见手青"传统的代表性物种</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">安全提示与公共卫生</div>
+        <div class="value-body">云南各地政府及医疗机构每年雨季均会发布食用提示短信，部分餐厅要求禁酒并留样；尽管中毒时有发生，因诊疗经验成熟，总体预后良好，罕见死亡病例</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研价值</div>
+        <div class="value-body">其致幻性中毒机制及蓝变反应活性成分（杂色乳牛肝菌酸等）是真菌化学与中毒学研究的热点课题，相关子实体发育代谢组学研究也在持续开展</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-cn/%E4%BA%9A%E6%B4%B2%E5%85%B0%E8%8C%82%E7%89%9B%E8%82%9D%E8%8F%8C" target="_blank">维基百科</a> ·
+      <a class="ref-link" href="https://lcjz.whuhzzs.com/article/doi/10.13201/j.issn.1009-5918.2023.05.007?viewType=HTML" target="_blank">急性兰茂牛肝菌中毒临床研究</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E8%A7%81%E6%89%8B%E9%9D%92/6436089" target="_blank">百度百科·见手青</a>
+    </div>
+    <div>云南特有 · 神经精神型中毒代表种 · 须充分熟制</div>
+  </div>
+
+</div>
+</body>
+</html>
