@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白鳞柄鹅膏菌 · Amanita praegraveolens（疑似有毒，不建议食用）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 食用性存疑物种：素白 + 沉稳警戒锈色，非柔和暖色 */
+    --ink: #1a1a18;
+    --ink-mid: #45443c;
+    --ink-light: #8a8578;
+
+    --cream: #f0ede2;
+    --surface: #fffef9;
+    --surface-warm: #faf8f0;
+
+    /* 象牙白主色（菌体本色） */
+    --pale: #8a8368;
+    --pale-light: #cfc9ac;
+    --pale-pale: #f4f1e4;
+    --pale-mid: #6a6248;
+
+    /* 草坪灰绿（生境色） */
+    --grass: #566b3a;
+    --grass-light: #9cae78;
+    --grass-pale: #eef1e2;
+
+    /* 警戒锈橙（疑似有毒，非确凿剧毒） */
+    --warn: #a1451a;
+    --warn-light: #d9835a;
+    --warn-pale: #fbe8d9;
+
+    /* 危险深红（用于剧毒近缘/易混淆种警示） */
+    --danger: #7a1f2b;
+    --danger-light: #c98a92;
+    --danger-pale: #f7e3e6;
+
+    --stone: #605a48;
+    --stone-light: #948d72;
+
+    --border: rgba(80,74,56,0.14);
+    --border-mid: rgba(80,74,56,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--warn);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #d8d4c0; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,18,10,0.75));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(235,230,210,0.85); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warn); margin-bottom: 12px; }
+
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 32px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--pale-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-pale   { background: var(--pale-pale);   color: var(--pale-mid); }
+  .tag-grass  { background: var(--grass-pale);  color: var(--grass); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-danger { background: var(--danger-pale); color: var(--danger); }
+  .tag-stone  { background: #ece8d8;            color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-pale   { background: var(--pale-mid); }
+  .dot-grass  { background: var(--grass); }
+  .dot-warn   { background: var(--warn); }
+  .dot-stone  { background: var(--stone-light); }
+  .dot-danger { background: var(--danger); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #d8d4c0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #d8d4c0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20,18,10,0.75); color: #efe9d8; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--grass-pale); color: var(--grass); }
+  .phase-mid    { background: var(--pale-pale);  color: var(--pale-mid); }
+  .phase-mature { background: var(--warn-pale);  color: var(--warn); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--pale-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(161,69,26,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a2e10; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--grass-pale); border: 1px solid rgba(86,107,58,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--grass); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #263018; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--grass); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--pale-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--danger); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--pale-pale); border: 1px solid rgba(106,98,72,0.28); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--pale-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #f4f1e4, #faf8f0);
+    border: 1px solid rgba(106,98,72,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--warn); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--pale-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 24px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  ⚠ 疑似有毒 · 不建议食用 · 常因生于草坪而被误认作可食伞菌，已有可疑中毒记录
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Amanita_praegraveolens0.png" alt="白鳞柄鹅膏菌主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Amanita praegraveolens · 全株白色，菌盖菌柄密布蓬松鳞絮状菌幕残余，常见于草坪、牧场地表，成熟具刺鼻气味</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 鹅膏菌科 · 鹅膏属 鳞托鹅膏组（Lepidella）· 腐生支系</div>
+    <div class="hero-name-zh">白鳞柄鹅膏菌</div>
+    <div class="hero-name-la">Amanita praegraveolens</div>
+    <div class="hero-author">(Murrill) Singer, 1951 · 基原异名 Lepiota praegraveolens Murrill, 1939</div>
+
+    <div class="tag-row">
+      <span class="tag tag-warn">⚠ 疑似有毒</span>
+      <span class="tag tag-danger">不建议食用</span>
+      <span class="tag tag-pale">全株白色</span>
+      <span class="tag tag-pale">柄具蓬松鳞絮</span>
+      <span class="tag tag-grass">腐生（非菌根）</span>
+      <span class="tag tag-stone">草坪/牧场型鹅膏</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">白鳞柄鹅膏菌 / 鳞托鹅膏（近缘种统称）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">暂无广泛通用英文名，近缘种 <em>A. thiersii</em> 称 Lawn Lepidella</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Amanitaceae 鹅膏菌科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态 / 研究现状</span>
+        <span class="taxon-value">未评估 · 分类地位仍有争议（曾被并入 Saproamanita）</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志结构：蓬松鳞絮状菌幕</span>
+        <span class="fb-value">菌盖与菌柄表面覆盖白色蓬松、略带黏性的菌幕碎屑（非疣点状），雨水冲刷后可基本脱落，是鳞托鹅膏组（Lepidella）「Thiersii支系」的共同特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">异于多数鹅膏：腐生而非菌根</span>
+        <span class="fb-value">本种及其近缘种（如 <em>A. thiersii</em>）不与活树根系共生，而是腐生分解草坪、牧场中的枯草纤维素，因而常见于远离树木的开阔草地</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">强烈气味的由来</span>
+        <span class="fb-value">种加词 <em>praegraveolens</em> 直译为「异常浓烈的气味」，成熟或老熟子实体可散发类似腐败/奶酪的不快气味</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pale"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Amanita_praegraveolens1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 白色 / 蓬松鳞絮状菌幕残余 / 低平钝突</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Amanita_praegraveolens2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 白色菌褶 / 蓬松鳞絮菌柄 / 下垂菌环</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Amanita_praegraveolens3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉白色 / 菌柄基部略膨大</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Amanita_praegraveolens4.png" alt="菌褶面图" loading="lazy">
+        <div class="photo-caption">褶面 · 白色至米黄，离生，密集</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Amanita_praegraveolens5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 白色（球形，淀粉质反应阳性）</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Amanita_praegraveolens6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">细节 · 菌柄表面蓬松鳞絮 / 破碎状菌托残余</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Amanita_praegraveolens7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 开阔草坪、牧场、草原地表，常呈仙人环状群生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-grass"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期（卵形）</div>
+        <div class="phase-desc">
+          子实体初期呈卵形，完全覆盖白色蓬松、略带黏性的菌幕物质，形似小型白色棉絮球；此时菌盖边缘尚未与菌柄分离，整体致密；
+          气味不明显或极淡，与多数鹅膏幼期「蛋状」结构类似，但本种<strong>无完整袋状菌托</strong>，菌幕呈松散碎片状而非连续膜质。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐展开为凸镜形，表面菌幕碎片随生长逐渐分离、间距变宽，形成松散蓬松的絮状鳞片，触感黏滑，遇雨易脱落冲刷殆尽；
+          菌柄同步伸长，表面同样被蓬松鳞絮覆盖，中上部可见下垂、易脱落的蓬松菌环；菌褶白色至米黄色，离生，渐趋密集。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展开近平展，常具宽而低矮的钝突起，直径3.5–10cm；菌柄8–20cm，基部略膨大但<strong>无</strong>典型袋状菌托，仅见破碎鳞絮状残余；
+          菌褶白色至米黄色，密集，不等长；孢子印白色；老熟子实体<strong>气味转为不快，类似腐败或奶酪味</strong>，口感据报道偏油腻苦涩或带金属苦味。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-grass"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-pale">通体白色（菌盖/菌柄/菌褶/孢子印）</span>
+          <span class="tag tag-stone">老熟局部可转米黄或污白</span>
+          <span class="tag tag-grass">菌褶白色至米黄色</span>
+          <span class="tag tag-pale">孢子印纯白</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">幼期卵形，全覆蓬松菌幕</span>
+          <span class="tag tag-stone">成熟凸镜形至平展（径3.5–10cm）</span>
+          <span class="tag tag-pale">菌盖具宽而低矮的钝突</span>
+          <span class="tag tag-pale">菌柄蓬松鳞絮覆盖（8–20cm）</span>
+          <span class="tag tag-warn">菌环蓬松下垂，易脱落</span>
+          <span class="tag tag-warn">柄基略膨大，无典型袋状菌托</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-grass">幼期气味不明显</span>
+          <span class="tag tag-warn">⚠ 老熟后转为不快，似腐败/奶酪味</span>
+          <span class="tag tag-stone">种加词本意即「浓烈气味」</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-danger">⚠ 文献描述为油腻苦涩或金属苦味</span>
+          <span class="tag tag-warn">不建议以品尝方式鉴定</span>
+          <span class="tag tag-stone">近缘种已有可疑中毒案例报道</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-grass"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖表皮</td>
+            <td>白色，干燥或潮湿时黏滑；表面覆盖松散、蓬松、略黏的菌幕碎屑（非典型疣点状），随生长间距变宽，遇雨可大部分冲刷脱落，露出光滑表皮</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>离生，白色至米黄色，密集，不等长，宽阔</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色，质地一般，气味老熟后转为不快（似腐败/奶酪味），口感据文献记载偏油腻苦涩或金属苦味</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>8–20cm × 约1cm；圆柱形，中空或松软，基部略膨大；表面同样覆盖白色蓬松鳞絮状菌幕残余，黏滑，雨后易脱落</td>
+          </tr>
+          <tr>
+            <td>菌环</td>
+            <td>蓬松下垂状，质地绵软，成熟前极易脱落或残缺不全，与典型膜质菌环观感不同</td>
+          </tr>
+          <tr>
+            <td>菌托</td>
+            <td>无典型袋状/杯状菌托，柄基仅见破碎、松散的菌幕残余附着——这是本种及近缘草坪鹅膏与多数鹅膏属物种在结构上的重要差异</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>近球形，光滑，无色，<strong>淀粉质反应阳性（amyloid）</strong>——与多数鞘托组鹅膏的非淀粉质孢子不同；孢子印白色；显微镜下菌丝是否具锁状联合（clamp connection）是区分本种与近缘 <em>A. thiersii</em> 的关键特征之一</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-grass"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>通体<strong>纯白色</strong>，菌盖菌柄均覆盖<strong>蓬松鳞絮状</strong>菌幕碎屑，而非疣点状或袋状</li>
+        <li>柄基<strong>无</strong>典型袋状/杯状菌托，仅见松散破碎的菌幕残余——极易被误判为"无毒白菇"</li>
+        <li>生长于<strong>开阔草坪、牧场</strong>，远离树木，与常见"鹅膏生于林下"的经验直觉相反</li>
+        <li>老熟后<strong>气味转为不快</strong>（似腐败/奶酪味），伴随口感记录为苦涩或金属苦味</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用前必读：疑似有毒，不建议食用！</div>
+      <ul class="caution-list">
+        <li>本种及其近缘草坪鹅膏（如 <em>A. thiersii</em>）被认为「疑似有毒」，虽未检出与致命鹅膏相同的鹅膏毒肽，但安全性缺乏系统验证</li>
+        <li>已有食用近缘种后出现中毒症状的可疑案例报道（墨西哥普埃布拉州），后续转归不明</li>
+        <li>由于生长于草坪、牧场而非树林，极易被非专业采集者误认为"安全的草地蘑菇"而随意采食，风险实际不亚于林下鹅膏</li>
+        <li>外观与可食用的大环柄菇（<em>Macrolepiota procera</em>）、部分白色环柄菇属物种相似，也与剧毒的大青褶伞（<em>Chlorophyllum molybdites</em>，绿色孢子印）同域生长，务必谨慎区分</li>
+        <li>不建议儿童及宠物在草坪玩耍时接触或误食此类白色伞菌</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与致命鹅膏类群（Phalloideae组）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">致命鹅膏、鳞柄白毒鹅膏等剧毒种具<strong>典型袋状菌托</strong>+膜质菌环，多生于林下与树木共生；本种<strong>无袋状菌托</strong>，为腐生草坪种——但生境不同不能作为食用安全的依据，仍需专业鉴定</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与大青褶伞的区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">大青褶伞孢子印<strong>绿色</strong>，菌褶成熟后转灰绿色；本种孢子印<strong>白色</strong>，菌褶始终白色至米黄——孢子印颜色是二者最直接的区分依据</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--danger)">⚠ 大青褶伞 <em>Chlorophyllum molybdites</em></div>
+        <div class="confusion-diff">剧毒！同样常见于草坪、牧场，外观与本种高度相似；关键区别：大青褶伞孢子印<strong>绿色</strong>，菌褶成熟后转灰绿色，本种孢子印始终白色</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">近缘草坪鹅膏 <em>Amanita thiersii</em>（Thiers氏鹅膏）</div>
+        <div class="confusion-diff">与本种形态几乎完全相同，仅能通过显微镜下菌丝<strong>是否具锁状联合</strong>区分（本种具有，<em>A. thiersii</em>不具有）；同样疑似有毒，同样不建议食用</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">大环柄菇 <em>Macrolepiota procera</em></div>
+        <div class="confusion-diff">著名食用菌，菌盖具粗糙、贴伏且不易脱落的鳞片（区别于本种蓬松易脱落的鳞絮），菌柄具明显蛇皮状花纹；二者幼期容易混淆，务必以鳞片附着牢固程度及菌柄纹路区分</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">红褐鳞环柄菇 <em>Leucoagaricus americanus</em></div>
+        <div class="confusion-diff">受伤或触碰后菌肉迅速变红，本种及其近缘种均<strong>不变红</strong>，可作为快速野外鉴别手段之一</div>
+      </div>
+    </div>
+
+    <!-- 命名与分类说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--pale-pale);border:1px solid rgba(106,98,72,0.32);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--pale-mid);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位与命名说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--pale-mid);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--pale-mid);margin-bottom:8px;">本页记录种</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Amanita praegraveolens</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">(Murrill) Singer, 1951</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              基原异名为 <em>Lepiota praegraveolens</em> Murrill, 1939；显微镜下菌丝具锁状联合（clamp connection），是与近缘种 <em>A. thiersii</em> 区分的关键特征。
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--stone-light);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone);margin-bottom:8px;">近缘 / 易混淆种</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Amanita (Saproamanita) thiersii</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">(Thiers) Bas, 1969</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              北美「草坪鹅膏 / Lawn Lepidella」，与本种同属「Thiersii支系」，形态几乎无法用肉眼区分，仅显微镜下锁状联合有无可鉴别。
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称关系与分类争议说明</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--pale-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>属级争议：</strong>2016年 Redhead 等学者提出将鹅膏属中腐生（非菌根）的类群独立为新属 <em>Saproamanita</em>，本种所在的「Thiersii支系」曾被建议归入该新属，但这一分类处理<strong>尚存争议</strong>，多数数据库仍沿用 <em>Amanita</em> 属名。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--pale-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>种级混淆提醒：</strong>有分类学者（Bas）曾提出本种可能与非洲的 <em>Amanita nauseosa</em>（及 "malodora"、"ingrata" 等异名）构成同物异名关系，具体地理分布与种界仍需分子数据进一步核实，检索文献时应留意这一潜在的名称重叠。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--pale-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>中文名「白鳞柄鹅膏菌」：</strong>该俗称描述的是"通体白色、柄被蓬松鳞絮"这一组共同外观特征，在实际使用中常笼统覆盖本种及 <em>A. thiersii</em> 等近似种，鉴定与讨论时建议以拉丁学名为准。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--warn-pale);border:1px solid rgba(161,69,26,0.3);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a2e10;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>在草坪、牧场发现白色伞菌时，切勿因"远离树林、看似干净"而放松警惕；应立即查看孢子印颜色（白色需高度警惕鹅膏属，绿色则指向大青褶伞），并检查柄基是否有膨大及菌幕残余形态，两者均不能替代专业鉴定或分子检测。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「草坪白菇莫轻信，无环无托藏疑云」</div>
+        <div class="memory-pill">「蓬松鳞絮雨中褪，孢子印白最难辨」</div>
+        <div class="memory-pill">「远离树木不代表安全，鹅膏之名足警惕」</div>
+        <div class="memory-pill">「老熟气味转腐臭，宁弃不食保平安」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生、散生或成群生长，常形成弧形至完整的「仙人环」（fairy ring），环随年份逐年向外扩大</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">腐生菌，<strong>不与树木形成菌根共生</strong>，以草坪、牧场、草原中腐烂的枯草纤维素为碳源；因此常见于远离乔木的开阔草地，而非典型的林下环境</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">近缘种群主要记录于北美洲密西西比河流域及周边多个州，并有向北、向西扩散的趋势；本种模式产地及具体分布记录较为零散，中文文献中的"白鳞柄鹅膏菌"多指该类群的统称</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">近缘种群主要见于夏季（6–8月前后），温暖潮湿条件下集中出菇；主要分布于低海拔平原草地</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：草坪、牧场中出现的白色伞菌应以"先鉴定、后决定"为原则；建议记录孢子印颜色、菌柄基部形态及是否具锁状联合（需显微镜），并提醒家中儿童与宠物不要在出菇季节的草坪上玩耍取食。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-warn"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">疑似有毒，无可靠食用安全记录，权威指南普遍建议不采食；因常见于草坪且外观"干净"，是家庭及草坪养护中需要特别提防的误食风险物种之一</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用 / 保健价值</div>
+        <div class="value-body">尚无公开发表的药理活性或保健用途研究，相关领域基本空白</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为鹅膏属中罕见的腐生（非菌根）代表，其分解草坪/牧草纤维素的酶系统与菌根类鹅膏存在同源性，是研究真菌营养方式演化（腐生 vs 菌根）的重要模式类群</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研价值</div>
+        <div class="value-body">相关近缘种已被列为基因组测序研究对象，用于比较腐生与菌根鹅膏的纤维素降解基因差异；对理解鹅膏属营养方式的演化路径具有重要科研价值</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Saproamanita_thiersii" target="_blank">Wikipedia · Saproamanita thiersii</a> ·
+      <a class="ref-link" href="https://www.mushroomexpert.com/amanita_thiersii.html" target="_blank">MushroomExpert.com</a> ·
+      <a class="ref-link" href="https://www.wikidata.org/wiki/Q49600949" target="_blank">Wikidata · A. praegraveolens</a>
+    </div>
+    <div>研究现状：分类存在争议 · 食用性未证实 · 疑似有毒</div>
+  </div>
+
+</div>
+</body>
+</html>
