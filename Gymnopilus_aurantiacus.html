@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>橙黄裸伞 · Gymnopilus aurantiacus（有毒 / 警惕）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 有毒/警惕物种：锈橙警示配色 */
+    --ink: #221a10;
+    --ink-mid: #4a3624;
+    --ink-light: #8a7864;
+    --cream: #f8f0e2;
+    --surface: #ffffff;
+
+    --amber: #b5620f;
+    --amber-light: #d99a3c;
+    --amber-pale: #fbe8c8;
+    --amber-mid: #7a3e08;
+
+    --rust: #8a3a10;
+    --rust-light: #c47030;
+    --rust-pale: #f5ded0;
+    --rust-mid: #5c2608;
+
+    --toxic: #7a1f1f;
+    --toxic-light: #cf9a94;
+    --toxic-pale: #f5e2df;
+
+    --stone: #665a44;
+    --stone-light: #968a70;
+    --stone-pale: #eee6d8;
+
+    --border: rgba(120,80,20,0.14);
+    --border-mid: rgba(120,80,20,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .toxic-banner {
+    background: var(--toxic);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #e0d0b0; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(18,10,4,0.74)); padding:24px 20px 16px; }
+  .hero-overlay-text { font-size:12px; color:rgba(245,220,180,0.9); font-style:italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--toxic); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--rust); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-amber { background: var(--amber-pale); color: var(--amber-mid); }
+  .tag-rust  { background: var(--rust-pale);  color: var(--rust-mid); }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+  .tag-stone { background: var(--stone-pale); color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-amber { background: var(--amber); }
+  .dot-rust  { background: var(--rust); }
+  .dot-toxic { background: var(--toxic); }
+  .dot-stone { background: var(--stone-light); }
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .feature-bar { background: linear-gradient(135deg, #f5ded0, #f8f0e2); border: 1px solid rgba(138,58,16,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--rust-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #e0d0b0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #e0d0b0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(18,10,4,0.74); color: #f0dcc0; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--amber-pale); color: var(--amber-mid); }
+  .phase-mid    { background: var(--rust-pale);  color: var(--rust-mid); }
+  .phase-mature { background: var(--toxic-pale); color: var(--toxic); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--rust-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--toxic-pale); border: 1px solid rgba(122,31,31,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--toxic); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a1414; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--toxic); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--amber-pale); border: 1px solid rgba(181,98,15,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--amber-mid); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #4a2c08; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--amber); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--amber-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--toxic); background: var(--toxic-pale); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--rust-pale); border: 1px solid rgba(138,58,16,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--rust-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card.toxic-card { border-left: 3px solid var(--toxic); }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--rust-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toxic-banner">⚠️ 裸伞属整体应视为不可食用类群 · 味苦，部分近缘种含致幻毒素 · 严禁采食，仅供学习识别</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus0.png" alt="橙黄裸伞主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Gymnopilus aurantiacus · 橙黄至橙褐色丛生木腐菌，孢子印铁锈橙色</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 球盖菇科（裸伞属）</div>
+    <div class="hero-name-zh">橙黄裸伞</div>
+    <div class="hero-name-la">Gymnopilus aurantiacus</div>
+    <div class="hero-author">Hesler, 1969 ·《北美裸伞属专著》记载种</div>
+
+    <div class="tag-row">
+      <span class="tag tag-toxic">⚠ 不可食</span>
+      <span class="tag tag-rust">味苦</span>
+      <span class="tag tag-amber">木腐生菌</span>
+      <span class="tag tag-stone">孢子印铁锈橙色</span>
+      <span class="tag tag-stone">同属含致幻成分</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">橙黄裸伞（学名直译；国内记录稀少）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">暂无广泛通用英文俗名</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Hymenogastraceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">易混淆近缘种</span>
+        <span class="taxon-value">橘黄裸伞（大笑菌）<em>Gymnopilus junonius</em></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志结构：铁锈色孢子印</span>
+        <span class="fb-value">裸伞属最典型的识别特征之一，成熟菌褶及周边枯木常年可见锈橙色孢子粉沉积</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">潜在毒性</span>
+        <span class="fb-value">裸伞属中多个近缘种含裸盖菇素/光盖伞素等致幻生物碱，本种毒性数据不全，应一律按潜在有毒处理</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">生态角色</span>
+        <span class="fb-value">专性木腐生菌，是森林木质残体分解链条中的重要分解者</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 橙黄至橙褐 / 细纤毛状鳞片</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 菌褶锈橙色 / 菌幕残余</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉黄橙色，纤维质，味苦</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus4.png" alt="菌褶面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">菌褶面 · 黄→锈橙→锈褐，密集</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 铁锈橙色至锈褐色（属级鉴别特征）</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 菌柄基部丛生黏连 / 纤毛状菌幕痕迹</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide" style="margin-top:10px;">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Gymnopilus_aurantiacus7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 阔叶/针叶腐木、树桩表面丛生景观</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          菌盖半球形，边缘内卷，直径1–3cm；表面覆细纤毛状鳞片，橙黄色，中央色深；
+          菌褶初期黄色，紧密排列；菌柄纤维质，同盖色或略浅，具易脱落的蛛网状至纤毛状菌幕残余，附着于菌柄上部或菌盖边缘。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">中期</div>
+        <div class="phase-desc">
+          菌盖展开呈凸镜形至近平展，直径3–6cm；鳞片部分脱落，色泽转为橙褐；
+          菌褶变宽，颜色由黄转橙褐至锈褐色（孢子开始成熟）；菌柄延长，表面纤维状，触碰后易呈橙褐色瘀伤；菌肉黄橙色，味苦。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖平展或边缘轻微上翘，直径可达6–8cm，表面常见龟裂纹；菌褶完全变为铁锈橙色至锈褐色，密布孢子粉；
+          孢子印铁锈橙色（裸伞属典型特征）；菌柄基部常相互粘连丛生；老熟个体气味转浓，苦味加重。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-amber">菌盖橙黄→橙褐（中央深）</span>
+          <span class="tag tag-rust">菌褶黄→锈橙→锈褐</span>
+          <span class="tag tag-rust">孢子印铁锈橙色</span>
+          <span class="tag tag-stone">菌柄同盖色偏浅</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">半球形→凸镜形→平展（径1–8cm）</span>
+          <span class="tag tag-amber">表面纤毛状鳞片</span>
+          <span class="tag tag-stone">成熟边缘常龟裂</span>
+          <span class="tag tag-rust">基部丛生黏连</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">幼时温和菌香</span>
+          <span class="tag tag-stone">成熟后气味转浓，略带霉味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">⚠ 味苦（裸伞属典型特征）</span>
+          <span class="tag tag-toxic">严禁生食或随意品尝</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>干燥，被细纤毛状至微鳞片状覆盖物，橙黄至橙褐色，中央色深，成熟后常见龟裂纹</td></tr>
+          <tr><td>菌褶</td><td>弯生至近延生，密集，初黄色，成熟转锈橙至锈褐色，边缘平滑</td></tr>
+          <tr><td>菌肉</td><td>黄橙色，质地纤维状，味苦（裸伞属普遍特征）</td></tr>
+          <tr><td>菌柄</td><td>圆柱形，纤维质，同盖色或偏浅，基部常丛生黏连，内部松软至中空</td></tr>
+          <tr><td>菌幕 · 菌环</td><td>幼期具蛛网状至纤毛状菌幕，成熟后多脱落仅留残迹，一般不形成显著膜质菌环，无菌托</td></tr>
+          <tr><td>孢子</td><td>椭圆形，表面粗糙具疣突，约7–10×4–6μm（裸伞属典型区间）；孢子印铁锈橙色至锈褐色</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识要素</div>
+      <ul class="distinction-list">
+        <li><strong>孢子印铁锈橙色至锈褐色</strong>——裸伞属最典型的识别特征，区别于白色孢子印的鹅膏、蜜环菌等类群</li>
+        <li>菌肉味苦，是裸伞属区别于其他黄褐色蘑菇的重要感官线索（但切勿以尝味作为鉴定手段）</li>
+        <li>专性生长于腐木、树桩之上，<strong>不生于土壤</strong>——区别于生长在地上的丝膜菌属 <em>Cortinarius</em></li>
+        <li>部分近缘种含裸盖菇素等致幻成分，误食可致神经精神型中毒症状（头晕、幻觉、肢体麻木等）</li>
+      </ul>
+    </div>
+
+    <div class="caution-box">
+      <div class="caution-title">⚠ 食用前必读：裸伞属整体不可食用</div>
+      <ul class="caution-list">
+        <li>裸伞属多数种类味极苦，部分含裸盖菇素/光盖伞素等致幻生物碱，摄入后可出现头晕、恶心、幻觉、肢体麻木等神经精神型中毒症状</li>
+        <li>即便是被认为"无明显致幻性"的种类，也可能引起胃肠不适；本种（橙黄裸伞）野外记录有限，毒性数据不全</li>
+        <li>历史上橘黄裸伞（大笑菌，<em>G. junonius</em>）曾被称为"笑蕈"，古籍记载食后出现异常发笑等中毒表现，是该属毒性的典型例证</li>
+        <li>务必严格遵循"不采不食"原则，遇到橙黄色裸伞类真菌一律按潜在有毒处理</li>
+      </ul>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic)">⚠ 橘黄裸伞（大笑菌） <em>Gymnopilus junonius</em></div>
+        <div class="confusion-diff">体型远大于本种（菌盖可达7–20cm），色泽更为鲜艳的橙黄色；历史上因误食后出现精神异常、发笑等症状得名"笑蕈"，为裸伞属最具代表性的有毒大型种</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">橙黄裸柄伞 <em>Gymnopilus aurantiophyllus</em></div>
+        <div class="confusion-diff">学名与本种极为相似，中文译名也常混用，易造成文献混淆；主要通过菌盖大小（2.5–5cm，较本种略小）及孢子测量数据区分，同样味苦</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">橙褐裸伞 <em>Gymnopilus aurantiobrunneus</em></div>
+        <div class="confusion-diff">中国学者命名种，菌盖颜色更偏褐色，是本种在国内文献语境中最易混淆的近似种</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic)">⚠ 盔孢伞属近似种 <em>Galerina</em> spp.</div>
+        <div class="confusion-diff">初学者极易将裸伞属与剧毒的盔孢伞属（含鹅膏毒素，可致命）混淆；需通过孢子印颜色（裸伞属为锈橙色，盔孢伞为更暗的锈褐色）及生长基质仔细区分，误判后果可能极为严重</div>
+      </div>
+    </div>
+
+    <!-- 分类地位说明 -->
+    <div style="margin-top:1.4rem;background:var(--amber-pale);border:1px solid rgba(181,98,15,0.30);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--amber);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位与资料说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.85);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+      <div style="padding:18px 20px;font-size:13px;color:var(--ink-mid);line-height:1.75;">
+        <em>Gymnopilus aurantiacus</em> 由 Hesler 于 1969 年在《北美裸伞属专著》（<em>North American Species of Gymnopilus</em>）中正式描述并记录于 Index Fungorum。裸伞属分类历史较为复杂，曾先后被置于丝膜菌科（Cortinariaceae）、球盖菇科（Strophariaceae），目前多数文献采用粪锈伞科/球盖菇科（Hymenogastraceae）。由于裸伞属全球约有200余种，形态高度趋同，许多种间界限依赖孢子显微特征及分子系统学数据，本种在大众资料中的记录相对稀少。本页内容主要依据裸伞属共有的形态、生态及毒性特征整理而成，仅供科普学习参考——<strong>野外遇到橙黄色裸伞类真菌时，应一律按"潜在有毒"处理，不建议凭外观采食。</strong>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.2rem;">
+    <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「橙黄裸伞锈孢子，苦味当先莫尝试」</div>
+      <div class="memory-pill">「丛生腐木非土长，纤毛鳞片罩全身」</div>
+      <div class="memory-pill">「笑蕈同属需警惕，色艳未必真无毒」</div>
+      <div class="memory-pill">「锈橙孢粉辨真身，误认盔孢祸非轻」</div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">丛生或群生于腐木、倒木及树桩表面，罕见单生</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">专性木腐生，常见于阔叶树及针叶树腐朽木材、树桩、锯末堆等富含木质纤维素的基质</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">模式产地为北美（Hesler 1969年基于北美标本描述）；裸伞属在中国西藏、云南等地物种多样性丰富，但本种在中国文献中的确切分布记录有限</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">北美记录多见于夏秋季；国内裸伞属常见于夏秋雨季，适应海拔跨度大，从低山丘陵至高山林线均有近缘种报道</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      观察建议：记录时留意孢子印颜色、生长基质（木材而非土壤）及丛生方式，这些是与剧毒盔孢伞属区分的关键证据；裸伞属整体不建议采集食用，仅作摄影与生态记录。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card toxic-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">无食用价值，味苦且潜在有毒，严禁采食</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用与研究价值</div>
+        <div class="value-body">裸伞属所含裸盖菇素、光盖伞素等生物碱是精神药理学重要研究对象；部分近缘种（如 <em>G. purpureosquamulosus</em>）多糖提取物在体外实验中显示抗肿瘤细胞活性，具生物医学研究价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态角色</div>
+        <div class="value-body">重要的木质纤维素分解者，加速枯木还原为土壤养分，在森林物质循环中扮演分解者角色</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研与分类价值</div>
+        <div class="value-body">裸伞属因形态高度趋同、种类繁多，是真菌分子系统学与物种界定研究的热点类群之一，近年中国学者在西藏等地陆续发表多个裸伞属新种</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Gymnopilus" target="_blank">Wikipedia: Gymnopilus</a> ·
+      <a class="ref-link" href="https://www.mykoweb.com/CAF/species/Gymnopilus_aurantiophyllus.html" target="_blank">MykoWeb California Fungi</a>
+    </div>
+    <div>不可食用 · 孢子印铁锈橙色 · 木腐生菌</div>
+  </div>
+
+</div>
+</body>
+</html>
