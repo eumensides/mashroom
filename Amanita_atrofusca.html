@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>暗褐鹅膏 · Amanita atrofusca（食用性存疑）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 食用性未证实物种：沉稳警惕的暗茶褐色调，非鲜亮暖色，也非血色剧毒警示 */
+    --ink: #1c1712;
+    --ink-mid: #453a2c;
+    --ink-light: #8a7a62;
+    --cream: #f2ece0;
+    --surface: #fffdf8;
+    --surface-warm: #faf4e8;
+
+    /* 暗褐 / 茶褐主色（菌盖色） */
+    --bark: #5c3a1e;
+    --bark-light: #8a6038;
+    --bark-pale: #ede1cd;
+    --bark-mid: #6e4626;
+
+    /* 茶褐辅色 */
+    --tea: #7a5230;
+    --tea-light: #b48a58;
+    --tea-pale: #f5ead6;
+
+    /* 苔绿（生态 / 菌根标记） */
+    --moss: #56622f;
+    --moss-light: #98a870;
+    --moss-pale: #eef0e0;
+
+    /* 警戒锈橙（谨慎，非致命红） */
+    --warn: #a1451a;
+    --warn-light: #d97b46;
+    --warn-pale: #fbe8d9;
+
+    /* 危险深红（用于近缘剧毒种警示，与谨慎橙区分） */
+    --danger: #7a1f2b;
+    --danger-light: #c98a92;
+    --danger-pale: #f7e3e6;
+
+    /* 灰褐中性色 */
+    --stone: #5f5340;
+    --stone-light: #948468;
+
+    --border: rgba(70,50,25,0.14);
+    --border-mid: rgba(70,50,25,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── 警惕提示横幅 ── */
+  .notice-banner {
+    background: var(--warn);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #d8c8ac;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,12,4,0.75));
+    padding: 24px 20px 16px;
+  }
+
+  .hero-overlay-text {
+    font-size: 12px;
+    color: rgba(240,220,190,0.85);
+    font-style: italic;
+  }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bark);
+    margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .hero-name-la {
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--tea);
+    margin-bottom: 4px;
+  }
+
+  .hero-author {
+    font-size: 12px;
+    color: var(--stone-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-bark   { background: var(--bark-pale);  color: var(--bark-mid); }
+  .tag-tea    { background: var(--tea-pale);   color: var(--tea); }
+  .tag-moss   { background: var(--moss-pale);  color: var(--moss); }
+  .tag-warn   { background: var(--warn-pale);  color: var(--warn); }
+  .tag-danger { background: var(--danger-pale);color: var(--danger); }
+  .tag-stone  { background: #efe8d8;           color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-bark   { background: var(--bark); }
+  .dot-moss   { background: var(--moss); }
+  .dot-warn   { background: var(--warn); }
+  .dot-stone  { background: var(--stone-light); }
+  .dot-tea    { background: var(--tea); }
+  .dot-danger { background: var(--danger); }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .section-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--stone-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── PHOTO LAYOUT ── */
+  .photo-outer { display: grid; gap: 10px; }
+
+  .photo-grid-6 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .photo-slot {
+    aspect-ratio: 4/3;
+    background: #d8c8ac;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot-wide {
+    aspect-ratio: 16/7;
+    background: #d8c8ac;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot img, .photo-slot-wide img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(20,12,4,0.75);
+    color: #f0e0c0;
+    font-size: 11px;
+    padding: 5px 8px;
+    text-align: center;
+  }
+
+  /* ── GROWTH PHASES ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .phase-label {
+    padding: 4px 0;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--tea-pale);   color: var(--tea); }
+  .phase-mature { background: var(--bark-pale);  color: var(--bark-mid); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .trait-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .trait-name {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  .parts-table td:first-child {
+    font-weight: 500;
+    color: var(--bark-mid);
+    white-space: nowrap;
+    width: 110px;
+  }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── 特别注意栏 ── */
+  .caution-box {
+    background: var(--warn-pale);
+    border: 1px solid rgba(161,69,26,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .caution-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--warn);
+    margin-bottom: 10px;
+  }
+
+  .caution-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .caution-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #5a2e10;
+    line-height: 1.6;
+  }
+
+  .caution-list li::before {
+    content: "!";
+    color: var(--warn);
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.6;
+    flex-shrink: 0;
+  }
+
+  /* ── DISTINCTION BOX ── */
+  .distinction-box {
+    background: var(--moss-pale);
+    border: 1px solid rgba(86,98,47,0.28);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .distinction-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--moss);
+    margin-bottom: 10px;
+  }
+
+  .distinction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .distinction-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #2c3418;
+    line-height: 1.6;
+  }
+
+  .distinction-list li::before {
+    content: "·";
+    color: var(--moss);
+    font-size: 16px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  /* ── CONFUSION TABLE ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .confusion-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--tea-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+  }
+
+  .confusion-item.danger { border-left-color: var(--danger); }
+
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  /* ── MEMORY ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+
+  .memory-pill {
+    background: var(--bark-pale);
+    border: 1px solid rgba(92,58,30,0.28);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--bark-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── HABITAT ── */
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .habitat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .habitat-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 6px;
+  }
+
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  /* ── VALUE CARDS ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .value-card-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 8px;
+  }
+
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 特色速览栏 ── */
+  .feature-bar {
+    background: linear-gradient(135deg, #ede1cd, #f7f0e2);
+    border: 1px solid rgba(92,58,30,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--bark);
+    font-weight: 500;
+  }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--stone-light);
+  }
+
+  .ref-link { color: var(--bark-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  ⚠ 食用性未经证实 · 不建议采食 · 鹅膏属含大量剧毒近缘种，务必严格鉴别
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+          <source srcset="https://eumensides.github.io/mashroom/Amanita_atrofusca0.png" type="image/png">
+          <img src="https://eumensides.github.io/mashroom/Amanita_atrofusca0.png" alt="暗褐鹅膏主图" loading="lazy">
+        </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Amanita atrofusca · 暗褐至茶褐色菌盖，边缘具长沟纹，菌柄无环，基部具白色袋状菌托</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 鹅膏菌科 · 鹅膏属 蛇皮鹅膏组（Vaginatae）</div>
+    <div class="hero-name-zh">暗褐鹅膏</div>
+    <div class="hero-name-la">Amanita atrofusca</div>
+    <div class="hero-author">Corner &amp; Bas, 1962 · 常见异名俗称「茶褐鹅膏」</div>
+
+    <div class="tag-row">
+      <span class="tag tag-warn">⚠ 食用性未证实</span>
+      <span class="tag tag-danger">近缘种含剧毒</span>
+      <span class="tag tag-bark">无菌环</span>
+      <span class="tag tag-tea">袋状菌托</span>
+      <span class="tag tag-moss">外生菌根共生</span>
+      <span class="tag tag-stone">热带雨林代表种</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">暗褐鹅膏 / 茶褐鹅膏（同物异名俗称）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">暂无广泛通用英文俗名，文献记载稀少</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Amanitaceae 鹅膏菌科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态 / 研究现状</span>
+        <span class="taxon-value">未评估 · 分子数据稀少 · 记录较少</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志结构：袋状菌托</span>
+        <span class="fb-value">柄基包裹白色至污黄褐色的宽松「袋状」菌托（saccate volva），托口常不整齐、易破裂——是本组（Vaginatae）区别于剧毒环柄鹅膏类群的关键结构</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">菌盖边缘长沟纹</span>
+        <span class="fb-value">成熟后菌盖边缘出现明显的放射状沟纹（striate margin），透过薄菌肉隐约映出下方菌褶排列，是蛇皮鹅膏组共有特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">生态角色</span>
+        <span class="fb-value">外生菌根真菌，与热带、亚热带阔叶林树种（壳斗科、龙脑香科等）根系共生，是雨林生态系统养分循环的重要参与者</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-bark"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+      <!-- 6张小图 -->
+      <div class="photo-grid-6">
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Amanita_atrofusca1.png" alt="上方菌盖图" loading="lazy">
+          <div class="photo-caption">上方菌盖图 · 暗褐/茶褐色 / 中央色深 / 边缘长沟纹</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Amanita_atrofusca2.png" alt="45°仰拍图" loading="lazy">
+          <div class="photo-caption">45° 仰拍 · 白色菌褶 / 光滑无环菌柄 / 基部菌托</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Amanita_atrofusca3.png" alt="剖面图" loading="lazy">
+          <div class="photo-caption">剖面 · 菌肉薄白 / 菌柄中空 / 菌托层次</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Amanita_atrofusca4.png" alt="菌褶面图" loading="lazy">
+          <div class="photo-caption">褶面 · 白色至米白，离生，密而不等长</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Amanita_atrofusca5.png" alt="孢子印图" loading="lazy">
+          <div class="photo-caption">孢子印 · 白色（鹅膏属通性，非食用性依据）</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Amanita_atrofusca6.png" alt="特殊细节图" loading="lazy">
+          <div class="photo-caption">细节 · 白色袋状菌托托口 / 柄基破裂边缘</div>
+        </div>
+      </div>
+
+      <!-- 生境图（大图） -->
+      <div class="photo-slot-wide">
+        <img src="https://eumensides.github.io/mashroom/Amanita_atrofusca7.png" alt="生境图" loading="lazy">
+        <div class="photo-caption">生境图 · 热带阔叶林地表腐殖层 / 与壳斗科树种根际共生</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-tea"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期（苞状）</div>
+        <div class="phase-desc">
+          子实体完全包裹于白色至污白色膜质外菌幕（universal veil）中，呈卵形至椭圆形「蛋状」苞体，从地表腐殖质中顶出；
+          剖开可见内部已初现暗褐色菌盖轮廓；此期外形与许多剧毒鹅膏（如致命鹅膏、鳞柄白毒鹅膏）的幼期极为相似，<strong>野外切勿以此期外观直接判断物种或食用性</strong>。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          外菌幕破裂，菌盖钟形至半球形逐渐展开，暗褐至茶褐色调显现，中央色深，边缘开始出现放射状沟纹雏形；
+          菌柄伸长，圆柱形，纤细，表面光滑（<strong>始终无菌环</strong>）；柄基菌托显露，呈白色至污黄色松软袋状，托缘尚完整；菌褶离生，白色，渐趋密集。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，中央微凸，直径可达5–9cm；暗褐、茶褐至烟褐色，中部最深，边缘沟纹加深加长，透视可见下方菌褶轮廓；
+          菌柄10–15cm，细长中空，向上渐细，偶具细纤毛状鳞纹；柄基袋状菌托边缘常不整齐、易破裂剥落，部分个体托内壁带铁锈色斑；菌褶白色至米白色，密，孢子印白色。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-tea"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-bark">菌盖暗褐→茶褐→烟褐（中央最深）</span>
+          <span class="tag tag-tea">边缘色调渐浅，沟纹处透白</span>
+          <span class="tag tag-moss">菌褶白色至米白色</span>
+          <span class="tag tag-moss">孢子印白色</span>
+          <span class="tag tag-stone">菌柄污白至浅褐</span>
+          <span class="tag tag-stone">菌托白色至污黄褐（常带铁锈斑）</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">幼期卵形苞状（完全包裹）</span>
+          <span class="tag tag-stone">钟形→半球形→平展（径5–9cm）</span>
+          <span class="tag tag-bark">边缘长而明显的放射状沟纹</span>
+          <span class="tag tag-tea">菌柄细长圆柱形（8–15cm），中空</span>
+          <span class="tag tag-warn">柄面光滑，始终无菌环</span>
+          <span class="tag tag-tea">基部宽松袋状菌托，托口易碎</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">幼时无明显气味或极淡菌香</span>
+          <span class="tag tag-stone">成熟略带潮土 / 腐殖气息</span>
+          <span class="tag tag-stone">无刺激性或恶臭记录</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-warn">⚠ 无可靠口感/食用记录</span>
+          <span class="tag tag-danger">不建议以品尝方式鉴定</span>
+          <span class="tag tag-stone">质地描述：菌肉薄嫩，菌柄中空稍韧</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-tea"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr>
+            <th>部位</th>
+            <th>形态描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖表皮</td>
+            <td>干燥或潮湿时微黏，暗褐至茶褐色，中央色最深，向边缘渐浅；边缘具明显的放射状长沟纹（striate margin），表面光滑，偶见白色外菌幕碎片薄斑状残留</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>离生，白色至米白色，密，不等长，短菌褶近菌柄端渐窄；边缘平滑，不易变色</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色，薄，质地嫩，伤后不变色；气味不显著，无系统性食用记录</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>8–15cm × 0.5–1.2cm；圆柱形，向上渐细，中空；表面污白至浅褐色，光滑或具细纤毛状鳞纹</td>
+          </tr>
+          <tr>
+            <td>菌环</td>
+            <td>无（本组特征）——柄面全程光滑不具菌环，这是与多数剧毒环柄鹅膏（如致命鹅膏、灰花纹鹅膏）最直观的形态差异之一，但<strong>不能作为食用安全的判断依据</strong></td>
+          </tr>
+          <tr>
+            <td>菌托</td>
+            <td>白色至污黄褐色的宽松袋状（saccate）菌托，包裹柄基，质地柔软易碎，托缘常不整齐甚至撕裂状，部分个体内壁可见铁锈色斑点</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>球形至近球形，表面光滑，无色，非淀粉质反应（inamyloid）；孢子印白色——为鹅膏属通性特征，多数剧毒与无毒鹅膏孢子印皆为白色，不可单凭此判断安全性</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖暗褐至茶褐色，中央色深，边缘具<strong>明显的放射状长沟纹</strong>——沟纹越长越深，往往意味着菌盖越成熟</li>
+        <li>菌柄<strong>光滑无环</strong>，全程无膜质菌环残留，这是蛇皮鹅膏组（Vaginatae）的组级特征</li>
+        <li>柄基具<strong>白色至污黄褐色的宽松袋状菌托</strong>，托口不整齐、质地柔软易碎裂</li>
+        <li>孢子印<strong>白色</strong>——但白色孢子印是鹅膏属的普遍特征，本身<strong>不能</strong>用来区分本种与剧毒鹅膏</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用前必读：食用性并未证实，不建议采食！</div>
+      <ul class="caution-list">
+        <li>目前可查阅的中英文文献中，暗褐鹅膏（<em>Amanita atrofusca</em>）尚缺乏系统性的毒理学检测与食用安全记录</li>
+        <li>鹅膏属（<em>Amanita</em>）全球约半数以上蘑菇中毒致死案例源于本属，剧毒种与本种同域、同形态组（无环、有袋状菌托）广泛存在</li>
+        <li>幼期「蛋状」苞体外观与致命鹅膏、鳞柄白毒鹅膏等剧毒种<strong>几乎无法用肉眼区分</strong>，误采风险极高</li>
+        <li>不建议任何非专业人士凭外观自行采食鹅膏属蘑菇，包括本种；确需鉴定应结合孢子形态、分子测序等实验室手段</li>
+        <li>若误食后出现恶心呕吐、腹泻（尤其潜伏期超过6小时），提示可能为剧毒鹅膏中毒，须立即就医并保留样本</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与剧毒环柄鹅膏类群区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">致命鹅膏、灰花纹鹅膏等剧毒种菌柄<strong>具膜质菌环</strong>，菌盖通常<strong>无</strong>放射状沟纹；本种<strong>无环</strong>，菌盖<strong>有</strong>长沟纹——但幼期菌环尚未破裂展开前极易被忽略，务必等待菌盖完全展开后再观察</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">同组近似种鉴别难点</div>
+        <div style="font-size:13px;color:var(--ink-mid)">蛇皮鹅膏组内多个物种仅凭菌盖色调（灰、赤褐、暗褐）区分，色泽受生长环境、湿度、光照影响较大，肉眼分种准确率有限，需结合孢子形态及分子数据综合判定</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--danger)">⚠ 致命鹅膏 <em>Amanita exitialis</em></div>
+        <div class="confusion-diff">剧毒！中国南方常见致死物种。区别：<strong>菌柄具膜质菌环</strong>，菌盖光滑无沟纹，白色；幼期苞体与本种极其相似，务必等待菌环/沟纹特征清晰显现后再判断，切勿凭幼期外观采食</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--danger)">⚠ 灰花纹鹅膏 <em>Amanita fuliginea</em></div>
+        <div class="confusion-diff">剧毒！菌盖灰褐至近黑色，具深色纤丝状花纹，<strong>菌柄具菌环</strong>，菌盖边缘无沟纹；与本种的暗色调容易混淆，关键看菌环有无及沟纹有无</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">赤褐鹅膏 <em>Amanita fulva</em></div>
+        <div class="confusion-diff">同为蛇皮鹅膏组近似种，菌盖偏橙棕/赤褐色而非暗褐，沟纹相对较浅；部分文献记载其经煮熟处理可食用，但物种鉴别难度高，不建议自行区分后采食</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">灰鹅膏（灰包脚鹅膏）<em>Amanita vaginata</em></div>
+        <div class="confusion-diff">同组近缘种，整体色调偏灰而非暗褐/茶褐，其余结构（无环、袋状菌托、边缘沟纹）高度相似，二者主要凭菌盖色调及分子数据区分</div>
+      </div>
+    </div>
+
+    <!-- ── 命名与俗名说明板块 ── -->
+    <div style="margin-top:1.4rem;background:var(--bark-pale);border:1px solid rgba(92,58,30,0.32);border-radius:14px;overflow:hidden;">
+
+      <div style="background:var(--bark);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">中文名说明：暗褐鹅膏 与 茶褐鹅膏</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Naming Note</span>
+      </div>
+
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称来源与关系</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--bark);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                学名 <em>Amanita atrofusca</em> 由拉丁词根 <em>atro-</em>（暗黑色）与 <em>fusca</em>（褐色）复合而成，直译即「暗褐色的鹅膏」。国内文献中，「暗褐鹅膏」与「茶褐鹅膏」两个中文名均用于指代<strong>同一物种</strong>，是同一学名的不同中文翻译习惯，并非两个不同物种。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--bark);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>易混淆提醒：</strong>中文「茶褐」「赤褐」「暗褐」等色系描述词在鹅膏属多个物种命名翻译中重复出现（如赤褐鹅膏 <em>A. fulva</em>），仅凭中文俗名极易张冠李戴，务必以拉丁学名 <em>Amanita atrofusca</em> 为准进行核对。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--bark);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>分类地位：</strong>隶属鹅膏属（<em>Amanita</em>）蛇皮鹅膏组 / 无环鹅膏组（sect. <em>Vaginatae</em>），该组以「无菌环 + 袋状菌托 + 菌盖边缘长沟纹」为共同特征，区别于含剧毒鹅膏毒肽的鳞柄组（sect. <em>Phalloideae</em>）。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 命名简史 -->
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">命名简史</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--bark);text-align:right;padding-right:12px;border-right:2px solid rgba(92,58,30,0.25);">1962</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">E.J.H. Corner 与 Cornelis Bas 在专著《The genus <em>Amanita</em> in Singapore and Malaya》中，基于新加坡及马来半岛标本正式描述本种</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--bark);text-align:right;padding-right:12px;border-right:2px solid rgba(92,58,30,0.25);">其后</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">陆续有东南亚及华南地区相似形态标本被记录，但基于ITS等分子标记的系统性核实与地理分布厘定仍较有限</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;">
+              <div style="font-size:12px;font-weight:700;color:var(--bark);text-align:right;padding-right:12px;border-right:2px solid rgba(92,58,30,0.25);">现今</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">收录于 Index Fungorum 与 MycoBank；隶属鹅膏属蛇皮鹅膏组，食用安全性及毒素筛查数据尚待补充，学界暂无明确食用性结论</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 实践提示 -->
+        <div style="background:var(--warn-pale);border:1px solid rgba(161,69,26,0.3);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a2e10;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>野外见到无环、具袋状菌托、菌盖有沟纹的鹅膏时，切勿仅凭「无环=安全」的经验直觉自行采食；应完整挖出柄基菌托，结合菌盖色泽、沟纹长度、孢子形态综合记录，必要时联系专业机构或使用分子鉴定确认物种，再决定是否可食用。
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「卵苞破壳现真身，暗褐茶褐一线分」</div>
+        <div class="memory-pill">「光柄无环藏沟纹，白袋托底显真容」</div>
+        <div class="memory-pill">「孢子印白非通行证，鹅膏属内藏杀机」</div>
+        <div class="memory-pill">「幼期蛋形最难认，宁可不采莫逞能」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或散生于林地地表，偶见零星聚生；子实体从「蛋状」苞体破壳而出，外菌幕碎片多残留于菌盖表面或菌托内壁</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">外生菌根真菌，与热带、亚热带阔叶林树种（壳斗科、龙脑香科等）根系形成共生关系；常见于季雨林、常绿阔叶林及混交林地表腐殖质层</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">模式产地为马来西亚、新加坡；中国华南、西南热带及亚热带地区（如海南、广东、广西、云南等）有相似形态标本记录，但需分子数据进一步核实</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">热带地区雨季（约5–10月）子实体多见；主要分布于低海拔至中海拔（约200–1200m）热带雨林及常绿阔叶林；具体物候记录仍较零散</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：野外观察应完整挖取包括柄基菌托在内的整个子实体，避免只截取菌盖或菌柄；记录菌盖沟纹长度、色泽层次及菌托质地，并留存孢子印以备核对；对任何鹅膏属蘑菇，采而不食、观察记录优先于食用尝试。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-warn"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">缺乏可靠的食用记录与系统性安全性验证，权威真菌数据库未见明确食用性认定；鉴于鹅膏属整体高风险，不建议采食，也不建议以本页信息作为食用依据</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用 / 保健价值</div>
+        <div class="value-body">目前尚无公开发表的药理活性成分研究或保健用途报道，相关领域研究处于空白</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为外生菌根真菌，参与热带、亚热带林木（壳斗科、龙脑香科等）的水分与养分交换，对维持雨林土壤微生态及树种更新具有积极作用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研与记录价值</div>
+        <div class="value-body">作为东南亚鹅膏属蛇皮鹅膏组的代表性物种之一，对该组分类边界厘定、地理分布规律及潜在毒素筛查研究具有参考价值；分子系统学数据尚待进一步补充</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/List_of_Amanita_species" target="_blank">Wikipedia · List of Amanita species</a> ·
+      <a class="ref-link" href="http://www.amanitaceae.org/" target="_blank">Amanitaceae Studies (Tulloss &amp; Yang)</a> ·
+      <a class="ref-link" href="https://www.indexfungorum.org/" target="_blank">Index Fungorum</a>
+    </div>
+    <div>研究现状：记录稀少 · 食用性未证实 · 分子数据待补充</div>
+  </div>
+
+</div>
+</body>
+</html>
