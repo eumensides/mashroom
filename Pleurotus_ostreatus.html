@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>糙皮侧耳 · Pleurotus ostreatus</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：柔和牡蛎灰蓝 + 木质暖调 */
+    --ink: #1c1e20;
+    --ink-mid: #40444a;
+    --ink-light: #838b90;
+    --cream: #f4f3ee;
+    --surface: #ffffff;
+    --surface-warm: #faf9f4;
+
+    /* 牡蛎灰蓝主色（菌盖色） */
+    --oyster: #4f6470;
+    --oyster-light: #8fa6b0;
+    --oyster-pale: #e9eff1;
+    --oyster-mid: #364952;
+
+    /* 木质棕（菌柄 / 基质色） */
+    --wood: #8a6a3e;
+    --wood-light: #cba86e;
+    --wood-pale: #f7eeda;
+
+    /* 苔绿（可食标记） */
+    --moss: #4a7048;
+    --moss-light: #93b98a;
+    --moss-pale: #eaf2e6;
+
+    /* 柔和珊瑚（提醒：需煮熟/低温不宜） */
+    --warn: #b3592e;
+    --warn-light: #dc9468;
+    --warn-pale: #fbeadd;
+
+    /* 温暖灰 */
+    --stone: #5e6266;
+    --stone-light: #98a0a4;
+
+    --border: rgba(60,72,80,0.12);
+    --border-mid: rgba(60,72,80,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── 温和提示横幅 ── */
+  .notice-banner {
+    background: var(--oyster);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #d8ddd8; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(10,14,16,0.68));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(225,235,235,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--oyster); margin-bottom: 12px; }
+
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--wood); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-oyster { background: var(--oyster-pale); color: var(--oyster-mid); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-wood   { background: var(--wood-pale);   color: var(--wood); }
+  .tag-stone  { background: #eceeec;            color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-oyster { background: var(--oyster); }
+  .dot-moss   { background: var(--moss); }
+  .dot-warn   { background: var(--warn); }
+  .dot-stone  { background: var(--stone-light); }
+  .dot-wood   { background: var(--wood); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ── PHOTO LAYOUT ── */
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #d8ddd8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #d8ddd8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(10,14,16,0.68); color: #eef2f0; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  /* ── GROWTH PHASES ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);   color: var(--moss); }
+  .phase-mid    { background: var(--oyster-pale); color: var(--oyster-mid); }
+  .phase-mature { background: var(--wood-pale);   color: var(--wood); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--oyster-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── 特别注意栏 ── */
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(179,89,46,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a2c10; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  /* ── DISTINCTION BOX ── */
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(74,112,72,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #203a20; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  /* ── CONFUSION TABLE ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--oyster-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: #c07050; background: var(--warn-pale); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  /* ── MEMORY ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--oyster-pale); border: 1px solid rgba(79,100,112,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--oyster-mid); font-family: 'Noto Serif SC', serif; }
+
+  /* ── HABITAT ── */
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  /* ── VALUE CARDS ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 特色速览条 ── */
+  .feature-bar {
+    background: linear-gradient(135deg, #e9eff1, #faf9f4);
+    border: 1px solid rgba(79,100,112,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--oyster); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--oyster-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  🍄 广泛栽培的可食用物种 · 需彻底煮熟 · 全球最常见的商业食用菌之一
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Pleurotus_ostreatus0.png" alt="糙皮侧耳主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Pleurotus ostreatus · 贝壳/扇形菌盖灰色至灰褐色，侧生短柄，覆瓦状丛生于阔叶树腐木</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 侧耳科 · 侧耳属</div>
+    <div class="hero-name-zh">糙皮侧耳</div>
+    <div class="hero-name-la">Pleurotus ostreatus</div>
+    <div class="hero-author">(Jacq.) P. Kumm., 1871 · 商品名"平菇"</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">可食（需熟制）</span>
+      <span class="tag tag-oyster">全球商业栽培第二大食用菌</span>
+      <span class="tag tag-wood">木腐菌</span>
+      <span class="tag tag-wood">侧生短柄</span>
+      <span class="tag tag-stone">覆瓦状丛生</span>
+      <span class="tag tag-stone">真菌修复模式种</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">平菇 / 侧耳 / 蚝菇 / 黑牡丹菇 / 北风菌 / 天喜菇</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Oyster Mushroom</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Pleurotaceae 侧耳科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">LC（无危）· 全球广布 · 广泛人工栽培</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志结构：侧生偏心短柄</span>
+        <span class="fb-value">菌柄不生于菌盖中央，而是<strong>侧生或偏生</strong>于菌盖一侧甚至近乎无柄，属名 <em>Pleurotus</em> 即意为"向侧面生长"，是侧耳属最核心的识别特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">生长方式：覆瓦状丛生</span>
+        <span class="fb-value">多个菌盖呈叠瓦状层层簇生于同一基质创口，如牡蛎壳层叠排列，故英文名 Oyster Mushroom（"牡蛎菇"）</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">历史地位：战时救荒食用菌</span>
+        <span class="fb-value">最早的人工栽培记录见于第一次世界大战时期德国的自救粮食生产，如今已是全球商业化栽培量最大的食用菌种类之一</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-oyster"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pleurotus_ostreatus1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 灰色至灰褐色 / 贝壳状扇形 / 边缘薄而波状</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pleurotus_ostreatus2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 白色延生菌褶 / 侧生短柄</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pleurotus_ostreatus3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉白色肥厚 / 柄基绒毛</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pleurotus_ostreatus4.png" alt="菌褶面图" loading="lazy">
+        <div class="photo-caption">褶面 · 白色，延生，中等密，质脆</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pleurotus_ostreatus5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 白色至淡紫灰色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pleurotus_ostreatus6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">细节 · 覆瓦状丛生 / 柄基白色绒毛互相连结</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Pleurotus_ostreatus7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 阔叶树腐木、伐桩、活树伤口，层叠丛生景观</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-wood"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">原基期（针头状）</div>
+        <div class="phase-desc">
+          子实体自基质裂口处以密集针头状、珊瑚状原基丛生萌发，颜色深灰至近黑色；此阶段个体极小，尚未分化出明显的菌盖与菌柄轮廓，
+          菌丝体在基质表层形成白色绒毛状分布，为后续大量出菇积蓄营养。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          原基迅速分化为小型贝壳状菌盖，初期颜色暗灰色至黑灰色，边缘强烈内卷；菌盖持续扩张变为扇形至贝壳形，
+          颜色逐渐转浅为灰色至浅灰褐色；菌褶自菌柄向下延生，白色，密度渐增；菌柄侧生或偏生，基部与相邻个体的白色绒毛连结成片，整丛呈覆瓦状层叠。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展开为贝壳形至扇形，宽4–12cm甚至更大，颜色变浅为灰白色、浅灰褐色，老熟后局部可转黄褐色；边缘薄，波状，常有轻微开裂；
+          菌肉白色肥厚柔软；菌褶白色，延生，中等密，质脆易断；菌柄侧生，长3–6cm，粗1–4cm，白色，中实，上粗下细，基部常见白色绒毛，各菇体基部互相连结；
+          孢子成熟后大量弹射，聚集为白色至淡紫灰色的粉末状孢子印，覆盖在下方菌盖及周边基质表面。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-wood"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-oyster">幼期暗灰色至近黑色</span>
+          <span class="tag tag-oyster">成熟浅灰色至灰褐色</span>
+          <span class="tag tag-stone">老熟局部转黄褐色</span>
+          <span class="tag tag-moss">菌褶 / 菌肉始终白色</span>
+          <span class="tag tag-wood">孢子印白色至淡紫灰色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">贝壳形至扇形菌盖（宽4–12cm+）</span>
+          <span class="tag tag-oyster">边缘薄，波状，成熟微裂</span>
+          <span class="tag tag-wood">菌柄侧生 / 偏生，近无柄</span>
+          <span class="tag tag-wood">覆瓦状层叠丛生</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">温和菌香，略带茴香/蚝味</span>
+          <span class="tag tag-stone">新鲜时气味清淡宜人</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">质地滑嫩，纤维感适中</span>
+          <span class="tag tag-warn">生食微甜带苦（含苯甲醛）</span>
+          <span class="tag tag-moss">熟制后鲜味浓郁，久煮不散</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-wood"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr><th>部位</th><th>形态描述</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>贝壳形至扇形，初期近圆形，后渐展为扇形；宽4–12cm，甚至更大；幼时暗灰色至黑灰色，成熟渐变浅灰色至灰白色、黄褐色；表面光滑，不黏，边缘薄而呈波状，常轻微开裂或内卷</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>延生（沿菌柄向下延伸），白色，中等密度，宽窄不一，质地脆，易折断</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色，肥厚柔软，富有弹性；气味温和菌香略带蚝香，生食微甜带苦（因含苯甲醛类化合物），熟制后此苦味消失，鲜味显著增强</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>3–6cm × 1–4cm，侧生或偏生（区别于中生柄的多数伞菌），白色，中实，上粗下细；基部常有白色绒毛覆盖，同丛多个菇体的柄基常互相连结成一体</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>光滑，无色，近圆柱形至椭圆形，7.5–11 × 3.5–5μm；担子细长棒状，具4个担子小梗；孢子印白色至淡紫灰色</td>
+          </tr>
+          <tr>
+            <td>菌丝特征</td>
+            <td>单核菌丝经质配形成双核菌丝，双核菌丝隔膜处具<strong>锁状联合</strong>（clamp connection），是担子菌有性生殖的重要显微鉴定特征</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖<strong>贝壳形至扇形</strong>，灰色至灰褐色，边缘薄而波状，绝非典型伞形</li>
+        <li>菌柄<strong>侧生或偏生</strong>，短而粗，甚至近乎无柄——这是"侧耳"之名与属名 <em>Pleurotus</em> 的由来</li>
+        <li>菌褶<strong>延生</strong>，白色，沿短柄向下铺展，与菌柄几乎连成一体</li>
+        <li>生长方式为<strong>覆瓦状层叠丛生</strong>于阔叶树腐木或伐桩，成片成丛，极为醒目</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用提示：需彻底煮熟，警惕基质污染</div>
+      <ul class="caution-list">
+        <li>生食带苦味（含苯甲醛类物质），且野生个体消化道刺激风险较高，务必彻底加热熟制后食用</li>
+        <li>野外采集时需警惕基质本身的污染——生长于化工污染木材或重金属超标环境的个体可能富集有害物质，不宜食用</li>
+        <li>老熟或已腐败发黏、变色个体不宜食用，可能滋生细菌或产生不良代谢产物</li>
+        <li>栽培平菇若使用未充分灭菌的培养料，也可能残留霉菌毒素，选购时应注意菇体新鲜、无异味、无黏液</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与鹅膏属（Amanita）等地生毒菌区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">鹅膏属多为<strong>地生</strong>，具菌托、菌环，菌柄中生；糙皮侧耳为<strong>木生</strong>，无菌托、无菌环，菌柄侧生偏心——生长基质与菌柄着生位置是最直观的区分依据</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">属内近缘种快速辨识</div>
+        <div style="font-size:13px;color:var(--ink-mid)">白黄侧耳菌褶强烈延生并在柄上交织成网状；肺形侧耳（秀珍菇）个体更小、菌盖更薄、颜色更浅，耐热性更强，常见于夏季商品菇</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">白黄侧耳 <em>Pleurotus cornucopiae</em>（可食）</div>
+        <div class="confusion-diff">俗称"姬菇"原料种之一，菌褶延生性更强，在菌柄上交织形成网状脊纹，多个菌盖常共柄丛生成漏斗状整体；与糙皮侧耳同为栽培常见种，风味相近</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">肺形侧耳 / 秀珍菇 <em>Pleurotus pulmonarius</em>（可食）</div>
+        <div class="confusion-diff">个体更小巧，菌盖更薄，颜色更浅偏米黄，耐高温性强，是夏季高温季节的主要栽培替代种；口感更细嫩，商品名"秀珍菇"</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name">卷缘齿菌类 <em>Crepidotus</em> 属小型侧耳状菌（不宜食用）</div>
+        <div class="confusion-diff">同样贝壳状、侧生短柄、木生，但个体明显更小（多在2cm以内），菌肉薄而质韧，孢子印锈褐色（区别于平菇的白色至淡紫灰色）；无明确毒性但口感差、无食用价值，采集时以孢子印颜色和个体大小加以区分</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">金顶侧耳 / 榆黄蘑 <em>Pleurotus citrinopileatus</em>（可食）</div>
+        <div class="confusion-diff">同属近缘种，菌盖鲜黄色，形态结构与糙皮侧耳基本一致（贝壳形、侧生柄、延生褶），仅颜色差异显著，同样广泛栽培食用</div>
+      </div>
+    </div>
+
+    <!-- 属名与命名说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--oyster-pale);border:1px solid rgba(79,100,112,0.30);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--oyster);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">属名与命名说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--oyster);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--oyster);margin-bottom:8px;">属名释义</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Pleurotus</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">源自希腊语 pleuro-（侧面）+ ous（耳）</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              形容菌柄偏离菌盖中心、侧向生长的特征，中文"侧耳"为直译；种加词 <em>ostreatus</em> 意为"似牡蛎的"，形容菌盖形状与牡蛎壳相似，因而英文俗名为 Oyster Mushroom。
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--wood);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--wood);margin-bottom:8px;">商品名与俗名</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">"平菇"</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">中国大陆最常用商品名</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              "平菇"一名描述其菌盖低矮平展、贴生基质的整体外观；台湾地区常将糙皮侧耳与近缘种肺形侧耳统称为"秀珍菇"或按大小区分商品规格，选购时建议以拉丁学名核实具体种类。
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">栽培与产业简史</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--oyster);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>战时起源：</strong>最早的规模化人工栽培记录见于第一次世界大战期间的德国，作为粮食短缺时期的自救食物来源被推广种植。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--oyster);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>全球商业化：</strong>如今糙皮侧耳已在全球广泛作商业种植，栽培基质从传统的原木发展为麦秆、棉籽壳、木屑等农林废弃物，是循环农业的代表性食用菌之一。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--oyster);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>科研模式种：</strong>因其高效的转化基因技术和丰富的木质纤维素降解酶系统，糙皮侧耳已成为真菌遗传学、细胞生物学及材料科学研究的重要模式菌种。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--warn-pale);border:1px solid rgba(179,89,46,0.3);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a2c10;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>野外见到贝壳状、侧生短柄、白色延生褶的丛生菌落时，可初步判断为侧耳属；但仍需检查孢子印颜色（白至淡紫灰）及个体大小，排除孢子印锈褐色的小型卷缘齿菌类，并留意基质来源是否洁净，避免采集生长于污染木材上的个体。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「贝壳菌盖侧生柄，覆瓦丛生腐木边」</div>
+        <div class="memory-pill">「白褶延生连柄脚，孢子印白泛紫调」</div>
+        <div class="memory-pill">「生食微苦莫担心，熟透鲜嫩正当时」</div>
+        <div class="memory-pill">「同属近缘看颜色，网褶黄冠各不同」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">覆瓦状层叠丛生，多个菌盖共基相叠如瓦片；野外常见数丛沿同一段腐木的裂口或伤口密集排布</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">木腐生菌，寄生兼腐生于阔叶树的枯立木、倒木、伐桩及活树伤口，尤以杨树、柳树等阔叶树腐木常见；栽培条件下可利用麦秆、棉籽壳、木屑等农林废弃物</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">全球广布，温带至亚热带均有野生记录；中国东北地区野生资源尤为丰富；因商业栽培技术成熟，市售平菇已遍及全国各地全年供应</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">野生个体多见于春季或秋季气温适宜、湿度较高时节；栽培条件下可通过控温控湿实现周年出菇；适应海拔范围广，平原至低山均有分布</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：野外采集应选择远离污染源的健康阔叶树腐木，避开公路边、化工厂周边及可能重金属污染的木材；采后尽快低温保存，避免高温高湿环境下迅速腐败发黏。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-oyster"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">全球栽培量最大的食用菌之一，质地滑嫩，鲜味浓郁，可炒、炖、煮汤、烧烤等多种烹饪方式；富含优质蛋白、多糖、膳食纤维，脂肪含量低，是家常餐桌常见食材</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用与保健价值</div>
+        <div class="value-body">富含侧耳多糖（pleuran）等β-葡聚糖类活性成分，具免疫调节、辅助降胆固醇、抗氧化等作用；传统应用及现代研究均提示其具有一定的保健价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态与工业价值</div>
+        <div class="value-body">具强大的木质纤维素降解酶系统，被广泛用于<strong>真菌修复</strong>（mycoremediation）——降解土壤及水体中的多环芳烃、农药残留等污染物；也用于造纸工业的生物制浆研究</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研价值</div>
+        <div class="value-body">因转化技术成熟、基因组测序完善，是真菌遗传学、细胞生物学（荧光标记、蛋白质工程）及材料科学研究的重要模式菌种，相关分子机制研究成果持续产出</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-hans/%E5%B9%B3%E8%8F%87" target="_blank">Wikipedia 中文</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E5%B9%B3%E8%8F%87/2098911" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10876731/" target="_blank">PMC · 遗传学模式菌种研究</a>
+    </div>
+    <div>IUCN LC · 全球广布 · 商业栽培成熟</div>
+  </div>
+
+</div>
+</body>
+</html>
