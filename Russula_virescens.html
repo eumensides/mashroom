@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>变绿红菇 · Russula virescens</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：淡绿龟裂菌盖 + 珊瑚粉边缘 */
+    --ink: #17200f;
+    --ink-mid: #3c452c;
+    --ink-light: #7c886a;
+
+    --cream: #f2f4e6;
+    --surface: #ffffff;
+    --surface-warm: #f9fbf0;
+
+    /* 苔绿主色（菌盖色） */
+    --moss: #5c7a3e;
+    --moss-light: #9cb87e;
+    --moss-pale: #eaf1dc;
+    --moss-mid: #435c28;
+
+    /* 珊瑚粉（边缘色） */
+    --coral: #c9707a;
+    --coral-light: #e6aab0;
+    --coral-pale: #fbeaec;
+
+    /* 龟裂棕（菌盖斑块纹） */
+    --crackle: #8a7550;
+    --crackle-light: #c4ac7c;
+    --crackle-pale: #f5eedb;
+
+    /* 警戒红（易混淆有毒近缘种） */
+    --danger: #8a2a20;
+    --danger-light: #cf8a78;
+    --danger-pale: #f8e6e0;
+
+    /* 警戒琥珀（辛辣味/误食风险） */
+    --warn: #a1651a;
+    --warn-light: #d9a054;
+    --warn-pale: #fbedd8;
+
+    --stone: #5e6248;
+    --stone-light: #94987a;
+
+    --border: rgba(80,100,50,0.14);
+    --border-mid: rgba(80,100,50,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--moss-mid);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #d8e0c0; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(20,28,10,0.72)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(230,240,210,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--moss-mid); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--coral); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-moss    { background: var(--moss-pale);    color: var(--moss-mid); }
+  .tag-coral   { background: var(--coral-pale);   color: var(--coral); }
+  .tag-warn    { background: var(--warn-pale);    color: var(--warn); }
+  .tag-crackle { background: var(--crackle-pale); color: var(--crackle); }
+  .tag-danger  { background: var(--danger-pale);  color: var(--danger); }
+  .tag-stone   { background: #eef0dc;             color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-moss    { background: var(--moss-mid); }
+  .dot-coral   { background: var(--coral); }
+  .dot-warn    { background: var(--warn); }
+  .dot-stone   { background: var(--stone-light); }
+  .dot-crackle { background: var(--crackle); }
+  .dot-danger  { background: var(--danger); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #d8e0c0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #d8e0c0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20,28,10,0.72); color: #e8f0d4; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--coral-pale);   color: var(--coral); }
+  .phase-mid    { background: var(--moss-pale);    color: var(--moss-mid); }
+  .phase-mature { background: var(--crackle-pale); color: var(--crackle); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--moss-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(161,101,26,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a3c10; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(67,92,40,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss-mid); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #202c10; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss-mid); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--moss-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--danger); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--moss-pale); border: 1px solid rgba(67,92,40,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--moss-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #eaf1dc, #f9fbf0);
+    border: 1px solid rgba(67,92,40,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--moss-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--moss-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  🥬 珍稀可食用菌 · 云南「青头菌」代表种 · 采集须警惕同域的剧毒亚稀褶红菇及生食/未煮熟风险
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Russula_virescens0.png" alt="变绿红菇主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Russula virescens · 淡绿色菌盖布满深绿色龟裂斑块，白色致密菌褶，白色柱状实心菌柄，与栎树等硬木共生</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 红菇目 · 红菇科 · 红菇属 变绿亚组（Virescentinae）模式种</div>
+    <div class="hero-name-zh">变绿红菇</div>
+    <div class="hero-name-la">Russula virescens</div>
+    <div class="hero-author">(Schaeff.) Fr., 1836 · 俗称「青头菌」「青脸菌」「绿菌」</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">珍稀可食用菌</span>
+      <span class="tag tag-crackle">菌盖斑块状龟裂</span>
+      <span class="tag tag-coral">菌肉白色不变色</span>
+      <span class="tag tag-warn">⚠ 忌生食/半生食</span>
+      <span class="tag tag-danger">警惕剧毒近缘种</span>
+      <span class="tag tag-stone">外生菌根共生</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">变绿红菇 / 青头菌（云南）/ 青脸菌（四川）/ 绿豆菌（广西）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Green-cracking Russula / Quilted Green Russula</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">红菇目 Russulales / Russulaceae 红菇科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">列入《中国生物多样性红色名录》无危（LC）</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志纹理：斑块状龟裂</span>
+        <span class="fb-value">菌盖中部具细密裂斑纹，向外呈不规则斑块状龟裂，形成类似棉被绗缝或糠麸附着的独特质感，是变绿亚组的命名特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">脆弱质地是红菇属通性</span>
+        <span class="fb-value">菌肉、菌褶极易碎裂，菌柄断面呈苹果肉状颗粒质地（球状细胞组成），与鹅膏属、蘑菇属的纤维状断面手感明显不同</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">务必煮熟：亚稀褶红菇警示</span>
+        <span class="fb-value">红菇属中唯一的剧毒种——亚稀褶红菇（横纹肌溶解症元凶）外观朴素易被忽视，与本种同域生长，采集务必逐株核实颜色特征后再食用</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Russula_virescens1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 浅棕绿至灰绿色 / 斑块状龟裂 / 边缘粉红</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Russula_virescens2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 白色致密菌褶 / 白色柱状菌柄 / 无菌环菌托</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Russula_virescens3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉白色不变色 / 菌柄近实心 / 断面颗粒状</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Russula_virescens4.png" alt="菌盖龟裂特写图" loading="lazy">
+        <div class="photo-caption">龟裂特写 · 中部细裂斑纹向外扩大成不规则块状</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Russula_virescens5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 白色（近球形，具分散小疣）</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Russula_virescens6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">细节 · 菌褶褶间横脉 / 近柄处偶见分叉</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Russula_virescens7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 针阔叶混交林、栎树/山毛榉林下地表，单生或群生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-crackle"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体幼时呈球形，菌盖表面浅棕绿色，尚未展现明显龟裂，质地紧实；菌褶被菌盖边缘部分遮盖，白色，
+          尚未完全展开；菌柄短粗，白色，实心；此时整体较为圆润，绿色调较均匀，裂纹尚不明显。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐展开为扁半球形，直径可达4–8cm；中部开始出现细密裂斑纹，并向外扩展为斑块状龟裂，靠近边缘裂纹渐小；
+          菌盖边缘转为粉红色至浅珊瑚红色，与中部棕绿色形成对比；菌褶完全显露，白色，直生至离生，褶间出现横脉；菌柄伸长，白色，肉质。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，中部略下凹，直径可达10cm；中部深棕绿色龟裂斑块清晰可辨，边缘粉红至珊瑚红色更为鲜明，边缘开裂并具粗条棱；
+          菌褶白色，密集，等长，近柄处偶有分叉；菌柄3–6cm，白色，中空或近实心，表皮由致密交织菌丝组成；菌肉白色，切开不变色，味辛辣，无特殊气味；孢子印白色。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-crackle"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">菌盖中部浅棕绿至棕绿色</span>
+          <span class="tag tag-coral">菌盖边缘粉红至浅珊瑚红</span>
+          <span class="tag tag-stone">菌褶、菌柄、菌肉均为白色</span>
+          <span class="tag tag-stone">孢子印白色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">扁半球形→平展中凹（径4–10cm）</span>
+          <span class="tag tag-crackle">中部细裂纹→外围斑块状龟裂</span>
+          <span class="tag tag-coral">边缘开裂具粗条棱</span>
+          <span class="tag tag-moss">菌柄3–6cm，白色柱状</span>
+          <span class="tag tag-stone">无菌环、无菌托</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">无特殊气味</span>
+          <span class="tag tag-stone">新鲜时略带菌类清香</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-warn">生品味辛辣（切勿生食）</span>
+          <span class="tag tag-moss">熟制后：细嫩鲜甜，肉质肥厚</span>
+          <span class="tag tag-moss">云南传统名菜「青头菌炒肉」原料</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-crackle"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径4~10cm，初期扁半球形，后平展中部略下凹，表面不粘；中部浅棕绿色至棕绿色，具细裂斑纹并向外呈斑块状龟裂（靠近边缘渐小）；边缘粉红色至浅珊瑚红色，开裂并具粗条棱；表皮层厚110~450μm</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>白色，直生至离生，较密，等长，近菌柄处偶有分叉，褶间具横脉；质地脆弱易碎，是红菇属的共性特征</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色，切开或损伤后<strong>不变色</strong>；肥厚，质地脆嫩易碎；生品味辛辣，熟制后无特殊气味，风味鲜甜</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>长3~6cm，粗1~1.7cm；白色，圆柱形，肉质，中空或近实心，等粗或向下略变细；表皮由致密交织的菌丝组成，无皮体，断面呈颗粒状（球状细胞组成，类似苹果果肉质感）</td>
+          </tr>
+          <tr>
+            <td>菌环 / 菌托</td>
+            <td>均<strong>无</strong>——红菇属物种柄上不具内菌幕或外菌幕痕迹，这是与鹅膏属最基础的结构性区别之一</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>近球形或宽椭圆形，(6.3~9.7)×(4.9~7.3)μm，表面具分散小疣，疣高0.6~1.2μm；孢子印白色</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖中部<strong>浅棕绿至棕绿色</strong>，具典型的<strong>斑块状龟裂</strong>纹理，边缘转为<strong>粉红至珊瑚红色</strong>——绿盖粉边是本种最独特的色彩组合</li>
+        <li>菌褶、菌柄、菌肉<strong>始终白色</strong>，切开或损伤<strong>不变色</strong>（无变红、变黑反应）</li>
+        <li>菌柄断面呈<strong>颗粒状（苹果肉状）</strong>，区别于鹅膏、蘑菇等属的纤维状断面</li>
+        <li>柄上<strong>无菌环、无菌托</strong>——这是红菇属的属级特征，但不能作为排除鹅膏属的唯一依据，仍需结合菌褶颜色综合判断</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用前必读：务必煮熟，警惕剧毒同域近缘种！</div>
+      <ul class="caution-list">
+        <li>红菇属中已知含剧毒种——<strong>亚稀褶红菇（<em>Russula subnigricans</em>）</strong>可导致横纹肌溶解症甚至死亡，虽外观（灰白至煤灰黑色）与本种的鲜明绿盖粉边差异明显，但常与本种及其他可食红菇同域混生，采集时应逐株确认菌盖颜色，切勿因"同属红菇"而放松警惕</li>
+        <li>本种及绝大多数红菇属可食种<strong>务必煮熟煮透</strong>后食用，生食或半生食可能引起胃肠不适甚至更严重反应</li>
+        <li>民间"辛辣或苦味蘑菇多有毒"的经验法则<strong>并不完全可靠</strong>，仅作辅助参考，不能替代专业鉴定</li>
+        <li>红菇属种间鉴定高度依赖显微特征（孢子纹饰、囊状体等），肉眼判断务必保守，不确定的个体不要食用</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与铜绿红菇（青脸菌）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">铜绿红菇（<em>R. aeruginea</em>）菌盖为<strong>较均匀的铜绿色</strong>，<strong>不具明显斑块状龟裂</strong>；本种菌盖中部龟裂显著，边缘转粉红色，二者色彩分布模式不同</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与亚稀褶红菇区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">亚稀褶红菇菌盖<strong>灰白至煤灰黑色</strong>（不呈绿色），菌褶受伤后<strong>变红但不变黑</strong>；本种菌盖绿色调，菌肉<strong>不变色</strong>——颜色差异显著，但仍建议逐株核实避免混采</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--danger)">⚠ 亚稀褶红菇 <em>Russula subnigricans</em></div>
+        <div class="confusion-diff">红菇属中唯一确认的剧毒种，可致横纹肌溶解症甚至死亡。菌盖灰白至煤灰黑色，菌肉受伤变红不变黑；与本种色彩差异明显，但常同域混生，务必逐株核实</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">铜绿红菇（青脸菌）<em>Russula aeruginea</em></div>
+        <div class="confusion-diff">可食近缘种，菌盖铜绿色，色调较均匀，龟裂不如本种明显；云南市场上与本种一样被称为"青头菌"类，风味相近</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">黄绿红菇 <em>Russula viridirubrolimbata</em></div>
+        <div class="confusion-diff">曾被误定为本种的近缘种，形态极为接近（菌盖浅棕绿至棕绿、边缘粉红），主要分布于广西、贵州、云南，同样可食，需借助孢子纹饰等显微特征区分</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">黄斑绿菇 <em>Russula crustosa</em></div>
+        <div class="confusion-diff">北美地区外观与本种相似的近缘种，是本种是否分布于北美存在争议的主要原因；主要通过孢子印颜色深浅及显微特征区分</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「绿盖龟裂粉边镶，白褶白柄不变色」</div>
+        <div class="memory-pill">「断面颗粒似苹果，红菇属内一大证」</div>
+        <div class="memory-pill">「同属未必同安全，灰黑菌盖需警惕」</div>
+        <div class="memory-pill">「辛辣生食皆不宜，煮熟煮透才安心」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或群生，夏秋季节于林下地表成片出现</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">外生菌根真菌，多与栎属、山毛榉属等硬木树种共生，常见于针阔叶混交林及落叶林下土壤</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广泛分布于英国、欧洲及亚洲；中国见于辽宁、吉林、黑龙江、江苏、浙江、福建、河南、台湾、广东、广西、贵州、云南、西藏等地，是云南夏秋野生菌市场的代表品种</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">夏、秋季为主要出菇期；广泛分布于低海拔至中高海拔林区</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：优先挑选个头较大、特征典型（绿盖龟裂+粉边+白褶白柄）的成熟个体，幼期特征不明显时不建议采食；红菇质地极脆，宜用沸水微焯后再清洗烹饪，充分熟制后食用。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">菌肉白色肥厚、质地脆嫩，是备受推崇的珍稀野生食用菌，云南称"青头菌"，是当地夏秋野生菌市场最受欢迎的品种之一，常见做法有炒肉片、炖鸡、煮汤</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用与保健价值</div>
+        <div class="value-body">多糖含量较高，据研究具有一定的抗癌、降血糖、降血脂活性；其核糖核酸酶具有特殊的生物化学属性，是相关领域的研究对象之一</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为外生菌根真菌，与栎树、山毛榉等硬木树种形成共生关系，参与森林生态系统的养分循环，对宿主树种的水分和矿质营养吸收具有促进作用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">保护与研究现状</div>
+        <div class="value-body">列入《中国生物多样性红色名录——大型真菌卷》，评估等级为无危（LC）；因菌根依赖性强，人工栽培尚未大规模实现，主要依赖野生采集</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-hans/%E8%AE%8A%E7%B6%A0%E7%B4%85%E8%8F%87" target="_blank">维基百科 · 变绿红菇</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E5%8F%98%E7%BB%BF%E7%BA%A2%E8%8F%87/6523593" target="_blank">百度百科 · 变绿红菇</a> ·
+      <a class="ref-link" href="http://cem.org.cn/rhtml/20160633/index.htm" target="_blank">亚稀褶红菇中毒研究</a>
+    </div>
+    <div>无危（LC）· 珍稀可食用菌 · 云南「青头菌」代表种</div>
+  </div>
+
+</div>
+</body>
+</html>
