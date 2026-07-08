@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>变黄喇叭菌 · Craterellus lutescens</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：温暖橙黄色调，呼应鲜艳橙色菌柄 */
+    --ink: #1e1608;
+    --ink-mid: #4a3a1c;
+    --ink-light: #8a7452;
+
+    --cream: #faf4e6;
+    --surface: #ffffff;
+    --surface-warm: #fdf8ec;
+
+    /* 橙黄主色（菌柄色） */
+    --saffron: #c8720e;
+    --saffron-light: #eaa84a;
+    --saffron-pale: #fdedd0;
+    --saffron-mid: #935410;
+
+    /* 棕灰（菌盖色） */
+    --umber: #6e5a3c;
+    --umber-light: #a89470;
+    --umber-pale: #f2ead8;
+
+    /* 苔绿（生境/林地标记） */
+    --moss: #4a6c3a;
+    --moss-light: #8ab878;
+    --moss-pale: #edf4e2;
+
+    /* 警戒琥珀（易混淆有毒种警示） */
+    --warn: #a1521a;
+    --warn-light: #d98a4e;
+    --warn-pale: #fbebd6;
+
+    --stone: #6a5c42;
+    --stone-light: #a0906c;
+
+    --border: rgba(140,100,40,0.14);
+    --border-mid: rgba(140,100,40,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--saffron);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #e8cf9c; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(30,18,4,0.72)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(250,225,180,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--saffron); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--umber); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-saffron { background: var(--saffron-pale); color: var(--saffron-mid); }
+  .tag-moss    { background: var(--moss-pale);    color: var(--moss); }
+  .tag-warn    { background: var(--warn-pale);    color: var(--warn); }
+  .tag-umber   { background: var(--umber-pale);   color: var(--umber); }
+  .tag-stone   { background: #f0e8d4;             color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-saffron { background: var(--saffron); }
+  .dot-moss    { background: var(--moss); }
+  .dot-warn    { background: var(--warn); }
+  .dot-stone   { background: var(--stone-light); }
+  .dot-umber   { background: var(--umber); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #e8cf9c; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #e8cf9c; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(30,18,4,0.72); color: #fbe8c8; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);    color: var(--moss); }
+  .phase-mid    { background: var(--saffron-pale); color: var(--saffron-mid); }
+  .phase-mature { background: var(--umber-pale);   color: var(--umber); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--saffron-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(161,82,26,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a3410; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(74,108,58,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #223018; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--saffron-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: #c07050; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--saffron-pale); border: 1px solid rgba(147,84,16,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--saffron-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #fdedd0, #fdf8ec);
+    border: 1px solid rgba(147,84,16,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--saffron-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--saffron-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  🍄 可食用物种 · 棕灰菌盖配鲜橙菌柄为标志组合 · 注意与假鸡油菌等区分
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Craterellus_lutescens0.png" alt="变黄喇叭菌主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Craterellus lutescens · 棕灰色薄质喇叭形菌盖，鲜艳橙黄色中空菌柄，丛生于阴湿针叶林苔藓间</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 鸡油菌目 · 鸡油菌科 · 喇叭菌属</div>
+    <div class="hero-name-zh">变黄喇叭菌</div>
+    <div class="hero-name-la">Craterellus lutescens</div>
+    <div class="hero-author">(Fr.) Fr., 1838 · 俗称「黄脚菌」「薄喇叭菌」</div>
+
+    <div class="tag-row">
+      <span class="tag tag-saffron">可食（风味佳）</span>
+      <span class="tag tag-moss">外生菌根共生</span>
+      <span class="tag tag-umber">菌盖薄而喇叭状</span>
+      <span class="tag tag-saffron">菌柄鲜橙色中空</span>
+      <span class="tag tag-stone">近缘管形喇叭菌</span>
+      <span class="tag tag-stone">杏干香气</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">变黄喇叭菌 / 黄脚菌 / 薄喇叭菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Yellowfoot / Golden Chanterelle</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">鸡油菌目 Cantharellales / Hydnaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">未评估 · 北半球温带广布</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志组合：棕灰盖 + 橙黄柄</span>
+        <span class="fb-value">菌盖颜色相对稳定的棕灰色，与鲜艳的橙黄色中空菌柄形成强烈对比，是野外辨认最直接的视觉线索</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">假菌褶极不明显</span>
+        <span class="fb-value">菌盖下方几乎没有明显的假菌褶（褶状脉纹），表面显得光滑或仅具浅皱，与近缘的管形喇叭菌（假菌褶明显）形成对比</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">果香气息</span>
+        <span class="fb-value">新鲜及干燥后均散发类似杏干的甜美果香，晒干后香气更加浓郁，是欧洲传统干货市场的珍视品种之一</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-saffron"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Craterellus_lutescens1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 棕灰至褐色 / 喇叭状下凹 / 边缘波状不规则</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Craterellus_lutescens2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 假菌褶极浅 / 淡橙色子实层 / 鲜橙色菌柄</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Craterellus_lutescens3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌柄中空 / 菌盖菌肉极薄 / 柄基近白色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Craterellus_lutescens4.png" alt="子实层细节图" loading="lazy">
+        <div class="photo-caption">子实层 · 近平滑或浅脉状，粉橙色，延生至菌柄</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Craterellus_lutescens5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 白色至淡黄色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Craterellus_lutescens6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">细节 · 菌柄橙黄色、中空、表面光滑略带光泽</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Craterellus_lutescens7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 阴湿针叶林苔藓层、林间沼泽边缘，常密集丛生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体幼时呈小型棒状至浅杯状，尚未形成明显喇叭形，菌盖中央微凹，直径不足2cm；表面棕灰色，质地薄嫩；
+          菌柄短小，颜色已初显橙黄色调，中空结构尚不明显；此期常隐匿于苔藓间，不易被发现。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐扩展并加深下凹，形成典型的浅漏斗至喇叭形，直径2–6cm；边缘开始出现波状卷曲及不规则裂片；
+          表面棕灰至褐色，质地依然很薄；菌柄明显伸长，橙黄至亮橙色，中空特征逐渐显现；子实层（假菌褶所在面）开始显色，呈淡粉橙色。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展开为深漏斗状至喇叭状，中央穿孔或近穿孔，边缘强烈波状、常撕裂成不规则瓣状；表面棕灰至暗褐色（bistre），偶带橄榄色调；
+          菌柄2.5–8cm，鲜艳橙黄色，中空，表面光滑略带光泽，基部近白色；子实层近平滑或具浅脉纹，粉橙色至奶白色，向下延生至菌柄；果香浓郁。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-umber">菌盖棕灰→褐色（相对稳定）</span>
+          <span class="tag tag-saffron">菌柄鲜橙黄至亮橙色</span>
+          <span class="tag tag-saffron">子实层粉橙色，延生至柄</span>
+          <span class="tag tag-stone">孢子印白色至淡黄色</span>
+          <span class="tag tag-stone">柄基近白色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">浅杯状→深漏斗喇叭状（径2–6cm）</span>
+          <span class="tag tag-umber">边缘强烈波状不规则</span>
+          <span class="tag tag-umber">菌盖菌肉极薄</span>
+          <span class="tag tag-saffron">菌柄中空，2.5–8cm</span>
+          <span class="tag tag-stone">假菌褶极浅或近光滑</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-saffron">类似杏干的甜美果香</span>
+          <span class="tag tag-saffron">干燥后香气更浓郁</span>
+          <span class="tag tag-stone">整体气味宜人柔和</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">质地薄嫩，鲜品略带韧性</span>
+          <span class="tag tag-moss">风味清甜，无苦辣感</span>
+          <span class="tag tag-stone">干燥后适合久炖提香</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径2–6cm（大者可达10cm），初浅杯状，成熟为深漏斗状至喇叭状，中央常穿孔；表面棕灰至褐色（偶带bistre暗褐调），干燥不粘，边缘强烈波状卷曲，常裂为不规则瓣片</td>
+          </tr>
+          <tr>
+            <td>子实层（假菌褶）</td>
+            <td>近光滑或仅具浅脉状皱纹，<strong>不具真正菌褶</strong>；粉橙色至奶白色，沿菌柄下延，是喇叭菌属的共同特征之一</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>菌盖部分极薄，白色；菌柄皮层橙色，内部菌肉近白色；质地脆嫩，干燥后易碎，气味清甜近杏干香，口感温和无特殊滋味</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>2.5–8cm × 0.4–1.1cm；圆柱形，<strong>中空</strong>，表面光滑带光泽，鲜艳橙黄至亮橙色，基部渐转白色；质地较菌盖更结实</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>椭圆形，光滑，约5–7μm；孢子印白色至淡黄色</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖<strong>棕灰至褐色</strong>，颜色相对稳定，与近缘管形喇叭菌（颜色多变）形成对比</li>
+        <li>菌柄<strong>鲜艳橙黄色、中空</strong>，与棕灰菌盖形成强烈色彩反差，是最快速的野外识别标志</li>
+        <li>子实层<strong>近光滑或仅具浅脉纹</strong>，假菌褶极不明显，区别于假菌褶清晰的管形喇叭菌</li>
+        <li>整株散发<strong>类似杏干的甜美果香</strong>，干燥后香气增强，无恶臭或刺激性气味</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用提示：喇叭菌属整体安全，但仍需规范处理</div>
+      <ul class="caution-list">
+        <li>变黄喇叭菌本身不含已知毒素，是公认的优质食用菌，但野生菌普遍建议<strong>充分熟制</strong>后食用，不宜生食</li>
+        <li>菌体薄嫩易碎，采集及运输过程中应轻拿轻放，避免破碎影响品相与保存</li>
+        <li>与假鸡油菌（<em>Hygrophoropsis aurantiaca</em>）等外观相似种共同出现时，应仔细核对是否具真正菌褶及气味特征后再采集</li>
+        <li>初次食用建议少量尝试，观察个人耐受情况，儿童及肠胃敏感者更应谨慎</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与管形喇叭菌区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">管形喇叭菌（<em>C. tubaeformis</em>）子实层为<strong>灰色且具明显折叠状假菌褶</strong>，颜色变化更大；变黄喇叭菌子实层<strong>近平滑、粉橙色</strong>，菌盖及菌柄颜色更为稳定鲜艳</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与假鸡油菌区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">假鸡油菌（<em>Hygrophoropsis aurantiaca</em>）具<strong>真正的、密集分叉的橙色菌褶</strong>，整株橙色调更统一；变黄喇叭菌<strong>无真正菌褶</strong>，菌盖为棕灰色而非橙色，二者色彩分布不同</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">管形喇叭菌 <em>Craterellus tubaeformis</em></div>
+        <div class="confusion-diff">同属近缘可食种，子实层灰色且具明显折叠状假菌褶，颜色不如本种稳定鲜艳；二者同样美味，野外偶有混生</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">灰喇叭菌 <em>Craterellus cornucopioides</em></div>
+        <div class="confusion-diff">同科近缘可食种，整株呈中空号角状，颜色深灰至近黑色，无橙黄色菌柄，与本种色彩差异明显，也是欧洲传统食用喇叭菌之一</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">假鸡油菌 <em>Hygrophoropsis aurantiaca</em></div>
+        <div class="confusion-diff">整株橙色调，具真正的密集分叉橙色菌褶（区别于喇叭菌属的假菌褶或光滑子实层）；多数文献认为其可食但风味平庸，也有轻微中毒个案报道，不建议与本种混采混食</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">鸡油菌 <em>Cantharellus cibarius</em></div>
+        <div class="confusion-diff">整株统一金黄色，具浅而清晰的假菌褶，肉质更厚实，气味似杏；本种菌盖为棕灰色而非金黄色，二者主要凭菌盖颜色及肉质厚度区分</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「灰盖橙脚两分明，光滑子层非菌褶」</div>
+        <div class="memory-pill">「薄如纸片藏苔间，杏干香气最迷人」</div>
+        <div class="memory-pill">「橙柄中空是关键，与假鸡油菌一线牵」</div>
+        <div class="memory-pill">「颜色稳定是特点，管形喇叭多变幻」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">常密集丛生或群生，多个子实体紧密簇拥于同一片苔藓斑块，也可散生</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">外生菌根真菌，与针叶树根系共生，偏好酸性、低肥力的针叶林及林间沼泽湿地，常见于苔藓层中，喜阴湿寒冷环境（近北方针叶林气候型）</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广布于欧洲、北美洲温带及北方针叶林区，中国安徽黄山等地有记录；北欧、东欧传统林地采集文化中占有一定地位</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">夏末至初冬为主要出菇期，秋季凉爽多雨条件下达到高峰；喜低海拔至中海拔的针叶林湿润环境</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：因菌体薄嫩，宜用小刀齐地面切割而非拔起，避免带出过多苔藓与泥土；鲜品不耐存放，建议当日处理或悬挂晾干制成干货保存风味。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-saffron"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">质地脆嫩，具独特杏干般果香，是欧洲传统林地食用菌中的珍视品种；适合煎炒、炖汤、制作蛋卷酱汁，干制后风味更浓郁，可用于长期保存</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用与生物活性</div>
+        <div class="value-body">研究表明其提取物对凝血酶（thrombin）具有一定抑制活性，提示潜在的抗凝血研究方向；相关药理机制仍处于初步研究阶段</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为专性外生菌根真菌，与针叶树形成共生关系，是北方针叶林及酸性湿地生态系统养分循环的重要参与者；人工栽培因共生依赖性强而面临较大挑战</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">其他用途</div>
+        <div class="value-body">传统上也被用于提取黄色染料；斯堪的纳维亚及东欧林区民间采集文化中具有一定的传承意义</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://commons.wikimedia.org/wiki/Craterellus_lutescens" target="_blank">Wikimedia Commons</a> ·
+      <a class="ref-link" href="https://www.wikidata.org/wiki/Q1478429" target="_blank">Wikidata · C. lutescens</a> ·
+      <a class="ref-link" href="https://rubussite.wordpress.com/2021/05/27/%E9%B8%A1%E6%B2%B9%E8%8F%8C%E4%B8%8E%E5%96%87%E5%8F%AD%E8%8F%8C/" target="_blank">野外观察记录</a>
+    </div>
+    <div>北方针叶林代表种 · 优质食用菌 · 果香浓郁</div>
+  </div>
+
+</div>
+</body>
+</html>
