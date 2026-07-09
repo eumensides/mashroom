@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>点柄黄红菇（点柄臭黄菇）· Russula senecis（有毒）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 有毒物种：赭褐锈色警示配色 */
+    --ink: #241c10;
+    --ink-mid: #4a3c22;
+    --ink-light: #8a7a5e;
+    --cream: #f8f1e0;
+    --surface: #ffffff;
+
+    --tawny: #a5641c;
+    --tawny-light: #d49a54;
+    --tawny-pale: #f5e2c4;
+    --tawny-mid: #6e4210;
+
+    --rust: #8a3a1a;
+    --rust-light: #c47040;
+    --rust-pale: #f2ddc8;
+
+    --toxic: #8a2018;
+    --toxic-light: #d99a90;
+    --toxic-pale: #f7e2de;
+
+    --stone: #6a5e46;
+    --stone-light: #a0947a;
+    --stone-pale: #eee4ce;
+
+    --border: rgba(140,96,20,0.14);
+    --border-mid: rgba(140,96,20,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body { font-family: 'Noto Sans SC', sans-serif; font-weight: 300; background: var(--cream); color: var(--ink); line-height: 1.75; font-size: 15px; }
+
+  .toxic-banner { background: var(--toxic); color: #fff; text-align: center; padding: 10px 16px; font-size: 13px; font-weight: 500; letter-spacing: 0.02em; }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #dcc294; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(20,12,4,0.72)); padding:24px 20px 16px; }
+  .hero-overlay-text { font-size:12px; color:rgba(245,222,180,0.9); font-style:italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--toxic); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 33px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--tawny); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-tawny { background: var(--tawny-pale); color: var(--tawny-mid); }
+  .tag-rust  { background: var(--rust-pale);  color: var(--rust); }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+  .tag-stone { background: var(--stone-pale); color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-tawny { background: var(--tawny); }
+  .dot-rust  { background: var(--rust); }
+  .dot-toxic { background: var(--toxic); }
+  .dot-stone { background: var(--stone-light); }
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .feature-bar { background: linear-gradient(135deg, #f5e2c4, #f8f1e0); border: 1px solid rgba(165,100,28,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--tawny-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #dcc294; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #dcc294; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20,12,4,0.72); color: #f2e0b8; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--tawny-pale); color: var(--tawny-mid); }
+  .phase-mid    { background: var(--rust-pale);  color: var(--rust); }
+  .phase-mature { background: var(--toxic-pale); color: var(--toxic); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--tawny-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--toxic-pale); border: 1px solid rgba(138,32,24,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--toxic); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #501610; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--toxic); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--tawny-pale); border: 1px solid rgba(165,100,28,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--tawny-mid); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #46280a; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--tawny); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--tawny-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--toxic); background: var(--toxic-pale); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--tawny-pale); border: 1px solid rgba(165,100,28,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--tawny-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card.toxic-card { border-left: 3px solid var(--toxic); }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--tawny-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toxic-banner">⚠️ 胃肠炎型有毒真菌 · 常混杂于野生菌市场 · 极易与剧毒亚稀褶红菇混淆 · 严禁采食</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis0.png" alt="点柄黄红菇主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Russula senecis · 赭褐色菌盖，边缘瘤状条纹，菌柄具锈色斑点</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 红菇科（红菇属·臭红菇亚组）</div>
+    <div class="hero-name-zh">点柄黄红菇（点柄臭黄菇）</div>
+    <div class="hero-name-la">Russula senecis</div>
+    <div class="hero-author">S. Imai, 1938</div>
+
+    <div class="tag-row">
+      <span class="tag tag-toxic">⚠ 有毒</span>
+      <span class="tag tag-tawny">胃肠炎型中毒</span>
+      <span class="tag tag-rust">菌柄具锈色斑点</span>
+      <span class="tag tag-stone">气味刺激强烈</span>
+      <span class="tag tag-stone">外生菌根真菌</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">点柄黄红菇、点柄臭黄菇</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">暂无广泛通用英文俗名</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">红菇目 / Russulaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">近缘种</span>
+        <span class="taxon-value">臭红菇 <em>Russula foetens</em>、可爱红菇 <em>R. laurocerasi</em></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志特征：锈色斑点菌柄</span>
+        <span class="fb-value">菌柄表面随生长渐生锈褐色斑点，这正是"点柄"这一中文名的直接由来</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">市场混采风险</span>
+        <span class="fb-value">大量出现于中国西南野生菌市场，因外观与可食"火炭菌"及剧毒亚稀褶红菇相近，混采误食风险突出</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">系统学位置</span>
+        <span class="fb-value">与臭红菇同属"臭红菇亚组"（subsect. Foetentinae），二者气味相近，是野外快速识别该类群的重要嗅觉线索</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-tawny"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 赭褐至橙褐色，边缘瘤状条纹</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 菌褶奶油黄，近柄分叉</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉污白色，菌柄多室空腔</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis4.png" alt="菌褶面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">菌褶面 · 褶缘细密褐色至赭黄色边</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 奶油色（红菇科典型）</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">★细节 · 菌柄锈褐色斑点特写</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide" style="margin-top:10px;">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_senecis7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 亚热带常绿阔叶林及针阔混交林地上</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          菌盖半球形，边缘内卷，直径较小（3–5cm）；表面湿润具黏性，赭褐至橙褐色，边缘已现瘤状颗粒感条纹；
+          菌褶奶油色，紧密排列，尚未分叉；菌柄短粗，奶油黄色，尚未显现斑痕。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">中期</div>
+        <div class="phase-desc">
+          菌盖逐渐展开呈凸镜形，直径可达6–10cm，边缘瘤状条纹更明显，遇KOH试剂可转为锈红色；菌肉散发强烈刺激性气味，尝之辛辣；
+          菌褶转为奶油黄色，近菌柄处出现分叉现象，褶缘可见细密褐色至赭黄色细边；菌柄延长，表面渐显斑驳锈色斑点，内部出现多室状空腔。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，中央常微凹，边缘瘤状条纹极为显著；菌褶完全分叉，褶缘锈褐色更深；
+          菌柄斑点密布，呈污黄褐色，内部多室空腔明显，质地变脆；孢子印奶油色。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-tawny">菌盖赭褐→橙褐（遇KOH转锈红）</span>
+          <span class="tag tag-rust">菌褶奶油色→奶油黄</span>
+          <span class="tag tag-rust">菌柄奶油黄→污黄褐（锈色斑点）</span>
+          <span class="tag tag-stone">孢子印奶油色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">半球形→凸镜形→平展（径3–10cm）</span>
+          <span class="tag tag-tawny">边缘瘤状条纹显著</span>
+          <span class="tag tag-rust">菌褶近柄分叉</span>
+          <span class="tag tag-stone">菌柄具多室空腔</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">⚠ 强烈刺激性气味</span>
+          <span class="tag tag-stone">与臭红菇气味相近</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">⚠ 辛辣刺激，严禁品尝</span>
+          <span class="tag tag-toxic">胃肠炎型中毒代表种</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>湿润具黏性，赭褐至橙褐色，遇KOH试剂变锈红色；边缘宽而粗糙的瘤状条纹</td></tr>
+          <tr><td>菌褶</td><td>奶油色至奶油黄色，近菌柄附着处常分叉，褶缘具细密褐色至赭黄色细边</td></tr>
+          <tr><td>菌肉</td><td>污白色，质脆，气味强烈刺激，味辛辣</td></tr>
+          <tr><td>菌柄</td><td>奶油黄至污黄褐色，表面渐现锈褐色斑点（"点柄"之名由来），内部具多室状空腔结构</td></tr>
+          <tr><td>孢子</td><td>近球形至亚球形，7.5–9.7×7.8–8.6μm，具粗大翅状纹饰及孤立疣突，不形成网纹，无淀粉质脐上点；孢子印奶油色</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-tawny"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识要素</div>
+      <ul class="distinction-list">
+        <li>菌柄表面渐生<strong>锈褐色斑点</strong>——"点柄"这一中文名的直接来源，也是区别于近缘种的重要野外特征</li>
+        <li>菌盖边缘具宽而显著的瘤状条纹，遇KOH试剂由赭褐色转为锈红色</li>
+        <li>气味强烈刺激，与臭红菇、可爱红菇同属"臭红菇亚组"，气味相近但仍有细微差异</li>
+        <li>大量出现于中国西南野生菌市场，因与可食"火炭菌"以及剧毒的亚稀褶红菇外观相近而极易混采</li>
+      </ul>
+    </div>
+
+    <div class="caution-box">
+      <div class="caution-title">⚠ 食用前必读：极易与剧毒物种混采</div>
+      <ul class="caution-list">
+        <li>本种含胃肠炎型毒素，误食后可出现恶心、呕吐、腹痛、腹泻等症状，一般不会危及生命，但个别记录中毒也伴随精神症状</li>
+        <li>本种在野生菌市场大量存在，且与剧毒的亚稀褶红菇（可致横纹肌溶解甚至死亡）外观易于混淆</li>
+        <li>务必经专业人员鉴定后方可考虑食用，切勿因"红菇属整体较安全"的说法而掉以轻心</li>
+      </ul>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">臭红菇（油辣菇） <em>Russula foetens</em></div>
+        <div class="confusion-diff">同属臭红菇亚组近缘种，气味均强烈刺激，但本种菌柄具锈色斑点而臭红菇菌柄表面呈脉纹状，且臭红菇菌盖颜色更偏蜜黄至土褐色，黏性也更强</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">可爱红菇（杏仁红菇） <em>Russula laurocerasi</em></div>
+        <div class="confusion-diff">同组近缘种，菌盖偏亮黄至橙黄色，具黏性，气味类似苦杏仁，是本种及臭红菇之外该组最容易混淆的第三个近似种</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic)">⚠ 亚稀褶红菇 <em>Russula subnigricans</em>（剧毒）</div>
+        <div class="confusion-diff">外观与可食"火炭菌"（稀褶红菇、密褶红菇）相似而非本种直接近似，但在同一野生菌市场及采集环境中常混杂出现，误采风险极高，是我国红菇属中毒致死的主要元凶</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">稀褶红菇 / 密褶红菇（可食"火炭菌"）</div>
+        <div class="confusion-diff">灰白至煤灰黑色菌盖，与本种赭褐色调不同，但在市场辨识经验不足时也存在混淆风险，采购时应留意菌盖色调差异</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.2rem;">
+    <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「赭褐条纹辨点柄，锈斑满柄不可餐」</div>
+      <div class="memory-pill">「气味刺鼻辛辣重，火炭菌里藏危险」</div>
+      <div class="memory-pill">「分叉菌褶近柄现，多室空腔藏柄中」</div>
+      <div class="memory-pill">「红菇虽多可安心，唯独此类要留神」</div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">散生至群生</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">外生菌根真菌，与壳斗科、松科等多种阔叶及针叶树种形成共生关系，常见于亚热带常绿阔叶林及针阔混交林地上</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国南方及西南地区广泛分布，云南、广东、广西等地野生菌市场常见；全球热带至温带地区均有记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">夏秋季为主，多见于低中海拔常绿阔叶林区</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      观察建议：记录时留意菌柄斑点密度与颜色、菌盖边缘条纹粗细，以及嗅闻气味强度，这些是红菇属"臭红菇亚组"野外鉴别的重要依据；印度西孟加拉邦部分部落有传统食用记录，但这属于地区性民俗做法，不代表本种在其他地区可安全食用。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-tawny"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card toxic-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">中国大陆文献记载为有毒蘑菇，不建议采食；印度部分地区部落经传统方法处理后有食用记录，反映地区间毒性认知与处理经验差异，普通消费者不应模仿</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研价值</div>
+        <div class="value-body">干燥子实体提取物在体外实验中显示抗氧化活性（如DPPH自由基清除、铁离子螯合能力等），具天然产物化学研究价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态角色</div>
+        <div class="value-body">外生菌根真菌，参与森林矿质营养循环，是热带至亚热带常绿阔叶林生态系统的常见组分</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">食品安全科普价值</div>
+        <div class="value-body">因大量混杂于"火炭菌"类野生菌市场，且与剧毒亚稀褶红菇同域分布，是红菇属食品安全教育中的重要反面教材</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://peerj.com/articles/810/" target="_blank">PeerJ: Prospecting Russula senecis</a> ·
+      <a class="ref-link" href="https://www.moguyun.vip/2/22/R/Russula.html" target="_blank">红菇属拉丁学名索引</a>
+    </div>
+    <div>胃肠炎型有毒 · 孢子印奶油色 · 外生菌根真菌</div>
+  </div>
+
+</div>
+</body>
+</html>
