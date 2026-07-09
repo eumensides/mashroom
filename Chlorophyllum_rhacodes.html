@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>粗鳞青褶伞 · Chlorophyllum rhacodes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食但需警惕：栗褐鳞片色 + 奶白，绿色专用作"剧毒近缘种"警示色 */
+    --ink: #201a14;
+    --ink-mid: #453a2e;
+    --ink-light: #8c8070;
+
+    --cream: #f3ede0;
+    --surface: #fffcf6;
+    --surface-warm: #faf5e9;
+
+    /* 栗褐主色（菌盖鳞片） */
+    --chestnut: #8a5a34;
+    --chestnut-light: #c39a6c;
+    --chestnut-pale: #f3e6d2;
+    --chestnut-mid: #6b4324;
+
+    /* 橙红（切割变色反应，标志性特征） */
+    --saffron: #c4602e;
+    --saffron-light: #e29a6c;
+    --saffron-pale: #fbe7d6;
+
+    /* 剧毒近缘种警示绿（对应大青褶伞菌褶变绿特征，专用作危险色） */
+    --danger: #3f6b3a;
+    --danger-light: #8bab7c;
+    --danger-pale: #e7f0e1;
+
+    --stone: #5c5346;
+    --stone-light: #978c78;
+
+    --border: rgba(90,68,36,0.14);
+    --border-mid: rgba(90,68,36,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--saffron);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #ddccae; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(24,16,6,0.7));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,225,195,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--saffron); margin-bottom: 12px; }
+
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 34px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--chestnut-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-chestnut { background: var(--chestnut-pale); color: var(--chestnut-mid); }
+  .tag-saffron  { background: var(--saffron-pale);  color: var(--saffron); }
+  .tag-danger   { background: var(--danger-pale);   color: var(--danger); }
+  .tag-stone    { background: #ece3d0;              color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-chestnut { background: var(--chestnut-mid); }
+  .dot-saffron  { background: var(--saffron); }
+  .dot-danger   { background: var(--danger); }
+  .dot-stone    { background: var(--stone-light); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #ddccae; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #ddccae; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(24,16,6,0.7); color: #f3e6d0; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--danger-pale);   color: var(--danger); }
+  .phase-mid    { background: var(--saffron-pale);  color: var(--saffron); }
+  .phase-mature { background: var(--chestnut-pale); color: var(--chestnut-mid); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--chestnut-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--danger-pale); border: 1px solid rgba(63,107,58,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--danger); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #24371f; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--danger); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--saffron-pale); border: 1px solid rgba(196,96,46,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--saffron); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #4a2712; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--saffron); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--chestnut-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--danger); background: var(--danger-pale); }
+  .confusion-item.good { border-left-color: var(--saffron); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--chestnut-pale); border: 1px solid rgba(107,67,36,0.28); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--chestnut-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #f3e6d2, #faf5e9);
+    border: 1px solid rgba(138,90,52,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--chestnut-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--chestnut-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  🍄 可食用（需彻底煮熟）· 与剧毒大青褶伞外形相似，务必核实菌褶颜色再食用
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Chlorophyllum_rhacodes0.png" alt="粗鳞青褶伞主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Chlorophyllum rhacodes · 菌盖覆粗大褐色鳞片，菌肉切开后迅速变为橙红色</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 蘑菇科 · 青褶伞属</div>
+    <div class="hero-name-zh">粗鳞青褶伞</div>
+    <div class="hero-name-la">Chlorophyllum rhacodes</div>
+    <div class="hero-author">(Vittad.) Vellinga · 曾用名 <em>Macrolepiota rhacodes</em></div>
+
+    <div class="tag-row">
+      <span class="tag tag-saffron">可食用（需煮熟）</span>
+      <span class="tag tag-saffron">切割变橙红色</span>
+      <span class="tag tag-chestnut">菌柄光滑无花纹</span>
+      <span class="tag tag-chestnut">菌环可移动</span>
+      <span class="tag tag-danger">易与剧毒青褶伞混淆</span>
+      <span class="tag tag-stone">中国分布存疑</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">粗鳞青褶伞 / 粗鳞大环柄菇</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Shaggy Parasol</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Agaricaceae 蘑菇科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分布状态</span>
+        <span class="taxon-value">广布欧美温带地区 · 中国野外分布记录存疑</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志反应：切割变橙红色</span>
+        <span class="fb-value">菌肉受伤或切开后迅速变为<strong>橙红色</strong>，随后缓慢转为褐色，是本种最直观、最实用的野外鉴别特征之一</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">菌柄光滑无花纹</span>
+        <span class="fb-value">与外形相似的高大环柄菇（<em>Macrolepiota procera</em>）不同，本种菌柄表面<strong>光滑</strong>，不具蛇皮状斑纹，是区分青褶伞属与大环柄菇属的关键结构差异</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">剧毒近缘种警示</span>
+        <span class="fb-value">菌褶成熟后始终保持<strong>白色</strong>（不变绿），孢子印白色；若发现菌褶转为灰绿色/橄榄绿色，则极可能是剧毒的大青褶伞，务必立即停止采食</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-chestnut"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Chlorophyllum_rhacodes1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 粗大褐色鳞片 / 中央光滑圆盘</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Chlorophyllum_rhacodes2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 白色菌褶 / 光滑菌柄 / 可移动菌环</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Chlorophyllum_rhacodes3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 切开后菌肉变橙红色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Chlorophyllum_rhacodes4.png" alt="菌褶面图" loading="lazy">
+        <div class="photo-caption">褶面 · 白色至奶油色，成熟后不变绿</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Chlorophyllum_rhacodes5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 白色至奶油色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Chlorophyllum_rhacodes6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">细节 · 菌柄基部棒状膨大，无蛇皮花纹</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Chlorophyllum_rhacodes7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 花园、林缘、富氮草地，单生或群生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-saffron"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期（卵形期）</div>
+        <div class="phase-desc">
+          子实体呈卵形至半球形，表皮暗褐色，尚未开裂；菌褶被内菌幕包裹，尚不可见；菌柄粗壮，基部略膨大。此阶段外观与部分鹅膏属幼期菇蕾存在相似之处，
+          采集前务必纵向剖开检查内部结构，确认无鹅膏属特有的完整菌托包裹。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">生长期（鳞片开裂期）</div>
+        <div class="phase-desc">
+          菌盖逐渐扩展，表皮开始龟裂为粗大的褐色鳞片，中央保留一片光滑的褐色圆盘，鳞片间露出白色底色，呈现典型的"粗鳞"外观；
+          菌环随菌盖展开而与菌盖分离，悬挂于菌柄上部，可上下移动；此时若切开菌肉，断面迅速变为橙红色，是本阶段最显著的识别特征。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展开呈扁平状，宽5–15(20)cm，中央具低矮的光滑褐色圆盘，边缘覆盖松散的粗大褐色鳞片；菌褶离生，密集，白色至奶油色，
+          成熟后仍保持白色（不变绿）；菌柄细长，光滑无花纹，基部膨大呈棒状但无蛇皮状斑纹；孢子印白色。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-saffron"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-chestnut">菌盖白色至奶油色底覆褐色鳞片</span>
+          <span class="tag tag-saffron">菌肉切开后变橙红色</span>
+          <span class="tag tag-danger">菌褶成熟后始终白色（不变绿）</span>
+          <span class="tag tag-chestnut">孢子印白色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">菌盖扁球形至平展，具光滑褐色中央圆盘</span>
+          <span class="tag tag-chestnut">边缘鳞片粗大松散</span>
+          <span class="tag tag-chestnut">菌柄细长光滑，基部棒状膨大</span>
+          <span class="tag tag-saffron">菌环厚，双层，可移动</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-saffron">温和菌香，略带坚果香气</span>
+          <span class="tag tag-stone">气味宜人</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-saffron">熟制后质地细嫩，风味浓郁</span>
+          <span class="tag tag-danger">⚠ 严禁生食</span>
+          <span class="tag tag-stone">少数人熟食后仍可能过敏或不适</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-saffron"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>宽5–15(20)cm，初期卵形至半球形，成熟展开为扁平状；表皮暗褐色，逐渐龟裂为粗大鳞片，中央保留光滑褐色圆盘，边缘鳞片松散翘起，底色白色至奶油色</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>离生，密集，白色至奶油色，<strong>成熟后仍保持白色</strong>——是与剧毒近缘种大青褶伞（菌褶成熟转绿）最关键的区分点</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色，切开或受伤后迅速变为<strong>橙红色</strong>，继而缓慢转为褐色，是野外识别的标志性反应</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>细长，长8–15cm，<strong>光滑，无蛇皮状斑纹</strong>（区别于大环柄菇属），基部膨大呈棒状，可与菌盖轻松分离</td>
+          </tr>
+          <tr>
+            <td>菌环</td>
+            <td>厚，双层，膜质，可沿菌柄上下移动</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>光滑，无芽孔或具平截芽孔；孢子印白色至奶油色</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-danger"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌肉切开后迅速变为<strong>橙红色</strong>，继而转褐，是最直观、最容易操作的野外鉴别手段之一</li>
+        <li>菌柄<strong>光滑无花纹</strong>，不具蛇皮状斑纹，区别于外形相似的高大环柄菇（<em>Macrolepiota procera</em>）</li>
+        <li>菌褶成熟后<strong>始终保持白色</strong>，孢子印白色，是与剧毒近缘种大青褶伞（菌褶成熟转绿、孢子印绿）最关键、最重要的区分点</li>
+        <li>菌盖鳞片粗大松散，中央保留光滑褐色圆盘，整体呈现典型的"粗鳞"外观</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用前必读：谨防与剧毒近缘种混淆</div>
+      <ul class="caution-list">
+        <li><strong>切勿生食</strong>——本种及同属多数物种生食均有毒性，务必彻底煮熟后食用</li>
+        <li>少数人即使规范烹饪、正确鉴定后食用，仍可能出现胃肠不适或过敏反应，建议首次尝试时少量食用并观察反应</li>
+        <li>与<strong>剧毒的大青褶伞</strong>（<em>Chlorophyllum molybdites</em>）形态相似，务必仔细检查菌褶成熟后是否变绿、孢子印是否变绿，凡有绿色迹象一律不可食用</li>
+        <li>本种在中国的野外分布记录尚存争议，中国大陆若遇到粗鳞青褶伞外形的蘑菇，应格外谨慎，优先怀疑为大青褶伞等本土常见有毒近缘种</li>
+        <li>幼期未开伞的卵形子实体有被误认为鹅膏属毒菌卵蕾的风险，采集前务必纵向剖开检查内部结构</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与高大环柄菇（M. procera）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">高大环柄菇菌柄具<strong>蛇皮状斑纹</strong>，个体通常更高大；粗鳞青褶伞菌柄光滑无花纹，个体较小，菌盖鳞片更粗大蓬松，且菌肉切开变橙红色的反应更为明显</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与剧毒大青褶伞（C. molybdites）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">大青褶伞菌褶成熟后变为<strong>灰绿色至青褐色</strong>，孢子印绿色；粗鳞青褶伞菌褶成熟后<strong>始终白色</strong>，孢子印白色——这是食用前必须核实的关键鉴别点</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item good">
+        <div class="confusion-name">高大环柄菇 <em>Macrolepiota procera</em>（知名食用种）</div>
+        <div class="confusion-diff">个体更高大，菌柄具蛇皮状斑纹，与粗鳞青褶伞同域分布、外形相似，但菌柄纹理不同，同为受欢迎的食用菌</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name">⚠⚠ 大青褶伞 <em>Chlorophyllum molybdites</em>（剧毒）</div>
+        <div class="confusion-diff">我国最常见的蘑菇中毒事件元凶之一，菌褶成熟后变绿、孢子印绿色，与本种外形高度相似，野外极易混淆，务必以菌褶颜色为最终判断依据，切勿仅凭"外形像"就采食</div>
+      </div>
+      <div class="confusion-item good">
+        <div class="confusion-name">褐变青褶伞 <em>Chlorophyllum brunneum</em>（同属食用种）</div>
+        <div class="confusion-diff">我国确有记录的青褶伞属食用种之一，形态与粗鳞青褶伞接近，菌柄基部受伤后同样可能变色</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">陀螺青褶伞 <em>Chlorophyllum agaricoides</em>（食药兼用种）</div>
+        <div class="confusion-diff">菌体陀螺形至心脏形，菌盖不再展开，形态与本种差异较大，主要见于华北、西北草原地带</div>
+      </div>
+    </div>
+
+    <!-- 分类地位说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--chestnut-pale);border:1px solid rgba(107,67,36,0.32);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--chestnut-mid);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位与命名说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--chestnut-mid);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--chestnut-mid);margin-bottom:8px;">属名释义</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Chlorophyllum</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">希腊语 chloros（绿色）+ phyllon（叶/褶）</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              指该属部分物种菌褶成熟后变绿的特征，但<strong>并非所有成员都会变绿</strong>——本种正是该属内一个"不变绿"的例外，恰恰是这一"反例"构成了它与剧毒大青褶伞之间最重要的安全区分点。
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--saffron);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--saffron);margin-bottom:8px;">分类沿革</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">曾用名 Macrolepiota rhacodes</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">现归入 Chlorophyllum sect. Rhacodium</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              本种历史上长期被置于大环柄菇属，后因菌柄光滑无花纹、孢子及菌褶菌髓结构等差异被转入青褶伞属，检索文献时需注意新旧学名对应关系。
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">中国分布存疑说明</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--chestnut-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>分布记录存疑：</strong>尽管本种在欧美温带地区是广受欢迎的传统食用菌，但公开资料显示其在中国境内的野外分布记录尚存争议，部分文献认为国内并无确凿标本记录。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--chestnut-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>本页信息来源：</strong>本页物种信息主要参照国际分类学资料及欧洲传统食用菌记录整理，供科普认知参考，不代表本种在中国野外普遍可采可食。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--chestnut-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>中文名称易混淆提醒：</strong>"青褶伞"一名在中文语境中常与剧毒的"大青褶伞"产生联想，但两者食用安全性截然不同，检索交流时请务必以完整拉丁学名核实，避免因中文俗名相近而产生安全误判。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--danger-pale);border:1px solid rgba(63,107,58,0.3);border-left:4px solid var(--danger);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#24371f;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>在草地或林缘发现覆粗大鳞片、切开变橙红色的蘑菇时，务必先检查菌褶颜色——成熟后仍为白色方可考虑食用，一旦出现灰绿色或橄榄绿色迹象，应立即判定为剧毒的大青褶伞并放弃采食；由于本种在中国分布本身存疑，不熟悉本地物种的人士不建议贸然尝试。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「切开变红是标志，柄面光滑无蛇纹」</div>
+        <div class="memory-pill">「褶白孢白才安心，一见绿意快离神」</div>
+        <div class="memory-pill">「粗鳞蓬松戴斗笠，中央圆盘藏光泽」</div>
+        <div class="memory-pill">「熟食为宜莫生尝，青褶属内两重天」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生、散生或群生，偶见小型蘑菇圈</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">腐生菌，常见于富含氮素的土壤，如花园、篱笆边、公园绿地、林缘及针叶林、阔叶林中的枯枝落叶层</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广泛分布于欧洲、北美等温带地区，与高大环柄菇分布区高度重叠；在中国的野外分布记录尚存争议</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">夏秋季（欧美地区典型物候记录）；因分布存疑，中国境内具体物候数据缺乏系统记录</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：在中国境内若遇到疑似本种的蘑菇，鉴于分布记录存疑及与剧毒大青褶伞高度相似，建议以拍照记录代替采食，或咨询当地专业菌物机构确认。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-chestnut"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">欧洲传统名贵食用菌之一，质地细嫩，风味浓郁，常用于煎炒、酿馅等烹饪方式，但食用前需彻底煮熟并谨慎排查剧毒近缘种</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用价值</div>
+        <div class="value-body">未见公开的显著药理活性研究报道</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为腐生菌参与土壤有机质分解与养分循环，常见于人类活动干扰的绿地环境，对氮素富集土壤有一定适应性</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科普 / 鉴定教育价值</div>
+        <div class="value-body">因与剧毒大青褶伞及知名食用种高大环柄菇均存在形态相似性，是伞菌分类学及毒蘑菇鉴别科普教育中的经典对比案例</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="http://www.mycopedia.top/taxa.php?details=Chlorophyllum" target="_blank">菌物志 · 青褶伞属</a> ·
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Macrolepiota_procera" target="_blank">Wikipedia · Macrolepiota procera</a> ·
+      <a class="ref-link" href="https://www.163.com/dy/article/GJAL4IAL0512TON6.html" target="_blank">"ICU菇"科普文章</a>
+    </div>
+    <div>可食用（需煮熟）· 中国分布存疑 · 慎防与剧毒近缘种混淆</div>
+  </div>
+
+</div>
+</body>
+</html>
