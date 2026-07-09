@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>簇生垂幕菇 · Hypholoma fasciculare（有毒，勿食）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 有毒物种：硫磺黄 + 橄榄绿（正是本种自身的成熟色变），配警戒锈红 */
+    --ink: #1c1a10;
+    --ink-mid: #423d24;
+    --ink-light: #8a8462;
+
+    --cream: #f2eed9;
+    --surface: #fffdf2;
+    --surface-warm: #faf6e4;
+
+    /* 硫磺黄主色（幼期菌盖/菌褶色） */
+    --sulphur: #c9a022;
+    --sulphur-light: #e3c469;
+    --sulphur-pale: #faf0d0;
+    --sulphur-mid: #9c7a12;
+
+    /* 橄榄绿（成熟菌褶警示色，本种最重要的识别特征） */
+    --olive: #5c6b2a;
+    --olive-light: #9aab6c;
+    --olive-pale: #eef1de;
+
+    /* 锈红警戒（毒性/中毒警示） */
+    --warn: #a3401c;
+    --warn-light: #d3835a;
+    --warn-pale: #fae4d6;
+
+    /* 木腐棕（生境标记） */
+    --wood: #6e4a2c;
+    --wood-light: #ab8862;
+    --wood-pale: #f2e6d4;
+
+    --stone: #5c5640;
+    --stone-light: #97917a;
+
+    --border: rgba(90,84,32,0.14);
+    --border-mid: rgba(90,84,32,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--warn);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #d9cf9a; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,18,4,0.72));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,232,190,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warn); margin-bottom: 12px; }
+
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 34px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--olive); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-sulphur { background: var(--sulphur-pale); color: var(--sulphur-mid); }
+  .tag-olive   { background: var(--olive-pale);   color: var(--olive); }
+  .tag-warn    { background: var(--warn-pale);    color: var(--warn); }
+  .tag-wood    { background: var(--wood-pale);    color: var(--wood); }
+  .tag-stone   { background: #ece7cf;             color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-sulphur { background: var(--sulphur-mid); }
+  .dot-olive   { background: var(--olive); }
+  .dot-warn    { background: var(--warn); }
+  .dot-stone   { background: var(--stone-light); }
+  .dot-wood    { background: var(--wood); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #d9cf9a; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #d9cf9a; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20,18,4,0.72); color: #f2ecc9; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--sulphur-pale); color: var(--sulphur-mid); }
+  .phase-mid    { background: var(--wood-pale);    color: var(--wood); }
+  .phase-mature { background: var(--olive-pale);   color: var(--olive); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--sulphur-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(163,64,28,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a2410; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--olive-pale); border: 1px solid rgba(92,107,42,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--olive); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #262e10; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--olive); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--sulphur-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--warn); background: var(--warn-pale); }
+  .confusion-item.good { border-left-color: var(--olive); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--sulphur-pale); border: 1px solid rgba(156,122,18,0.28); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--sulphur-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #faf0d0, #faf6e4);
+    border: 1px solid rgba(201,160,34,0.32); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--warn); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--sulphur-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  ⚠ 有毒 · 胃肠炎型中毒 · 味极苦，煮熟后毒性依然存在，切勿采食！
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Hypholoma_fasciculare0.png" alt="簇生垂幕菇主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Hypholoma fasciculare · 菌盖硫磺色，数十株密集丛生于阔叶树腐木，菌褶成熟后转橄榄绿色</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 球盖菇科 · 垂幕菇属</div>
+    <div class="hero-name-zh">簇生垂幕菇</div>
+    <div class="hero-name-la">Hypholoma fasciculare</div>
+    <div class="hero-author">(Huds.) P. Kumm. · 曾用学名 <em>Naematoloma fasciculare</em></div>
+
+    <div class="tag-row">
+      <span class="tag tag-warn">⚠ 有毒</span>
+      <span class="tag tag-warn">胃肠炎型中毒</span>
+      <span class="tag tag-sulphur">味极苦</span>
+      <span class="tag tag-warn">煮熟仍有毒</span>
+      <span class="tag tag-wood">木生丛生</span>
+      <span class="tag tag-stone">云南禁食名录第19号</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">簇生垂幕菇 / 丛生垂幕菇 / 簇生黄韧伞 / 簇生沿丝伞</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Sulphur Tuft</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Strophariaceae 球盖菇科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">毒性分级</span>
+        <span class="taxon-value">胃肠炎型有毒种 · 已列入云南毒菌名录</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志颜色：硫磺黄转橄榄绿</span>
+        <span class="fb-value">菌盖硫磺色，中部常具锈褐至红褐色斑块；菌褶初期硫磺黄色，随孢子成熟逐渐转为鲜明的<strong>橄榄绿色至暗紫褐色</strong>，是本种最醒目的野外识别特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">极苦味，煮熟仍有毒</span>
+        <span class="fb-value">生尝味道极苦，即使彻底煮熟后苦味消失，<strong>毒性依然存在</strong>——这是区别于"苦味等于安全信号"这一常见民间误区的重要警示</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">数十株密集丛生</span>
+        <span class="fb-value">常以数十株为一丛，密集覆瓦状簇生于阔叶树腐木、树桩基部，形成醒目的黄褐色菌群，是林间腐木上最常见的丛生毒菌之一</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-sulphur"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Hypholoma_fasciculare1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 硫磺色 / 中部锈褐斑块</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Hypholoma_fasciculare2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 菌褶橄榄绿色 / 蛛网状菌环残迹</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Hypholoma_fasciculare3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉淡黄色 / 菌柄中空</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Hypholoma_fasciculare4.png" alt="菌褶面图" loading="lazy">
+        <div class="photo-caption">褶面 · 成熟后橄榄绿色至暗紫褐色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Hypholoma_fasciculare5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 紫褐色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Hypholoma_fasciculare6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">细节 · 数十株覆瓦状密集丛生</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Hypholoma_fasciculare7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 阔叶树腐木、树桩基部，成片丛生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-wood"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体呈半球形，硫磺色为主，边缘具白色菌幕残片，菌褶被蛛网状菌幕包裹尚不可见；数十株紧密簇生于同一木质基物，
+          整丛外观与幼期野生金针菇有一定相似之处，是最容易被误采的阶段。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">生长期</div>
+        <div class="phase-desc">
+          菌盖逐渐平展，中部开始显现锈褐至红褐色斑块，边缘仍保留硫磺色调；蛛网状菌环随菌盖展开而破裂，残余痕迹极易消失；
+          菌褶逐渐暴露，初期硫磺黄色，此时若细看菌褶已可见由黄转绿的过渡迹象。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，直径2–7cm，硫磺色向橙褐色过渡，中部具锈褐至红褐色斑块；菌褶密集，不等长，颜色由黄色转为<strong>橄榄绿色至暗紫褐色</strong>；
+          菌柄长3–10cm，硫磺色渐变暗红褐色，中空纤维质；孢子成熟后聚集为紫褐色孢子印；整丛可达数十株，形成明显的黄色至褐色子实体群落。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-wood"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-sulphur">菌盖硫磺色至橙褐色</span>
+          <span class="tag tag-wood">中部锈褐至红褐色斑块</span>
+          <span class="tag tag-olive">菌褶初黄色，成熟橄榄绿色至暗紫褐色</span>
+          <span class="tag tag-wood">菌柄硫磺色渐变暗红褐色</span>
+          <span class="tag tag-stone">孢子印紫褐色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">菌盖半球形至平展</span>
+          <span class="tag tag-sulphur">边缘具白色菌幕残片</span>
+          <span class="tag tag-wood">菌柄圆柱形，表面具纤毛</span>
+          <span class="tag tag-wood">数十株覆瓦状密集丛生</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">无特殊记录，部分文献描述略带土腥味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-warn">⚠ 味极苦</span>
+          <span class="tag tag-warn">煮熟后苦味消失但毒性仍在</span>
+          <span class="tag tag-stone">严禁凭"不苦"判断可食用性</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-wood"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径2–7cm，初期半球形后平展，硫磺色向橙褐色过渡，中部具锈褐至红褐色斑块，边缘具白色菌幕残片</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>密集，不等长，幼时硫磺色，成熟后<strong>橄榄绿色至暗紫褐色</strong>——是与外观相似的食用菌（如野生金针菇）最关键的区分点</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>淡黄色，味<strong>极苦</strong></td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>长3–10cm，直径约1cm，上下等粗或基部略膨大，硫磺色渐变暗红褐色，基部橙棕色，表面具纤毛，中空纤维质</td>
+          </tr>
+          <tr>
+            <td>菌环</td>
+            <td>蛛网状（cortina型），质地极薄，极易破碎消失，成熟子实体上通常已不可见</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>椭圆形至卵圆形，6–9 × 4–5μm；孢子印紫褐色</td>
+          </tr>
+          <tr>
+            <td>毒素成分</td>
+            <td>含fasciculol E、fasciculol F（神经毒性相关萜类）及fasciculic acid（胃肠毒性成分），中毒潜伏期0.5–2小时</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-warn"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖硫磺色为主，中部具锈褐至红褐色斑块，是野外识别的第一直观印象</li>
+        <li>菌褶随成熟由硫磺黄色转为<strong>橄榄绿色至暗紫褐色</strong>，孢子印紫褐色，这一变色过程是与外观相似的食用丛生菌（如金针菇）最关键的区分特征</li>
+        <li>数十株密集覆瓦状<strong>丛生</strong>于阔叶树腐木、树桩基部，极少单生</li>
+        <li>味<strong>极苦</strong>，且<strong>煮熟后苦味消失但毒性依然存在</strong>——这是本种最重要的安全警示，切勿以"口感不苦即安全"作为食用判断依据</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用前必读：煮熟不苦≠无毒</div>
+      <ul class="caution-list">
+        <li>本种已被《云南常见毒菌（毒蘑菇）2022版》列为第19号禁止食用物种，2020年12月云南曾发生相关中毒事件</li>
+        <li>中毒类型为胃肠炎型，误食后可引起呕吐、腹泻、腹部痉挛等症状，中毒潜伏期0.5–2小时</li>
+        <li><strong>煮熟后苦味会消失，但毒性成分（fasciculol类及fasciculic acid）依然存在</strong>，切勿因"尝起来不苦了"而误判为安全可食用</li>
+        <li>外观与野生食用菌金针菇（金钱菌属 <em>Flammulina</em>）有相似之处（同为黄色调、丛生木上），采集时务必仔细核对菌褶成熟后的颜色变化</li>
+        <li>与可食用的近缘种烟色垂幕菇（<em>Hypholoma capnoides</em>，多生于针叶树腐木）形态相近，仅凭肉眼区分风险较高，不建议非专业人士自行采食垂幕菇属任何物种</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与野生金针菇（Flammulina velutipes）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">金针菇菌盖橙黄色至茶褐色，表面黏滑，菌柄具绒毛，菌褶白色至淡黄色且<strong>成熟后不变绿</strong>；簇生垂幕菇菌盖硫磺色不黏滑，菌褶成熟后转橄榄绿色，是最关键的区分点</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与可食烟色垂幕菇（H. capnoides）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">烟色垂幕菇菌褶成熟后为<strong>灰色至灰紫色</strong>（不是橄榄绿色），多生长于针叶树腐木；簇生垂幕菇菌褶成熟后橄榄绿色，多生长于阔叶树腐木，两者外观接近，田间准确区分需要一定经验</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item good">
+        <div class="confusion-name">野生金针菇 <em>Flammulina velutipes</em>（可食）</div>
+        <div class="confusion-diff">菌盖橙黄色至茶褐色，表面黏滑，菌柄具绒毛，与簇生垂幕菇外观有相似之处，是本种"貌似金针菇"这一警示性描述的由来，务必检查菌褶颜色及苦味</div>
+      </div>
+      <div class="confusion-item good">
+        <div class="confusion-name">烟色垂幕菇 <em>Hypholoma capnoides</em>（可食，同属近缘种）</div>
+        <div class="confusion-diff">菌褶成熟后灰色至灰紫色而非橄榄绿色，主要生长于针叶树腐木，与本种是垂幕菇属内部最经典的"食用—有毒"对照种</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">砖红垂幕菇 <em>Hypholoma lateritium</em>（部分地区食用，需谨慎）</div>
+        <div class="confusion-diff">菌盖砖红色，形态与本种有相似之处，各地食用安全性评价不一，不建议贸然采食</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name">球盖菇科其他丛生木腐毒菌</div>
+        <div class="confusion-diff">球盖菇科内存在多种丛生木腐毒菌，外观彼此接近，田间鉴定需结合菌褶成熟颜色、孢子印颜色及基质类型综合判断，不建议凭经验自行采食</div>
+      </div>
+    </div>
+
+    <!-- 分类地位说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--sulphur-pale);border:1px solid rgba(156,122,18,0.32);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--olive);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位与命名说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--sulphur-mid);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--sulphur-mid);margin-bottom:8px;">属名释义</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Hypholoma</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">希腊语 hyphe（网状物）+ loma（边缘）</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              指该属菌盖边缘常残留蛛网状菌幕碎片这一特征；中文亦称"垂幕菇属"或"韧伞属"，均呼应了这一菌幕结构特点。
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--olive);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--olive);margin-bottom:8px;">种加词释义</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">fasciculare</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">拉丁语 fascicularis（成束的/簇生的）</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              精确描述了本种数十株密集丛生的典型生长方式；日语俗名"苦栗茸"（苦味栗子菇）同样呼应了其极苦的口感特征。
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">分类沿革与毒理研究现状</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--olive);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>分类沿革：</strong>本种历史上曾使用学名 <em>Naematoloma fasciculare</em>，现多数分类系统已将其归入垂幕菇属（<em>Hypholoma</em>），检索文献时应注意新旧学名对应关系，避免遗漏相关资料。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--olive);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>毒理研究：</strong>已明确分离出的毒素成分包括神经毒性相关的fasciculol E、fasciculol F 及胃肠毒性成分fasciculic acid，相关毒理机制在真菌毒素研究领域具有一定的参考价值。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--olive);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>国内分布记录：</strong>中国分布于河北、吉林、陕西等18个省区，全球分布于北欧、北美、伊朗、土耳其等地，是分布范围较广的一种木腐毒菌。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--warn-pale);border:1px solid rgba(163,64,28,0.3);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a2410;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>在腐木、树桩上发现数十株密集丛生的黄色蘑菇时，务必检查菌褶颜色——若已显现橄榄绿色或紫褐色迹象，应立即判定为有毒并放弃采食；切勿仅凭"丛生+黄色"就联想为金针菇而采食，更不可用"煮熟后不苦"作为安全依据。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「硫磺为盖丛生长，褶转橄榄绿是警」</div>
+        <div class="memory-pill">「貌似金针休轻信，极苦煮熟毒还存」</div>
+        <div class="memory-pill">「数十株拥树桩旁，胃肠中毒莫尝鲜」</div>
+        <div class="memory-pill">「蛛网菌环易消散，紫褐孢印记心间」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">数十株覆瓦状密集丛生，极少单生</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">木生腐生菌，常见于腐烂的针阔叶树伐木、木桩、腐倒木、腐烂树枝，或地下埋藏的腐木上；尤以栎树、桦树等阔叶树腐木桩基部最为常见</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国分布于河北、吉林、陕西等18个省区；全球分布于北欧、北美、伊朗、土耳其等地，生长于海拔400–2000米的阔叶林或针阔混交林</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">夏秋季，云南等地雨季高发，2020年12月云南曾有相关中毒事件报告</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：腐木桩上密集丛生的黄色蘑菇是野外常见的"陷阱菇"，遇到时建议只拍照记录、不采不食，尤其应教育儿童及不熟悉菌类的人群识别其橄榄绿菌褶特征。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-sulphur"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">有毒，胃肠炎型中毒，煮熟后毒性依然存在，不可食用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用 / 科研价值</div>
+        <div class="value-body">所含fasciculol类及fasciculic acid等毒素成分是真菌毒理学研究的关注对象，对开发相关活性物质检测方法具有一定参考价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为木材腐生菌参与阔叶林及针阔混交林中枯木、伐桩的分解与养分循环，是森林生态系统物质循环的重要参与者</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科普教育价值</div>
+        <div class="value-body">因外观与野生金针菇等丛生食用菌相似，且"煮熟不苦≠无毒"这一认知误区具有典型性，是毒蘑菇科普教育中的经典警示案例</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-hans/%E7%B0%87%E7%94%9F%E9%BB%84%E9%9F%A7%E4%BC%9E" target="_blank">Wikipedia · 簇生黄韧伞</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E4%B8%9B%E7%94%9F%E5%9E%82%E5%B9%95%E8%8F%87/60865479" target="_blank">百度百科 · 丛生垂幕菇</a> ·
+      <a class="ref-link" href="https://wap.emushroom.net/edu/show-8924.html" target="_blank">易菇网 · 每周一菇毒蘑菇系列</a>
+    </div>
+    <div>胃肠炎型有毒种 · 煮熟仍有毒 · 云南禁食名录第19号</div>
+  </div>
+
+</div>
+</body>
+</html>
