@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奥氏蜜环菌 · Armillaria ostoyae</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：深蜜棕调，比常见蜜环菌更深沉，呼应其"巨型/根病"双重身份 */
+    --ink: #1a1409;
+    --ink-mid: #423a24;
+    --ink-light: #85795a;
+
+    --cream: #f5f0e2;
+    --surface: #fffdf7;
+    --surface-warm: #faf5e6;
+
+    /* 深蜜棕主色（菌盖鳞片色） */
+    --umber: #7a5222;
+    --umber-light: #b3854a;
+    --umber-pale: #f0e2c4;
+    --umber-mid: #5a3c14;
+
+    /* 蜜黄（菌褶/幼期色） */
+    --honey: #b8862c;
+    --honey-light: #e0b664;
+    --honey-pale: #fbf0d6;
+
+    /* 墨黑（根状菌索标记色） */
+    --jet: #2a2418;
+    --jet-light: #6a604a;
+    --jet-pale: #e8e4d8;
+
+    /* 警戒锈红（生食有毒/致病警示） */
+    --warn: #9a3a1a;
+    --warn-light: #d4703a;
+    --warn-pale: #fae2d4;
+
+    --stone: #665c42;
+    --stone-light: #9c9070;
+
+    --border: rgba(120,90,30,0.14);
+    --border-mid: rgba(120,90,30,0.26);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--umber-mid);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #cba868; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(20,16,6,0.72)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,222,180,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--umber-mid); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--honey); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-umber { background: var(--umber-pale); color: var(--umber-mid); }
+  .tag-honey { background: var(--honey-pale); color: var(--umber-mid); }
+  .tag-jet   { background: var(--jet-pale);   color: var(--jet); }
+  .tag-warn  { background: var(--warn-pale);  color: var(--warn); }
+  .tag-stone { background: #ece4cc;           color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-umber { background: var(--umber-mid); }
+  .dot-honey { background: var(--honey); }
+  .dot-jet   { background: var(--jet); }
+  .dot-warn  { background: var(--warn); }
+  .dot-stone { background: var(--stone-light); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #cba868; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #cba868; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20,16,6,0.72); color: #f2e4c4; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--honey-pale); color: var(--umber-mid); }
+  .phase-mid    { background: var(--umber-pale); color: var(--umber-mid); }
+  .phase-mature { background: var(--jet-pale);   color: var(--jet); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--umber-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(154,58,26,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a2410; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--honey-pale); border: 1px solid rgba(184,134,44,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--umber-mid); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #3a2c10; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--umber-mid); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--umber-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--warn); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--umber-pale); border: 1px solid rgba(90,60,20,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--umber-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #f0e2c4, #faf5e6);
+    border: 1px solid rgba(90,60,20,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--umber-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--umber-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  🍯 可食用种（须煮熟）· 地球上已知最大生物体之一 · 同时是重要森林病原真菌，采集需与有毒近似种仔细区分
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Armillaria_ostoyae0.png" alt="奥氏蜜环菌主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Armillaria ostoyae · 茶色至黄棕色菌盖密布深褐色鳞片，实心菌柄带发达菌环，地下黑色根状菌索可延伸数公里</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 伞菌目 · 泡头菌科（膨瑚菌科）· 蜜环菌属</div>
+    <div class="hero-name-zh">奥氏蜜环菌</div>
+    <div class="hero-name-la">Armillaria ostoyae</div>
+    <div class="hero-author">(Romagn.) Herink, 1973 · 现多沿用学名 <em>Armillaria solidipes</em> Peck, 1900 · 俗称「巨型真菌」「Humongous Fungus」</div>
+
+    <div class="tag-row">
+      <span class="tag tag-honey">可食（须彻底煮熟）</span>
+      <span class="tag tag-jet">地下黑色根状菌索</span>
+      <span class="tag tag-umber">地球最大生物体之一</span>
+      <span class="tag tag-warn">重要森林根病病原菌</span>
+      <span class="tag tag-stone">发达菌环</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">奥氏蜜环菌 / 巨型蜜环菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Honey Fungus / Humongous Fungus</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 Agaricales / Physalacriaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态 / 记录</span>
+        <span class="taxon-value">未评估 · 单一克隆个体记录占地约8.9平方公里，年龄逾2400岁</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">地下巨兽：黑色根状菌索</span>
+        <span class="fb-value">直径2–5mm的黑色绳索状菌丝结构（rhizomorphs）可在地下延伸数公里，是俄勒冈州著名的"世界最大生物体"（占地约8.9平方公里、估计逾2400岁）的物质基础</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">双重身份：美味与病害</span>
+        <span class="fb-value">地上子实体是东北传统食材"榛蘑"的近缘种类，但地下部分是能侵染600余种植物根部的重要森林病原菌，可引起松、云杉等针叶树的根朽病乃至大面积死亡</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">识别要点：深褐鳞片 + 发达菌环</span>
+        <span class="fb-value">菌盖表面密布深褐色鳞片（尤以中央最密），菌柄实心且具明显发达的膜质菌环，是区分本种与同属其他蜜环菌的重要野外线索</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Armillaria_ostoyae1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 茶色至黄棕色 / 密布深褐色鳞片 / 中央鳞片更密</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Armillaria_ostoyae2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 白色至淡黄色菌褶 / 发达膜质菌环 / 实心菌柄</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Armillaria_ostoyae3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌柄实心 / 菌肉白色 / 菌环清晰可见</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Armillaria_ostoyae4.png" alt="丛生形态图" loading="lazy">
+        <div class="photo-caption">丛生形态 · 多个子实体簇生于感病树木根部或树桩周围</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Armillaria_ostoyae5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 白色（卵形孢子）</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Armillaria_ostoyae6.png" alt="根状菌索图" loading="lazy">
+        <div class="photo-caption">地下细节 · 黑色鞋带状根状菌索附着于树皮下或土壤中</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Armillaria_ostoyae7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 针叶林树桩、病树根部及周边地表，秋季大量丛生出菇</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-jet"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体幼时呈半球形，菌盖直径2.5–5cm，蜜黄至浅茶色，表面已可见细密深褐色鳞片，中央尤为密集；
+          菌盖边缘与菌柄之间由膜质内菌幕相连，尚未破裂；菌柄短粗，实心，白色至浅黄色；此期常密集丛生于树桩或病根周围。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐展开为凸镜形至平展，直径可达3–15cm，颜色转为茶色至黄棕色，深褐色鳞片保持明显；内菌幕破裂，
+          在菌柄中上部形成<strong>发达的膜质菌环</strong>，是本种区别于部分蜜环菌近缘种的重要特征；菌褶白色至淡黄色，直生至近延生；菌柄实心，坚实。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，直径3–15cm，茶色至黄棕色，鳞片随生长略有磨损但中央仍明显；菌褶白色至淡黄色，密集；
+          菌柄实心坚实，菌环发达完整，基部常相互连生成丛；孢子卵形，白色，孢子印白色；地下同步形成黑色根状菌索网络，向四周及垂直方向延伸搜索新的树根宿主。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-jet"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-umber">菌盖茶色至黄棕色</span>
+          <span class="tag tag-umber">深褐色鳞片，中央更密</span>
+          <span class="tag tag-honey">菌褶白色至淡黄色</span>
+          <span class="tag tag-stone">孢子印白色</span>
+          <span class="tag tag-jet">地下根状菌索黑色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">半球形→凸镜形→平展（径3–15cm）</span>
+          <span class="tag tag-umber">菌柄实心，坚实</span>
+          <span class="tag tag-honey">菌环发达、膜质、位置偏上</span>
+          <span class="tag tag-jet">基部常多株相连丛生</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">淡淡菌类清香</span>
+          <span class="tag tag-stone">无特殊刺激性气味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-warn">⚠ 生品/半生食有毒，务必彻底煮熟</span>
+          <span class="tag tag-honey">熟制后：滑嫩鲜香，是"榛蘑炖鸡"常用食材</span>
+          <span class="tag tag-stone">部分敏感人群食用后可能有轻微肠胃反应</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-jet"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径3–15cm，初期凸起，后渐平展；茶色至黄棕色，表面密布深褐色鳞片，尤以中央最为密集；干燥不粘</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>白色至淡黄色，直生至近延生，较密，成熟后偶带浅褐色斑点</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色，质地紧实；生品带轻微苦涩及潜在刺激性，<strong>务必彻底煮熟</strong>后食用，不可生食或半生食</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>实心，坚实，与菌盖同色或稍浅，基部常数株相连成丛；这一"实心"特征也是其曾用学名 <em>Armillaria solidipes</em>（solidipes 意为"实心柄"）的由来</td>
+          </tr>
+          <tr>
+            <td>菌环</td>
+            <td>发达，膜质，位于菌柄中上部，是本种较为显著和稳定的结构特征，成熟后仍多可清晰保留</td>
+          </tr>
+          <tr>
+            <td>根状菌索（地下部分）</td>
+            <td>黑色，鞋带状，直径2–5mm，在土壤及树皮下大量延伸，可达数公里；是本种区别于地上蘑菇形态、在地下形成"巨型克隆个体"的关键结构，也是病害诊断的重要指征之一</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>卵形，白色；孢子印白色</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖<strong>密布深褐色鳞片</strong>，中央尤为浓密，是蜜环菌属内较易辨识的表面纹理特征</li>
+        <li>菌柄<strong>实心坚实</strong>并具<strong>发达完整的膜质菌环</strong>，区别于部分菌环稀薄或不明显的近缘种</li>
+        <li>常见多株<strong>密集丛生</strong>于针叶树桩、病死树根部周围，很少单生</li>
+        <li>树木或树桩基部若发现<strong>黑色鞋带状根状菌索</strong>及流出松脂，是本种（或近缘蜜环菌）侵染的典型病征，可辅助识别其地下宿主</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用提示：务必彻底煮熟，注意与有毒近似种区分</div>
+      <ul class="caution-list">
+        <li>蜜环菌属物种普遍<strong>生食或半生食有毒</strong>，可引起呕吐、腹泻等胃肠道反应，<strong>务必彻底煮熟煮透</strong>后食用，且不宜一次大量食用</li>
+        <li>部分个体食用后仍可能出现轻微不耐受反应，初次食用建议少量尝试</li>
+        <li>野外常见与本种相似的其他蜜环菌属物种（如蜜环菌 <em>A. mellea</em>、高卢蜜环菌 <em>A. gallica</em>）多数也可食用，但均需彻底煮熟；同时应注意与外观相似的剧毒的<strong>晶粒鹅膏</strong>等橙黄色系鹅膏（具菌托、白色菌褶）区分，重点核查柄基是否有菌托及菌褶颜色</li>
+        <li>作为重要的森林根部病原菌，本种在人工林及果园管理中被视为重要防治对象，采集食用与病害防控应分开看待，采集时注意不要在已使用化学防治剂的病害林区取食</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与蜜环菌（东北榛蘑）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">蜜环菌（<em>A. mellea</em>）菌盖颜色更偏蜂蜜黄，鳞片相对稀疏细小；本种菌盖<strong>茶色至黄棕色</strong>且<strong>鳞片更密更深</strong>，菌柄也更为坚实厚重</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与高卢蜜环菌（法国榛蘑）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">高卢蜜环菌（<em>A. gallica</em>）菌柄基部<strong>膨大呈球茎状</strong>，颜色也偏深；本种菌柄<strong>实心但不特别膨大</strong>，二者需结合柄基形态及菌环发达程度综合判断</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似及相关物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">蜜环菌（榛蘑）<em>Armillaria mellea</em></div>
+        <div class="confusion-diff">同属最常见的可食用种，中国东北地区俗称"榛蘑"，是"小鸡炖蘑菇"的经典食材；菌盖蜂蜜黄色调更纯，鳞片较本种稀疏</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">高卢蜜环菌（法国榛蘑）<em>Armillaria gallica</em></div>
+        <div class="confusion-diff">同属可食种，菌盖颜色更深，菌柄基部膨大呈球茎状（俗称"球茎蜂蜜蘑菇"），北美密歇根州也发现过巨型克隆个体，同样闻名于"巨型真菌"话题</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 晶粒鹅膏等橙黄色系鹅膏</div>
+        <div class="confusion-diff">部分橙黄色鹅膏在颜色上可能与本种产生远观混淆，但鹅膏属具<strong>白色菌褶</strong>及<strong>柄基菌托</strong>，与蜜环菌属棕黄色菌褶、无菌托的特征明显不同，采集时务必逐株核查柄基</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「鳞密盖深柄坚实，膜质菌环记心间」</div>
+        <div class="memory-pill">「地上一朵伞，地下一张网，绵延数公里」</div>
+        <div class="memory-pill">「生食有毒不可尝，煮熟煮透才香甜」</div>
+        <div class="memory-pill">「黑色菌索缠树根，既是美味也是病」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">典型密集丛生，多个子实体基部相连，成簇出现于树桩、病死树根部周围地表</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">兼性寄生/腐生真菌，主要侵染针叶树（松、云杉、冷杉等）根部，也可在朽木上腐生；地下根状菌索网络可侵染超过600种植物</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广泛分布于北美洲西部、欧洲及中国东北（黑龙江、吉林长白山区等针叶林区）；美国俄勒冈州蓝山地区记录有已知最大的单一克隆个体</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">秋季为主要出菇期，气温转凉多雨条件下集中大量出现</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：优先选取新鲜、菌环完整的子实体，采后务必彻底清洗并高温煮熟；因本种也是森林病原菌，大量采集有助于间接了解当地林木健康状况，但不应作为病害防治手段。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">彻底煮熟后质地滑嫩、味道鲜美，是中国东北"小鸡炖蘑菇"传统食材之一，也是欧美部分地区秋季采集的常见野生食用菌</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态与科研价值</div>
+        <div class="value-body">作为已知可形成地球最大生物体的物种之一，是研究真菌克隆生长模式、木质素/纤维素降解及基因组扩张演化的重要模式物种；美国俄勒冈州的巨型个体是全球生态学与真菌学界持续关注的经典案例</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">植物病理学价值</div>
+        <div class="value-body">是重要的森林根部病害病原菌，可引起松、云杉等针叶树的根朽病，导致大片林木死亡；根状菌索可在树桩中存活长达50年，是林业病害防治领域的重点研究和防控对象</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">经济影响</div>
+        <div class="value-body">对人工林及果园（如猕猴桃根腐病、苹果根朽病）造成显著经济损失；防治主要依靠伐除病源周边树木并改种抗病品种，化学防治效果有限且不经济</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://baike.baidu.com/item/%E5%A5%A5%E6%B0%8F%E8%9C%9C%E7%8E%AF%E8%8F%8C/163723" target="_blank">百度百科 · 奥氏蜜环菌</a> ·
+      <a class="ref-link" href="https://www.mbiosh.com/column/medicinal-mushrooms/hot-today/33003" target="_blank">探秘巨型食用菌</a> ·
+      <a class="ref-link" href="https://m.guokr.com/article/458558" target="_blank">果壳 · 蜜环菌属科普</a>
+    </div>
+    <div>可食（须煮熟）· 地球最大生物体之一 · 重要森林病原真菌</div>
+  </div>
+
+</div>
+</body>
+</html>
