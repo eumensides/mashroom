@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鲍鱼菇 · Pleurotus abalonus</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：柔和珍珠灰 + 浅海青调，呼应"鲍鱼"贝壳意象 */
+    --ink: #1b1c1a;
+    --ink-mid: #464742;
+    --ink-light: #8a8a80;
+    --cream: #f4f2ea;
+    --surface: #ffffff;
+    --surface-warm: #faf8f0;
+
+    /* 珍珠灰褐主色（菌盖色） */
+    --pearl: #6a5f4e;
+    --pearl-light: #a89a80;
+    --pearl-pale: #efe9da;
+    --pearl-mid: #52493a;
+
+    /* 浅海青（鲍鱼贝壳意象 / 生境） */
+    --sea: #3c6a62;
+    --sea-light: #82ab9e;
+    --sea-pale: #e6f0ec;
+
+    /* 暖米黄（菌褶/菌柄色） */
+    --cream-tone: #a8905a;
+    --cream-tone-light: #d9c090;
+    --cream-tone-pale: #f9f1de;
+
+    /* 警示：黑头孢梗束 / 高温烹煮提示 */
+    --warn: #9a5420;
+    --warn-light: #d59058;
+    --warn-pale: #fbeddc;
+
+    --stone: #605c4c;
+    --stone-light: #928c76;
+
+    --border: rgba(70,64,50,0.13);
+    --border-mid: rgba(70,64,50,0.23);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--sea);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #d6cdb8; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(16,18,14,0.72));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(230,240,236,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sea); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--pearl-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-sea    { background: var(--sea-pale);        color: var(--sea); }
+  .tag-pearl  { background: var(--pearl-pale);      color: var(--pearl-mid); }
+  .tag-cream  { background: var(--cream-tone-pale); color: var(--cream-tone); }
+  .tag-warn   { background: var(--warn-pale);       color: var(--warn); }
+  .tag-stone  { background: #efe9d8;                color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-sea    { background: var(--sea); }
+  .dot-pearl  { background: var(--pearl); }
+  .dot-warn   { background: var(--warn); }
+  .dot-stone  { background: var(--stone-light); }
+  .dot-cream  { background: var(--cream-tone); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #d6cdb8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #d6cdb8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(16,18,14,0.72); color: #ecf2ee; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--sea-pale);        color: var(--sea); }
+  .phase-mid    { background: var(--cream-tone-pale); color: var(--cream-tone); }
+  .phase-mature { background: var(--pearl-pale);      color: var(--pearl-mid); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--pearl-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(154,84,32,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a3210; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--sea-pale); border: 1px solid rgba(60,106,98,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--sea); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #1c3430; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--sea); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--pearl-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: #c07050; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--sea-pale); border: 1px solid rgba(60,106,98,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--sea); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #e6f0ec, #faf8f0);
+    border: 1px solid rgba(60,106,98,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--sea); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--sea); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  🐚 可食用珍稀菌 · 因形似鲍鱼、带海鲜香气而得名 · 高温季节栽培的夏季珍品
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://eumensides.github.io/mashroom/Pleurotus_abalonus0.png" type="image/png">
+      <img src="https://eumensides.github.io/mashroom/Pleurotus_abalonus0.png" alt="鲍鱼菇主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Pleurotus abalonus · 扇形/半圆形菌盖暗灰褐至黑褐色，偏生短柄，基部常见黑色孢梗束</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 伞菌目 · 侧耳科 · 侧耳属</div>
+    <div class="hero-name-zh">鲍鱼菇</div>
+    <div class="hero-name-la">Pleurotus abalonus</div>
+    <div class="hero-author">Y.H. Han, K.M. Chen &amp; S. Cheng, 1974</div>
+
+    <div class="tag-row">
+      <span class="tag tag-sea">可食用</span>
+      <span class="tag tag-cream">高温菌类（夏季栽培）</span>
+      <span class="tag tag-pearl">具鲍鱼香味</span>
+      <span class="tag tag-warn">柄基黑色孢梗束</span>
+      <span class="tag tag-stone">木腐生（分解能力较弱）</span>
+      <span class="tag tag-stone">珍稀食药兼用菌</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">鲍鱼菇 / 黑鲍菇 / 台湾平菇 / 高温平菇</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Abalone Mushroom</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 Agaricales / 侧耳科 Pleurotaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分类地位</span>
+        <span class="taxon-value">与泡囊侧耳（<em>P. cystidiosus</em>）关系密切，详见下文说明</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志结构：黑色孢梗束</span>
+        <span class="fb-value">柄基及菌褶常见黑色头状分生孢子梗束（synnemata），成串产生分生孢子，是鲍鱼菇区别于平菇、杏鲍菇等近缘种的最独特无性繁殖结构</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">得名由来：形味双似鲍鱼</span>
+        <span class="fb-value">菌盖扇形/半圆形近似鲍鱼贝壳轮廓，菌肉致密纤维丰富，质脆且带特有的类鲍鱼海鲜香气，因而得名</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">中高温菌类</span>
+        <span class="fb-value">菌丝生长适温20–32℃（最适25–28℃），子实体发育适温25–30℃，是少数适合盛夏高温季节栽培出菇的珍稀食用菌，可填补夏季菇类市场空档</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-sea"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pleurotus_abalonus1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 暗灰褐至黑褐色 / 中央微凹 / 表面细刚毛</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pleurotus_abalonus2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 奶油白菌褶延生 / 偏生短柄</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pleurotus_abalonus3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉白色致密 / 菌柄内实</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pleurotus_abalonus4.png" alt="菌褶面图" loading="lazy">
+        <div class="photo-caption">褶面 · 奶油白，宽间距具脉络，褶缘老熟转暗黑</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pleurotus_abalonus5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 奶油色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pleurotus_abalonus6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">★特殊细节 · 柄基黑色头状孢梗束特写</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Pleurotus_abalonus7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 榕树、刺桐、悬铃木、番石榴等活树死亡部分丛生 / 叠生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pearl"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体自树皮裂缝或伤口处以小型菌蕾状萌发，多个个体紧密丛生或叠生；菌盖初呈半球形，表面近黑色，边缘强烈内卷；
+          菌肉白色，厚实；菌褶尚未完全分化，色浅；菌柄短粗，偏生或近无柄，白色；柄基已可见早期黑色分生孢子梗束雏形。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐展开为半圆形至扇形，直径5–15cm，边缘渐平展，表面暗灰色至茶褐色，密布刚毛状厚壁囊状体（放大可见）；
+          菌褶延生，奶油白色，间距渐宽，脉络状分支开始出现；菌柄进一步增粗，白色至淡灰白色，内部渐实；柄基孢梗束发育明显，聚成黑色小头状簇。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展开，宽5–20（可达24）cm，厚1–2cm，扇形或不规则团扇形，中央明显凹陷，表面暗灰褐色至黑褐色，干燥，刚毛状囊状体致密；
+          菌褶奶油白色，间距宽、脉络交织，成熟后褶缘转暗黑色（重要识别特征）；菌柄内实致密，偏心生，白色至淡灰白色，长5–8cm；
+          柄基及菌褶间常见成簇黑色头状分生孢子梗束，产生大量链状分生孢子；孢子印奶油色。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pearl"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-pearl">菌盖初黑色→暗灰褐→茶褐色</span>
+          <span class="tag tag-cream">菌褶奶油白色</span>
+          <span class="tag tag-warn">褶缘成熟转暗黑色</span>
+          <span class="tag tag-cream">菌柄白色至淡灰白色</span>
+          <span class="tag tag-pearl">孢梗束纯黑色（茶褐至暗褐基部）</span>
+          <span class="tag tag-cream">孢子印奶油色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">扇形/半圆形/不规则团扇形（径5–20cm）</span>
+          <span class="tag tag-stone">中央明显凹陷</span>
+          <span class="tag tag-pearl">表面密布刚毛状厚壁囊状体</span>
+          <span class="tag tag-cream">菌柄偏心生/侧生，粗短（4–8cm）</span>
+          <span class="tag tag-stone">单生或多株叠生／近丛生</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-sea">★特有类鲍鱼海鲜香味</span>
+          <span class="tag tag-stone">菌香浓郁而不刺鼻</span>
+          <span class="tag tag-stone">干制后香气更为浓缩</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-sea">质脆，纤维含量丰富</span>
+          <span class="tag tag-cream">菌肉致密耐嚼</span>
+          <span class="tag tag-stone">较耐储藏，适合久炖久煮</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-cream"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>干燥，初期近黑色，成熟后暗灰褐至茶褐色，表面密布刚毛状、壁厚、近圆柱形至近棒形的囊状体，中央明显凹陷，边缘幼时内卷，成熟展平或微上翘</td></tr>
+          <tr><td>菌褶</td><td>延生，奶油白色，不等长，间距较宽，具多条横向脉络相连；成熟后褶缘因大量分生孢子附着而转为暗黑色，是重要的成熟期识别标志</td></tr>
+          <tr><td>菌肉</td><td>白色，较厚实（幼期）至偏薄（成熟期），纤维含量丰富，质地致密而脆，带特有的鲍鱼样香气</td></tr>
+          <tr><td>菌柄</td><td>偏心生或侧生，粗短，长4–8cm，径1–3cm，内实致密，表面白色至淡灰白色，光滑或具细纵纹</td></tr>
+          <tr><td>孢梗束（分生孢子梗束）</td><td>★本种最具鉴别价值的特殊结构：菌丝在柄基及菌褶间形成黑色头状孢梗束簇，茶褐色至暗褐色，基部具锁状联合，束生大量分生孢子并呈链状发生；栽培及野生子实体均可见</td></tr>
+          <tr><td>孢子</td><td>近圆柱形，无色透明，光滑；孢子印奶油色</td></tr>
+          <tr><td>菌托</td><td>无菌托（侧耳属通性，区别于鹅膏属等具菌托类群）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-sea"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖<strong>扇形/半圆形，中央明显凹陷</strong>，暗灰褐至黑褐色，酷似鲍鱼贝壳轮廓，故得名"鲍鱼菇"</li>
+        <li>柄基及菌褶间可见<strong>黑色头状分生孢子梗束</strong>簇生——本种最独特、最具鉴别价值的结构，其他常见侧耳属近缘种（平菇、杏鲍菇）均不具备</li>
+        <li>菌肉致密带<strong>类鲍鱼海鲜香气</strong>，是嗅觉上最直观的辨识依据</li>
+        <li>菌褶<strong>宽间距、多脉络相连</strong>，成熟后褶缘转暗黑色</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">🍳 食用提示：正常食用无风险，但仍需注意</div>
+      <ul class="caution-list">
+        <li>鲍鱼菇为常规食用菌，充分煮熟后食用安全，无已知毒素报道</li>
+        <li>菌肉纤维较丰富、质地偏韧，建议切薄片或延长炖煮时间以获得最佳口感</li>
+        <li>栽培及野生环境下柄基孢梗束簇属正常结构，非病变或污染，可食用部分可整株清洗后食用</li>
+        <li>如从不明来源采集野生个体，仍建议由专业人士确认物种后再食用，避免与其他侧耳属或环柄菇属物种混淆</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与平菇（糙皮侧耳）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">平菇菌盖<strong>灰蓝至浅灰褐色</strong>，无黑色孢梗束，无鲍鱼香气，喜偏低温（10–25℃）；鲍鱼菇菌盖<strong>暗灰褐至黑褐色</strong>，具黑色孢梗束及特有香气，喜中高温（20–32℃）</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与杏鲍菇区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">杏鲍菇菌盖<strong>浅黄至黄褐色</strong>，菌柄粗壮中生呈棒状，无孢梗束，气味似杏仁/坚果；鲍鱼菇菌盖<strong>暗灰褐至黑褐色</strong>，柄偏心生粗短，具孢梗束</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">平菇（糙皮侧耳）<em>Pleurotus ostreatus</em>（可食）</div>
+        <div class="confusion-diff">最常见栽培食用菌，区别：菌盖灰蓝至灰褐色，无黑色孢梗束簇，喜低温季节出菇，无明显海鲜香气；市场上最容易与鲍鱼菇混淆的近缘种</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">杏鲍菇（刺芹侧耳）<em>Pleurotus eryngii</em>（可食）</div>
+        <div class="confusion-diff">区别：菌柄粗壮呈棒状、中生，菌盖浅褐色近平展，气味近杏仁香而非海鲜香，无孢梗束结构，多单生/散生于伞形科植物根部而非木材</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">泡囊侧耳 <em>Pleurotus cystidiosus</em>（可食，分类关系密切）</div>
+        <div class="confusion-diff">部分分类文献将 <em>P. abalonus</em> 处理为 <em>P. cystidiosus</em> 的异名，二者均具黑色孢梗束这一关键共同特征，详见下方"分类地位说明"</div>
+      </div>
+    </div>
+
+    <!-- 分类地位说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--sea-pale);border:1px solid rgba(60,106,98,0.30);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--sea);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位说明：鲍鱼菇 与 泡囊侧耳</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--sea);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--sea);margin-bottom:8px;">本页记录名</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Pleurotus abalonus</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">Y.H.Han, K.M.Chen &amp; S.Cheng, 1974</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">中文：<strong>鲍鱼菇</strong>。中国大陆、台湾商业栽培及食品科学文献中广泛沿用的学名与中文名，是华南地区栽培珍稀食用菌的主流称谓。</div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--stone-light);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone);margin-bottom:8px;">分类学处理名</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Pleurotus cystidiosus</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">O.K. Mill., 1969</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">中文：<strong>泡囊侧耳</strong>，部分中文百科亦称"鲍鱼菇"。维基百科等来源将 <em>P. abalonus</em> 及无性型 <em>Antromycopsis macrocarpa</em> 列为其异名。</div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称关系与使用建议</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--sea);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;"><strong>同属黑色孢梗束特征群：</strong><em>P. abalonus</em> 与 <em>P. cystidiosus</em> 均以柄基/菌褶间生长黑色头状分生孢子梗束为共同鉴别特征，是侧耳属中一个独特的"孢梗束支系"，二者在形态与生态上高度相似。</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--sea);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;"><strong>使用建议：</strong>中国大陆食用菌栽培、菌种保藏（如CICC菌种库）及市场流通中普遍使用 <em>Pleurotus abalonus</em> 这一学名与"鲍鱼菇"之名，本页遵循这一习惯；如需查阅国际分类学文献，可同时检索 <em>P. cystidiosus</em> 以获取更完整信息。</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--warn-pale);border:1px solid rgba(154,84,32,0.3);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a3210;line-height:1.7;">
+          <strong>🍄 采集/选购提示：</strong>市场上"鲍鱼菇"之名有时也被商家用于杏鲍菇等其他侧耳属物种的俗称营销，购买时可留意菌盖是否具暗灰褐至黑褐色、柄基是否有黑色小颗粒状孢梗束簇，以及是否带有特有的类鲍鱼香气，作为品种核实的简易依据。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「扇贝形状黑灰盖，凹陷中央似鲍鱼」</div>
+        <div class="memory-pill">「柄基黑头孢梗束，链状孢子暗藏其中」</div>
+        <div class="memory-pill">「闻香辨菇非难事，海鲜气息第一线索」</div>
+        <div class="memory-pill">「高温出菇填夏缺，珍稀菌中显身手」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或群生，人工栽培及部分野生个体可见多株叠生（覆瓦状）；子实体分化速度较快，出菇集中</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">木腐生菌，但分解木材的能力较弱；野生个体多见于榕树、刺桐、悬铃木、番石榴等活树的死亡部分（枯枝、伤口坏死组织）；人工栽培以棉子壳、玉米芯、杂木屑、稻麦草配合麸皮、玉米粉、糖、碳酸钙等辅料为培养基质</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">原分布于中国台湾、福建，后扩展栽培至浙江等南方省份；属亚热带至热带性偏高温菌类，主产区集中于我国南方</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集/栽培季节</div>
+        <div class="habitat-value">野生个体多见于夏秋季；人工栽培因喜中高温（菌丝20–32℃，子实体25–30℃），是少有的可安排在盛夏出菇的珍稀菌类，恰好填补传统菇类夏季供应空档</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集/栽培建议：培养料含水量宜控制在65–70%，培养室相对湿度60–70%，出菇阶段相对湿度需提高至90–95%并保证充足散射光与通风换气，以获得最佳品质子实体。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-cream"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">菌肉致密，纤维含量丰富，质脆带特有鲍鱼香味，是食药兼用的珍稀菌类；鲜菇含水分约92.75%，干菇粗蛋白含量高达19.20%，脂肪13.48%，可溶性糖16.61%，粗纤维4.8%，氨基酸总量占21.87%，营养较为全面</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用与保健价值</div>
+        <div class="value-body">性微温，味甘，传统认为具滋养、补脾胃、除温邪、驱风散寒、舒筋活络之效，可用于辅助改善腰腿疼痛、筋络不舒、手足麻木；现代研究显示其子实体含抗肿瘤细胞多糖体，能提高机体免疫力，并对肝炎、胃炎、十二指肠溃疡有一定辅助治疗作用，长期食用有助于降低血压和胆固醇</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">商业与市场价值</div>
+        <div class="value-body">主要分布于我国南方，驯化栽培略有难度，产量一般，价格较高，多见于大中城市市场；因适合高温季节栽培，是填补夏季食用菌市场空档的重要品种，消费群体仍待进一步开发，前景较好</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研与记录价值</div>
+        <div class="value-body">因具有独特的黑色头状分生孢子梗束及链状分生孢子发生方式，是研究侧耳属无性繁殖机制的重要模式类群；相关菌株已收录于中国工业微生物菌种保藏管理中心（CICC）等国家级菌种资源库</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://baike.baidu.com/item/鲍鱼菇" target="_blank">百度百科 · 鲍鱼菇</a> ·
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-cn/%E9%AE%91%E9%AD%9A%E8%8F%87" target="_blank">维基百科 · 鲍鱼菇</a> ·
+      <a class="ref-link" href="https://mushroompro.njau.edu.cn/info/1009/4847.htm" target="_blank">南京农业大学食用菌加工研究室</a> ·
+      <a class="ref-link" href="https://www.china-cicc.org/cicc/detail2/?sid=12957" target="_blank">中国工业微生物菌种保藏管理中心</a>
+    </div>
+    <div>可食用 · 珍稀高温菌类 · 食药兼用</div>
+  </div>
+
+</div>
+</body>
+</html>
