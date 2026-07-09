@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奥来丝膜菌 · Cortinarius orellanus（剧毒，禁止食用）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 剧毒物种：茶褐橙调 + 强烈警戒深红 */
+    --ink: #1c1208;
+    --ink-mid: #4a3420;
+    --ink-light: #8a7256;
+
+    --cream: #f5ece0;
+    --surface: #fffaf4;
+    --surface-warm: #faf0e2;
+
+    /* 茶褐主色（菌盖色） */
+    --tawny: #a3591e;
+    --tawny-light: #d69252;
+    --tawny-pale: #f8e4cc;
+    --tawny-mid: #7a4014;
+
+    /* 锈红（菌褶色） */
+    --rust: #8a3a1a;
+    --rust-light: #c47850;
+    --rust-pale: #f4ddc8;
+
+    /* 致命深红（核心警戒色，剧毒物种主基调） */
+    --danger: #7a1414;
+    --danger-light: #c26858;
+    --danger-pale: #f8dcd6;
+    --danger-mid: #5c0e0e;
+
+    /* 蛛网灰紫（幼期丝膜标记） */
+    --cobweb: #8a7a8a;
+    --cobweb-light: #c4b8c4;
+    --cobweb-pale: #f0eaf0;
+
+    --stone: #6a5c48;
+    --stone-light: #a09070;
+
+    --border: rgba(140,60,20,0.16);
+    --border-mid: rgba(140,60,20,0.28);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--danger);
+    color: #fff;
+    text-align: center;
+    padding: 11px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #d8a870; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(30,12,4,0.76)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(250,220,190,0.9); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--danger); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 34px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--tawny-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-tawny  { background: var(--tawny-pale);  color: var(--tawny-mid); }
+  .tag-rust   { background: var(--rust-pale);   color: var(--rust); }
+  .tag-danger { background: var(--danger-pale); color: var(--danger); }
+  .tag-cobweb { background: var(--cobweb-pale); color: var(--cobweb); }
+  .tag-stone  { background: #ede0cc;            color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-tawny  { background: var(--tawny-mid); }
+  .dot-rust   { background: var(--rust); }
+  .dot-danger { background: var(--danger); }
+  .dot-stone  { background: var(--stone-light); }
+  .dot-cobweb { background: var(--cobweb); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #d8a870; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #d8a870; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(30,12,4,0.76); color: #f8e0c4; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--cobweb-pale); color: var(--cobweb); }
+  .phase-mid    { background: var(--tawny-pale);  color: var(--tawny-mid); }
+  .phase-mature { background: var(--rust-pale);   color: var(--rust); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--tawny-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--danger-pale); border: 1px solid rgba(122,20,20,0.35); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 700; color: var(--danger); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a0e0e; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--danger); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--tawny-pale); border: 1px solid rgba(122,64,20,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--tawny-mid); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #3a2410; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--tawny-mid); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--tawny-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--danger); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--danger-pale); border: 1px solid rgba(122,20,20,0.28); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--danger); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #f8dcd6, #faf0e2);
+    border: 1px solid rgba(122,20,20,0.32); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--danger); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--tawny-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  ☠ 剧毒物种 · 严禁食用 · 中毒潜伏期长达数天至两周，肾损伤不可逆，误食务必立即就医
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Cortinarius_orellanus0.png" alt="奥来丝膜菌主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Cortinarius orellanus · 茶褐至浅红褐色菌盖覆细小鳞片，茶红至锈褐色菌褶，幼时具蛛网状丝膜，与栎、松等树木形成菌根</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 蘑菇目 · 丝膜菌科 · 丝膜菌属 奥来亚属（Orellani）</div>
+    <div class="hero-name-zh">奥来丝膜菌</div>
+    <div class="hero-name-la">Cortinarius orellanus</div>
+    <div class="hero-author">Fr., 1838 · 俗称「趟子蘑」「傻瓜网帽」「Fool's Webcap」</div>
+
+    <div class="tag-row">
+      <span class="tag tag-danger">☠ 剧毒，可致死</span>
+      <span class="tag tag-danger">肾损伤不可逆</span>
+      <span class="tag tag-tawny">潜伏期长达8-17天</span>
+      <span class="tag tag-cobweb">幼期具蛛网状丝膜</span>
+      <span class="tag tag-rust">外生菌根真菌</span>
+      <span class="tag tag-stone">数据缺乏（DD）</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">奥来丝膜菌 / 趟子蘑 / 傻瓜网帽</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Fool's Webcap / Deadly Cortinarius</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">蘑菇目 Agaricales / Cortinariaceae 丝膜菌科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">《中国生物多样性红色名录》评估为数据缺乏（DD）</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">致命毒素：奥来毒素（Orellanine）</span>
+        <span class="fb-value">选择性损伤肾脏近曲小管细胞，造成不可逆的肾小管间质损伤；该毒素<strong>不因烹煮、冷冻或晒干而分解</strong>，常规烹饪手段完全无法解毒</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">超长潜伏期：诊断陷阱</span>
+        <span class="fb-value">中毒症状通常在食用后<strong>3–17天</strong>才显现（部分文献记载8–12小时起病），初期仅表现为口渴、乏力、头痛等类流感症状，极易被误诊而错过最佳救治时机</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">丝膜（cortina）：属级识别特征</span>
+        <span class="fb-value">幼期菌盖与菌柄之间覆盖蛛网状丝膜（cortina），这是丝膜菌属的命名由来与共同特征，但同属内种类繁多、颜色相近，仅凭丝膜无法判断是否有毒</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-tawny"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Cortinarius_orellanus1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 茶褐至浅红褐色 / 细小鳞片 / 中央色深</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Cortinarius_orellanus2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 茶红至锈褐色菌褶 / 幼期蛛网状丝膜残迹</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Cortinarius_orellanus3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉浅赭色 / 切开略带萝卜味</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Cortinarius_orellanus4.png" alt="菌褶面图" loading="lazy">
+        <div class="photo-caption">褶面 · 幼时浅赭黄，随孢子成熟转锈褐色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Cortinarius_orellanus5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 锈褐色（丝膜菌属通性）</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Cortinarius_orellanus6.png" alt="幼期丝膜细节图" loading="lazy">
+        <div class="photo-caption">细节 · 幼期蛛网状丝膜连接菌盖边缘与菌柄</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Cortinarius_orellanus7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 阔叶林及针叶林地表，与栎、松等树木共生，散生或群生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-cobweb"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体幼时呈半球形至凸镜形，菌盖直径3–5cm，表面浅赭黄色，边缘略内卷；菌盖边缘与菌柄之间覆有<strong>蛛网状丝膜</strong>（cortina），
+          遮盖尚未成熟的菌褶；菌柄基部渐细，颜色与菌盖相近或略浅；此期整体色调偏淡，容易被误认作普通可食用菌。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐展开为平凸形至近平展，直径可达3–8cm，表面转为温暖橙褐至茶褐色，中央颜色更深，质地干燥、丝状纤毛至细鳞片状；
+          丝膜逐渐破裂，仅在菌柄上部残留丝状痕迹；菌褶完全显露，浅赭黄色，随孢子成熟渐转锈褐色；受潮或老熟后菌盖颜色进一步加深。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，偶具低矮中凸，茶褐至浅红褐色并覆盖细小鳞片；菌褶茶红色至锈褐色，直生至近弯生；
+          菌柄4–9cm，基部变细呈锥形，颜色与菌盖相同或略浅，内部菌肉浅赭色，切开有淡淡萝卜味；孢子印锈褐色。此期外观与多种可食丝膜菌及其他锈褐色伞菌高度相似，是中毒事件的主要发生阶段。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-tawny">菌盖茶褐至浅红褐色（中央更深）</span>
+          <span class="tag tag-rust">菌褶茶红色至锈褐色</span>
+          <span class="tag tag-stone">孢子印锈褐色</span>
+          <span class="tag tag-cobweb">幼期丝膜灰白至浅黄</span>
+          <span class="tag tag-stone">菌肉浅赭色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">半球形→平凸形→近平展（径3–8cm）</span>
+          <span class="tag tag-tawny">表面干燥，丝状纤毛至细鳞片</span>
+          <span class="tag tag-rust">菌柄4–9cm，基部变细呈锥形</span>
+          <span class="tag tag-cobweb">幼期具蛛网状丝膜，成熟后仅留残迹</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">切开菌肉带淡淡萝卜味</span>
+          <span class="tag tag-stone">整体无强烈异味，不具备警示性臭味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感 / 食用性</div>
+        <div class="trait-tags">
+          <span class="tag tag-danger">☠ 剧毒，绝对禁止食用或品尝</span>
+          <span class="tag tag-danger">毒素不因烹煮、冷冻、晒干而分解</span>
+          <span class="tag tag-danger">无解毒剂，唯靠血液透析等对症治疗</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径3–8cm，幼时半球形，成熟展开为平凸形至近平展，偶具低矮中凸；表面干燥，丝状纤毛至覆细小鳞片；茶褐色至浅红褐色，中央颜色更深，受潮或老熟后颜色进一步加深</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>直生至近弯生，幼时浅赭黄色，随孢子成熟逐渐转为茶红色至锈褐色；质地较脆</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>浅赭色，切开有淡淡萝卜味，无强烈警示性异味或苦味——这也是其危险性之一：气味口感均无法预警毒性</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>长4–9cm，粗1–2cm；基部渐细呈锥形；颜色与菌盖相同或稍浅；幼期表面具蛛网状丝膜残迹，成熟后大多消失或仅留浅色丝状斑纹</td>
+          </tr>
+          <tr>
+            <td>丝膜（Cortina）</td>
+            <td>幼期连接菌盖边缘与菌柄的蛛网状薄膜结构，是丝膜菌属的命名依据；质地暂时性，成熟后大多脱落消失，个别标本菌柄上可见残余丝状痕迹</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>椭圆形，表面具疣状纹饰；孢子印锈色至棕色，是丝膜菌属的共同特征</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-danger"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识要素（仅供识别警惕，不用于采食判断）</div>
+      <ul class="distinction-list">
+        <li>菌盖<strong>茶褐至浅红褐色</strong>并覆细小鳞片，菌褶<strong>茶红至锈褐色</strong>，整体色调温暖但并不鲜艳，容易被误认为普通"棕菇"</li>
+        <li>幼期具<strong>蛛网状丝膜</strong>连接菌盖与菌柄，是丝膜菌属的标志结构，但该属<strong>2000余种</strong>中大多外观相近，肉眼极难细分种间差异</li>
+        <li>孢子印<strong>锈褐色</strong>，与鹅膏属的白色孢子印、蘑菇属的深褐色孢子印均不相同</li>
+        <li>菌肉切开仅有<strong>淡淡萝卜味</strong>，<strong>无</strong>任何可用于预警的苦味、辛辣味或刺激性气味——气味口感完全无法作为安全判断依据</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">☠ 致命警示：丝膜菌属整体不建议采食，本种绝对禁食</div>
+      <ul class="caution-list">
+        <li>本种所含<strong>奥来毒素（Orellanine）</strong>选择性损伤肾脏近曲小管，造成<strong>不可逆</strong>的肾小管间质损伤，严重者需终生血液透析或肾移植，亦可致死</li>
+        <li>中毒潜伏期<strong>长达数天至两周</strong>（文献记载3–17天，部分资料称8–12小时起病），初期症状（口渴、乏力、头痛、恶心）与感冒或肠胃炎极为相似，极易被误诊延误救治</li>
+        <li>该毒素<strong>热稳定性极强</strong>，煮沸、冷冻、晒干、腌制等常规处理手段均<strong>无法破坏</strong>其毒性</li>
+        <li>丝膜菌属全属含2000余种，种间形态差异细微且高度依赖显微特征与化学试剂鉴定，<strong>国际权威机构普遍建议业余采集者完全避开整个丝膜菌属</strong>，不因个别种类"据说可食"而心存侥幸</li>
+        <li>若怀疑误食本种或其他丝膜菌，即使当下无明显不适，也应<strong>立即就医并说明可能的蘑菇种类</strong>，尽早通过血液检测评估肾功能并考虑血液透析等干预措施</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与细鳞丝膜菌（死亡网帽）的关系</div>
+        <div style="font-size:13px;color:var(--ink-mid)">细鳞丝膜菌（<em>Cortinarius rubellus</em>，旧称<em>C. speciosissimus</em>）同含奥来毒素，颜色更偏橙红、菌盖具明显尖突，与本种常并称为欧洲最危险的两种丝膜菌，中毒机制和救治方式相同</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与可食用棕色伞菌的表面相似性</div>
+        <div style="font-size:13px;color:var(--ink-mid)">本种茶褐色菌盖与部分可食用的红菇、乳菇、牛肝菌等在颜色上可能产生远观混淆；但红菇属、乳菇属菌褶均为<strong>白色</strong>而非锈褐色，牛肝菌则完全无菌褶而是孔状结构，细看结构差异明显</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相关及易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--danger)">☠ 细鳞丝膜菌（死亡网帽）<em>Cortinarius rubellus</em></div>
+        <div class="confusion-diff">同含奥来毒素的剧毒近缘种，菌盖橙红色且中央具明显尖突，欧洲另一大宗奥来毒素中毒事件元凶，中毒表现与救治方式与本种相同</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--danger)">⚠ 尖顶丝膜菌 <em>Cortinarius gentilis</em></div>
+        <div class="confusion-diff">同科同属含奥来毒素的潜在致命种，体型较本种略小，颜色偏黄褐，与本种共同构成丝膜菌属中最危险的"奥来亚属"类群</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">皱盖丝膜菌 <em>Cortinarius caperatus</em></div>
+        <div class="confusion-diff">丝膜菌属中被部分地区认为可食的种类，菌盖具明显放射状皱纹及白霜状粉末；但即便如此，业余采集者仍应避免采食任何丝膜菌属物种，种间误认风险远大于潜在食用价值</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">其他锈色孢子印棕色伞菌</div>
+        <div class="confusion-diff">粪锈伞属（<em>Gymnopilus</em>）、裸伞属等孢子印同为锈色的其他属真菌外观也可能与本种相似，进一步说明"棕色蘑菇"这一笼统外观特征完全不能作为食用安全的判断依据</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「丝膜属下两千种，肉眼难辨全不吃」</div>
+        <div class="memory-pill">「潜伏数日像感冒，肾伤已成难回头」</div>
+        <div class="memory-pill">「萝卜味淡无警示，气味口感皆失效」</div>
+        <div class="memory-pill">「煮炖冻晒都无用，毒素稳定不分解」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">散生或群生于林下地表</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">外生菌根真菌，与栎、松等阔叶及针叶树木形成共生关系，多见于阔叶林及针阔混交林地表</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国主要见于大兴安岭等阔叶林区及陕西秦岭地区；欧洲是该毒素中毒事件报告最集中的地区（1952年波兰102人中毒事件），北美、澳大利亚也有病例报道</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">夏秋季为主要出菇期，与阔叶林季节性菌根活动同步</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      安全提示：本页仅作科普识别用途，<strong>不建议任何非专业人士采集或食用丝膜菌属任何物种</strong>；若在阔叶/针叶林地表发现茶褐色、具丝膜结构的伞菌，请勿采食，可拍照记录后咨询专业机构。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-danger"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">无——剧毒物种，绝对不可食用；无任何传统食用记录具有安全性依据</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">医学与毒理学研究价值</div>
+        <div class="value-body">奥来毒素是研究肾脏近曲小管选择性毒性机制的重要天然毒素模型，相关研究有助于理解肾毒性药物及环境毒素对肾脏的损伤机制，具有较高的基础医学研究价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为外生菌根真菌，与栎、松等树种形成共生关系，参与森林生态系统的养分循环与水分吸收调节</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">公共卫生科普价值</div>
+        <div class="value-body">是"潜伏期长、症状不典型"毒蘑菇中毒的经典教学案例，对提升公众及基层医疗人员对迟发型肾毒性蘑菇中毒的识别与警惕意识具有重要科普意义</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://baike.baidu.com/item/%E5%A5%A5%E6%9D%A5%E4%B8%9D%E8%86%9C%E8%8F%8C/58235198" target="_blank">百度百科 · 奥来丝膜菌</a> ·
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-hans/%E5%A5%A5%E6%9D%A5%E6%AF%92%E7%B4%A0" target="_blank">维基百科 · 奥来毒素</a> ·
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-cn/%E4%B8%9D%E8%86%9C%E8%8F%8C%E5%B1%9E" target="_blank">维基百科 · 丝膜菌属</a>
+    </div>
+    <div>数据缺乏（DD）· 剧毒，严禁食用 · 肾损伤不可逆</div>
+  </div>
+
+</div>
+</body>
+</html>
