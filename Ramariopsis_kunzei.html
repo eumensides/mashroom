@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白色拟枝瑚菌 · Ramariopsis kunzei</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：珊瑚白 · 象牙调 · 柔和温暖 */
+    --ink: #221c14;
+    --ink-mid: #4a4030;
+    --ink-light: #8a8070;
+    --cream: #faf7f0;
+    --surface: #ffffff;
+    --surface-warm: #fdfaf4;
+
+    /* 珊瑚象牙主色 */
+    --coral: #a8895a;
+    --coral-light: #d4b98a;
+    --coral-pale: #f7f0e2;
+    --coral-mid: #7a6040;
+
+    /* 沙棕（柄基、绒毛色） */
+    --sand: #8f7a52;
+    --sand-light: #c2ac7e;
+    --sand-pale: #f5eedd;
+
+    /* 苔绿（可食标记） */
+    --moss: #5a7a3a;
+    --moss-light: #9ac278;
+    --moss-pale: #eef4e6;
+
+    /* warn：与有毒枝瑚菌混淆警示（暖橙非鲜红，减轻紧张感） */
+    --warn: #9a5a28;
+    --warn-light: #d4903a;
+    --warn-pale: #fbf0e0;
+
+    --stone: #6a6050;
+    --stone-light: #a89c82;
+
+    --border: rgba(120,100,60,0.12);
+    --border-mid: rgba(120,100,60,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--coral);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #ece4d2;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(30,22,10,0.7));
+    padding: 24px 20px 16px;
+  }
+
+  .hero-overlay-text { font-size: 12px; color: rgba(250,238,210,0.9); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--coral); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700;
+    line-height: 1.2; color: var(--ink); margin-bottom: 6px;
+  }
+
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--sand); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-coral { background: var(--coral-pale); color: var(--coral-mid); }
+  .tag-moss  { background: var(--moss-pale);  color: var(--moss); }
+  .tag-warn  { background: var(--warn-pale);  color: var(--warn); }
+  .tag-sand  { background: var(--sand-pale);  color: var(--sand); }
+  .tag-stone { background: #f0ece0; color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-coral { background: var(--coral); }
+  .dot-moss  { background: var(--moss); }
+  .dot-warn  { background: var(--warn); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-sand  { background: var(--sand); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+
+  .section-badge {
+    margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+  .photo-slot {
+    aspect-ratio: 4/3; background: #e4dcc4; border-radius: 8px; overflow: hidden;
+    position: relative; border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot-wide {
+    aspect-ratio: 16/7; background: #e4dcc4; border-radius: 8px; overflow: hidden;
+    position: relative; border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(30,22,10,0.72); color: #f5ecd8; font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--coral-pale); color: var(--coral-mid); }
+  .phase-mature { background: var(--sand-pale);  color: var(--sand); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+
+  .trait-name {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border);
+    vertical-align: top; color: var(--ink);
+  }
+  .parts-table td:first-child { font-weight: 500; color: var(--coral-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box {
+    background: var(--warn-pale); border: 1px solid rgba(154,90,40,0.28);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem;
+  }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a3510; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box {
+    background: var(--moss-pale); border: 1px solid rgba(90,122,58,0.28);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem;
+  }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2a3d1c; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--coral-light);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.danger { border-left-color: #d4703a; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--coral-pale); border: 1px solid rgba(168,137,90,0.25); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--coral-mid); font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); margin-bottom: 6px;
+  }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); margin-bottom: 8px;
+  }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .coral-bar {
+    background: linear-gradient(135deg, #f7f0e2, #fdfaf4);
+    border: 1px solid rgba(168,137,90,0.3); border-radius: 12px; padding: 18px 20px;
+    margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--coral); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light);
+  }
+  .ref-link { color: var(--coral-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .coral-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🤍 可食用物种 · 质地寡淡近乎无味 · 全白不变色是安全底线，变色/染橙粉需警惕
+</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei0.png" alt="白色拟枝瑚菌主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Ramariopsis kunzei · 乳白色多分枝珊瑚状子实体，丛生于林下地表</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 珊瑚菌科（枝瑚菌类）</div>
+    <div class="hero-name-zh">白色拟枝瑚菌</div>
+    <div class="hero-name-la">Ramariopsis kunzei</div>
+    <div class="hero-author">(Fr.) Corner, 1950 · 原学名 Clavaria kunzei</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">可食用</span>
+      <span class="tag tag-coral">质韧味淡</span>
+      <span class="tag tag-sand">腐生 / 木材腐朽菌</span>
+      <span class="tag tag-stone">拟枝瑚菌属模式种</span>
+      <span class="tag tag-warn">⚠ 慎与彩色枝瑚菌混淆</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">白色拟枝瑚菌 / 白珊瑚菌 / 孔策拟枝瑚菌 / 白色锁瑚菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">White Coral / White Coral Fungus</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / 珊瑚菌科 Clavariaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">未评估 · 世界广布常见种</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="coral-bar">
+      <div class="rh-item">
+        <span class="rh-label">标志结构：珊瑚状分枝</span>
+        <span class="rh-value">无菌盖无菌褶，全株呈直立丛生的珊瑚枝状，主枝3–5个，向上3–6次叉状分枝，顶端钝圆而非流苏状</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">分类地位复杂</span>
+        <span class="rh-value">珊瑚菌类形态简单趋同，一个多世纪内在 Clavaria、Ramaria、Ramariopsis、Clavulinopsis 等属间反复移动，是真菌分类史的经典难题</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">口感提示</span>
+        <span class="rh-value">国际文献一致评价其"fleshless and flavorless"——质地寡淡、几乎无味，食用价值以质地和药用记载为主，而非风味</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-coral"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei1.png" alt="上方整株图" loading="lazy">
+        </picture>
+        <div class="photo-caption">整株俯视 · 乳白色 / 密集叉状分枝 / 顶端钝圆</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 分枝层次 / 柄基绒毛 / 枝条粗细渐变</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉白色致密 / 内部实心无空腔</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei4.png" alt="子实层图" loading="lazy">
+        </picture>
+        <div class="photo-caption">子实层面 · 分枝表面全面被孢子层，光滑无褶</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 白色（显微下广椭圆形，表面粗糙）</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 分枝顶端钝圆无流苏 / 柄基细微绒毛</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide" style="margin-top:10px;">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ramariopsis_kunzei7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 林下枯枝落叶层 / 偶见于倒腐木或枕木上 · 夏秋季丛生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-sand"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">萌发期</div>
+        <div class="phase-desc">
+          子实体自基质中顶出，初为细小白色棒状突起或简单短柱，高不足1cm，尚未分枝；
+          基部具短小的原始柄，柄长0.5–1cm，粗0.2–0.3cm，表面覆细微绒毛；
+          此时整体呈单一乳白色，质地柔嫩，尚看不出珊瑚状轮廓。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">分枝期</div>
+        <div class="phase-desc">
+          柄部向上发出3–5个主枝，主枝再经3–6次叉状二歧分枝，形成密集的珊瑚状构造；
+          分枝直立向上，圆柱形，粗1–2mm，表面光滑；
+          整株高度增至2–6cm，宽度2–4cm，颜色仍为乳白色至象牙白，质地开始变韧。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          分枝进一步伸展，株高可达5–8cm，宽4–6cm；分枝顶端尖锐或钝圆，子实层布满分枝上部表面；
+          老熟个体分枝顶端可能微微泛黄或带粉红色调（非病变，属自然老化）；
+          质地转为坚韧，不易折断；孢子成熟脱落，可在分枝间隙见到白色粉末状孢子堆积。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-sand"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-coral">全株乳白色→象牙白</span>
+          <span class="tag tag-sand">老熟顶端微黄</span>
+          <span class="tag tag-warn">老熟偶带淡粉色调</span>
+          <span class="tag tag-moss">孢子印白色</span>
+          <span class="tag tag-stone">柄基近白略带土色沾染</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">珊瑚状多分枝（高2–8cm）</span>
+          <span class="tag tag-stone">主枝3–5，二至六次叉状分枝</span>
+          <span class="tag tag-stone">分枝顶端钝圆，非流苏羽状</span>
+          <span class="tag tag-coral">柄部短小，长0.5–1cm</span>
+          <span class="tag tag-coral">无菌盖无菌褶（区别于伞菌）</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">无特殊气味</span>
+          <span class="tag tag-stone">或极淡的菌类清香</span>
+          <span class="tag tag-stone">无刺激性异味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">熟制后质韧不软烂</span>
+          <span class="tag tag-warn">味极淡，几近无味</span>
+          <span class="tag tag-stone">口感偏"寡淡多汁而无肉感"</span>
+          <span class="tag tag-stone">传统多入药炖汤而非炒食</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-sand"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr><th>部位</th><th>形态描述</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>分枝（枝体）</td>
+            <td>圆柱形，粗1–2mm（老熟可达5mm），表面光滑不黏，直立向上生长；顶端钝圆，个别品种顶端尖锐但从不呈流苏状撕裂</td>
+          </tr>
+          <tr>
+            <td>子实层</td>
+            <td>覆盖于分枝上部表面（非独立菌褶结构），担子棒状，25–45 × 6–7μm，4孢，菌丝具锁状联合</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色，质地致密均一，内部实心；干燥后略带韧性；无乳汁分泌，受伤不变色</td>
+          </tr>
+          <tr>
+            <td>柄基部</td>
+            <td>短小不明显，长0.5–1cm，粗0.2–0.3cm，表面覆细微绒毛，多个分枝由此共同发出，基部常与落叶碎屑粘连</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>广椭圆形，表面粗糙具细疣，4.5–6 × 3.5–4μm；非淀粉质反应；孢子印白色</td>
+          </tr>
+          <tr>
+            <td>菌托 / 菌环</td>
+            <td>均无（区别于鹅膏属等有环托的伞菌类群）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>全株呈<strong>珊瑚状多分枝</strong>，无独立菌盖与菌褶——这是区别于所有伞菌类的第一眼特征</li>
+        <li>颜色<strong>纯白至象牙白</strong>，不随触碰或损伤而变色（区别于会变红变褐的有毒枝瑚菌）</li>
+        <li>分枝顶端<strong>钝圆而非流苏羽裂状</strong>（区别于冠状枝瑚菌 <em>Clavulina cristata</em>）</li>
+        <li>质地实心致密，非胶质软骨状（区别于胶质假珊瑚 <em>Tremellodendron pallidum</em>）</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 采集提示：警惕彩色枝瑚菌属（Ramaria）</div>
+      <ul class="caution-list">
+        <li>枝瑚菌属（<em>Ramaria</em>）中存在多个体型更大、颜色为粉、橙、黄的近似种，部分具轻中度胃肠道毒性（如变红枝瑚菌 <em>Ramaria formosa</em>）</li>
+        <li>此类有毒种受伤或触碰后常出现变红、变褐等颜色反应，而白色拟枝瑚菌全程保持纯白不变色</li>
+        <li>凡遇色彩鲜艳（粉、橙、紫）或受伤变色的珊瑚状真菌，不建议按本种处理食用</li>
+        <li>本种"味淡质韧"，食用价值不高，如无十足把握，不必勉强采食</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与伞菌类的根本区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">所有伞菌（如鹅膏、蜜环菌）均有独立的菌盖+菌褶结构；珊瑚菌类子实层直接覆盖于分枝表面，整体呈枝状而非伞状，属完全不同的形态类群</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">变色测试法</div>
+        <div style="font-size:13px;color:var(--ink-mid)">用指甲轻掐分枝顶端，静置数分钟观察：白色拟枝瑚菌切口保持洁白；若切口迅速转红褐色，应视为潜在有毒的 <em>Ramaria</em> 近缘种，不可采食</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">冠状枝瑚菌 <em>Clavulina cristata</em>（鸡冠枝瑚菌）</div>
+        <div class="confusion-diff">同为白色珊瑚状可食种，区别在于其分枝顶端呈<strong>流苏状、羽毛状撕裂</strong>，形似鸡冠；白色拟枝瑚菌顶端则钝圆平整，不撕裂分叉</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">胶质假珊瑚 <em>Tremellodendron pallidum</em></div>
+        <div class="confusion-diff">外形也呈白色分枝状，但质地<strong>坚韧如软骨、略带胶质感</strong>，分枝扁平而非圆柱形；可食但口感差异明显</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 变红枝瑚菌 <em>Ramaria formosa</em> 及其近缘种</div>
+        <div class="confusion-diff">体型通常更大，颜色为<strong>粉橙色至杏黄色</strong>，受伤后变红褐色；含有引起腹泻呕吐的胃肠道刺激物质，欧美已有多起中毒记录，采集时务必核查颜色与变色反应</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">胶膜革菌类 <em>Sebacina schweinitzii</em></div>
+        <div class="confusion-diff">文献记载的形态相似种，质地更偏胶质黏软，显微结构（担子分隔方式）与拟枝瑚菌属明显不同，需借助显微镜区分</div>
+      </div>
+    </div>
+
+    <!-- 分类地位说明 -->
+    <div style="margin-top:1.4rem;background:var(--coral-pale);border:1px solid rgba(168,137,90,0.30);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--coral);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--moss);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--moss);margin-bottom:8px;">✓ 当前有效名</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Ramariopsis kunzei</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">(Fr.) Corner, 1950</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              中文：<strong>白色拟枝瑚菌</strong>。Corner 于1950年将其转入新建立的 <em>Ramariopsis</em> 属，并指定为该属的模式种，是目前国际数据库通用的有效学名。
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--stone-light);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone);margin-bottom:8px;">= 历史异名</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Clavaria kunzei / Ramaria kunzei / Clavulinopsis kunzei</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">Fr., 1821 / Quél., 1888 / Jülich, 1985</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              1821年 Fries 首次以 <em>Clavaria kunzei</em> 描述本种；此后先后被移入 <em>Ramaria</em>、<em>Clavulinopsis</em> 属，均指代同一物种，是珊瑚菌类分类史反复调整的典型案例。
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称关系说明</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--coral);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>珊瑚菌类形态趋同：</strong>珊瑚菌类真菌宏观形态高度相似（皆为分枝棒状），历史上分类学家更多依赖显微特征（孢子形态、锁状联合、担子分隔方式）反复调整属级归属，导致同一物种在 <em>Clavaria</em>、<em>Ramaria</em>、<em>Clavulinopsis</em>、<em>Ramariopsis</em> 间多次转移。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--coral);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>白色拟枝瑚菌 ≠ 枝瑚菌属（Ramaria）：</strong>二者同属珊瑚菌形态类群，但 <em>Ramariopsis</em> 属整体偏小型、色浅（多为白色），孢子表面具细疣；<em>Ramaria</em> 属体型普遍更大、颜色更鲜艳，部分种类含毒。采集辨识时应先确认颜色是否纯白不变色。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--coral-pale);border:1px solid rgba(168,137,90,0.28);border-left:4px solid var(--coral);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#4a3510;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>野外遇到珊瑚状真菌时，首先确认<strong>颜色是否为纯白且触碰不变色</strong>，其次观察分枝顶端是否<strong>钝圆而非流苏状</strong>；凡遇鲜艳彩色或受伤变色个体，一律不按本种处理。文献检索时，<em>Clavaria kunzei</em>、<em>Ramaria kunzei</em> 与 <em>Ramariopsis kunzei</em> 为同一物种，可互通引用。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「珊瑚洁白丛生地，分枝钝圆非流苏」</div>
+        <div class="memory-pill">「顶尖微黄老来色，触之变红需警惕」</div>
+        <div class="memory-pill">「质韧味淡熟可食，鲜艳彩色勿轻试」</div>
+        <div class="memory-pill">「无盖无褶枝状体，白孢显微粗疣粒」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">丛生或群生，多株同基发出，也可散生于落叶层间；生长速度较快，雨后数日内即可发育成熟</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">腐生：主要生于林下地表枯枝落叶层，有时也生于倒腐木、埋木上，文献记载还可见于枕木等加工木材上；可引起木质腐朽</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国：黑龙江、辽宁、吉林、广东、海南、广西、西藏、湖北等地；世界广布——北美洲、欧亚大陆、澳大利亚均有记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">夏秋季为主要发生期；适应多种林型（阔叶林、针叶林均可见），温带至亚热带广泛分布，采集窗口较长</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：优先选取颜色纯白、质地致密、无变色反应的幼嫩至成长期个体；老熟发黄发粉个体食用价值降低，且更易与彩色枝瑚菌混淆，建议谨慎对待。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-coral"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">可食用，但国际文献一致评价其"质地寡淡、几乎无味"（fleshless and flavorless）；中国民间称"白珊瑚菌"，被视为山珍之一，多用于炖汤而非爆炒，取其质地而非风味</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用价值</div>
+        <div class="value-body">《南阳中草药名典》等文献记载可入药，多用于病后身体虚弱、消化不良的调理；现代药理成分研究相对有限，传统应用记载多于现代科研数据</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态角色</div>
+        <div class="value-body">木材及枯落物腐生分解者，参与森林物质循环；偶可引发加工木材（如枕木）的腐朽，具一定经济影响</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研与分类价值</div>
+        <div class="value-body">作为拟枝瑚菌属（<em>Ramariopsis</em>）的模式种，是研究珊瑚菌类分子系统学与属级划分的重要参照物种；其复杂的异名历史也是真菌分类学教学中的经典案例</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Ramariopsis_kunzei" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E7%99%BD%E8%89%B2%E6%8B%9F%E6%9E%9D%E7%91%9A%E8%8F%8C/1485998" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://www.gbif.org/species/165559179" target="_blank">GBIF 物种档案</a>
+    </div>
+    <div>未评估 · 世界广布 · 拟枝瑚菌属模式种</div>
+  </div>
+
+</div>
+</body>
+</html>
