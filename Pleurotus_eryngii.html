@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>杏鲍菇 · Pleurotus eryngii</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：草原沙棕 + 乳白暖调 */
+    --ink: #201a12;
+    --ink-mid: #4d4230;
+    --ink-light: #8c7f64;
+    --cream: #f9f5ec;
+    --surface: #ffffff;
+    --surface-warm: #fdfaf3;
+
+    /* 杏褐主色（菌盖色） */
+    --tan: #9a6a2e;
+    --tan-light: #d7a960;
+    --tan-pale: #f7ecd6;
+    --tan-mid: #6f4c18;
+
+    /* 乳白（菌柄色） */
+    --milk: #b8a97e;
+    --milk-light: #ded1a8;
+    --milk-pale: #faf6e8;
+
+    /* 苔绿（可食标记） */
+    --moss: #4a6c2a;
+    --moss-light: #8ab870;
+    --moss-pale: #edf4e5;
+
+    /* 沙漠赭（生境标记） */
+    --desert: #a8642a;
+    --desert-light: #dba468;
+    --desert-pale: #fbeeda;
+
+    --stone: #6a5c40;
+    --stone-light: #a0937a;
+
+    --border: rgba(130,100,40,0.13);
+    --border-mid: rgba(130,100,40,0.23);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--tan-mid);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #e8dcc0; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(24,16,4,0.68)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(245,230,195,0.9); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tan); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--milk); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-tan    { background: var(--tan-pale);    color: var(--tan-mid); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-desert { background: var(--desert-pale); color: var(--desert); }
+  .tag-milk   { background: var(--milk-pale);   color: var(--tan-mid); }
+  .tag-stone  { background: #f1ede0; color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-tan { background: var(--tan); }
+  .dot-moss { background: var(--moss); }
+  .dot-desert { background: var(--desert); }
+  .dot-stone { background: var(--stone-light); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #e3d5ae; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #e3d5ae; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(24,16,4,0.68); color: #f5ecd4; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--tan-pale);   color: var(--tan-mid); }
+  .phase-mature { background: var(--desert-pale);color: var(--desert); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--tan-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--desert-pale); border: 1px solid rgba(168,100,42,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--desert); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a2a10; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--desert); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(74,108,42,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2a4020; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--tan-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: #e07060; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--tan-pale); border: 1px solid rgba(154,106,46,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--tan-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar { background: linear-gradient(135deg, #f0e0ba, #fdfaf3); border: 1px solid rgba(154,106,46,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--tan-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); flex-wrap: wrap; gap: 8px; }
+  .ref-link { color: var(--tan-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🍄 可食用物种 · 广泛人工栽培的名贵食用菌 · "平菇王" · 无已知毒性混淆风险
+</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii0.png" alt="杏鲍菇主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Pleurotus eryngii · 粗壮乳白菌柄托起浅棕色小菌盖，形似小号喇叭</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 侧耳科</div>
+    <div class="hero-name-zh">杏鲍菇</div>
+    <div class="hero-name-la">Pleurotus eryngii</div>
+    <div class="hero-author">(DC.) Quél. · 学名直译"刺芹侧耳"</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">名贵可食</span>
+      <span class="tag tag-tan">口感似鲍鱼</span>
+      <span class="tag tag-desert">腐生兼弱寄生</span>
+      <span class="tag tag-desert">草原沙漠野生种</span>
+      <span class="tag tag-stone">全球广泛栽培</span>
+      <span class="tag tag-stone">侧耳属最大种</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">杏鲍菇 / 刺芹侧耳 / 干贝菇 / 平菇王 / 杏仁鲍鱼菇</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">King Oyster Mushroom / King Trumpet</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / 侧耳科 Pleurotaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">LC（无危）· 广泛人工栽培</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志特征：粗柄小盖</span>
+        <span class="fb-value">乳白色菌柄粗壮肥厚，与相对小巧的浅棕色菌盖形成鲜明比例反差，外形似小号喇叭或保龄球瓶</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">名称由来</span>
+        <span class="fb-value">种加词 eryngii 源自希腊语，因最早发现于伞形科刺芹属（<em>Eryngium</em>）植株根部而得名，中文直译"刺芹侧耳"</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">全球产业地位</span>
+        <span class="fb-value">1993年人工栽培技术传入日本后迅速商业化，如今是全球产量最大的珍稀食用菌之一，中国、日本、韩国均大规模工厂化生产</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-tan"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 浅褐至黄褐色 / 中央色深边缘渐浅</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 粗壮乳白菌柄 / 保龄球瓶状轮廓</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉白色致密 / 菌柄组织可全食用</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii4.png" alt="褶面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">褶面 · 白色至乳白，延生，密集</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 白色至淡黄白色</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 菌盖偏心/中生菌柄连接处 / 幼期贝壳状轮廓</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pleurotus_eryngii7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 地中海/中亚草原沙漠 · 刺芹与阿魏根际野生环境 / 工厂化菌包栽培车间</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-desert"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          菌盖初呈扁半球形至近圆形，直径约1–2cm，表面浅黄色至污白色，边缘明显内卷紧贴菌柄；菌柄已显粗壮特征，圆筒形，乳白色，实心致密；此阶段整体比例上菌柄与菌盖大小接近，尚未形成成熟期"小盖大柄"的经典造型。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">生长期</div>
+        <div class="phase-desc">
+          菌盖逐渐扩展为贝壳形至圆形，直径3–6厘米，颜色转为浅褐色，中央色深、边缘渐浅并平展；菌柄持续增粗增长，向下略膨大呈棒状或保龄球瓶状，是商业采收的黄金阶段——此时菌柄质地最为致密脆嫩，风味物质积累充分。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，边缘微上翘，颜色加深为黄褐色，中央脐凹更明显；菌褶延生现象更显著，部分沿菌柄下延形成网状纹；菌柄基部组织开始变得疏松，风味与口感均不及生长期饱满，栽培生产中通常在此之前即完成采收。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-desert"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-tan">菌盖：浅黄色→浅褐至黄褐色</span>
+          <span class="tag tag-tan">中央色深，边缘渐浅</span>
+          <span class="tag tag-milk">菌柄：乳白色，通体一致</span>
+          <span class="tag tag-milk">菌褶：白色至乳白色</span>
+          <span class="tag tag-stone">孢子印：白色至淡黄白</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">菌盖扁半球形→贝壳形→平展（径3–6cm）</span>
+          <span class="tag tag-tan">菌柄粗壮圆筒形/保龄球瓶状</span>
+          <span class="tag tag-tan">菌柄偏生或中生</span>
+          <span class="tag tag-desert">柄长明显大于盖径（栽培品系尤甚）</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">生鲜时：淡雅杏仁香</span>
+          <span class="tag tag-moss">烹调后：浓郁菇鲜味</span>
+          <span class="tag tag-stone">无刺激性异味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">质地脆嫩，类似鲍鱼</span>
+          <span class="tag tag-moss">菌柄组织致密，可全部食用</span>
+          <span class="tag tag-tan">耐炖煮、烧烤，久煮不散</span>
+          <span class="tag tag-stone">干贝菇之称，回味鲜甜</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-tan"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>初期扁半球形至圆形，浅黄色至污白色；成熟后扁平，浅褐色至黄褐色，中央色深、边缘渐浅；表面干燥近光滑，偶见细微纤维状纹理</td></tr>
+          <tr><td>菌肉</td><td>白色，厚实致密，质地脆嫩，几乎不变色；是菌柄与菌盖共同构成的可食用主体，风味清甜带杏仁香</td></tr>
+          <tr><td>菌褶</td><td>白色至乳白色，密集，延生（部分沿菌柄下延），不等长，成熟后可现网状交织纹路</td></tr>
+          <tr><td>菌柄</td><td>粗壮肥厚，圆筒形，偏生或中生，乳白色，长可达数厘米至十余厘米（依品系而异），基部常略膨大或渐细；组织致密结实，是本种最具商品与食用价值的部位</td></tr>
+          <tr><td>孢子</td><td>白色至淡黄白色（孢子印），光滑，椭圆形，无明显特殊纹饰</td></tr>
+          <tr><td>菌丝</td><td>白色，生长速度较快，人工栽培中对棉籽壳、木屑、玉米芯等基质适应性强，是工厂化周年生产的重要基础</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌柄<strong>粗壮肥厚且明显大于菌盖</strong>，是与绝大多数伞菌"盖大柄小"常规比例相反的显著特征</li>
+        <li>菌盖颜色为<strong>浅黄至浅褐色</strong>（非纯白），与菌柄的乳白色形成柄盖二色对比</li>
+        <li>野生个体<strong>专一或兼性依附伞形科植物（刺芹、阿魏等）根部</strong>，栽培个体已完全适应木屑、棉籽壳等人工基质</li>
+        <li>菌肉<strong>致密紧实、久煮不散</strong>，是判断品质优劣与商品分级的关键触感依据</li>
+      </ul>
+    </div>
+
+    <div class="caution-box">
+      <div class="caution-title">💡 选购与食用小贴士</div>
+      <ul class="caution-list">
+        <li>本种<strong>无毒可食</strong>，也无已知易混淆的毒性近似种，是安全性较高的常见商品食用菌，但仍建议只购买正规市售来源</li>
+        <li>优质商品菇应菌柄粗壮结实、色泽乳白、无明显软烂或黄斑；菌盖完整、边缘尚内卷未完全平展者风味口感更佳</li>
+        <li>菌柄组织致密，切片厚度会显著影响烹饪口感与熟制时间，煎烤前建议切至0.5–1cm厚度以获得类似鲍鱼的嚼劲</li>
+      </ul>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">白灵侧耳（白灵菇） <em>Pleurotus nebrodensis</em></div>
+        <div class="confusion-diff">分子系统学显示与杏鲍菇关系密切，同属刺芹侧耳复合群；区别在于白灵侧耳菌盖<strong>通体纯白肥厚</strong>、基部下凹呈浅漏斗状，而杏鲍菇菌盖呈浅褐色、相对较小，柄盖比例差异也更悬殊</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">阿魏侧耳（阿魏菇） <em>Pleurotus eryngii var. ferulae</em></div>
+        <div class="confusion-diff">杏鲍菇的变种，专门适应新疆戈壁荒漠环境，寄主为阿魏而非刺芹；形态与本种（<em>var. eryngii</em>）高度相似，主要通过基因组及生境差异区分，商品市场上常统称"杏鲍菇"销售</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">平菇 <em>Pleurotus ostreatus</em></div>
+        <div class="confusion-diff">同属近缘种，但菌盖呈典型灰色至青灰色扇形薄片状丛生，菌柄短小几不可见，与杏鲍菇"粗柄小盖"的独特比例截然不同，风味也偏清淡</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">秀珍菇 <em>Pleurotus pulmonarius</em></div>
+        <div class="confusion-diff">体型娇小、菌柄短，口感清脆但缺乏杏鲍菇的厚实菌柄与鲍鱼质感，属另一常见栽培侧耳属商品菇</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.2rem;">
+    <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「粗柄乳白似保龄，浅褐小盖顶上生」</div>
+      <div class="memory-pill">「刺芹阿魏根际长，如今木屑亦能荣」</div>
+      <div class="memory-pill">「肉厚耐煮如鲍鱼，杏仁香里觅鲜甜」</div>
+      <div class="memory-pill">「莫与白灵混作谈，通体纯白方为灵」</div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">野生个体单生或群生；人工栽培以菌包/菌瓶出菇为主，工厂化生产可实现周年供应，是全球产业化程度最高的珍稀食用菌之一</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">腐生兼弱寄生：野生种春末夏初生于伞形科大型草本植物（刺芹、阿魏、拉瑟草等）根茎基部；栽培基质已驯化为阔叶木屑、棉籽壳、甘蔗渣等，适应范围远广于近缘种白灵侧耳</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">原产南欧（意大利、西班牙、法国、匈牙利）、中东、北非高山草原及沙漠地带；中国野生分布于新疆、四川西部（九寨沟）、青海等地；栽培已遍及全国及日本、韩国、澳大利亚等地</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采收周期</div>
+        <div class="habitat-value">野生个体春末至夏初发生；工厂化栽培从接种到采收约需60–90天，可实现全年多批次生产，是市场供应最稳定的珍稀食用菌品类之一</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      选购建议：市售杏鲍菇多为工厂化栽培产品，安全性有保障；选购时优先挑选菌柄挺直粗壮、无黏滑感、切口新鲜无变色者，冷藏保存可延长保鲜期。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-tan"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">菌肉肥厚、质地脆嫩，具愉快杏仁香味与类似鲍鱼的口感，适合炒、烧、烩、炖、做汤及凉拌，可加工成杏鲍菇酱、饮料、盐渍品等多种深加工产品，是国内外市场极受欢迎的日常食用菌</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">营养与保健价值</div>
+        <div class="value-body">富含多糖、氨基酸及多种矿物质，具有一定的抗氧化、增强免疫力功效；低脂高纤维，是健康饮食中常见的植物性蛋白来源之一</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">产业与经济价值</div>
+        <div class="value-body">全球产量最大的珍稀食用菌品种之一，1993年后经日本商业化推广迅速普及；中国已形成规模化工厂化生产体系，是重要的出口创汇食用菌品类</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研价值</div>
+        <div class="value-body">作为侧耳属最大的种，与近缘种白灵侧耳、阿魏侧耳的基因组比较研究，为理解真菌适应荒漠戈壁极端环境的分子机制提供了重要模型</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-hans/%E6%9D%8F%E9%AE%91%E8%8F%87" target="_blank">维基百科</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E6%9D%8F%E9%B2%8D%E8%8F%87/418424" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6734163/" target="_blank">NCBI 基因组研究</a>
+    </div>
+    <div>IUCN LC · 全球广泛人工栽培 · 产业化品种</div>
+  </div>
+
+</div>
+</body>
+</html>
