@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>白边灵芝 · Ganoderma albomarginatum</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%84%3C/text%3E%3C/svg%3E">
+  <title>白边灵芝 · Ganoderma albomarginatum</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
 
@@ -204,9 +205,38 @@
     .feature-bar { grid-template-columns: 1fr; }
     .page-footer { flex-direction: column; gap: 6px; }
   }
-</style>
+
+  /* ── 返回菌物志悬浮按钮 ── */
+  .back-btn {
+    position: fixed; top: 16px; left: 16px; z-index: 9999;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,0,0,0.12); border-radius: 999px;
+    font-size: 13px; font-weight: 500; color: #3a3a3a;
+    text-decoration: none;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    transition: background .18s, box-shadow .18s, transform .15s;
+  }
+  .back-btn:hover {
+    background: rgba(255,255,255,1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+    transform: translateY(-1px);
+  }
+  .back-btn svg { flex-shrink: 0; }
+
+  </style>
 </head>
 <body>
+<!-- 返回菌物志悬浮按钮 add_back_button -->
+<a class="back-btn" href="https://eumensides.github.io/mashroom/">
+  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.85355 3.14645C7.04882 3.34171 7.04882 3.65829 6.85355 3.85355L3.70711 7H12.5C12.7761 7 13 7.22386 13 7.5C13 7.77614 12.7761 8 12.5 8H3.70711L6.85355 11.1464C7.04882 11.3417 7.04882 11.6583 6.85355 11.8536C6.65829 12.0488 6.34171 12.0488 6.14645 11.8536L2.14645 7.85355C1.95118 7.65829 1.95118 7.34171 2.14645 7.14645L6.14645 3.14645C6.34171 2.95118 6.65829 2.95118 6.85355 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/>
+  </svg>
+  菌物志
+</a>
+
 
 <!-- ══ 提示横幅 ══ -->
 <div class="notice-banner">
@@ -216,7 +246,7 @@
 <!-- ══ HERO ══ -->
 <div class="hero">
   <div class="hero-image-slot">
-    <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum0.png" alt="白边灵芝主图" loading="lazy">
+    <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum0.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum0.png'" alt="白边灵芝主图" loading="lazy">
     <div class="hero-overlay">
       <div class="hero-overlay-text">Ganoderma albomarginatum · 菌盖淡红褐色，边缘具狭窄白色环带，菌柄具强烈似漆样光泽</div>
     </div>
@@ -289,33 +319,33 @@
 
     <div class="photo-grid-6">
       <div class="photo-slot">
-        <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum1.png" alt="上方菌盖图" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum1.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum1.png'" alt="上方菌盖图" loading="lazy">
         <div class="photo-caption">上方菌盖图 · 淡红褐色至褐色 / 边缘白色环带</div>
       </div>
       <div class="photo-slot">
-        <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum2.png" alt="45°仰拍图" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum2.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum2.png'" alt="45°仰拍图" loading="lazy">
         <div class="photo-caption">45° 仰拍 · 孔面浅黄色 / 菌柄漆样光泽</div>
       </div>
       <div class="photo-slot">
-        <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum3.png" alt="剖面图" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum3.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum3.png'" alt="剖面图" loading="lazy">
         <div class="photo-caption">剖面 · 菌肉深木材色 / 菌管浅灰褐色</div>
       </div>
       <div class="photo-slot">
-        <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum4.png" alt="孔口面图" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum4.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum4.png'" alt="孔口面图" loading="lazy">
         <div class="photo-caption">孔口面 · 浅黄色，近圆形，每毫米4-5个</div>
       </div>
       <div class="photo-slot">
-        <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum5.png" alt="菌柄细节图" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum5.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum5.png'" alt="菌柄细节图" loading="lazy">
         <div class="photo-caption">菌柄细节 · 淡黑褐色，强烈似漆样光泽</div>
       </div>
       <div class="photo-slot">
-        <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum6.png" alt="特殊细节图" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum6.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum6.png'" alt="特殊细节图" loading="lazy">
         <div class="photo-caption">细节 · 白色生长环带与褐色主体的过渡带</div>
       </div>
     </div>
 
     <div class="photo-slot-wide">
-      <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum7.png" alt="生境图" loading="lazy">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum7.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_albomarginatum7.png'" alt="生境图" loading="lazy">
       <div class="photo-caption">生境图 · 阔叶树倒木、枯木或树体伤口，单生固着</div>
     </div>
   </div>
