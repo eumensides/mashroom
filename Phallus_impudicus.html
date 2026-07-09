@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白鬼笔 · Phallus impudicus</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种（气味特殊）：温暖乳白 + 苔绿警示色调 */
+    --ink: #1c1a10;
+    --ink-mid: #453f28;
+    --ink-light: #837a5c;
+    --cream: #f8f6ee;
+    --surface: #ffffff;
+    --surface-warm: #fdfbf3;
+
+    /* 象牙白主色（菌柄色） */
+    --ivory: #a4894a;
+    --ivory-light: #d9c37e;
+    --ivory-pale: #faf3dc;
+    --ivory-mid: #7a5f20;
+
+    /* 暖褐（菌托 / 网格纹） */
+    --amber: #8b5e2a;
+    --amber-light: #cf9a4e;
+    --amber-pale: #fbf0da;
+
+    /* 苔绿（可食标记） */
+    --moss: #4a6c2a;
+    --moss-light: #8ab870;
+    --moss-pale: #edf4e5;
+
+    /* 暗橄榄绿（孢子粘液气味警示，非毒性警示） */
+    --stink: #4c5a1e;
+    --stink-light: #93a35a;
+    --stink-pale: #eef2df;
+
+    /* 灰棕 */
+    --stone: #6a5c3f;
+    --stone-light: #a0937a;
+
+    --border: rgba(120,100,50,0.12);
+    --border-mid: rgba(120,100,50,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--ivory-mid);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #e6ddc4;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,18,4,0.72));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(238,230,190,0.88); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ivory-mid); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700;
+    line-height: 1.2; color: var(--ink); margin-bottom: 6px;
+  }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--amber); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-ivory  { background: var(--ivory-pale);  color: var(--ivory-mid); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-stink  { background: var(--stink-pale);  color: var(--stink); }
+  .tag-amber  { background: var(--amber-pale);  color: var(--amber); }
+  .tag-stone  { background: #f1ede0;            color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border); padding-top: 1rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
+  }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border-mid);
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-ivory { background: var(--ivory-mid); }
+  .dot-moss  { background: var(--moss); }
+  .dot-stink { background: var(--stink); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-amber { background: var(--amber); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot {
+    aspect-ratio: 4/3; background: #e3d9bc; border-radius: 8px; overflow: hidden;
+    position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot-wide {
+    aspect-ratio: 16/7; background: #e3d9bc; border-radius: 8px; overflow: hidden;
+    position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20,18,4,0.72);
+    color: #f0e8c8; font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--ivory-pale); color: var(--ivory-mid); }
+  .phase-mature { background: var(--stink-pale); color: var(--stink); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); margin-bottom: 8px;
+  }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--ivory-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box {
+    background: var(--stink-pale); border: 1px solid rgba(76,90,30,0.28);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem;
+  }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--stink); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #2e360f; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--stink); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box {
+    background: var(--moss-pale); border: 1px solid rgba(74,108,42,0.28);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem;
+  }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2a4020; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--ivory-light);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.danger { border-left-color: #e07060; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--ivory-pale); border: 1px solid rgba(164,137,74,0.25); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--ivory-mid); font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); margin-bottom: 6px;
+  }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); margin-bottom: 8px;
+  }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #f2edd6, #fdfbf3);
+    border: 1px solid rgba(164,137,74,0.3); border-radius: 12px; padding: 18px 20px;
+    margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ivory-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); flex-wrap: wrap; gap: 8px;
+  }
+  .ref-link { color: var(--ivory-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🍄 可食用物种（非毒蕈）· 成熟后气味极其恶臭 · 需趁幼期或去除臭味部分食用
+</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus0.png" alt="白鬼笔主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Phallus impudicus · 白色海绵质菌柄拔地而起，顶覆暗绿色臭黏液</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 鬼笔科（腹菌类）</div>
+    <div class="hero-name-zh">白鬼笔</div>
+    <div class="hero-name-la">Phallus impudicus</div>
+    <div class="hero-author">L., 1753 · 又名竹下菌 / 无裙竹荪 / 蛇头菌</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">可食（去异味部位）</span>
+      <span class="tag tag-stink">⚠ 成熟极臭</span>
+      <span class="tag tag-ivory">腐生菌</span>
+      <span class="tag tag-amber">昆虫传孢</span>
+      <span class="tag tag-stone">生长速度极快</span>
+      <span class="tag tag-stone">可入药</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">白鬼笔 / 竹下菌 / 无裙竹荪 / 蛇头菌 / 鬼蛋</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Common Stinkhorn</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">鬼笔目 Phallales / 鬼笔科 Phallaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">LC（无危）· 广布常见</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志特征：卵蛋破壳</span>
+        <span class="fb-value">幼期埋于地下呈白色至灰褐色卵形"鬼蛋"，成熟时菌柄以惊人速度（数小时内）破壳伸长</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">传粉策略</span>
+        <span class="fb-value">顶部暗绿色黏液（产孢体）散发类似腐肉的恶臭，专门吸引蝇类取食并携带孢子远播</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">名称由来</span>
+        <span class="fb-value">属名 Phallus 源自希腊语"阳具"，种加词 impudicus 意为"无耻的"，因其成熟形态而得名，命名者林奈本人亦为此专门记述</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ivory"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 钟形网格纹 / 暗绿黏液孢子层</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 白色海绵状菌柄 / 基部菌托</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌柄蜂窝状中空结构 / 幼期卵内预成形态</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus4.png" alt="管面/产孢层图" loading="lazy">
+        </picture>
+        <div class="photo-caption">产孢层特写 · 暗绿黏液覆盖网格状菌盖</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子（黏液悬浮） · 淡橄榄绿色，无色透明杆状</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · "鬼蛋"卵期剖面 / 蝇类取食黏液场景</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phallus_impudicus7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 富含腐木残体的阔叶林地 / 花园覆盖物堆</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">卵蛋期</div>
+        <div class="phase-desc">
+          子实体初期呈白色至灰褐色卵形"鬼蛋"，直径3–5cm，半埋于地表或落叶层下；剖开可见外层胶质膜、中层透明胶状层，内部已预先形成折叠的菌柄与暗绿色菌盖雏形；此期质地类似马勃但内部结构分层明显，是辨识与食用的关键阶段——法国、德国部分地区剥皮取食的正是此阶段的"魔蛋"（witch's egg），口感脆嫩微苦，带萝卜或松露气息。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">伸长期</div>
+        <div class="phase-desc">
+          环境适宜时（尤其雨后），菌柄在数小时内以惊人速度破壳向上伸长，可见卵壳残留成基部菌托；菌柄白色，圆柱形，海绵质多孔，中空；顶端钟形菌盖逐渐展开，表面网格状凹凸开始显露，暗绿色黏液尚未完全散发，此时恶臭气味开始明显。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌柄完全伸长可达10–25cm，菌盖呈钟形至圆锥形，表面深网格纹覆盖暗绿色黏稠孢子液，散发强烈腐肉气味，招引丽蝇、麻蝇等取食并携带孢子飞散；数小时至一两天内黏液被昆虫舔食殆尽，露出白色至奶白色网格状菌盖骨架，气味随之消退，整个子实体随后萎软倒伏、迅速腐败。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-ivory">卵期：白色至灰褐色</span>
+          <span class="tag tag-ivory">菌柄：纯白至奶白色</span>
+          <span class="tag tag-stink">菌盖黏液：暗橄榄绿至墨绿</span>
+          <span class="tag tag-stone">黏液褪去后菌盖：白色网格</span>
+          <span class="tag tag-amber">菌托（卵壳残留）：白至淡粉褐</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">卵期：卵球形（径3–5cm）</span>
+          <span class="tag tag-stone">菌柄：圆柱形，海绵质中空</span>
+          <span class="tag tag-stone">高10–25cm，径2–3cm</span>
+          <span class="tag tag-amber">菌盖：钟形/圆锥形，深网格纹</span>
+          <span class="tag tag-amber">菌盖高约5cm，径约4cm</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stink">⚠ 成熟期：强烈腐肉臭</span>
+          <span class="tag tag-stink">数米外即可闻到</span>
+          <span class="tag tag-moss">卵期：无异味或微土腥</span>
+          <span class="tag tag-stone">黏液褪去后：气味明显减弱</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">卵期去皮：脆嫩，微萝卜/松露味</span>
+          <span class="tag tag-moss">成熟菌柄（去盖去托）：爽脆</span>
+          <span class="tag tag-stink">⚠ 菌盖黏液：极不宜食用（腥臭）</span>
+          <span class="tag tag-stone">久煮不糊，可焯水凉拌</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>卵（幼期包被）</td><td>白色至灰褐色卵球形，外皮革质，剖开由外向内依次为外层薄膜、中层透明胶质（保护缓冲层）、内部已折叠预成的菌柄与暗绿菌盖——此分层结构是与马勃类（内部均质无分层）鉴别的关键</td></tr>
+          <tr><td>菌柄</td><td>白色至奶白色，圆柱形，长10–25cm，粗2–3cm；质地海绵状、多孔蜂窝，中空易碎，机械强度低；表面光滑或略具凹凸网纹，伸长速度极快，是已知生长最快的真菌结构之一</td></tr>
+          <tr><td>菌盖（产孢体）</td><td>钟形至圆锥形，高约5cm，径约4cm，表面具深网格状凹凸皱纹；成熟时表面覆盖一层暗橄榄绿至墨绿色黏稠孢子液（基本产孢体，gleba），气味恶臭；顶端具一白色小孔（盘状顶孔）</td></tr>
+          <tr><td>孢子液 / 孢子</td><td>孢子悬浮于暗绿色黏液中，杆状，无色透明，光滑，约3.5–4.5×1.5–2μm；不依赖风力传播，完全依赖蝇类等嗜腐昆虫取食黏液后携带扩散</td></tr>
+          <tr><td>菌托</td><td>白色，厚而具弹性，位于菌柄基部，由卵壳破裂后残留形成，呈杯状包裹菌柄基部——形态与鹅膏属菌托相似但成因不同（并非毒性标志，仅为发育残留结构）</td></tr>
+          <tr><td>菌肉</td><td>白色，质地嫩脆（去除菌盖与黏液后）；卵期菌肉致密类似马勃，成熟菌柄部分则疏松多孔</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>幼期地下"鬼蛋"剖面可见<strong>明显分层结构</strong>（外膜+胶质层+预成菌体），区别于均质的马勃</li>
+        <li>成熟后菌柄<strong>以小时计的极快速度</strong>破壳伸长，是野外辨识的显著动态特征</li>
+        <li>菌盖表面覆盖<strong>暗绿色黏液并散发强烈腐肉臭味</strong>，专门吸引蝇类传播孢子，无裙状网帘（区别于长裙竹荪）</li>
+        <li>菌柄<strong>白色海绵质中空</strong>，质地极轻脆，基部具白色菌托（卵壳残留，非毒性标志）</li>
+      </ul>
+    </div>
+
+    <div class="caution-box">
+      <div class="caution-title">⚠ 食用前必读：气味与卵期鉴别</div>
+      <ul class="caution-list">
+        <li>白鬼笔本身<strong>无毒</strong>，但成熟后菌盖黏液气味极其难闻，通常不作食用部分，食用需去除菌盖与菌托，仅取白色菌柄</li>
+        <li>卵期"鬼蛋"外形与部分<strong>毒性马勃类</strong>相似，务必剖开确认内部有无预成菌体分层结构，均质无分层者不可按本种处理</li>
+        <li>鬼笔属内其他近似种多具毒性或强烈刺激性，采集时须逐一确认具体物种，不建议仅凭卵期外形采食</li>
+        <li>初次食用建议少量尝试，孕妇及肠胃敏感者应谨慎</li>
+      </ul>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--stink)">⚠ 幼期易与毒马勃类混淆</div>
+        <div class="confusion-diff">部分马勃（如<em>Scleroderma</em> 硬皮马勃属）幼期外形与白鬼笔的"鬼蛋"相似，但剖面<strong>均质无分层</strong>，且成熟后为褐黑色粉状孢子团，而非分层胶质结构；硬皮马勃多有毒，误食可致胃肠不适甚至更严重反应</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">长裙竹荪 <em>Phallus indusiatus</em></div>
+        <div class="confusion-diff">同属近缘种，菌盖下方展开白色网状"裙摆"（indusium），是二者最直观区别；长裙竹荪是名贵食用菌，可鲜食或干制，价值高于白鬼笔</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">红鬼笔 <em>Phallus rubicundus</em></div>
+        <div class="confusion-diff">菌柄呈鲜艳橙红至朱红色（白鬼笔菌柄为白色），传统作药用，散毒消肿；体型通常更细小</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">短裙竹荪 <em>Phallus duplicatus</em></div>
+        <div class="confusion-diff">裙摆较短，颜色与结构和长裙竹荪相近，均具网状裙而白鬼笔无裙，是"无裙竹荪"别名的由来</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.2rem;">
+    <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「地下鬼蛋剖分层，破壳一夜拔地生」</div>
+      <div class="memory-pill">「顶戴墨绿臭黏液，招蝇代传孢子行」</div>
+      <div class="memory-pill">「白柄海绵中空脆，去盖去托方可食」</div>
+      <div class="memory-pill">「均质无层是马勃，切莫混作鬼笔尝」</div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或群生，卵期埋于表土或落叶层下，成熟后迅速破壳伸长，整个爆发过程可在数小时内完成；子实体存续期极短，通常1–2天即倒伏腐败</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">腐生菌，生于富含粗木质残体的阔叶林地、针阔混交林、公园及花园覆盖物堆、腐殖质丰富的园土中；喜温暖湿润、腐殖质厚的环境</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广泛分布于北美洲、欧洲和中国等北半球温带至亚热带地区；中国多地林区、园林均有记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">夏季至深秋（约6–10月），雨后湿润天气出现频繁；因气味浓烈，野外常"先闻其臭、后见其形"，是极易凭嗅觉定位的物种</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：如需食用，宜在卵期挖取，剖开确认内部分层结构后剥皮取食；成熟个体仅取白色菌柄食用，务必去除菌盖黏液与菌托，并尽快远离采集点以免恶臭滞留。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ivory"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">卵期剥皮生食或凉拌，口感脆嫩带微萝卜/松露香，是法国、德国部分地区的传统食材；成熟期仅菌柄可食，去盖去托后久煮不糊，口感松脆爽口，中国部分地区（如贵州）已实现人工栽培并作为特色食用菌销售</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用价值</div>
+        <div class="value-body">传统中医以菌柄、菌托入药，性味甘淡温，具活血止痛、祛风除湿、清肺之效；现代研究显示其提取物具一定抗菌、抗癌活性，并可作为食品短期防腐剂使用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态角色</div>
+        <div class="value-body">腐生分解者，促进林地枯木、落叶分解与养分循环；其独特的昆虫传粉式孢子传播策略（腐肉拟态）是真菌生态学中蝇媒传播的经典案例</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">经济与文化价值</div>
+        <div class="value-body">贵州等地已开展林下栽培（如甜柿果林间种），兼具生态与经济效益；因外形独特，17世纪英国已有大量民间俗称记载，是欧洲博物学史上被反复描述的"猎奇"物种</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-cn/%E7%99%BD%E9%AC%BC%E7%AC%94" target="_blank">维基百科</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E7%99%BD%E9%AC%BC%E7%AC%94/54314848" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://picturemushroom.com/zh-tw/wiki/Phallus_impudicus.html" target="_blank">Picture Mushroom</a>
+    </div>
+    <div>IUCN LC · 广布种 · 中国生物多样性红色名录 LC</div>
+  </div>
+
+</div>
+</body>
+</html>
