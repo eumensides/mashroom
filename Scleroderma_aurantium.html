@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>橙黄硬皮马勃 · Scleroderma aurantium（有毒 · 易混淆块菌/马勃）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #201810;
+    --ink-mid: #4a3c28;
+    --ink-light: #8a7a5c;
+
+    --cream: #f7f2e6;
+    --surface: #ffffff;
+
+    --moss: #556b2a;
+    --moss-light: #a8bc7a;
+    --moss-pale: #eef2e0;
+
+    --earth: #a3701a;
+    --earth-light: #d9a94a;
+    --earth-pale: #f6e8c8;
+    --earth-mid: #7a5312;
+
+    --gleba: #6a5470;
+    --gleba-light: #b8a8c0;
+    --gleba-pale: #ede6f0;
+
+    --toxic: #9a4a1a;
+    --toxic-light: #dba578;
+    --toxic-pale: #f8e8d8;
+
+    --spore: #4a3020;
+    --spore-light: #b09070;
+    --spore-pale: #f2e6d8;
+
+    --border: rgba(90,70,40,0.16);
+    --border-mid: rgba(90,70,40,0.26);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .toxic-banner {
+    background: var(--toxic);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #e6d4a8; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(30,18,8,0.72)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(245,225,190,0.85); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--toxic); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--ink-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--ink-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-moss { background: var(--moss-pale); color: var(--moss); }
+  .tag-earth { background: var(--earth-pale); color: var(--earth-mid); }
+  .tag-gleba { background: var(--gleba-pale); color: var(--gleba); }
+  .tag-ink { background: #f0e8d8; color: var(--ink-mid); }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+  .tag-spore { background: var(--spore-pale); color: var(--spore); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-moss { background: var(--moss); }
+  .dot-earth { background: var(--earth); }
+  .dot-gleba { background: var(--gleba); }
+  .dot-ink { background: var(--ink-mid); }
+  .dot-toxic { background: var(--toxic); }
+  .dot-spore { background: var(--spore); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--ink-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #ecdfb8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #ecdfb8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); grid-column: span 3; }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(30,18,8,0.74); color: #f6e8d0; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--gleba-pale);  color: var(--gleba); }
+  .phase-mature { background: var(--toxic-pale);  color: var(--toxic); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--toxic); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--toxic-pale); border: 1px solid rgba(154,74,26,0.32); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 700; color: var(--toxic); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a2410; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--toxic); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--spore-pale); border: 1px solid rgba(74,48,32,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--spore); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #3a2414; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--spore); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gleba-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--toxic); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--ink-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--toxic-pale); border: 1px solid rgba(154,74,26,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--toxic); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .toxin-bar {
+    background: linear-gradient(135deg, #f8e8d8, #f7f2e6);
+    border: 1px solid rgba(154,74,26,0.32);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--toxic); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-light); }
+  .ref-link { color: var(--toxic); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .toxin-bar { grid-template-columns: 1fr; }
+    .photo-slot-wide { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toxic-banner">
+  ⚠️ 有毒（轻度至中度）· 可致呕吐头晕等胃肠道反应 · 易与可食块菌、马勃混淆 · 不建议采食
+</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium0.png" alt="橙黄硬皮马勃主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Scleroderma aurantium · 球形至扁球形腹菌，表面龟裂成鳞片，内部孢体成熟后变紫灰至黑褐色</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 腹菌纲 · 硬皮马勃目 · 硬皮马勃属</div>
+    <div class="hero-name-zh">橙黄硬皮马勃</div>
+    <div class="hero-name-la">Scleroderma aurantium</div>
+    <div class="hero-author">(Vaill.) Pers. · 又名金黄硬皮马勃 / 黄硬皮马勃</div>
+
+    <div class="tag-row">
+      <span class="tag tag-toxic">⚠ 有毒（非致命）</span>
+      <span class="tag tag-earth">胃肠道反应</span>
+      <span class="tag tag-gleba">孢体紫灰→黑褐渐变</span>
+      <span class="tag tag-ink">易与块菌/马勃混淆</span>
+      <span class="tag tag-moss">外生菌根真菌</span>
+      <span class="tag tag-spore">腹菌类·无菌盖菌柄结构</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">金黄硬皮马勃 / 黄硬皮马勃</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">中毒类型</span>
+        <span class="taxon-value">轻中度胃肠炎型（呕吐、头晕）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">硬皮马勃目 Sclerodermatales / 硬皮马勃科 Sclerodermataceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分布</span>
+        <span class="taxon-value">江苏、福建、台湾、西藏、广东、香港、广西等地</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <div class="section">
+    <div class="toxin-bar">
+      <div class="rh-item">
+        <span class="rh-label">特殊形态：无典型菌盖菌柄</span>
+        <span class="rh-value">属腹菌类，子实体呈球形至扁球形，孢子在内部封闭发育成熟，与常见的伞菌、牛肝菌结构完全不同</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">最大风险：混淆可食块菌与马勃</span>
+        <span class="rh-value">幼嫩未开裂个体外观酷似松露（块菌）及可食用的马勃、秃马勃，是最常见的误采误食原因</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">中毒表现：胃肠道反应为主</span>
+        <span class="rh-value">生食或食用未煮熟个体可引起呕吐、头晕等症状，虽非剧毒致命型，仍不建议采食</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium1.png" alt="整体外观图" loading="lazy">
+        </picture>
+        <div class="photo-caption">整体外观 · 球形至扁球形，橙黄至黄褐色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium2.png" alt="表面鳞片特写图" loading="lazy">
+        </picture>
+        <div class="photo-caption">表面特写 · 龟裂成鳞片状，皮层厚实</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 内部孢体，与纯白可食马勃形成鲜明对比</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium4.png" alt="孢体渐变图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢体渐变 · 灰白→紫蓝灰→近黑色粉末</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium5.png" alt="孢子显微图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子显微 · 球形，具网纹及小突起，黑褐色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium6.png" alt="顶部开裂图" loading="lazy">
+        </picture>
+        <div class="photo-caption">顶部开裂 · 成熟后顶端不规则破裂散出孢粉</div>
+      </div>
+
+      <div class="photo-slot-wide">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium7.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Scleroderma_aurantium7.png" alt="生境图" loading="lazy">
+        </picture>
+        <div class="photo-caption">生境图 · 夏秋季林中地上单个或群生</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gleba"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签（腹菌类特殊发育方式）</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期（高危混淆期）</div>
+        <div class="phase-desc">
+          子实体近球形，直径2.5–5cm，表面光滑或仅具细微龟裂，黄色至橙黄色；剖开可见内部孢体呈灰白色，质地略软；
+          此阶段外观与松露（块菌）及可食用马勃极为相似，是最容易被误采、误食的阶段——务必剖开检查内部颜色是否均匀纯白。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          子实体增大，直径可达8cm左右，表面开始龟裂成明显鳞片状，颜色加深为橙黄至黄褐色；皮层增厚，内部孢体
+          由灰白色转为紫蓝灰色，质地渐变粉质化，此时切开已可见明显的深色斑纹，与可食马勃的纯白肉质形成对比。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟 / 散粉期</div>
+        <div class="phase-desc">
+          子实体直径可达12cm，表面龟裂鳞片更加粗糙明显；内部孢体完全转为黑褐紫色粉末状，顶部皮层不规则破裂，
+          孢子粉从开口处逐渐散出；此阶段已完全丧失食用价值，仅具孢子传播功能。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-earth"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-earth">外皮黄色→橙黄→黄褐色</span>
+          <span class="tag tag-gleba">内部孢体灰白→紫蓝灰</span>
+          <span class="tag tag-spore">成熟孢体黑褐紫色</span>
+          <span class="tag tag-spore">孢子黑褐色（显微下）</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">球形至扁球形（径2.5–12cm）</span>
+          <span class="tag tag-earth">表面龟裂成鳞片状</span>
+          <span class="tag tag-ink">皮层厚实</span>
+          <span class="tag tag-ink">顶部成熟后不规则开裂</span>
+          <span class="tag tag-ink">无菌盖、菌柄、菌褶结构</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">气味平淡或略带土腥气</span>
+          <span class="tag tag-ink">无法凭气味区分毒性</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感 / 毒性</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">⚠ 生食/未煮透：呕吐、头晕</span>
+          <span class="tag tag-toxic">不建议食用（不同资料毒性描述不一）</span>
+          <span class="tag tag-ink">质地粉质、干燥后易碎</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-earth"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>子实体整体</td>
+            <td>球形至扁球形，直径2.5–12cm，无典型菌盖菌柄分化，是腹菌类真菌的典型发育方式（孢子在封闭子实体内部成熟）</td>
+          </tr>
+          <tr>
+            <td>外皮（包被）</td>
+            <td>黄色、橙黄色或黄褐色，初期表面较平滑，成熟过程中逐渐龟裂成鳞片状或疣状突起；皮层厚实，是重要的保护结构</td>
+          </tr>
+          <tr>
+            <td>内部孢体（产孢组织）</td>
+            <td>幼时灰白色，质地稍软；随成熟逐渐转为紫蓝灰色，最终变为黑褐紫色粉末状；是与可食用马勃（内部应保持纯白直至散粉前）最关键的区别部位</td>
+          </tr>
+          <tr>
+            <td>孢丝</td>
+            <td>分枝，壁厚，粗3.5–6μm，具锁状联合（担子菌特征结构）</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>球形，直径8–12μm，表面具网纹及小突起，成熟后黑褐色</td>
+          </tr>
+          <tr>
+            <td>顶部开口</td>
+            <td>成熟后顶部皮层不规则破裂形成开口，孢子粉借此逐渐散出，完成孢子传播</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-spore"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>子实体<strong>球形至扁球形</strong>，完全没有菌盖、菌柄、菌褶等典型伞菌结构，属"腹菌类"真菌</li>
+        <li>表面<strong>橙黄至黄褐色</strong>，成熟过程中逐渐龟裂成鳞片状，皮层明显厚实</li>
+        <li>内部孢体（剖开后可见）随成熟经历<strong>灰白→紫蓝灰→黑褐紫色粉末</strong>的渐变过程，绝不会像可食马勃那样长期保持纯白</li>
+        <li>幼嫩未开裂个体<strong>外观酷似松露（块菌）及可食用马勃</strong>，是本种最主要、最危险的混淆来源，剖开检查内部颜色是唯一可靠的现场初判方法</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 中毒警示：勿因"像马勃/像松露"而采食</div>
+      <ul class="caution-list">
+        <li>生食或食用未煮透的个体可引起呕吐、头晕等急性胃肠道反应，个别体质敏感者症状可能较重，出现不适应及时就医</li>
+        <li>幼嫩期与可食用的秃马勃、大马勃等外观极为相似，唯一可靠的现场区分方法是<strong>剖开检查内部</strong>：可食马勃的幼嫩菌肉应为均匀纯白色，硬皮马勃则从幼期起就可能出现灰白夹杂或略带斑纹，且很快转为深色</li>
+        <li>民间及历史上曾有将本属幼嫩子实体误当块菌（松露）食用的案例，二者外观相似度极高，务必谨慎</li>
+        <li>硬皮马勃属在传统医药中偶有外用记载（如止血、消肿），但外用不代表可安全内服食用，二者用途不可混淆</li>
+        <li>不同文献对本种毒性程度描述略有差异（轻度至中度不等），保守起见建议一律不采不食</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与可食马勃/秃马勃区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">可食马勃幼嫩时内部菌肉<strong>应为均匀纯白色</strong>，质地如豆腐状；硬皮马勃剖开后常见<strong>灰白夹杂或渐显斑纹</strong>，且成熟极快、很快转为深色粉末，外皮也明显更厚更硬</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与松露（块菌）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">块菌剖面呈<strong>大理石状纹理</strong>（白色脉纹与深色基质交织，纹理规则细密），且具浓郁特殊香气；硬皮马勃剖面为<strong>均质粉状孢体</strong>，无大理石纹理，气味平淡，专业采集者可凭此快速区分</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic)">⚠ 橘色硬皮马勃 <em>Scleroderma citrinum</em></div>
+        <div class="confusion-diff">同属近缘种，中文名也常被称作"橙黄硬皮马勃"，二者外观、毒性、混淆风险高度相似，是分类文献中容易混用中文名的一对物种，采集鉴定时需以拉丁学名为准</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">秃马勃（可食）<em>Calvatia craniiformis</em></div>
+        <div class="confusion-diff">可食用，幼嫩期菌肉必须为均匀纯白色方可食用；与硬皮马勃的关键区别在于内部颜色是否均匀洁白，以及外皮是否明显龟裂增厚</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">块菌 / 松露（可食）<em>Tuber</em> spp.</div>
+        <div class="confusion-diff">地下生长的珍贵食用菌，剖面具大理石状纹理及特殊香气；地上或半地下生长、剖面均质无纹理、气味平淡的球形菌，应高度怀疑为硬皮马勃而非松露</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.4rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「球形无柄裂鳞皮，剖开辨色是关键」</div>
+        <div class="memory-pill">「灰白转紫终成墨，纯白马勃才可食」</div>
+        <div class="memory-pill">「像松露却无纹理，闻着平淡莫轻信」</div>
+        <div class="memory-pill">「土黄圆球林下生，误食呕吐头晕伴」</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ink"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单个或几个群生于地表，偶见半埋于枯枝落叶层下</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 共生关系</div>
+        <div class="habitat-value">外生菌根真菌，多见于针阔混交林或阔叶林地表，与多种树木形成共生关系</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">江苏、福建、台湾、西藏、广东、香港、广西等中国南方及西部地区均有分布报道</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">发生季节</div>
+        <div class="habitat-value">夏秋季为主要出菇期，湿润多雨环境下更为常见</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集提示：在林地遇到球形、无菌盖菌柄结构的菌类时，切勿仅凭"像马勃"或"像松露"的第一印象采食，务必剖开检视内部颜色与质地；不确定物种时应保留样本咨询专业机构，切勿自行尝试。
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-earth"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用与毒性评估</div>
+        <div class="value-body">一般不建议食用；生食或食用未煮透个体可致呕吐、头晕等胃肠道反应，不同地区及文献对其毒性程度描述存在差异，保守处理原则是不采不食</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">传统药用记载</div>
+        <div class="value-body">硬皮马勃属部分种类在传统医药中有外用消肿、止血的记载，但这属于外用范畴，不代表可安全内服食用，二者不可混为一谈</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为外生菌根真菌，对所共生林木的水分及养分吸收具有促进作用，在森林生态系统物质循环中扮演重要角色</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">鉴定科普价值</div>
+        <div class="value-body">因幼嫩期极易与可食块菌、马勃混淆，是野外菌类鉴定培训中的经典教学案例，孢子网纹结构及红外光谱特征也被用于近缘物种的分子与化学鉴别研究</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://baike.baidu.com/item/%E9%87%91%E9%BB%84%E7%A1%AC%E7%9A%AE%E9%A9%AC%E5%8B%83/1495058" target="_blank">百度百科·金黄硬皮马勃</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E6%A9%99%E9%BB%84%E7%A1%AC%E7%9A%AE%E9%A9%AC%E5%8B%83/1495176" target="_blank">百度百科·橙黄硬皮马勃</a> ·
+      <a class="ref-link" href="http://www.mycopedia.top/macrofungi/scleroderma.htm" target="_blank">菌物志·硬皮马勃属</a>
+    </div>
+    <div>轻中度胃肠炎型 · 不建议采食 · 易与块菌/马勃混淆</div>
+  </div>
+
+</div>
+</body>
+</html>
