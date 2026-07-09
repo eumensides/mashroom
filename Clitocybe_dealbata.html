@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白霜杯伞 · Clitocybe dealbata（剧毒）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 剧毒物种：沉重、警惕、冷灰调 */
+    --ink: #1a1a18;
+    --ink-mid: #4a4a45;
+    --ink-light: #8a8a82;
+    --cream: #f2efe9;
+    --surface: #ffffff;
+    --surface-warm: #f7f4ee;
+
+    /* 灰白（伞体本色） */
+    --ash: #6a6a60;
+    --ash-light: #a8a89c;
+    --ash-pale: #ece9e0;
+    --ash-mid: #4a4a42;
+
+    /* 草绿（草坪生境标记，非可食标记） */
+    --grass: #4a5c30;
+    --grass-light: #8aa060;
+    --grass-pale: #eef0e2;
+
+    /* 剧毒警示色：暗红 */
+    --toxic: #7a1f2b;
+    --toxic-light: #b85560;
+    --toxic-pale: #f5e2e2;
+    --toxic-mid: #5c1620;
+
+    /* 出汗症状标记：暗黄褐 */
+    --sweat: #8b5e1a;
+    --sweat-light: #c99a4a;
+    --sweat-pale: #f5ecd8;
+
+    --border: rgba(60,60,50,0.14);
+    --border-mid: rgba(60,60,50,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--toxic);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #cfcabe;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(15,10,10,0.75));
+    padding: 24px 20px 16px;
+  }
+
+  .hero-overlay-text { font-size: 12px; color: rgba(240,225,225,0.9); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--toxic); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700;
+    line-height: 1.2; color: var(--ink); margin-bottom: 6px;
+  }
+
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--ink-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--ink-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+  .tag-toxic-pale { background: var(--toxic-pale); color: var(--toxic-mid); }
+  .tag-sweat { background: var(--sweat-pale); color: var(--sweat); }
+  .tag-grass { background: var(--grass-pale); color: var(--grass); }
+  .tag-ash   { background: #efece4; color: var(--ash-mid); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-toxic { background: var(--toxic); }
+  .dot-grass { background: var(--grass); }
+  .dot-ash   { background: var(--ash-light); }
+  .dot-sweat { background: var(--sweat); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+
+  .section-badge {
+    margin-left: auto; font-size: 11px; font-weight: 500; color: var(--ink-light);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+  .photo-slot {
+    aspect-ratio: 4/3; background: #d4cec0; border-radius: 8px; overflow: hidden;
+    position: relative; border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot-wide {
+    aspect-ratio: 16/7; background: #d4cec0; border-radius: 8px; overflow: hidden;
+    position: relative; border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(15,10,10,0.75); color: #f0e5e5; font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--grass-pale); color: var(--grass); }
+  .phase-mid    { background: var(--sweat-pale); color: var(--sweat); }
+  .phase-mature { background: var(--toxic-pale); color: var(--toxic-mid); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+
+  .trait-name {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-light); margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border);
+    vertical-align: top; color: var(--ink);
+  }
+  .parts-table td:first-child { font-weight: 500; color: var(--toxic-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box {
+    background: var(--toxic-pale); border: 1px solid rgba(122,31,43,0.32);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem;
+  }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--toxic); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a1218; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--toxic); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box {
+    background: var(--ash-pale); border: 1px solid rgba(106,106,96,0.30);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem;
+  }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--ash-mid); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2e2e28; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--ash-mid); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--ash-light);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.danger { border-left-color: var(--toxic); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--ink-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--toxic-pale); border: 1px solid rgba(122,31,43,0.28); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--toxic-mid); font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-light); margin-bottom: 6px;
+  }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-light); margin-bottom: 8px;
+  }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .toxin-bar {
+    background: linear-gradient(135deg, #f5e2e2, #f7f4ee);
+    border: 1px solid rgba(122,31,43,0.32); border-radius: 12px; padding: 18px 20px;
+    margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--toxic); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-light);
+  }
+  .ref-link { color: var(--toxic-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .toxin-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  ☠️ 剧毒物种 · 含大量毒蕈碱 · 常生于草坪易被儿童误采，严禁食用
+</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata0.png" alt="白霜杯伞主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Clitocybe dealbata · 象牙白至米色漏斗状小型蘑菇，常成群生于草坪</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 口蘑科（含毒蕈碱类群）</div>
+    <div class="hero-name-zh">白霜杯伞</div>
+    <div class="hero-name-la">Clitocybe dealbata</div>
+    <div class="hero-author">(Sowerby) P.Kumm., 1871 · 原学名 Agaricus dealbatus</div>
+
+    <div class="tag-row">
+      <span class="tag tag-toxic">☠ 剧毒 · 禁止食用</span>
+      <span class="tag tag-sweat">毒蕈碱综合征</span>
+      <span class="tag tag-grass">草坪 / 草地常见</span>
+      <span class="tag tag-ash">易结仙女环</span>
+      <span class="tag tag-toxic-pale">耐热毒素（加热不破坏）</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">白霜杯伞 / 变色杯伞</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Ivory Funnel / Sweating Mushroom</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Tricholomataceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分类地位</span>
+        <span class="taxon-value">存疑种（nomen dubium）· 与环带杯伞高度重叠</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="toxin-bar">
+      <div class="rh-item">
+        <span class="rh-label">核心毒素：毒蕈碱</span>
+        <span class="rh-value">干重约0.1%–0.33%的毒蕈碱（muscarine），集中于菌盖与菌褶；毒素耐热，充分煮熟也无法破坏其毒性</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">中毒症状</span>
+        <span class="rh-value">典型胆碱能危象（SLUDGE综合征）：大量流涎、出汗、流泪、瞳孔缩小、心动过缓，误食后10–30分钟内发病</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">高风险生境</span>
+        <span class="rh-value">好生于公园、草坪、球场等人类活动频繁区域，形态平凡不起眼，儿童与宠物误食风险显著高于林中毒菌</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 象牙白至米色 / 扁平至浅漏斗形</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 白色密集菌褶 / 延生 / 细柄</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉薄而白 / 柄部纤维状实心</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata4.png" alt="褶面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">褶面 · 白色，密集、延生至近延生，不等长</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 白色（与斜盖菇的粉色孢子印形成关键对比）</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 菌盖表面白粉状霜被 / 无菌环无菌托</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide" style="margin-top:10px;">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Clitocybe_dealbata7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 草坪 / 草地群生成环（仙女环） · 夏秋季高发</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-sweat"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖初为凸圆形，直径1–2cm，表面覆一层细腻白色粉霜（dealbata意为"粉饰、涂白"），边缘内卷；
+          菌褶白色，密集，延生；菌柄短而细，白色至米白色，无菌环无菌托；
+          此期极易与幼嫩的硬柄小皮伞、斜盖菇混淆，是最危险的误采阶段。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐平展，直径增至2–4cm，中央微凹，颜色转为米色至浅褐色，表面白粉霜逐渐减退但仍可见；
+          菌褶白色更加明显，密集不等长；菌柄0.5–1cm粗，2–4cm高，质地略纤维状；
+          此期常呈丛生或群生，多株同时出现，开始显现环状排列趋势。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展至浅漏斗状凹陷，中央下凹明显，边缘常呈波状或轻微上翘；
+          整体颜色为米色至浅褐色（并非纯白），菌褶白色，密度极高；
+          常成群呈弧形或完整环状分布（仙女环），生长于草坪、草地中，气味与味道均无特殊之处，极易被忽视其毒性。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-sweat"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-ash">菌盖象牙白→米色→浅褐</span>
+          <span class="tag tag-ash">表面白色粉霜（幼时明显）</span>
+          <span class="tag tag-grass">菌褶白色，成熟不变色</span>
+          <span class="tag tag-grass">孢子印白色</span>
+          <span class="tag tag-ash">菌柄米白至浅褐</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-ash">小型（径2–4cm）</span>
+          <span class="tag tag-ash">凸圆→扁平→浅漏斗状</span>
+          <span class="tag tag-ash">菌柄细短，2–4cm×0.5–1cm</span>
+          <span class="tag tag-toxic-pale">无菌环无菌托</span>
+          <span class="tag tag-grass">群生成环（仙女环）</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-ash">无独特气味</span>
+          <span class="tag tag-toxic">⚠ 气味平淡是危险信号之一</span>
+          <span class="tag tag-ash">不同于斜盖菇的面粉香</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感 / 毒理</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">☠ 严禁食用，无安全食用方式</span>
+          <span class="tag tag-sweat">中毒后大量流涎流泪出汗</span>
+          <span class="tag tag-sweat">瞳孔缩小 · 心动过缓</span>
+          <span class="tag tag-toxic-pale">毒素耐热，烹饪不能解毒</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-sweat"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr><th>部位</th><th>形态描述</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径2–4cm，幼时凸圆形，后扁平至浅漏斗状下凹；表面白色，覆细腻粉霜，成熟后转米色至浅褐色，边缘常内卷或呈波状；毒蕈碱含量在此部位最高</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>白色，延生至近延生，密集，不等长；成熟后不变色，与斜盖菇成熟后转粉色的菌褶形成关键区别；毒蕈碱含量同样很高</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>薄，白色；无独特气味或味道，正是这种"平平无奇"的特性使其极易被误认为无毒的可食小型伞菌</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>2–4cm高，0.5–1cm粗，圆柱形，米色至浅褐色，纤维状但不如硬柄小皮伞那样坚韧耐折</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>孢子印白色；显微镜下无淀粉质反应，是与近缘毒种环带杯伞进行显微鉴别的依据之一</td>
+          </tr>
+          <tr>
+            <td>菌环 / 菌托</td>
+            <td>均无（区别于有环托的鹅膏属剧毒种，但切勿因"无环托"而误判为安全，本种同样致命）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>体型<strong>小而普通</strong>，白色至米色，外观毫无警示特征——正是其危险所在</li>
+        <li>好生于<strong>草坪、草地</strong>而非林地，常呈<strong>环状群生</strong>（仙女环），儿童和宠物极易接触</li>
+        <li>菌褶<strong>白色且成熟不变色</strong>，孢子印白色——须与孢子印变粉的可食斜盖菇严格区分</li>
+        <li>菌柄<strong>脆弱、不甚耐折</strong>，与坚韧如铁丝的可食硬柄小皮伞质地明显不同</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">☠ 中毒信息：毒蕈碱综合征</div>
+      <ul class="caution-list">
+        <li>主要毒素为<strong>毒蕈碱</strong>（muscarine），作用于体内胆碱能受体，误食后10–30分钟内快速发病</li>
+        <li>典型症状为"SLUDGE综合征"：大量流涎（Salivation）、流泪（Lacrimation）、多尿（Urination）、腹泻（Diarrhea）、胃肠不适（GI upset）、呕吐（Emesis），并伴心动过缓、瞳孔缩小</li>
+        <li>毒素<strong>耐高温</strong>，充分煮熟或干燥均无法降低毒性，不存在"处理后可食用"的说法</li>
+        <li>此类中毒虽极少致死，但严重病例可危及生命，尤其对儿童、老人及心脏病患者风险更高，误食后应立即就医</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">柄部韧性测试法</div>
+        <div style="font-size:13px;color:var(--ink-mid)">可食的硬柄小皮伞菌柄如铁丝般坚韧，可反复扭转不断；白霜杯伞菌柄纤维状但脆弱易折，此为野外快速初筛的辅助方法，但<strong>不可作为唯一判断依据</strong></div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">孢子印颜色测试法</div>
+        <div style="font-size:13px;color:var(--ink-mid)">可食的斜盖菇成熟后孢子印为<strong>粉色</strong>，白霜杯伞孢子印始终为<strong>白色</strong>；采集疑似個体时务必留取孢子印静置数小时观察颜色</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">硬柄小皮伞 <em>Marasmius oreades</em>（仙女环蘑菇，可食）</div>
+        <div class="confusion-diff">同样在草坪结仙女环，外观极相似。区别：硬柄小皮伞菌盖<strong>中央有明显乳突</strong>，菌褶<strong>稀疏且宽窄不一</strong>（非密集），菌柄<strong>坚韧如铁丝可反复弯折不断</strong>，干燥后遇水可复活；白霜杯伞菌褶密集，柄脆弱易折</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">斜盖菇 <em>Clitopilus prunulus</em>（毛柄库恩菇，可食）</div>
+        <div class="confusion-diff">外观、颜色均与白霜杯伞高度相似，是最危险的混淆对象。关键区别：斜盖菇具<strong>浓郁面粉/黄瓜清香</strong>，成熟<strong>孢子印为粉色</strong>；白霜杯伞气味平淡，<strong>孢子印为白色</strong>——孢子印颜色是最可靠的鉴别依据</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic)">☠ 环带杯伞 <em>Clitocybe rivulosa</em></div>
+        <div class="confusion-diff">与白霜杯伞为近缘种，形态高度重叠，同样含大量毒蕈碱，部分分类学者认为二者实为同一物种或存在广泛过渡类型；无论鉴定为哪一种，均应按剧毒处理，不可食用</div>
+      </div>
+    </div>
+
+    <!-- 分类地位说明 -->
+    <div style="margin-top:1.4rem;background:var(--toxic-pale);border:1px solid rgba(122,31,43,0.32);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--toxic);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--toxic);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--toxic);margin-bottom:8px;">当前学名</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Clitocybe dealbata</div>
+            <div style="font-size:11.5px;color:var(--ink-light);margin-bottom:8px;">(Sowerby) P.Kumm., 1871</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              中文：<strong>白霜杯伞</strong>。1799年 Sowerby 最初以 <em>Agaricus dealbatus</em> 描述，1871年 Kummer 转入杯伞属，形成现今通用学名。
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--ash-light);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--ash-mid);margin-bottom:8px;">⚠ 存疑分类</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">nomen dubium 争议</div>
+            <div style="font-size:11.5px;color:var(--ink-light);margin-bottom:8px;">与 Clitocybe rivulosa 高度重叠</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              Sowerby 的原始描述与 Fries 的定义存在冲突，部分学者认为该学名为存疑名；分子系统学研究显示其与环带杯伞界限模糊，可能代表同一复合种下的不同居群。
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-light);margin-bottom:10px;">名称与鉴定说明</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--toxic);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>白霜杯伞 ≈ 环带杯伞：</strong>二者形态、生境、毒素成分（均为毒蕈碱）几乎完全一致，野外几乎无法可靠区分，田野鉴定时通常按同一风险等级处理。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--toxic);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>"白色小型杯伞属"整体规避原则：</strong>杯伞属（<em>Clitocybe</em>）中体型小、颜色白至米色的类群普遍含毒蕈碱风险，非专业人士难以精细区分种间界限，建议对该类群整体采取不采不食的保守策略。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--toxic-pale);border:1px solid rgba(122,31,43,0.32);border-left:4px solid var(--toxic);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#4a1218;line-height:1.7;">
+          <strong>☠ 采集警示：</strong>在草坪、草地上采集"仙女环蘑菇"食用前，务必核实<strong>孢子印颜色（白色即高度可疑）</strong>与<strong>菌柄韧性（脆弱即高度可疑）</strong>；如无绝对把握区分白霜杯伞、环带杯伞与硬柄小皮伞、斜盖菇，应一律放弃采食，切勿心存侥幸。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「草坪白伞不起眼，仙女环中藏危险」</div>
+        <div class="memory-pill">「褶密孢白莫轻食，粉色孢印才安全」</div>
+        <div class="memory-pill">「柄若如丝可扭转，方是小皮伞真身」</div>
+        <div class="memory-pill">「流涎出汗瞳孔缩，毒蕈碱毒发病急」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-grass"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">常成群或呈环状（仙女环）密集生长，单环可包含数十株，环径可随年份逐渐扩大</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">草腐生：草坪、草地、公园绿地、高尔夫球场、路边草丛等富含腐殖质的开阔草生环境，极少见于林地</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">欧洲及北美洲广泛常见；中国北京等地已有明确记录，推测在温带城市绿地中广泛分布但常被忽视</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">发生季节</div>
+        <div class="habitat-value">夏季至秋季为主，雨后草坪湿润期高发；由于生长于人类活动密集区域，接触风险常年存在</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      公共安全提示：本种常见于公园、小区草坪及儿童游乐区域附近，外观不起眼却含较高浓度毒蕈碱；建议家长及看护人对草坪蘑菇保持警惕，教育儿童不采不食不玩弄野生蘑菇。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">无——本种为剧毒真菌，不存在任何安全的食用处理方式，任何"去毒"传言均不可信；国内多地毒蘑菇中毒防治手册已将其列入含毒蕈碱种类名录</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">毒理学 / 教学价值</div>
+        <div class="value-body">是毒蕈碱型中毒（胆碱能危象）的经典教学案例，常用于医学毒理学及真菌毒理学课程，帮助识别SLUDGE综合征等特征性中毒表现</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Clitocybe_dealbata" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-hans/%E7%99%BD%E9%9C%9C%E6%9D%AF%E4%BC%9E" target="_blank">维基百科 中文</a> ·
+      <a class="ref-link" href="https://grokipedia.com/page/Clitocybe_dealbata" target="_blank">Grokipedia 毒理学档案</a>
+    </div>
+    <div>存疑分类 · 含大量毒蕈碱 · 严禁食用</div>
+  </div>
+
+</div>
+</body>
+</html>
