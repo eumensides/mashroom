@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白边灵芝 · Ganoderma albomarginatum</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 药用多孔菌：漆红棕 + 赭金，传统本草配色 */
+    --ink: #201512;
+    --ink-mid: #4a3a32;
+    --ink-light: #8f7c70;
+
+    --cream: #f2ece2;
+    --surface: #fffcf7;
+    --surface-warm: #faf4ea;
+
+    /* 漆红棕主色（菌盖/菌柄漆样光泽） */
+    --lacquer: #7a3220;
+    --lacquer-light: #b06b4a;
+    --lacquer-pale: #f3e1d6;
+    --lacquer-mid: #5c2416;
+
+    /* 赭金（孔面/装饰色） */
+    --gold: #a97a2e;
+    --gold-light: #d3ab6a;
+    --gold-pale: #f7ecd6;
+
+    /* 苔青绿（生态/生境标记） */
+    --moss: #556b3f;
+    --moss-light: #97ab7c;
+    --moss-pale: #ecf0e4;
+
+    /* 提醒赭橙 */
+    --warn: #a05a1e;
+    --warn-light: #d69a5e;
+    --warn-pale: #faecd9;
+
+    --stone: #5e5148;
+    --stone-light: #988c7e;
+
+    --border: rgba(90,60,44,0.14);
+    --border-mid: rgba(90,60,44,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--lacquer);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #d9c9b8; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(24,12,6,0.72));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,222,200,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--lacquer); margin-bottom: 12px; }
+
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 34px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--gold); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-lacquer { background: var(--lacquer-pale); color: var(--lacquer-mid); }
+  .tag-gold    { background: var(--gold-pale);    color: var(--gold); }
+  .tag-moss    { background: var(--moss-pale);    color: var(--moss); }
+  .tag-warn    { background: var(--warn-pale);    color: var(--warn); }
+  .tag-stone   { background: #ece4d8;             color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-lacquer { background: var(--lacquer); }
+  .dot-gold    { background: var(--gold); }
+  .dot-moss    { background: var(--moss); }
+  .dot-stone   { background: var(--stone-light); }
+  .dot-warn    { background: var(--warn); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #d9c9b8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #d9c9b8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(24,12,6,0.72); color: #f3e5d4; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);    color: var(--moss); }
+  .phase-mid    { background: var(--gold-pale);    color: var(--gold); }
+  .phase-mature { background: var(--lacquer-pale); color: var(--lacquer-mid); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--lacquer-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(160,90,30,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a3410; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(85,107,63,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #263018; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.good { border-left-color: var(--moss); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--lacquer-pale); border: 1px solid rgba(92,36,22,0.28); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--lacquer-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #f3e1d6, #faf4ea);
+    border: 1px solid rgba(122,50,32,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--lacquer); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--lacquer-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  🍄 药用多孔菌 · 木栓质至木质 · 非鲜食物种，公开药理资料有限
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum0.png" alt="白边灵芝主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Ganoderma albomarginatum · 菌盖淡红褐色，边缘具狭窄白色环带，菌柄具强烈似漆样光泽</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 多孔菌科（灵芝科）· 灵芝属</div>
+    <div class="hero-name-zh">白边灵芝</div>
+    <div class="hero-name-la">Ganoderma albomarginatum</div>
+    <div class="hero-author">S.C. He（何绍昌）</div>
+
+    <div class="tag-row">
+      <span class="tag tag-lacquer">药用真菌</span>
+      <span class="tag tag-gold">一年生有柄</span>
+      <span class="tag tag-gold">漆样光泽菌柄</span>
+      <span class="tag tag-lacquer">生长边缘白色环带</span>
+      <span class="tag tag-moss">木栓质至木质</span>
+      <span class="tag tag-stone">三体菌丝系统</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">白边灵芝</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">暂无广泛通用英文名</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">多孔菌目 / 多孔菌科（灵芝科）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">研究现状</span>
+        <span class="taxon-value">分布记录有限 · 主见于分类学文献 · 药理价值待研究</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志结构：生长边缘白色环带</span>
+        <span class="fb-value">菌盖上表面淡红褐色至褐色，唯独靠近边缘处保留一圈狭窄的<strong>白色环带</strong>——这是子实体仍处于活跃生长阶段的标志，也是"白边"之名的直接由来</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">菌柄具强烈似漆样光泽</span>
+        <span class="fb-value">菌柄偏生至侧生，淡黑褐色，表面具<strong>强烈的似漆样光泽</strong>，与灵芝属模式种（灵芝 <em>G. lucidum</em>）菌柄的漆样质感一脉相承，是"漆孔菌类群"的家族性状</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">三体型菌丝系统</span>
+        <span class="fb-value">显微镜下可见生殖菌丝、骨架菌丝、缠绕菌丝三种类型并存，配合双层壁、内壁具小刺的孢子，是灵芝科在显微分类学上区别于其他多孔菌的关键依据</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-lacquer"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 淡红褐色至褐色 / 边缘白色环带</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 孔面浅黄色 / 菌柄漆样光泽</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉深木材色 / 菌管浅灰褐色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum4.png" alt="孔口面图" loading="lazy">
+        <div class="photo-caption">孔口面 · 浅黄色，近圆形，每毫米4-5个</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum5.png" alt="菌柄细节图" loading="lazy">
+        <div class="photo-caption">菌柄细节 · 淡黑褐色，强烈似漆样光泽</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">细节 · 白色生长环带与褐色主体的过渡带</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Ganoderma_albomarginatum7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 阔叶树倒木、枯木或树体伤口，单生固着</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期（白环初现）</div>
+        <div class="phase-desc">
+          子实体自木材伤口或菌丝定殖点萌发，初期呈瘤状突起，菌盖尚未充分展开，质地柔软；边缘白色环带此时较宽，是整个菌盖中最活跃的生长区域；
+          菌管尚未完全分化，孔口不明显，菌柄也尚短，漆样光泽尚未显现。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">生长期（木栓质化）</div>
+        <div class="phase-desc">
+          菌盖逐渐扩展为近圆形至椭圆形，上表面色泽加深为淡红褐色至褐色，质地由柔软转为木栓质；白色环带随菌盖扩展逐渐收窄至边缘一圈狭窄区域；
+          菌柄同步伸长，表面漆样光泽逐渐显现并增强；菌管开始分化，孔面转为浅黄色，但孔口尚不规整。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期（木质孢子期）</div>
+        <div class="phase-desc">
+          菌盖完全展开，宽4.5–8.5×3–6cm，厚2–10mm，质地转为木栓质至木质；上表面具弱光泽及不明显的同心环沟，边缘薄，白色环带保持狭窄稳定；
+          菌肉厚1–3mm，上层深木材色，近菌管处具薄的淡褐色层；菌管浅灰褐色，长1–7mm；孔口近圆形，每毫米4–5个；
+          菌柄长7–10cm，粗8–15mm，淡黑褐色，漆样光泽强烈；孢子在菌管内大量成熟，双层壁、内壁具明显小刺的孢子随孔口逐渐释放。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-lacquer">菌盖淡红褐色至褐色</span>
+          <span class="tag tag-stone">边缘狭窄白色环带</span>
+          <span class="tag tag-gold">孔面浅黄色</span>
+          <span class="tag tag-lacquer">菌柄淡黑褐色，强漆样光泽</span>
+          <span class="tag tag-stone">菌肉上层深木材色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">菌盖近圆形至椭圆形，边缘薄</span>
+          <span class="tag tag-gold">一年生，有柄</span>
+          <span class="tag tag-lacquer">菌柄偏生至侧生，圆柱形不规则</span>
+          <span class="tag tag-stone">具弱光泽及不明显同心环沟</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">木质气味，无特殊记录</span>
+          <span class="tag tag-stone">公开资料未见详细气味描述</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-warn">木栓质至木质，质地坚韧</span>
+          <span class="tag tag-warn">非鲜食物种，不作为食材</span>
+          <span class="tag tag-stone">如作药用需专业炮制</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>近圆形到椭圆形，4.5–8.5 × 3–6cm，厚2–10mm；上表面淡红褐色到褐色，趋向边缘具有狭窄的白色环带，具弱光泽和不明显的同心环沟；边缘薄</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>厚1–3mm；上层深木材色，接近菌管处具薄的淡褐色层</td>
+          </tr>
+          <tr>
+            <td>菌管</td>
+            <td>浅灰褐色，长1–7mm</td>
+          </tr>
+          <tr>
+            <td>孔口</td>
+            <td>浅黄色，近圆形，每毫米4–5个，密度中等</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>偏生到侧生，圆柱形，不规则；淡黑褐色，具强烈似漆样光泽；长7–10cm，粗8–15mm</td>
+          </tr>
+          <tr>
+            <td>菌丝系统</td>
+            <td><strong>三体型</strong>——生殖菌丝无色，薄壁，粗3.5–5.5μm；骨架菌丝浅色，厚壁，分枝，粗3.9–6μm；缠绕菌丝浅色，厚壁，扭曲，分枝，粗1.7–3.2μm</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>卵圆形，顶端钝，浅褐色，双层壁；外壁平滑透明，内壁具明显的小刺；9.5–13.4 × 6.7–8.8μm</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖淡红褐色至褐色，边缘保留一圈<strong>狭窄白色环带</strong>，是区别于多数灵芝属近缘种的最直观标志</li>
+        <li>菌柄偏生至侧生，具<strong>强烈似漆样光泽</strong>——"漆孔菌类群"的家族性状，区别于无光泽的树舌灵芝一类</li>
+        <li>一年生，木栓质到木质，孔面浅黄色，孔口每毫米4–5个，密度中等</li>
+        <li>孢子<strong>双层壁</strong>、内壁具明显小刺，是灵芝科（Ganodermataceae）区别于其他多孔菌科的共同显微特征</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用 / 药用提示：非鲜食物种，慎作自行药用</div>
+      <ul class="caution-list">
+        <li>灵芝属子实体普遍质地坚硬木质，白边灵芝亦不例外，不适合作为普通食材直接烹食</li>
+        <li>目前公开发表的资料中，白边灵芝的药理活性成分及安全性尚缺乏系统研究，不宜自行按灵芝、树舌灵芝等近缘种的传统用法直接套用煎煮服用</li>
+        <li>野外灵芝属子实体常伴生木材腐朽菌及其他杂菌，鉴定难度较高，非专业人士难以仅凭肉眼准确区分白边灵芝与其他近缘种</li>
+        <li>若需药用，建议选择正规渠道的人工栽培灵芝（如灵芝 <em>G. lucidum</em>、四川灵芝 <em>G. sichuanense</em>），避免自行采集野生灵芝属真菌用于治疗目的</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与灵芝（G. lucidum）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">灵芝菌盖<strong>通体一致</strong>的赤褐色至红褐色漆样光泽，孔口表面新鲜时白色至奶油色，<strong>无白色边缘环带</strong>；白边灵芝漆样光泽较弱，边缘具明显白色环带，孔面浅黄色</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与树舌灵芝（G. applanatum）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">树舌灵芝<strong>无柄</strong>（sessile），菌盖灰褐色，表面无漆样光泽，个体通常远大于白边灵芝；白边灵芝<strong>有柄</strong>且柄具强漆样光泽，菌盖明显偏小</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">近缘 / 易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item good">
+        <div class="confusion-name">灵芝 <em>Ganoderma lucidum</em>（药用，人工栽培成熟）</div>
+        <div class="confusion-diff">灵芝属模式种，俗称亮盖灵芝、赤芝；菌盖通体漆样光泽，孔口表面新鲜时白色至奶油色，无白色边缘环带；是目前唯一有大规模、系统药理研究支撑的常用灵芝品种</div>
+      </div>
+      <div class="confusion-item good">
+        <div class="confusion-name">树舌灵芝 <em>Ganoderma applanatum</em>（药用，分布最广）</div>
+        <div class="confusion-diff">无柄，菌盖灰褐色，表面粗糙无光泽，个体通常远大于白边灵芝；是中国分布最广泛的灵芝属物种之一（记录见于27个省区）</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">紫芝 <em>Ganoderma sichuanense</em>（药用）</div>
+        <div class="confusion-diff">皮壳紫黑色，漆样光泽强烈，菌肉锈褐色，菌柄细长；与白边灵芝同属漆孔菌类群，但整体色调更深</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">灵芝属其他近缘种</div>
+        <div class="confusion-diff">灵芝属全球已知种类数量庞大（估计约250–500种，仍有大量新种持续被描述），形态相近种类繁多，田间仅凭肉眼准确区分极为困难，需结合孢子显微特征及分子数据鉴定</div>
+      </div>
+    </div>
+
+    <!-- 分类地位说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--gold-pale);border:1px solid rgba(169,122,46,0.32);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--lacquer);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位与命名说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--lacquer);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--lacquer);margin-bottom:8px;">属名释义</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Ganoderma</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">源自希腊语 ganos（光亮）+ derma（皮）</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              形容该属多数种类菌盖表皮具漆样光泽的质感；灵芝属现已知约250种（形态学时代）至500余种（含分子数据估计），是多孔菌科药用价值最受关注的属之一。
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--gold);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--gold);margin-bottom:8px;">"白边"命名释义</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">albomarginatum</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">拉丁语 albo-（白色）+ marginatum（具边缘的）</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              直译即"具白边的"，精确对应该种菌盖边缘保留的白色生长环带这一形态特征；由中国真菌学家何绍昌（S.C. He）描述发表。
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">研究现状说明</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--lacquer);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>分布记录有限：</strong>公开可查资料中，白边灵芝主要记录见于贵州等地，具体分布范围及生态幅仍有待更多野外调查数据完善。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--lacquer);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>本页数据来源：</strong>本页形态描述（尺寸、颜色、显微结构）依据现有分类学文献整理，力求准确；但需注意部分网络资料存在将本种与其他物种（如新疆特产食用菌"阿魏菇"）信息混淆张冠李戴的情况，本页已依据分类学原始描述予以订正。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--lacquer);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>药理研究空白：</strong>与灵芝、树舌灵芝等已有系统药理学研究的近缘种不同，白边灵芝目前未见公开发表的针对性活性成分或安全性研究，相关领域仍是空白，具有一定的科研潜力。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--warn-pale);border:1px solid rgba(160,90,30,0.3);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a3410;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>在阔叶树倒木或伤口处发现带柄、菌盖具漆样光泽的木质菌类时，应重点检查边缘是否具白色环带、菌柄光泽强弱及孔面颜色，以初步区分白边灵芝与灵芝、树舌灵芝等近缘种；具体入药使用仍建议以正规栽培品种及专业指导为准。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「白环收边是标志，漆柄光泽认亲缘」</div>
+        <div class="memory-pill">「灵芝家族认漆光，白边独有一圈霜」</div>
+        <div class="memory-pill">「野生灵芝莫乱采，专业鉴定最踏实」</div>
+        <div class="memory-pill">「三体菌丝显微下，双壁孢子藏刺芒」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生，以偏生至侧生的菌柄固着于木质基物表面</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">木生（腐生兼寄生），常见于阔叶树倒木、枯木或树体伤口处，属木材白腐菌一类</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">公开记录见于中国贵州等地；具体分布范围及是否存在于其他省区，有待更多标本调查数据支持</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">灵芝属整体多见于夏秋季出菇，本种具体物候数据目前缺乏公开系统记录</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：野外遇到疑似灵芝属子实体，建议拍照记录边缘、孔面、菌柄光泽等关键特征后咨询专业机构鉴定，不建议自行采集用于药用煎服。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-lacquer"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">质地木质坚硬，不作为普通食用菌看待，无家常食用记录</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用价值</div>
+        <div class="value-body">灵芝科整体因含三萜类、多糖类等活性成分在中医药中占重要地位，但白边灵芝本身的药理成分尚未见公开系统研究，暂不能等同于灵芝、树舌灵芝的已知药效直接套用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为木材腐生/寄生真菌参与森林生态系统的物质循环，是森林病理学及木材腐朽机制研究的关注对象</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研价值</div>
+        <div class="value-body">三体型菌丝系统及双层壁、内壁具刺的孢子等显微特征，是灵芝科分类学、系统发育学研究的重要材料；其分布及药理空白也提示可作为后续科研的潜在方向</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="http://www.cnnpark.com/sf_CA3111E68D7644B7A691097BCA59737E_306_cary.html" target="_blank">保护地平台 · 白灵芝与白边灵芝</a> ·
+      <a class="ref-link" href="https://zh.wikipedia.org/wiki/%E9%9D%88%E8%8A%9D%E5%B1%AC" target="_blank">Wikipedia · 灵芝属</a>
+    </div>
+    <div>药用价值待研究 · 分布记录有限 · 非鲜食物种</div>
+  </div>
+
+</div>
+</body>
+</html>
