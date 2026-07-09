@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>毒沟褶菌 · Trogia venenata（小白菌 · 蝴蝶菌 · 剧毒）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #1a1820;
+    --ink-mid: #464050;
+    --ink-light: #8a8290;
+    --cream: #f4f2f6;
+    --surface: #ffffff;
+
+    --moss: #4a5c48;
+    --moss-light: #b8c4b0;
+    --moss-pale: #eef1ec;
+
+    --amber: #7a5a30;
+    --amber-light: #c8a468;
+    --amber-pale: #f4ecd8;
+
+    /* 沟纹脉络色（形态特色） */
+    --vein: #7a6a88;
+    --vein-light: #c0b4d0;
+    --vein-pale: #f0ecf6;
+
+    /* 剧毒警示主色：心脏紫红（猝死主题） */
+    --toxic: #5a1a44;
+    --toxic-light: #c090b4;
+    --toxic-pale: #f2e4ee;
+
+    --spore: #5a4c58;
+    --spore-light: #b8a8c0;
+    --spore-pale: #f0ecf2;
+
+    --border: rgba(70,60,80,0.14);
+    --border-mid: rgba(70,60,80,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .toxic-banner {
+    background: var(--toxic);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #d8d4dc; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(20,12,20,0.72)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(230,210,225,0.85); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--toxic); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--ink-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--ink-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-moss { background: var(--moss-pale); color: var(--moss); }
+  .tag-amber { background: var(--amber-pale); color: var(--amber); }
+  .tag-vein { background: var(--vein-pale); color: var(--vein); }
+  .tag-ink { background: #ece8ee; color: var(--ink-mid); }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+  .tag-spore { background: var(--spore-pale); color: var(--spore); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-moss { background: var(--moss); }
+  .dot-amber { background: var(--amber); }
+  .dot-vein { background: var(--vein); }
+  .dot-ink { background: var(--ink-mid); }
+  .dot-toxic { background: var(--toxic); }
+  .dot-spore { background: var(--spore); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--ink-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #e2dce8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #e2dce8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); grid-column: span 3; }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20,12,20,0.74); color: #ede2ec; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--vein-pale);  color: var(--vein); }
+  .phase-mature { background: var(--toxic-pale);  color: var(--toxic); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--toxic); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--toxic-pale); border: 1px solid rgba(90,26,68,0.32); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 700; color: var(--toxic); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #3a1230; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--toxic); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--spore-pale); border: 1px solid rgba(90,76,88,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--spore); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #302030; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--spore); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--vein-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--toxic); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--ink-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--toxic-pale); border: 1px solid rgba(90,26,68,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--toxic); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .toxin-bar {
+    background: linear-gradient(135deg, #f2e4ee, #f4f2f6);
+    border: 1px solid rgba(90,26,68,0.32);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--toxic); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-light); }
+  .ref-link { color: var(--toxic); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .toxin-bar { grid-template-columns: 1fr; }
+    .photo-slot-wide { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 剧毒警示横幅 ══ -->
+<div class="toxic-banner">
+  ☠️ 剧毒物种 · 心血管猝死型中毒 · "云南不明原因猝死"元凶 · 严禁采食 · 易与可食侧耳/裂褶菌混淆
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata0.png" alt="毒沟褶菌主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Trogia venenata · 半透明近白色小型革质菌，30余年间"云南猝死"元凶</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 伞菌纲 · 沟褶菌属（科级地位未定）</div>
+    <div class="hero-name-zh">毒沟褶菌</div>
+    <div class="hero-name-la">Trogia venenata</div>
+    <div class="hero-author">Zhu L.Yang, J.Li, Tolgor & P.Zhang, 2012 · 命名前长期以"小白菌"之名流传</div>
+
+    <div class="tag-row">
+      <span class="tag tag-toxic">☠ 剧毒 · 禁止食用</span>
+      <span class="tag tag-toxic">心血管猝死型</span>
+      <span class="tag tag-vein">半透明薄革质</span>
+      <span class="tag tag-amber">腐生于朽木</span>
+      <span class="tag tag-ink">易与侧耳/裂褶菌混淆</span>
+      <span class="tag tag-spore">2012年正式命名新种</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">小白菌 / 指甲菌 / 鸡冠菌 / 蝴蝶菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">中毒类型</span>
+        <span class="taxon-value">心源性猝死型（非肠胃、非肝损伤）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 Agaricales / 科级地位未定（近小皮伞科）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分布</span>
+        <span class="taxon-value">云南中部、西北部（大理、祥云、腾冲、楚雄、景东等）</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="toxin-bar">
+      <div class="rh-item">
+        <span class="rh-label">核心毒素：胍基酸 + 非蛋白质氨基酸</span>
+        <span class="rh-value">含一种胍基酸和两种新发现的非蛋白质氨基酸，三者混合可引发血压骤降与心律失常，导致猝死</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">医学史意义</span>
+        <span class="rh-value">曾被长期误认为柯萨奇病毒引起的克山病，直至2010年才被鉴定为致病真菌新种，2012年确认毒素成分</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">潜伏期极不稳定</span>
+        <span class="rh-value">因个体差异，误食后潜伏期可从数小时到2–10天不等，症状隐匿，极易被忽视为其他疾病</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata1.png" alt="上表面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上表面图 · 近白色至米汤色，具光泽，幼时略带浅紫</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata2.png" alt="45°侧拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 侧拍 · 半圆形至扇形，花瓣状丛生于朽木</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 薄革质，半透明，质地稍韧</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata4.png" alt="下表面脉纹图" loading="lazy">
+        </picture>
+        <div class="photo-caption">下表面 · 放射状沟纹脉络清晰可见（属名"沟褶"由来）</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata5.png" alt="短柄细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">短柄细节 · 侧生短柄，基部附着朽木</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata6.png" alt="干燥标本图" loading="lazy">
+        </picture>
+        <div class="photo-caption">干燥标本 · 干后呈浅褐色，质地变脆</div>
+      </div>
+
+      <div class="photo-slot-wide">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata7.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Trogia_venenata7.png" alt="生境图" loading="lazy">
+        </picture>
+        <div class="photo-caption">生境图 · 亚热带常绿阔叶林/混交林朽木，海拔1700–3000m山区</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-vein"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">初生期</div>
+        <div class="phase-desc">
+          子实体初为细小突起，逐渐展开为半圆形至花瓣状薄片，直径约1–3cm；质地薄软近透明，色泽近白略带米汤色，
+          幼时边缘及基部常带浅紫色调；上表面已现光泽；侧生短柄不明显，紧贴朽木基质。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">展开期</div>
+        <div class="phase-desc">
+          子实体充分展开，呈扇形至花瓣状，边缘可轻微波状；上表面光泽增强，近白色至米汤色，浅紫色调渐褪；
+          下表面放射状沟纹脉络清晰可辨，质地薄革质、半透明，稍具韧性；数枚至十余枚丛生于同一朽木裂隙处。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟 / 干燥期</div>
+        <div class="phase-desc">
+          成熟子实体直径可达3–6cm或稍大，质地更显坚韧，颜色转为米黄至浅褐；干燥后整体收缩变脆，呈浅褐色，
+          仍可见下表面脉纹结构；此阶段常与同期出现的可食裂褶菌、侧耳混生，是误采的高发时期。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">近白色至米汤色</span>
+          <span class="tag tag-vein">幼时略带浅紫色</span>
+          <span class="tag tag-amber">干后浅褐色</span>
+          <span class="tag tag-ink">上表面有光泽</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-vein">半圆形至扇形，花瓣状</span>
+          <span class="tag tag-ink">具一短柄，侧生</span>
+          <span class="tag tag-vein">下表面放射状脉纹明显</span>
+          <span class="tag tag-ink">数枚至十余枚丛生</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味 / 质地</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">气味平淡，无明显特殊气味</span>
+          <span class="tag tag-vein">质地稍韧，薄革质，半透明</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感 / 毒性</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">☠ 剧毒，严禁任何方式食用</span>
+          <span class="tag tag-toxic">熟制不能解毒</span>
+          <span class="tag tag-toxic">可致心源性猝死</span>
+          <span class="tag tag-ink">潜伏期数小时至2–10天不等</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>子实体整体</td>
+            <td>半圆形至扇形，花瓣状，直径约1–6cm；质地稍韧，薄革质，半透明状；数枚至十余枚簇生于同一朽木裂隙或伤口处</td>
+          </tr>
+          <tr>
+            <td>上表面</td>
+            <td>近白色至米汤色，幼时稍带浅紫色，较有光泽；表面光滑或具极细绒毛</td>
+          </tr>
+          <tr>
+            <td>下表面（脉纹层）</td>
+            <td>具明显的放射状脉纹，代替典型菌褶结构，是本属"沟褶"名称的直接来源；颜色与上表面相近或略浅</td>
+          </tr>
+          <tr>
+            <td>柄</td>
+            <td>短柄，侧生或近无柄，紧贴基质；干燥后随子实体一同收缩变脆</td>
+          </tr>
+          <tr>
+            <td>干燥后特征</td>
+            <td>整体收缩，转为浅褐色，质地变脆，脉纹结构仍可辨认，是采集标本鉴定的重要依据</td>
+          </tr>
+          <tr>
+            <td>毒素成分</td>
+            <td>含一种胍基酸（guanidinic acid）及两种新发现的非蛋白质氨基酸，三者共同作用可导致急性血压下降与心律失常</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-spore"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>整体呈<strong>半圆形至扇形花瓣状</strong>，薄革质、半透明，近白色至米汤色，幼时略带浅紫</li>
+        <li>下表面具<strong>明显放射状脉纹</strong>（非真正菌褶），区别于普通伞菌的褶片结构</li>
+        <li>丛生于<strong>阔叶树/混交林朽木</strong>，常与可食用的侧耳、裂褶菌生于同一段朽木甚至相互混杂</li>
+        <li>中毒类型为罕见的<strong>心源性猝死型</strong>，潜伏期长且波动大（数小时至2–10天），极易被误诊为其他心脏或不明疾病</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">☠ 剧毒警示：30余年"云南不明原因猝死"的真凶</div>
+      <ul class="caution-list">
+        <li>1970年代起云南多地夏季（6–8月）反复出现家庭或村庄聚集性不明原因猝死，长期被误认为柯萨奇病毒引起的克山病，直至2006–2007年才在死者家中发现此菌</li>
+        <li>2010年被正式鉴定并命名为新种毒沟褶菌，2012年进一步确认其胍基酸与非蛋白质氨基酸混合毒素可导致血压骤降及心律失常，致人猝死</li>
+        <li>1978年以来云南累计报告不明原因猝死病例超过400例（截至2023年10个州市25个县市区累计421例），发病多集中于海拔1800–2400m的夏季雨季山村</li>
+        <li>该毒素性质稳定，无论炒、煮、晒干等任何加工方式均无法去除毒性，唯一预防方法是绝不采食</li>
+        <li>因其外观与可食用的裂褶菌、侧耳（人工栽培食用菌常见近缘）极为相似，当地健康教育长期倡导"不认识的白色小蘑菇一律不采不食"</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与可食裂褶菌区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">裂褶菌（Schizophyllum commune）菌褶为真正的<strong>纵裂两瓣状褶片</strong>，边缘常内卷；毒沟褶菌下表面为<strong>放射状脉纹</strong>而非真正褶片，且质地更薄、半透明感更强，需仔细辨认下表面结构差异</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与可食侧耳（平菇）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">侧耳（Pleurotus ostreatus）子实体明显更大更厚，菌褶延生且规则排列；毒沟褶菌个体小、质地薄透且带浅紫调，两者常混生于同一段朽木，采集时须逐朵仔细核查</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">漏斗状沟褶菌 <em>Trogia infundibuliformis</em></div>
+        <div class="confusion-diff">与毒沟褶菌亲缘关系最近的同属物种，被认为可以食用；外观同样呈薄革质小型子实体，仅凭肉眼极难与毒沟褶菌区分，凸显了该属鉴定的高风险性</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">裂褶菌（可食）<em>Schizophyllum commune</em></div>
+        <div class="confusion-diff">云南最常被误采的可食用近似种之一，菌褶纵裂两瓣、边缘内卷是关键区别特征；干燥后二者外观相似度进一步提高</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">侧耳类（可食）<em>Pleurotus</em> spp.</div>
+        <div class="confusion-diff">市场常见人工栽培食用菌的野生近缘类型，个体通常明显大于毒沟褶菌，菌褶规则、延生，注意与小型丛生的毒沟褶菌区分</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.4rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「米白花瓣朽木生，脉纹放射非真褶」</div>
+        <div class="memory-pill">「三十年谜克山病，原是小白菌作祟」</div>
+        <div class="memory-pill">「潜伏两日到旬日，心跳骤停最难防」</div>
+        <div class="memory-pill">「不识白色小蘑菇，一律不采不下锅」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ink"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">腐生菌，数枚至十余枚丛生于朽木裂隙、伤口处，常与可食近缘种混生</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">亚热带常绿阔叶林或针阔混交林下的倒木、朽木；分布海拔约1700–3000m山区</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">云南中部与西北部：大理、祥云、腾冲、楚雄、景东等地为主要报道区域，猝死病例覆盖云南10州市25县市区</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">出菇与致病高峰</div>
+        <div class="habitat-value">每年7–9月为子实体成熟期，与猝死事件高发的雨季（6–8月）高度重合</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      安全提示：云南病区自2006年起持续开展"禁食小白菌"健康教育，效果显著；居住或旅行至云南中部、西北部山区夏季雨季时，切勿采食任何不明来源的白色薄革质小蘑菇，家庭聚餐更需格外谨慎。
+    </div>
+  </div>
+
+  <!-- 7. 危害评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">危害评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">毒性与临床表现</div>
+        <div class="value-body">胍基酸与非蛋白质氨基酸混合毒素可引发急性血压骤降及心律失常，直接导致心源性猝死；潜伏期个体差异极大（数小时至2–10天），早期症状隐匿，极易延误识别</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">公共卫生与医学史价值</div>
+        <div class="value-body">是解开困扰云南30余年、造成超400例不明原因猝死之谜的关键物种，其鉴定过程是中国真菌毒理学与流行病学协作研究的重要案例</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">研究挑战</div>
+        <div class="value-body">该属科级分类地位尚未确定，毒素作用机制、是否存在环境协同因素（如微量元素）等仍是持续研究课题；DNA条形码快速鉴定技术已被提出用于辅助诊断</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">防控实践价值</div>
+        <div class="value-body">病区健康教育与"禁食小白菌"干预自2006年起实施，猝死病例已明显减少，是毒蘑菇科普干预成功遏制地方病的典型范例</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-tw/%E4%BA%91%E5%8D%97%E7%8C%9D%E6%AD%BB%E7%BB%BC%E5%90%88%E5%BE%81" target="_blank">维基百科·云南猝死综合征</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E6%AF%92%E6%B2%9F%E8%A4%B6%E8%8F%8C/12598998" target="_blank">百度百科·毒沟褶菌</a> ·
+      <a class="ref-link" href="https://www.thepaper.cn/newsDetail_forward_14405980" target="_blank">云南生物多样性数字化百科图谱</a>
+    </div>
+    <div>心源性猝死型剧毒种 · 严禁采食 · 科级地位未定</div>
+  </div>
+
+</div>
+</body>
+</html>
