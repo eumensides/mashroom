@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白秃马勃 · Calvatia candida</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种（幼期限定）：温和米白 / 草原暖调 */
+    --ink: #241f14;
+    --ink-mid: #4a4230;
+    --ink-light: #8c8168;
+
+    --cream: #f8f5ec;
+    --surface: #ffffff;
+    --surface-warm: #fdfbf4;
+
+    /* 象牙白主色（马勃外包被） */
+    --honey: #a68b3e;
+    --honey-light: #d8c072;
+    --honey-pale: #f6f0dc;
+    --honey-mid: #7a6420;
+
+    /* 暖沙棕（不孕基部/成熟孢体） */
+    --amber: #8a6a2a;
+    --amber-light: #c9a34e;
+    --amber-pale: #f6ecd4;
+
+    /* 苔绿（幼期可食标记） */
+    --moss: #4d6c34;
+    --moss-light: #8fae6e;
+    --moss-pale: #eef3e4;
+
+    /* 警示红（成熟不可食 / 剧毒混淆种） */
+    --warn: #a3311a;
+    --warn-light: #d97050;
+    --warn-pale: #fbeae4;
+
+    /* 中性灰棕 */
+    --stone: #6c6248;
+    --stone-light: #a49a7c;
+
+    --border: rgba(110,96,60,0.14);
+    --border-mid: rgba(110,96,60,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--honey-mid);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #e8e2d0;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,16,4,0.7));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,232,200,0.88); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex; flex-direction: column; justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--honey-mid); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700;
+    line-height: 1.2; color: var(--ink); margin-bottom: 6px;
+  }
+
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--amber); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-honey  { background: var(--honey-pale);  color: var(--honey-mid); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-amber  { background: var(--amber-pale);  color: var(--amber); }
+  .tag-stone  { background: #f0ebe0;            color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border); padding-top: 1rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
+  }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border-mid);
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-honey { background: var(--honey); }
+  .dot-moss  { background: var(--moss); }
+  .dot-warn  { background: var(--warn); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-amber { background: var(--amber); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot {
+    aspect-ratio: 4/3; background: #ece5d2; border-radius: 8px; overflow: hidden;
+    position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot-wide {
+    aspect-ratio: 16/7; background: #ece5d2; border-radius: 8px; overflow: hidden;
+    position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(20,16,4,0.72); color: #f2e9cc; font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--honey-pale);  color: var(--honey-mid); }
+  .phase-mature { background: var(--warn-pale);  color: var(--warn); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); margin-bottom: 8px;
+  }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--honey-mid); white-space: nowrap; width: 120px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(163,49,26,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a1f10; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(77,108,52,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2a3a20; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--honey-light);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.danger { border-left-color: #e07050; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--honey-pale); border: 1px solid rgba(166,139,62,0.25); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--honey-mid); font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #f6efd8, #fdfbf3);
+    border: 1px solid rgba(166,139,62,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--honey-mid); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light);
+  }
+  .ref-link { color: var(--honey-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🤍 幼期（内部纯白）可食用 · 成熟后仅药用不可食 · 食用前务必纵切确认内部无结构
+</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida0.png" alt="白秃马勃主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Calvatia candida · 白色至污白色扁球形子实体，散生于草地表面</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 蘑菇科（马勃类，曾归马勃科）</div>
+    <div class="hero-name-zh">白秃马勃</div>
+    <div class="hero-name-la">Calvatia candida</div>
+    <div class="hero-author">(Rostk.) Hollós, 1902 · 原学名 Langermannia candida</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">可食（仅限幼期纯白）</span>
+      <span class="tag tag-warn">⚠ 成熟后不可食</span>
+      <span class="tag tag-honey">传统药用（解热止血）</span>
+      <span class="tag tag-honey">草原腐生菌</span>
+      <span class="tag tag-stone">秃马勃属</span>
+      <span class="tag tag-stone">纵切鉴别是安全关键</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">白秃马勃 / 雪白马勃</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">White Puffball</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / 蘑菇科 Agaricaceae（曾归马勃科）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">未系统评估 · 部分产地栖息地退化受威胁</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="rh-item">
+        <span class="rh-label">标志检验法：纵切辨识</span>
+        <span class="rh-value">食用前必须纵向剖开子实体，确认内部为均匀致密的纯白色——这是排除剧毒鹅膏"蛋期"最关键的一步</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">生态角色</span>
+        <span class="rh-value">草原腐生菌，分解草地枯枝落叶及有机质，多见于温带草原、干草地与林缘草地</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">药用记录</span>
+        <span class="rh-value">中国传统医学以其孢子粉入药，称"马勃"，用于解热止血；现代研究证实含生物碱、甾体、三萜类活性成分</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida1.png" alt="上方外包被图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方外包被图 · 白色粉状/细绒状表面</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 假柄与不孕基部（极小或无）</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 内部纯白致密（关键安全鉴别点）</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida4.png" alt="孢子体面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子体（gleba）面 · 成熟后蜜黄色粉状</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 蜜黄至浅茶褐色粉末</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 外包被龟裂脱落过程</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide" style="margin-top:10px;">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Calvatia_candida7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 温带草原 / 干草地散生群落</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期（唯一可食）</div>
+        <div class="phase-desc">
+          子实体近球形至扁球形，直径2–5cm；外包被白色，覆细绒毛或粉状颗粒，触感柔软；纵切面均匀纯白色，致密如豆腐或棉花糖，
+          无任何气味或稍带淡菇香。此期是白秃马勃唯一适宜食用的阶段，采集后应立即纵切确认内部无结构分化。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          子实体膨大至5–8cm，渐呈扁球形至梨形；外包被变薄，绒毛脱落趋于光滑，仍白色至污白色；内部开始出现极细微的浅黄色分区
+          （孢子开始发育），食用价值明显下降，采集时应逐一纵切检查，出现分区即应弃食。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期（仅药用）</div>
+        <div class="phase-desc">
+          外包被干燥、龟裂成不规则块状剥落，露出内包被；内部产孢体（gleba）完全转为蜜黄色至浅茶褐色，质地由致密转为粉状；
+          顶部或表皮破裂后随风或触碰释放大量孢子。此期不可再食用，传统上采集孢子粉入药。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">外包被白色→污白色</span>
+          <span class="tag tag-moss">内部纯白色（可食期关键特征）</span>
+          <span class="tag tag-honey">成熟孢体蜜黄→浅茶褐色</span>
+          <span class="tag tag-stone">脱落后内包被浅褐色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">扁球形至梨形，径2–8cm</span>
+          <span class="tag tag-stone">假柄不明显，不孕基部极小或无</span>
+          <span class="tag tag-honey">表面初具细绒毛，渐光滑</span>
+          <span class="tag tag-warn">成熟后顶部/全体不规则龟裂</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">幼期近无味或淡菇香</span>
+          <span class="tag tag-stone">成熟后略带土腥/霉味</span>
+          <span class="tag tag-stone">无刺激性气味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">幼期：绵软细腻，味淡</span>
+          <span class="tag tag-stone">质地似豆腐/棉花糖</span>
+          <span class="tag tag-warn">⚠ 成熟后质地粉化，不可食用</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>外包被</td><td>薄而呈粉状或细绒状，白色至污白色，成熟后干燥龟裂成不规则块状剥落，露出内包被</td></tr>
+          <tr><td>内包被</td><td>膜质，较外包被稍厚，光滑，成熟后顶部或全体不规则开裂，释放孢子</td></tr>
+          <tr><td>产孢体（gleba）</td><td>幼期纯白色，致密均匀，质地如豆腐/棉花糖；成熟后变为蜜黄色至浅茶褐色，粉状，充满孢子——颜色变化是判断能否食用的核心依据</td></tr>
+          <tr><td>不孕基部</td><td>无或极小，与秃马勃属其他大型近缘种（如大秃马勃）区别之一</td></tr>
+          <tr><td>菌丝索</td><td>白色细丝状，固定子实体于草地基质表层</td></tr>
+          <tr><td>孢子</td><td>球形，直径4–5.5μm，表面具细小疣突，浅黄色</td></tr>
+          <tr><td>孢丝</td><td>细长，稍分枝，具稀疏横隔，与孢子同色</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>子实体扁球形至梨形，白色至污白色，表面粉状/细绒状，无菌盖菌褶分化</li>
+        <li><strong>纵切后内部必须均匀纯白、致密无结构</strong>——这是与其他"白球状"物种最重要的安全鉴别点</li>
+        <li>无明显不孕基部或极小，区别于大秃马勃等大型近缘种</li>
+        <li>成熟后gleba转黄褐色并粉化，此时应仅作药用，不可再食用</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用前必读：安全鉴别是第一位！</div>
+      <ul class="caution-list">
+        <li><strong>【最重要】</strong>食用前务必将子实体从顶到底纵向剖开，确认内部为均匀致密的纯白色，无任何蘑菇状轮廓（菌盖、菌褶、菌柄雏形）——具有轮廓者极可能是剧毒鹅膏（<em>Amanita</em>）的幼期"蛋"，切勿食用！</li>
+        <li>只有内部纯白且质地均匀致密的幼期个体方可食用，出现任何黄色、褐色分区或胶状包膜均应弃食</li>
+        <li>成熟后（内部变黄褐色粉状）不可再食用，仅可作传统药用（外用止血或入药）</li>
+        <li>采自路边、工业区或施肥过度农田的马勃可能富集重金属，不建议采食</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与剧毒鹅膏"蛋期"区别（最关键）</div>
+        <div style="font-size:13px;color:var(--ink-mid)">鹅膏"蛋"纵切可见半透明菌膜包裹的幼小蘑菇雏形（隐约可辨菌盖、菌柄轮廓）；马勃纵切为<strong>均匀致密纯白色，无任何结构分化</strong>。这是野外及厨房必须执行的"一刀切"鉴别法</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与大秃马勃等大型近缘种区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">白秃马勃个体较小（多2–8cm），不孕基部无或极小；大秃马勃（<em>Calvatia gigantea</em>）可达15–25cm以上，头状秃马勃<em>C. craniiformis</em>具明显发达的不孕基部</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 剧毒鹅膏幼期"蛋" <em>Amanita</em> spp.（egg stage）</div>
+        <div class="confusion-diff">极危险！幼期未破壳的鹅膏（如致命鹅膏、黄盖鹅膏等）外形呈白色至污白色球形，与幼期马勃极为相似。区别：<strong>纵切鹅膏蛋可见半透明菌膜内包裹的幼菌轮廓，马勃切面均匀致密无结构</strong>。误食可致命，采集食用马勃前务必逐一纵切检查</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 多根硬皮马勃 <em>Scleroderma polyrhizum</em></div>
+        <div class="confusion-diff">有毒，外形呈球状但表皮厚而坚韧，内部初为白色但迅速转为紫黑色并具腥臭味；白秃马勃内部长期保持纯白且质地均匀，无腥臭味</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">大秃马勃 <em>Calvatia gigantea</em></div>
+        <div class="confusion-diff">可食，同属近缘种，但个体远大于白秃马勃（15–25cm以上），常单生于草地；食用判断原则相同——内部必须纯白致密</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">头状秃马勃 <em>Calvatia craniiformis</em></div>
+        <div class="confusion-diff">可食，具较发达的不孕基部，孢体成熟后呈橄榄褐色，与白秃马勃区别在于基部形态与体型</div>
+      </div>
+    </div>
+
+    <!-- 分类地位说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--honey-pale);border:1px solid rgba(166,139,62,0.30);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--honey-mid);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">秃马勃属分类地位变迁</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--honey-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>传统分类 → 现代分类：</strong>秃马勃属（<em>Calvatia</em>）传统上被归入马勃目/灰包目（Lycoperdales）马勃科（Lycoperdaceae）；分子系统学研究显示其实际归属于<strong>伞菌目（Agaricales）蘑菇科（Agaricaceae）</strong>，与常见蘑菇亲缘关系更近，而非传统认为的"低等"腹菌类。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--honey-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>全球种群的隐存种争议：</strong>白秃马勃最初由 Rostkovius 于1839年在波兰北部以 <em>Langermannia candida</em> 描述，1902年 Hollós 转入 <em>Calvatia</em> 属。目前欧洲、美洲、印度等地种群的DNA条形码序列存在明显差异，提示"<em>Calvatia candida</em>"在全球范围内可能是一个尚未厘清的隐存种复合体，仍需系统研究。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">命名简史</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--honey-mid);text-align:right;padding-right:12px;border-right:2px solid rgba(166,139,62,0.25);">1839</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">Rostkovius 以 <em>Langermannia candida</em> 首次描述此种（波兰北部）</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--honey-mid);text-align:right;padding-right:12px;border-right:2px solid rgba(166,139,62,0.25);">1902</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">Hollós 将其转入 <em>Calvatia</em> 属，成为 <em>Calvatia candida</em>——现今有效名</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;">
+              <div style="font-size:12px;font-weight:700;color:var(--honey-mid);text-align:right;padding-right:12px;border-right:2px solid rgba(166,139,62,0.25);">现今</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">分子系统学将秃马勃属重新归入伞菌目蘑菇科；全球种群条形码差异提示可能存在隐存种，分类研究仍在进行中</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--warn-pale);border:1px solid rgba(163,49,26,0.28);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#4a1a0c;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>野外见到白色球状"蘑菇"时，第一步永远是<strong>纵向剖开检查内部</strong>——均匀纯白无结构方可考虑食用，若见半透明膜包裹的幼菌轮廓，立即弃之不食，这可能是剧毒鹅膏的幼期。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「白球草地伏，纵切见真章」</div>
+        <div class="memory-pill">「切开纯白方可食，见了轮廓快走开」</div>
+        <div class="memory-pill">「蜜黄粉体老熟时，只可入药不可尝」</div>
+        <div class="memory-pill">「马勃止血又解热，幼嫩期采莫等待」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或群生，散布于草地表面，基部以细白色菌丝索固定于土壤，不与树木形成共生关系</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">富含有机质的砂壤土、草原、干草地、林缘草地；喜阳光充足、排水良好的开阔地</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国东北温带草原（吉林、黑龙江、内蒙古东部）为丰富产区；华北、西北草地亦有分布；全球广布于温带草原及干旱地中海植被区（原产地波兰、印度、北美等地均有记录，存在隐存种争议）</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">夏末至秋季（7–9月），雨后草地大量出现；适应海拔范围较广，平原至山地草坡均有记录</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：仅采集内部纵切后纯白致密的幼期个体，弃食已出现黄褐色分区或异味的个体；避免在受污染场地（路边、工业区）采集。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">仅幼期（内部纯白致密）可食，质地绵软类似豆腐，味道清淡，适合切片煎炒或炖汤；成熟后失去食用价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用与保健价值</div>
+        <div class="value-body">传统中医以其孢子粉入药，称"马勃"，具解热、止血、清肺利咽功效；现代研究显示含生物碱、甾体、三萜类化合物，甲醇提取物对羟自由基（IC50=241.55μg/mL）和DPPH自由基（IC50=418.63μg/mL）有一定清除活性，显示抗氧化潜力</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为草原腐生菌，参与草地枯落物分解与养分循环，对草原生态系统物质循环具有一定作用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研与保护价值</div>
+        <div class="value-body">全球分类地位尚不明确，欧美亚种群条形码差异提示可能存在隐存种复合体；部分原产地（如欧洲干草原）因栖息地退化面临威胁，具有分类学与保护生物学研究价值</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://baike.baidu.com/item/%E7%99%BD%E7%A7%83%E9%A9%AC%E5%8B%83/1494618" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-cn/%E7%A7%83%E9%A9%AC%E5%8B%83%E5%B1%9E" target="_blank">维基百科 · 秃马勃属</a> ·
+      <a class="ref-link" href="https://redlist.info/iucn/species_view/122114/" target="_blank">IUCN 物种信息</a>
+    </div>
+    <div>未系统评估 · 全球种群存隐存种争议</div>
+  </div>
+
+</div>
+</body>
+</html>
