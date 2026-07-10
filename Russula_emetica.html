@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>毒红菇 · Russula emetica（催吐红菇 · 棺材盖子 · 有毒）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #201012;
+    --ink-mid: #4a2830;
+    --ink-light: #8a6870;
+
+    --cream: #f8eeec;
+    --surface: #ffffff;
+
+    --moss: #4a6c2a;
+    --moss-light: #a8bc7a;
+    --moss-pale: #eef2e0;
+
+    --white-part: #7a6a68;
+    --white-light: #d8cec8;
+    --white-pale: #f4efe8;
+
+    /* 毒红菇主色：珊瑚红/朱红（菌盖标志色） */
+    --coral: #c0301a;
+    --coral-light: #e88a6a;
+    --coral-pale: #fbe2da;
+    --coral-mid: #8a2010;
+
+    /* 中毒警示：深锈红（胃肠炎型） */
+    --toxic: #9a2418;
+    --toxic-light: #d97a68;
+    --toxic-pale: #f7e0da;
+
+    --spore: #8a7a58;
+    --spore-light: #cabc98;
+    --spore-pale: #f4efe0;
+
+    --border: rgba(140,50,30,0.14);
+    --border-mid: rgba(140,50,30,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .toxic-banner {
+    background: var(--toxic);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #e8b8ac; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(24,10,8,0.72)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(245,215,205,0.85); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--toxic); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--ink-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--ink-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-moss { background: var(--moss-pale); color: var(--moss); }
+  .tag-white { background: var(--white-pale); color: var(--white-part); }
+  .tag-coral { background: var(--coral-pale); color: var(--coral-mid); }
+  .tag-ink { background: #f0e0dc; color: var(--ink-mid); }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+  .tag-spore { background: var(--spore-pale); color: var(--spore); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-moss { background: var(--moss); }
+  .dot-white { background: var(--white-part); }
+  .dot-coral { background: var(--coral); }
+  .dot-ink { background: var(--ink-mid); }
+  .dot-toxic { background: var(--toxic); }
+  .dot-spore { background: var(--spore); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--ink-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #eec4b8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #eec4b8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); grid-column: span 3; }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(24,10,8,0.74); color: #f7e0d4; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--white-pale);  color: var(--white-part); }
+  .phase-mature { background: var(--toxic-pale);  color: var(--toxic); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--toxic); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--toxic-pale); border: 1px solid rgba(154,36,24,0.32); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 700; color: var(--toxic); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a1410; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--toxic); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--spore-pale); border: 1px solid rgba(138,122,88,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--spore); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #3a3018; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--spore); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--white-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--toxic); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--ink-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--toxic-pale); border: 1px solid rgba(154,36,24,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--toxic); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .toxin-bar {
+    background: linear-gradient(135deg, #f7e0da, #f8eeec);
+    border: 1px solid rgba(154,36,24,0.32);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--toxic); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-light); }
+  .ref-link { color: var(--toxic); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .toxin-bar { grid-template-columns: 1fr; }
+    .photo-slot-wide { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toxic-banner">
+  ⚠️ 有毒 · 胃肠炎型中毒（剧烈呕吐腹泻）· 严重者可致命 · 味极麻辣是重要警示信号 · 不建议采食
+</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica0.png" alt="毒红菇主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Russula emetica · 珊瑚红光泽菌盖，白色菌褶菌柄，味极麻辣，红菇属模式种</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 红菇目 · 红菇科 · 红菇属（模式种）</div>
+    <div class="hero-name-zh">毒红菇</div>
+    <div class="hero-name-la">Russula emetica</div>
+    <div class="hero-author">(Schaeff.) Pers. · 俗称催吐红菇、呕吐红菇、棺材盖子、小红脸菌、毒胭脂菌</div>
+
+    <div class="tag-row">
+      <span class="tag tag-toxic">⚠ 有毒 · 胃肠炎型</span>
+      <span class="tag tag-coral">菌盖珊瑚红有光泽</span>
+      <span class="tag tag-white">菌肉菌褶纯白</span>
+      <span class="tag tag-ink">味极麻辣（关键警示）</span>
+      <span class="tag tag-spore">红菇属模式种</span>
+      <span class="tag tag-ink">与松树等针叶树共生</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">英文俗名</span>
+        <span class="taxon-value">The Sickener / Vomiting Russula</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">中毒类型</span>
+        <span class="taxon-value">急性胃肠炎型（恶心呕吐腹泻腹痛）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">红菇目 Russulales / 红菇科 Russulaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分布</span>
+        <span class="taxon-value">北半球广泛分布，中国多省份均有报道</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <div class="section">
+    <div class="toxin-bar">
+      <div class="rh-item">
+        <span class="rh-label">核心警示信号：味极麻辣</span>
+        <span class="rh-value">含胃肠道刺激性物质（倍半萜类等），生尝极度辛辣灼口，是红菇属"尝味鉴定法"中最经典的有毒警示样本，模式种之名"emetica"即为"催吐"之意</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">中毒表现：快而剧烈</span>
+        <span class="rh-value">一般食后1–2小时内即发病，剧烈恶心呕吐、腹泻腹痛，多数经及时催吐对症治疗可较快痊愈，严重者可出现面肌抽搐、脉搏加速甚至心脏衰竭死亡</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">属内地位：非本属最危险的种</span>
+        <span class="rh-value">红菇属整体罕见致命种，本种虽有毒但通常可救治；真正剧毒的是亚稀褶红菇（会致横纹肌溶解），采集时切勿因"都是红菇"而放松警惕</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 珊瑚红色，平滑有光泽，边缘具棱纹</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 白色菌褶密集离生，菌柄光滑洁白</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉白色，断面如苹果肉质地（球状细胞结构）</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica4.png" alt="菌盖表皮剥离图" loading="lazy">
+        </picture>
+        <div class="photo-caption">表皮剥离 · 菌盖皮层极易整片剥离，是红菇属常见特征</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 白色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica6.png" alt="边缘棱纹特写图" loading="lazy">
+        </picture>
+        <div class="photo-caption">边缘棱纹特写 · 与可食红菇的光滑边缘形成对比</div>
+      </div>
+
+      <div class="photo-slot-wide">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica7.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Russula_emetica7.png" alt="生境图" loading="lazy">
+        </picture>
+        <div class="photo-caption">生境图 · 潮湿针叶林、泥炭藓沼泽及松树林湿地边缘</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-white"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖半球形，直径2.5–4cm，珊瑚红色，边缘内卷；表皮平滑有光泽，极易剥离；菌褶尚未完全展开，白色，密集；
+          菌柄短粗，白色光滑；菌肉白色，质地脆嫩，尝之已具明显麻辣感，是野外初步识别的重要线索。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖渐展开，直径4–7cm，珊瑚红至樱桃红色，边缘出现明显棱纹（条棱），仍具光泽；菌褶白色，离生，
+          排列整齐；菌柄伸长至4.5–10.5cm，粗0.7–2.4cm，光滑洁白；菌肉断面呈类似苹果肉的颗粒状质地（红菇属特征性球状细胞）。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，直径可达8.5–10cm，颜色有时可褪至浅粉红色，边缘棱纹更加明显；菌褶白色转淡黄白色，
+          孢子印白色；菌柄质地依然脆而易断，断面如苹果果肉；此阶段麻辣味通常达到高峰，是最容易通过"尝味法"确认毒性的时期（切记只尝不咽）。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-coral"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-coral">菌盖珊瑚红至樱桃红色</span>
+          <span class="tag tag-white">菌肉、菌褶纯白色</span>
+          <span class="tag tag-white">菌柄白色光滑</span>
+          <span class="tag tag-spore">孢子印白色</span>
+          <span class="tag tag-coral">老熟后可褪为浅粉红色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">菌盖半球形→平展（径2.5–10cm）</span>
+          <span class="tag tag-coral">边缘具明显棱纹（条棱）</span>
+          <span class="tag tag-ink">表皮平滑有光泽，易剥离</span>
+          <span class="tag tag-ink">菌柄光滑，无菌环菌托</span>
+          <span class="tag tag-ink">断面质地如苹果果肉</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">气味平淡或略带果香</span>
+          <span class="tag tag-ink">主要警示信号来自味道而非气味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感 / 毒性</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">⚠ 生尝极度麻辣灼口</span>
+          <span class="tag tag-toxic">食后剧烈恶心呕吐腹泻腹痛</span>
+          <span class="tag tag-toxic">严重者面肌抽搐、心脏衰竭致死</span>
+          <span class="tag tag-ink">晒干后麻辣感减弱，偶作辣椒替代</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-white"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径2.5–8.5(10)cm，珊瑚红色，平滑而有光泽；边缘色泽较淡，具明显棱纹（条棱）；表皮极易整片剥离</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>白色，离生，较密集，质地脆而易碎，断裂时呈粉状而非纤维状（红菇属共有特征）</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色，质地因含大型球状细胞而呈苹果果肉状断面；味极麻辣，是本种最重要的现场警示特征之一</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>长4.5–10.5cm，粗0.7–2.4cm，光滑，白色；无菌环、无菌托（与鹅膏属等有环有托的剧毒种不同）</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>孢子印白色</td>
+          </tr>
+          <tr>
+            <td>毒素成分</td>
+            <td>含胃肠道刺激性物质（倍半萜类等）及微量毒蕈碱，是导致急性胃肠炎症状的主要来源</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-spore"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖<strong>珊瑚红色、平滑有光泽</strong>，边缘具明显<strong>棱纹（条棱）</strong>，是与可食红菇（边缘平滑无纹）最直接的外观区别</li>
+        <li>菌肉、菌褶均为<strong>纯白色</strong>，菌柄光滑洁白，全株无菌环、无菌托，断面呈苹果果肉状质地（红菇属共有的球状细胞结构）</li>
+        <li>生尝味道<strong>极度麻辣灼口</strong>，是红菇属"尝味鉴定法"中最经典的警示样本——只需舌尖轻触、咀嚼后立即吐出，切勿吞咽</li>
+        <li>偏爱<strong>潮湿针叶林、泥炭藓沼泽</strong>等酸性湿地环境，与松、云杉、冷杉等针叶树形成外生菌根</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 中毒警示：味极麻辣是最直接的求救信号</div>
+      <ul class="caution-list">
+        <li>误食后一般1–2小时内即发病，主要表现为剧烈恶心、呕吐、腹泻（可呈米汤样或带血水样便）、腹痛，多数经及时催吐、对症治疗可较快痊愈</li>
+        <li>严重者可出现流涎、大汗淋漓、肌颤、瞳孔缩小，甚至昏迷、抽搐、休克、肝肿大、黄疸、胃肠道出血，个别病例因心脏衰弱或呼吸麻痹而死亡</li>
+        <li>动物实验显示，以每公斤体重20克提取液腹腔注射小鼠，死亡率可达80%左右，提示其毒性不可轻视</li>
+        <li>红菇属"辣味有毒、温和味可食"的经验法则<strong>仅适用于红菇属及乳菇属内部</strong>，不可套用到其他菌类的毒性判断上</li>
+        <li>民间偶有晒干后用作辣椒替代品的做法，但这不代表其对生食或误食安全，仍应避免直接采食新鲜个体</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与可食红菇（花盖菇等）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">可食红菇菌盖边缘<strong>平滑无棱纹</strong>，味道温和不辣；毒红菇边缘<strong>具明显棱纹</strong>，味道<strong>极度麻辣</strong>——尝味法结合边缘形态是野外快速区分的实用手段（仅限红菇属内部使用）</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与剧毒亚稀褶红菇区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">亚稀褶红菇（Russula subnigricans）菌盖<strong>灰白至煤灰黑色</strong>（非红色），菌褶受伤后<strong>先变红后不变黑</strong>，中毒类型为致命的<strong>横纹肌溶解症</strong>而非普通胃肠炎，是红菇属中真正的剧毒种，常混杂于可食"火炭菌"（稀褶红菇、密褶红菇）中被误采</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic)">⚠ 亚稀褶红菇（剧毒，非本种近亲但同属）<em>Russula subnigricans</em></div>
+        <div class="confusion-diff">红菇属中唯一真正剧毒（可致横纹肌溶解、肾衰竭死亡）的物种，外观与可食的稀褶红菇、密褶红菇（"火炭菌"）极为相似，常混生于同一环境，是红菇属采集中最需警惕的对象</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">辣红菇（有毒）<em>Russula sardonia</em> 等</div>
+        <div class="confusion-diff">红菇属内其他"辣味系"有毒种，症状同为胃肠炎型，通常不致命；与毒红菇一样可通过尝味法初步识别</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">花盖菇 / 稀褶红菇等（可食）<em>Russula</em> spp.（味温和种）</div>
+        <div class="confusion-diff">红菇属中味道温和、边缘平滑的可食种类，是民间常采食的"火炭菌"来源；采食前仍建议逐一尝味确认，不可仅凭外观笼统归为"红菇都能吃"</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.4rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「珊瑚红盖棱纹边，舌尖一试便知险」</div>
+        <div class="memory-pill">「白肉白褶果肉断，只尝不咽是关键」</div>
+        <div class="memory-pill">「一两小时呕泻至，及时催吐保平安」</div>
+        <div class="memory-pill">「红菇一家非一味，黑白火炭莫大意」</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ink"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或小范围散生，常与可食用菌种混生于同一片湿地林地</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境</div>
+        <div class="habitat-value">偏爱潮湿针叶林，尤喜生长于泥炭藓沼泽、酸性湿地及松树林边缘，是外生菌根真菌</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">北半球广泛分布；中国河北、内蒙古、辽宁、吉林、黑龙江、江苏、安徽、福建、山东、河南、湖北、湖南、广东、广西、四川、贵州、云南、西藏、陕西、甘肃、香港、台湾等均有报道</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">夏秋季潮湿多雨时节为主要发生期</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      安全提示：采集红菇属菌类时，务必逐一进行尝味测试（少量咀嚼后立即吐出，不可吞咽），凡边缘具棱纹、味道麻辣者一律弃采；一旦误食出现中毒症状，应立即催吐并尽快就医，同时保留样本供鉴定。
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">危害评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">毒性与临床表现</div>
+        <div class="value-body">食后1–2小时内发病，主要为剧烈恶心呕吐、腹泻腹痛等急性胃肠炎症状；严重者可出现面肌抽搐、脉搏加速、休克、肝肿大、胃肠道出血，甚至因心脏衰竭或呼吸麻痹死亡，但及时催吐对症治疗预后通常良好</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">分类学价值</div>
+        <div class="value-body">作为红菇属的模式种，是研究该属780余种真菌分类与鉴定特征（孢子印颜色、菌褶质地、球状细胞结构等）的重要参照物种</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">民间利用</div>
+        <div class="value-body">因味道极度辛辣，晒干后偶被用作辣椒的替代调味品，是野生菌"以毒为用"的有趣民间实践案例，但仍不建议直接生食或大量食用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科普警示价值</div>
+        <div class="value-body">是"尝味法"鉴别红菇属、乳菇属毒性的经典教学样本，但该方法有严格的属内适用范围，是野生菌鉴定科普中反复强调"方法不可滥用"的重要案例</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-hans/%E6%AF%92%E7%BA%A2%E8%8F%87" target="_blank">维基百科·毒红菇</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E6%AF%92%E7%BA%A2%E8%8F%87/1482080" target="_blank">百度百科·毒红菇</a> ·
+      <a class="ref-link" href="https://zhuanlan.zhihu.com/p/577325263" target="_blank">知乎·真菌界全系列·红菇科</a>
+    </div>
+    <div>急性胃肠炎型有毒种 · 味极麻辣是警示信号 · 红菇属模式种</div>
+  </div>
+
+</div>
+</body>
+</html>
