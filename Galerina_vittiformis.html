@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沟条盔孢伞 · Galerina vittiformis（剧毒 · 肝损型）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 剧毒物种：沉重警惕的苔藓暗绿 + 危险深红警戒色 */
+    --ink: #181a15;
+    --ink-mid: #40453a;
+    --ink-light: #82876e;
+
+    --cream: #eef0e4;
+    --surface: #fdfdf8;
+    --surface-warm: #f5f6ec;
+
+    /* 苔藓暗绿主色（生境色） */
+    --moss: #3e5426;
+    --moss-light: #7a9256;
+    --moss-pale: #e6ecd8;
+    --moss-mid: #2e3e1a;
+
+    /* 蜜褐（菌盖本色） */
+    --honey: #8a5a24;
+    --honey-light: #c08c4a;
+    --honey-pale: #f4e6cc;
+
+    /* 危险深红（剧毒警示，与蜡质苔藓绿形成强对比） */
+    --danger: #7a1620;
+    --danger-light: #c9767e;
+    --danger-pale: #f7e0e2;
+
+    /* 警戒锈红（次级警示） */
+    --warn: #9a3a1c;
+    --warn-light: #d4805a;
+    --warn-pale: #fbe6da;
+
+    --stone: #5c5a44;
+    --stone-light: #928d72;
+
+    --border: rgba(50,60,30,0.14);
+    --border-mid: rgba(50,60,30,0.26);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── 剧毒警示横幅 ── */
+  .toxic-banner {
+    background: var(--danger);
+    color: #fff;
+    text-align: center;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #c8ccb4; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(12,16,8,0.78));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(225,235,205,0.88); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex; flex-direction: column; justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--danger); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif; font-size: 34px; font-weight: 700;
+    line-height: 1.2; color: var(--ink); margin-bottom: 6px;
+  }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--moss); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss-mid); }
+  .tag-honey  { background: var(--honey-pale);  color: var(--honey); }
+  .tag-danger { background: var(--danger-pale); color: var(--danger); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-stone  { background: #e6e4d4;            color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border); padding-top: 1rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
+  }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border-mid);
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-moss   { background: var(--moss); }
+  .dot-honey  { background: var(--honey); }
+  .dot-danger { background: var(--danger); }
+  .dot-warn   { background: var(--warn); }
+  .dot-stone  { background: var(--stone-light); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ── PHOTO LAYOUT ── */
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #c8ccb4; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #c8ccb4; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(12,16,8,0.78); color: #e6ecd0; font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  /* ── GROWTH PHASES ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss-mid); }
+  .phase-mid    { background: var(--honey-pale); color: var(--honey); }
+  .phase-mature { background: var(--warn-pale);  color: var(--warn); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--honey); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── 特别注意栏 ── */
+  .caution-box { background: var(--danger-pale); border: 1px solid rgba(122,22,32,0.32); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--danger); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a1216; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--danger); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  /* ── DISTINCTION BOX ── */
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(62,84,38,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss-mid); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #1e2810; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss-mid); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  /* ── CONFUSION TABLE ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--honey-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--danger); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  /* ── MEMORY ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--moss-pale); border: 1px solid rgba(62,84,38,0.28); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--moss-mid); font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── HABITAT ── */
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  /* ── VALUE CARDS ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 特色速览栏 ── */
+  .feature-bar {
+    background: linear-gradient(135deg, #e6ecd8, #f5f6ec);
+    border: 1px solid rgba(62,84,38,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--danger); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light);
+  }
+  .ref-link { color: var(--honey); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="toxic-banner">
+  ☠ 剧毒 · 肝脏损伤型 · 体型极小极易被忽视 · 常与致幻裸盖菇混生误采
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Galerina_vittiformis0.png" alt="沟条盔孢伞主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Galerina vittiformis · 蜜黄色针尖状小伞，散生于潮湿藓丛之间，菌盖直径不足1cm</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 球盖菇科 · 盔孢伞属（模式种）</div>
+    <div class="hero-name-zh">沟条盔孢伞</div>
+    <div class="hero-name-la">Galerina vittiformis</div>
+    <div class="hero-author">(Fr.) Singer, 1950 · 英文俗称 hairy leg bell · 又称「沟条盔孢菌」</div>
+
+    <div class="tag-row">
+      <span class="tag tag-danger">☠ 剧毒</span>
+      <span class="tag tag-warn">肝脏损伤型</span>
+      <span class="tag tag-moss">苔藓专性生境</span>
+      <span class="tag tag-honey">体型极微小（&lt;1cm）</span>
+      <span class="tag tag-stone">盔孢伞属模式种</span>
+      <span class="tag tag-stone">老龄林指示种</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">沟条盔孢伞 / 沟条盔孢菌（同物异名俗称）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Hairy Leg Bell</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Hymenogastraceae 球盖菇科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">毒素类型</span>
+        <span class="taxon-value">中国毒蘑菇名录列为「肝脏损伤型」</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志结构：沟纹蜜黄小伞</span>
+        <span class="fb-value">菌盖直径通常不足1cm，吸水时呈蜜黄色并布满放射状沟纹（striate），干燥后褪为浅黄——「沟条」之名即由此而来</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">致命反差：小≠安全</span>
+        <span class="fb-value">与著名的毒盔孢菌（Galerina marginata）同属，中国毒蘑菇名录将其列为「肝脏损伤型」；体型微小常使采集者放松警惕，恰是最大风险所在</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">危险的混淆场景</span>
+        <span class="fb-value">因常与致幻裸盖菇属（Psilocybe）共生于同一片藓丛草地，全球已发生多起因寻找致幻蘑菇而误采盔孢伞属中毒的案例</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Galerina_vittiformis1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 蜜黄色 / 放射状沟纹 / 中央微凸脐突</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Galerina_vittiformis2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 稀疏菌褶 / 细长菌柄基部白色绒毛</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Galerina_vittiformis3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉极薄 / 菌柄中空纤细</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Galerina_vittiformis4.png" alt="菌褶面图" loading="lazy">
+        <div class="photo-caption">褶面 · 黄褐至锈褐，弯生，稀疏不等长</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Galerina_vittiformis5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 锈褐色（需借助显微观察疣状孢子确证）</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Galerina_vittiformis6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">细节 · 菌柄上部白色细粉霜 / 基部深褐渐变</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Galerina_vittiformis7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 潮湿藓丛地表散生，针叶林下腐木及苔藓垫层最为常见</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体从藓丛中顶出，菌盖钝圆锥形，直径2–5mm，湿润时呈深蜜黄至橙褐色，边缘已可见细密沟纹；
+          菌柄纤细如发丝，浅黄色，上部覆细白色粉霜；菌褶尚被内菌幕微弱遮盖，颜色较浅。此期极易被误认为苔藓本身的孢蒴结构而被忽视。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐展开为钝圆锥形至宽凸形，直径可达5–8mm，中央常保留一个不甚明显的脐状凸起；
+          吸水状态下沟纹几乎透至盖缘一半，干燥后沟纹消退、颜色转为浅蜜黄至米黄（吸湿变色现象，hygrophanous）；
+          菌褶弯生，黄褐色，随孢子成熟渐转锈褐色；菌柄伸长至2–4cm，基部渐深为栗褐色。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展平甚至边缘略上翘，直径可达8–10mm；成熟个体色泽随环境湿度剧烈变化，晴天迅速褪为浅黄白色，仅沟纹凹槽处残留深色；
+          菌褶锈褐色，孢子印锈褐色至红褐色；菌柄可达5cm，纤细中空，上部白色细粉霜更明显，全株质地极脆，触碰即断，采集时需格外小心保持完整以便鉴定。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-honey">菌盖蜜黄→橙褐（湿）/ 浅黄白（干）</span>
+          <span class="tag tag-stone">菌褶黄褐→锈褐</span>
+          <span class="tag tag-warn">孢子印锈褐至红褐</span>
+          <span class="tag tag-honey">菌柄浅黄→基部栗褐</span>
+          <span class="tag tag-stone">柄上部白色粉霜</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">菌盖极小，径2–10mm</span>
+          <span class="tag tag-stone">钝圆锥形→宽凸形→平展</span>
+          <span class="tag tag-honey">边缘放射状长沟纹（吸水时明显）</span>
+          <span class="tag tag-honey">中央常具不明显脐凸</span>
+          <span class="tag tag-stone">菌柄细长如发丝（长达5cm，径约1–2mm）</span>
+          <span class="tag tag-warn">全株质地极脆，无菌环</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">无明显特征性气味</span>
+          <span class="tag tag-stone">部分标本略带面粉/土腥气</span>
+          <span class="tag tag-danger">⚠ 气味平淡不能作为安全依据</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-danger">⚠ 无可靠口感记录，严禁品尝鉴定</span>
+          <span class="tag tag-danger">同属毒素含量与毒鹅膏相当</span>
+          <span class="tag tag-stone">质地极薄脆，几乎无食用价值</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖表皮</td>
+            <td>吸湿变色（hygrophanous）明显：湿润时蜜黄至橙褐色并呈半透明状，边缘沟纹清晰可见几乎达盖中央；干燥后迅速褪为浅黄白色，仅沟槽处残留深色条纹；表面光滑，无鳞片</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>弯生至近延生，稀疏，不等长，幼时黄褐色，成熟后随孢子堆积转为锈褐色；褶缘平滑</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>极薄，几乎与表皮等厚，质地脆弱易碎；气味不显著；含肝损伤型毒素，与外观无关，不可凭气味或口感判断安全性</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>2–5cm × 1–2mm；圆柱形，等粗，中空，极细如发丝；上部覆白色细粉霜，向下渐转黄褐至栗褐色，基部色最深，有时略带白色细绒毛</td>
+          </tr>
+          <tr>
+            <td>菌环 / 菌托</td>
+            <td>均无——本种柄部全程光滑无环、基部亦无菌托，与具环的近缘剧毒种毒盔孢菌（Galerina marginata）在结构上略有差异，但<strong>此差异不能作为安全依据</strong></td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>椭圆形，表面具细密疣状纹饰并具「牌斑」（plage，孢子萌发孔附近的光滑区），锈褐色；孢子印锈褐至红褐色；确证种类需借助显微镜观察孢子纹饰及囊状体形态</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-danger"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>体型<strong>极其微小</strong>（菌盖常不足1cm），散生或群生于<strong>潮湿藓丛</strong>之中，极易被误认为苔藓自身结构而忽视</li>
+        <li>菌盖<strong>吸湿变色</strong>明显：湿时蜜黄带深沟纹，干后迅速褪色，仅存沟槽痕迹</li>
+        <li>菌柄纤细如发丝，<strong>上部具白色粉霜</strong>，全株质地极脆，<strong>无菌环无菌托</strong></li>
+        <li>孢子印<strong>锈褐至红褐色</strong>——盔孢伞属（Galerina）通性特征，与致幻裸盖菇属（黑紫色孢子印）及大多数食用小型伞菌均不同</li>
+      </ul>
+    </div>
+
+    <div class="caution-box">
+      <div class="caution-title">☠ 食用前必读：剧毒，绝对不可食用！</div>
+      <ul class="caution-list">
+        <li>中国毒蘑菇新修订名录将沟条盔孢伞（Galerina vittiformis）明确列为「肝脏损伤型」毒蘑菇</li>
+        <li>盔孢伞属中已确认含鹅膏毒肽类物质（amatoxins）的种类，其毒素浓度可与剧毒的鹅膏属死亡帽相当；由于个体极小，通常需摄入较多子实体才会致险，但对儿童、宠物风险更高</li>
+        <li>该属约300余种形态高度相似，仅凭肉眼几乎无法准确区分有毒与暂未确认含毒的种类，必须借助显微镜观察孢子纹饰及分子鉴定</li>
+        <li>切勿因体型微小、气味平淡而放松警惕；肝损伤型中毒症状潜伏期可长达数小时至十余小时，早期仅表现为胃肠不适，极易延误就医时机</li>
+        <li>若怀疑误食本属蘑菇后出现恶心呕吐、腹泻（尤其潜伏期超过6小时），须立即就医并尽可能保留可疑样本以供鉴定</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与毒盔孢菌（G. marginata）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">毒盔孢菌菌盖较大（1–4cm），幼期菌柄具<strong>白色膜质菌环</strong>；本种菌盖不足1cm且<strong>始终无环</strong>；二者常混生于同一片林地，均为剧毒种，不能因"无环"而误判为安全</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与致幻裸盖菇属（Psilocybe）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">裸盖菇属孢子印通常为<strong>紫黑至暗紫褐色</strong>，部分种类损伤后变蓝；本种孢子印为<strong>锈褐至红褐色</strong>，损伤不变色；二者常同生于潮湿草地/藓丛，误采风险真实存在，务必以孢子印颜色为准</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--danger)">☠ 毒盔孢菌 / 秋盔孢伞 <em>Galerina marginata</em></div>
+        <div class="confusion-diff">剧毒！同属近缘种，含鹅膏毒肽，浓度可致死。区别：菌盖较大（1–4cm），幼期具白色膜质菌环；常见于腐木及其周边苔藓，与本种生境高度重叠，采集时需逐株检视柄部有无菌环残留</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--danger)">⚠ 裸盖菇属致幻蘑菇 <em>Psilocybe</em> spp.</div>
+        <div class="confusion-diff">部分裸盖菇同样偏好潮湿藓丛/草地生境，外观与幼期盔孢伞相似，是全球多起「误采致幻蘑菇实为剧毒盔孢伞」中毒案例的核心混淆对象；孢子印颜色（紫黑 vs 锈褐）是关键区分依据，肉眼辨识风险极高</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">条纹盔孢伞 / 苔藓盔孢伞 <em>Galerina hypnorum</em></div>
+        <div class="confusion-diff">同属近缘种，同样生于藓丛，形态与本种极为接近，主要凭显微特征（孢子纹饰、囊状体形状）区分；毒性数据尚不完整，同样不建议采食</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">小脆柄菇属 / 小菇属幼期 <em>Mycena</em> spp.</div>
+        <div class="confusion-diff">同为藓丛/草地中的微小伞菌，颜色形态相近；多数小菇属不含鹅膏毒肽但部分种类含其他胃肠刺激性成分，孢子印通常为白色，可作初步区分依据，但仍不建议凭肉眼采食</div>
+      </div>
+    </div>
+
+    <!-- ── 命名与分类地位说明板块 ── -->
+    <div style="margin-top:1.4rem;background:var(--honey-pale);border:1px solid rgba(138,90,36,0.30);border-radius:14px;overflow:hidden;">
+
+      <div style="background:var(--honey);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">命名与分类地位说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称来源与关系</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--honey);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                本种最初由 Elias Fries 描述，后经 Rolf Singer 于1950年转入盔孢伞属（<em>Galerina</em>），并成为该属的<strong>模式种（type species）</strong>，即整个盔孢伞属的分类定义均以本种为基准参照。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--honey);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>「沟条盔孢伞」与「沟条盔孢菌」：</strong>《中国真菌志》系统采用「伞」字定名，而《中国毒蘑菇新修订名录》等毒理学文献习惯用「菌」字，二者指代<strong>完全相同的物种</strong>，属于中文译名习惯差异，非分类学争议。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--honey);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>毒性研究现状：</strong>分子系统学研究显示，盔孢伞属约300余种中，目前仅确认约8个种（集中于 Naucoriopsis 支系，含毒盔孢菌 <em>G. marginata</em>、毒盔孢伞 <em>G. venenata</em> 等）经检测确证含鹅膏毒肽；中国官方名录将本种列为肝损伤型，但国际学界对本种所属支系的系统性毒素检测仍在持续补充中，<strong>不确定性本身即是最大的警示</strong>——对全属应一律按剧毒对待。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 命名简史 -->
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">命名简史</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--honey);text-align:right;padding-right:12px;border-right:2px solid rgba(138,90,36,0.25);">19世纪</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">Elias Fries 基于欧洲藓丛标本首次描述本种</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--honey);text-align:right;padding-right:12px;border-right:2px solid rgba(138,90,36,0.25);">1950</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">Rolf Singer 将其组合为 <em>Galerina vittiformis</em>，正式确立为盔孢伞属模式种</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--honey);text-align:right;padding-right:12px;border-right:2px solid rgba(138,90,36,0.25);">2001</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">DNA研究揭示多个曾被视为独立种的近缘类群实为毒盔孢菌（<em>G. marginata</em>）的异名，凸显该属形态鉴定的高度不确定性</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;">
+              <div style="font-size:12px;font-weight:700;color:var(--honey);text-align:right;padding-right:12px;border-right:2px solid rgba(138,90,36,0.25);">现今</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">被美国林务局列为西北老龄针叶林「特别关注物种」的指示种之一；中国《中国真菌志》球盖菇科分卷及毒蘑菇名录均有收录</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 实践提示 -->
+        <div style="background:var(--danger-pale);border:1px solid rgba(122,22,32,0.3);border-left:4px solid var(--danger);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#4a1216;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>在潮湿藓丛或草地中见到任何锈褐色孢子印的微型伞菌，无论采集目的为何（包括寻找致幻蘑菇），都应假定其可能为剧毒盔孢伞属并<strong>坚决不采不食</strong>；如需科学记录，请保留完整子实体（含基部）并借助显微镜或分子检测确认种类。
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「藓间蜜点小如豆，沟纹湿显干即褪」</div>
+        <div class="memory-pill">「锈褐孢印非幻紫，一字之差性命关」</div>
+        <div class="memory-pill">「体小不等于无毒，肝损伤型悄然至」</div>
+        <div class="memory-pill">「三百近亲难辨认，宁弃不采是良策」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生、散生或稀疏群生，紧贴藓丛基部或从藓垫中直接顶出，个体之间通常有一定间距，极少大量密集丛生</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">腐生菌，专性偏好潮湿苔藓垫层（Bryopsida），亦见于无藓的湿润草地（禾本科植物根际）；常见于针叶林下腐木周边及林间空地的藓丛中</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广布于北半球温带地区，北美洲、欧洲、中国均有记录；在美国太平洋西北部被列为老龄针叶林特别关注指示种之一；中国《中国真菌志》球盖菇科分卷收录，多地针叶林及高山苔原带均有报道</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">部分温带地区几乎全年可见（受藓丛湿度影响大），北美加州记录多见于秋季至隆冬；总体以雨季、湿润季节最为常见；海拔跨度较广，从低地林缘到高山苔原均有分布</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：科学观察或摄影记录时应避免徒手大量采摘，因其个体极小、易碎，且与剧毒近缘种及部分致幻蘑菇高度相似；如需鉴定，建议连同周边藓丛基质一并小心移出，并尽快在显微镜下观察孢子及囊状体特征。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-danger"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">无——中国毒蘑菇名录明确列为肝脏损伤型剧毒物种，个体又极其微小，无任何食用价值，任何情况下均不应采食</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用 / 毒理研究价值</div>
+        <div class="value-body">作为盔孢伞属模式种，是研究该属鹅膏毒肽分布规律、分子系统发育及毒素演化机制的重要参照物种，对完善"哪些盔孢伞含毒"这一悬而未决的科学问题具有基准意义</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态与指示价值</div>
+        <div class="value-body">作为腐生分解者参与苔藓及枯枝落叶层的物质循环；因对生境湿度、老龄林结构较为敏感，被列为北美老龄针叶林生态完整性的指示物种之一</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">其他记录</div>
+        <div class="value-body">研究显示本种具有从污染土壤中富集重金属的能力，为环境监测与真菌生物累积研究提供了潜在的模式材料</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Galerina_vittiformis" target="_blank">Wikipedia · Galerina vittiformis</a> ·
+      <a class="ref-link" href="https://www.mushroomexpert.com/galerina_vittiformis.html" target="_blank">MushroomExpert.com</a> ·
+      <a class="ref-link" href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0246575" target="_blank">PLOS ONE · Galerina 毒素分布研究</a>
+    </div>
+    <div>肝脏损伤型 · 体型极微小 · 与致幻蘑菇混采风险高</div>
+  </div>
+
+</div>
+</body>
+</html>
