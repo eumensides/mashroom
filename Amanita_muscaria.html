@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>毒蝇鹅膏（毒蝇伞）· Amanita muscaria（有毒）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 有毒物种：经典红白警示配色 */
+    --ink: #241412;
+    --ink-mid: #4a2a24;
+    --ink-light: #8a6a60;
+    --cream: #f8f0ea;
+    --surface: #ffffff;
+
+    --scarlet: #b8321e;
+    --scarlet-light: #e0705a;
+    --scarlet-pale: #f7dcd2;
+    --scarlet-mid: #8a2414;
+
+    --amber: #c07a1a;
+    --amber-light: #e0a854;
+    --amber-pale: #f7e8c8;
+
+    --toxic: #7a1810;
+    --toxic-light: #d99a90;
+    --toxic-pale: #f5ded8;
+
+    --stone: #6a5850;
+    --stone-light: #a09084;
+    --stone-pale: #eee2d8;
+
+    --border: rgba(160,60,30,0.14);
+    --border-mid: rgba(160,60,30,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body { font-family: 'Noto Sans SC', sans-serif; font-weight: 300; background: var(--cream); color: var(--ink); line-height: 1.75; font-size: 15px; }
+
+  .toxic-banner { background: var(--toxic); color: #fff; text-align: center; padding: 10px 16px; font-size: 13px; font-weight: 500; letter-spacing: 0.02em; }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #e8c8a8; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(20,8,4,0.72)); padding:24px 20px 16px; }
+  .hero-overlay-text { font-size:12px; color:rgba(250,220,200,0.9); font-style:italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--toxic); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 35px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--scarlet); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-scarlet { background: var(--scarlet-pale); color: var(--scarlet-mid); }
+  .tag-amber  { background: var(--amber-pale);  color: #6e4a08; }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+  .tag-stone { background: var(--stone-pale); color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-scarlet { background: var(--scarlet); }
+  .dot-amber  { background: var(--amber); }
+  .dot-toxic { background: var(--toxic); }
+  .dot-stone { background: var(--stone-light); }
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .feature-bar { background: linear-gradient(135deg, #f7dcd2, #f8f0ea); border: 1px solid rgba(184,50,30,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--scarlet-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #e8c8a8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #e8c8a8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20,8,4,0.72); color: #f5ddc8; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--amber-pale); color: #6e4a08; }
+  .phase-mid    { background: var(--scarlet-pale);  color: var(--scarlet-mid); }
+  .phase-mature { background: var(--toxic-pale); color: var(--toxic); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--scarlet-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--toxic-pale); border: 1px solid rgba(122,24,16,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--toxic); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a1208; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--toxic); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--amber-pale); border: 1px solid rgba(192,122,26,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: #6e4a08; margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #46300a; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--amber); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--amber-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--toxic); background: var(--toxic-pale); }
+  .confusion-item.safe { border-left-color: #5a8a4a; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--scarlet-pale); border: 1px solid rgba(184,50,30,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--scarlet-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card.toxic-card { border-left: 3px solid var(--toxic); }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--scarlet-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 27px; }
+    .feature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toxic-banner">⚠️ 全球辨识度最高的有毒蘑菇之一 · 神经精神型毒素 · 严禁采食，仅供学习识别</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria0.png" alt="毒蝇鹅膏主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Amanita muscaria · 鲜红至桔红色菌盖，散布白色颗粒状鳞片</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 鹅膏科（鹅膏属·模式种）</div>
+    <div class="hero-name-zh">毒蝇鹅膏（毒蝇伞）</div>
+    <div class="hero-name-la">Amanita muscaria</div>
+    <div class="hero-author">(L.) Lam., 1783 · 俗称蛤蟆菌</div>
+
+    <div class="tag-row">
+      <span class="tag tag-toxic">⚠ 有毒</span>
+      <span class="tag tag-scarlet">神经精神型中毒</span>
+      <span class="tag tag-amber">全球文化符号</span>
+      <span class="tag tag-stone">外生菌根真菌</span>
+      <span class="tag tag-stone">环带状菌托</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">毒蝇伞、毒蝇鹅膏菌、蛤蟆菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Fly Agaric / Fly Amanita</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Amanitaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">易混淆种</span>
+        <span class="taxon-value">橙盖鹅膏（可食） <em>Amanita caesarea</em></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志特征：环带状菌托</span>
+        <span class="fb-value">基部菌托并非典型杯状，而是由数圈白色絮状颗粒组成的同心环带，是区别于许多其他剧毒鹅膏的重要结构特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">毒素类型特殊</span>
+        <span class="fb-value">含毒蕈碱与异恶唑类衍生物，属神经精神型毒素，与我国致死率最高的鹅膏肽类毒素（急性肝损害型）完全不同</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">文化符号地位</span>
+        <span class="fb-value">是全球辨识度最高的蘑菇形象之一，与圣诞老人配色、超级马里奥蘑菇造型、西伯利亚萨满传统均有渊源</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-scarlet"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 鲜红色，白色颗粒状鳞片</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 纯白菌褶 / 蜡质菌环</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉白色，近盖表皮处红色</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria4.png" alt="菌褶面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">菌褶面 · 纯白色，密，离生</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 白色，非淀粉质反应</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">★细节 · 基部环带状菌托特写</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide" style="margin-top:10px;">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_muscaria7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 针叶林及桦树林地上群生景观</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期（卵形期）</div>
+        <div class="phase-desc">
+          整个子实体包裹于白色卵形外菌幕之中，形如白色鸡蛋；破裂后菌盖呈半球形，边缘内卷，鲜红色至桔红色表面已可见白色颗粒状鳞片（外菌幕碎片）；
+          菌褶纯白，紧密；菌柄短粗，基部已显球形膨大，菌环尚包裹于菌柄上部。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">中期</div>
+        <div class="phase-desc">
+          菌盖逐渐展开呈凸镜形，直径达10–15cm，边缘短条棱开始显现；红色略变桔红，白色鳞片仍清晰散布盖面；
+          菌柄伸长，菌环展开悬垂于菌柄上部；基部球形膨大处菌托碎裂成数圈白色絮状颗粒环带。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，直径可达20cm，边缘条棱清晰可见，雨水冲刷后颜色可能褪至橙黄色，白色鳞片部分脱落；
+          菌柄基部膨大更明显，环状菌托颗粒清晰排列；菌环仍悬挂菌柄上部，质地蜡质。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-scarlet">菌盖鲜红→桔红（偶见黄色变型）</span>
+          <span class="tag tag-amber">白色颗粒状鳞片散布</span>
+          <span class="tag tag-stone">菌褶、菌柄纯白</span>
+          <span class="tag tag-stone">菌肉白色（近盖处红）</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">卵形→半球形→平展（径6–20cm）</span>
+          <span class="tag tag-amber">边缘具明显短条棱</span>
+          <span class="tag tag-scarlet">菌柄基部球形膨大</span>
+          <span class="tag tag-stone">环带状菌托</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">气味温和，无特殊刺激性</span>
+          <span class="tag tag-toxic">⚠ 温和气味易致误判为无毒</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">⚠ 严禁品尝，含神经精神型毒素</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>宽6–20cm，半球形至平展，边缘具明显短条棱；鲜红色或桔红色，散布白色或稍带黄色颗粒状鳞片（外菌幕残余，雨水可冲刷脱落）</td></tr>
+          <tr><td>菌褶</td><td>纯白色，密，离生，不等长</td></tr>
+          <tr><td>菌肉</td><td>白色，靠近盖表皮处红色</td></tr>
+          <tr><td>菌柄</td><td>长12–25cm，粗1–2.5cm，纯白色，直立，表面常有细小鳞片；基部膨大呈球形</td></tr>
+          <tr><td>菌托</td><td>非典型杯状，而是由数圈白色絮状颗粒组成的同心环带，环绕球形基部</td></tr>
+          <tr><td>菌环</td><td>菌柄上部具白色蜡质菌环</td></tr>
+          <tr><td>孢子</td><td>椭圆形，无色，非淀粉质反应；孢子印白色</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-scarlet"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识要素</div>
+      <ul class="distinction-list">
+        <li>基部菌托为<strong>数圈白色絮状颗粒组成的同心环带</strong>，而非典型的杯状/苞状结构——区别于致命鹅膏等剧毒种的重要特征</li>
+        <li>孢子<strong>非淀粉质</strong>（遇碘不变蓝），是鹅膏属分类中的重要显微区分依据</li>
+        <li>鲜红/桔红色菌盖搭配白色颗粒状鳞片，是全球公认的"毒蘑菇"文化符号原型</li>
+        <li>毒素类型为毒蕈碱与异恶唑类衍生物（神经精神型），与我国南方致死率最高的鹅膏肽类毒素（急性肝损害型）完全不同——提示"鹅膏属"内部毒性机制差异巨大，不能一概而论</li>
+      </ul>
+    </div>
+
+    <div class="caution-box">
+      <div class="caution-title">⚠ 食用前必读：神经精神型中毒，切勿模仿民俗处理法</div>
+      <ul class="caution-list">
+        <li>毒蕈碱刺激副交感神经，可致心跳减慢减弱、大量出汗流泪；异恶唑类衍生物对中枢神经产生异常兴奋作用</li>
+        <li>食用后常见兴奋、幻觉、肺水肿、呼吸困难，严重者可昏迷甚至死亡，但总体致死案例相对罕见</li>
+        <li>本种毒性可通过两次煮沸并弃汤显著降低，部分地区有经处理后食用的民俗记录，但这需要专业经验且仍存在残留毒素风险，普通消费者切勿自行尝试</li>
+        <li>本种外观极具辨识度、常被童话与游戏形象美化，是儿童科普教育中最容易被误认为"友善蘑菇"的危险物种之一，务必加强对儿童及家长的针对性提醒</li>
+      </ul>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+    <div class="confusion-list">
+      <div class="confusion-item safe">
+        <div class="confusion-name" style="color:#3a6a2a">橙盖鹅膏（可食） <em>Amanita caesarea</em></div>
+        <div class="confusion-diff">中文俗称"橙盖伞"，菌盖同为橙红色调，但菌褶及菌柄均为<strong>黄色</strong>（非本种的纯白色），菌托为典型<strong>杯状苞状结构</strong>（非本种的同心环带状），是野外最容易与本种混淆的可食近缘种，误采风险不容忽视</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">豹斑鹅膏（有毒） <em>Amanita pantherina</em></div>
+        <div class="confusion-diff">同节近缘种，毒性成分相同（异恶唑类衍生物），菌盖颜色偏褐色而非红色，菌托同样呈环带状而非杯状</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic)">⚠ 黄盖鹅膏（剧毒） <em>Amanita subjunquillea</em></div>
+        <div class="confusion-diff">我国常见剧毒鹅膏之一，菌盖黄色，与本种偶见的黄色变型易混淆，但含鹅膏肽类毒素，为急性肝损害型剧毒种，危险性远高于本种</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.2rem;">
+    <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「鲜红斑点童话感，蛤蟆菌名藏危险」</div>
+      <div class="memory-pill">「环带菌托非杯状，鹅膏节内细分辨」</div>
+      <div class="memory-pill">「兴奋幻觉又出汗，神经毒类要记牢」</div>
+      <div class="memory-pill">「橙盖鹅膏莫看错，白褶环托是关键」</div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">夏秋季在林中地上成群生长</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">外生菌根真菌，与松科、桦木科植物形成共生关系，尤喜酸性土壤针叶林及桦树林</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国东北、西北地区，华北北部偶见；原产于北半球温带至寒带地区，因与松树/桦树种植共生而被无意引入南半球多国，现为全球性分布物种</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">夏秋季为主，多见于中高纬度或高海拔针叶林、桦树林</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      观察建议：记录时留意基部菌托的环带状结构（而非杯状），并观察菌褶与菌柄颜色（纯白 vs 黄色），这是与可食的橙盖鹅膏最关键的野外区分依据；本种外观极为醒目，适合远观拍照，不建议采集。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-scarlet"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card toxic-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">本种在多国有经特殊处理（两次煮沸弃汤）后食用的民俗传统，但风险较高且处理不当可能导致中毒，我国不建议采食</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">文化与历史价值</div>
+        <div class="value-body">作为鹅膏属模式种及全球辨识度最高的蘑菇文化符号之一，与西伯利亚萨满传统、欧洲民间传说、现代流行文化形象均有密切关联，具重要民族真菌学研究价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药理与科研价值</div>
+        <div class="value-body">所含蝇蕈醇（muscimol）是GABA受体激动剂，鹅膏蕈氨酸（ibotenic acid）是研究谷氨酸受体的重要工具化合物，在神经药理学基础研究中具重要地位</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态角色</div>
+        <div class="value-body">外生菌根真菌，与松科、桦木科植物共生，对宿主树木矿质营养吸收具重要促进作用，也是相关生态系统健康的指示类群</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-hans/%E6%AF%92%E8%A0%85%E5%82%98" target="_blank">维基百科：毒蝇伞</a> ·
+      <a class="ref-link" href="https://wap.emushroom.net/qikan/show-17437.html" target="_blank">中国毒蘑菇新修订名录</a>
+    </div>
+    <div>神经精神型有毒 · 孢子印白色 · 外生菌根真菌</div>
+  </div>
+
+</div>
+</body>
+</html>
