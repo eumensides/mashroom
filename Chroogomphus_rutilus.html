@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>血红色钉菇 · Chroogomphus rutilus（可食用）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：温暖柔和的红棕 + 橘黄菌肉色调 */
+    --ink: #211208;
+    --ink-mid: #4c331d;
+    --ink-light: #8a7157;
+    --cream: #f8ede1;
+    --surface: #fffbf5;
+    --surface-warm: #fdf3e5;
+
+    /* 红棕主色（菌盖标志色） */
+    --claret: #8a3524;
+    --claret-light: #c9714f;
+    --claret-pale: #f5ded1;
+    --claret-mid: #6e2618;
+
+    /* 橘黄辅色（菌肉 / 菌褶色） */
+    --amber: #b87b1c;
+    --amber-light: #e0aa4e;
+    --amber-pale: #faedd0;
+
+    /* 苔绿（生态标记） */
+    --moss: #4e6c2a;
+    --moss-light: #94b468;
+    --moss-pale: #eef4e2;
+
+    /* 灰黑（孢子印/深色标记） */
+    --slate: #4a463f;
+    --slate-light: #8a8375;
+    --slate-pale: #ece8de;
+
+    /* 警示橙（易混淆提醒，非致命） */
+    --warn: #a5591a;
+    --warn-light: #d68b4d;
+    --warn-pale: #fbe9d6;
+
+    /* 灰褐中性色 */
+    --stone: #695a3e;
+    --stone-light: #998768;
+
+    --border: rgba(100,60,30,0.14);
+    --border-mid: rgba(100,60,30,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── 友好提示横幅 ── */
+  .notice-banner {
+    background: var(--amber);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #d99e82;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(30,14,8,0.75));
+    padding: 24px 20px 16px;
+  }
+
+  .hero-overlay-text {
+    font-size: 12px;
+    color: rgba(250,220,195,0.9);
+    font-style: italic;
+  }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--claret);
+    margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .hero-name-la {
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--amber);
+    margin-bottom: 4px;
+  }
+
+  .hero-author {
+    font-size: 12px;
+    color: var(--stone-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-claret { background: var(--claret-pale); color: var(--claret-mid); }
+  .tag-amber  { background: var(--amber-pale);  color: var(--amber); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-slate  { background: var(--slate-pale);  color: var(--slate); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-stone  { background: #f0e6d0;            color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-claret { background: var(--claret); }
+  .dot-moss   { background: var(--moss); }
+  .dot-warn   { background: var(--warn); }
+  .dot-stone  { background: var(--stone-light); }
+  .dot-amber  { background: var(--amber); }
+  .dot-slate  { background: var(--slate); }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .section-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--stone-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── PHOTO LAYOUT ── */
+  .photo-outer { display: grid; gap: 10px; }
+
+  .photo-grid-6 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .photo-slot {
+    aspect-ratio: 4/3;
+    background: #d99e82;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot-wide {
+    aspect-ratio: 16/7;
+    background: #d99e82;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot img, .photo-slot-wide img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(30,14,8,0.75);
+    color: #f5e0cf;
+    font-size: 11px;
+    padding: 5px 8px;
+    text-align: center;
+  }
+
+  /* ── GROWTH PHASES ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .phase-label {
+    padding: 4px 0;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--amber-pale); color: var(--amber); }
+  .phase-mature { background: var(--claret-pale);color: var(--claret-mid); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .trait-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .trait-name {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  .parts-table td:first-child {
+    font-weight: 500;
+    color: var(--claret-mid);
+    white-space: nowrap;
+    width: 110px;
+  }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── 特别注意栏 ── */
+  .caution-box {
+    background: var(--warn-pale);
+    border: 1px solid rgba(165,89,26,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .caution-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--warn);
+    margin-bottom: 10px;
+  }
+
+  .caution-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .caution-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #5a340e;
+    line-height: 1.6;
+  }
+
+  .caution-list li::before {
+    content: "!";
+    color: var(--warn);
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.6;
+    flex-shrink: 0;
+  }
+
+  /* ── DISTINCTION BOX ── */
+  .distinction-box {
+    background: var(--moss-pale);
+    border: 1px solid rgba(78,108,42,0.28);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .distinction-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--moss);
+    margin-bottom: 10px;
+  }
+
+  .distinction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .distinction-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #263216;
+    line-height: 1.6;
+  }
+
+  .distinction-list li::before {
+    content: "·";
+    color: var(--moss);
+    font-size: 16px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  /* ── CONFUSION TABLE ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .confusion-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+  }
+
+  .confusion-item.caution { border-left-color: var(--warn); }
+
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  /* ── MEMORY ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+
+  .memory-pill {
+    background: var(--claret-pale);
+    border: 1px solid rgba(138,53,36,0.28);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--claret-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── HABITAT ── */
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .habitat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .habitat-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 6px;
+  }
+
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  /* ── VALUE CARDS ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .value-card-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 8px;
+  }
+
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 特色速览栏 ── */
+  .feature-bar {
+    background: linear-gradient(135deg, #f5ded1, #fbeee0);
+    border: 1px solid rgba(138,53,36,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--claret);
+    font-weight: 500;
+  }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--stone-light);
+  }
+
+  .ref-link { color: var(--claret-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  ✓ 传统食用菌 · 松林下常见 · 俗称「红蘑 / 松树伞」· 风味清淡耐储藏
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+          <source srcset="https://eumensides.github.io/mashroom/Chroogomphus_rutilus0.png" type="image/png">
+          <img src="https://eumensides.github.io/mashroom/Chroogomphus_rutilus0.png" alt="血红色钉菇主图" loading="lazy">
+        </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Chroogomphus rutilus · 菌盖红棕至紫红色，菌褶延生稀疏，菌肉橘黄色，与松属树木共生</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 牛肝菌目 · 铆钉菇科 · 色钉菇属（模式种）</div>
+    <div class="hero-name-zh">血红色钉菇</div>
+    <div class="hero-name-la">Chroogomphus rutilus</div>
+    <div class="hero-author">(Schaeff.) O.K. Mill. · 俗称「红蘑 / 松蘑 / 松树伞」</div>
+
+    <div class="tag-row">
+      <span class="tag tag-amber">✓ 可食用</span>
+      <span class="tag tag-claret">菌盖红棕至紫红色</span>
+      <span class="tag tag-moss">与松属共生</span>
+      <span class="tag tag-slate">孢子印深灰色</span>
+      <span class="tag tag-stone">色钉菇属模式种</span>
+      <span class="tag tag-warn">易与铆钉菇属混淆</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">血红色钉菇 / 血红铆钉菇 / 红蘑</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分布</span>
+        <span class="taxon-value">中国大陆（全国广布）、日本、韩国、欧洲、西伯利亚</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">科 / 属</span>
+        <span class="taxon-value">Gomphidiaceae 铆钉菇科 / Chroogomphus 色钉菇属</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护等级</span>
+        <span class="taxon-value">中国生物多样性红色名录：无危（LC）</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志结构：橘黄菌肉</span>
+        <span class="fb-value">菌盖红棕、红黑色至紫红色，剖开后菌肉呈鲜明的橘黄色至浅黄棕色，梅泽试剂检验呈淀粉质阳性反应，是本属重要的鉴定特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">松林共生标志种</span>
+        <span class="fb-value">外生菌根真菌，专性与松属（Pinus）树木根系共生，常见于油松、赤松等纯林地表，是松林生态系统的指示性物种之一</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">属级易混淆提醒</span>
+        <span class="fb-value">与近缘的铆钉菇属（<em>Gomphidius</em>）外形极其相似，二者主要靠菌肉颜色及化学反应区分，普通采集者需格外留意</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-claret"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+      <!-- 6张小图 -->
+      <div class="photo-grid-6">
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Chroogomphus_rutilus1.png" alt="上方菌盖图" loading="lazy">
+          <div class="photo-caption">上方菌盖图 · 红棕至紫红色 / 湿时黏滑</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Chroogomphus_rutilus2.png" alt="45°仰拍图" loading="lazy">
+          <div class="photo-caption">45° 仰拍 · 延生稀疏菌褶 / 橘黄色菌柄</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Chroogomphus_rutilus3.png" alt="剖面图" loading="lazy">
+          <div class="photo-caption">剖面 · 菌肉橘黄色 / 基部带黄色</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Chroogomphus_rutilus4.png" alt="菌褶面图" loading="lazy">
+          <div class="photo-caption">褶面 · 青黄转紫褐色，延生，稀疏</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Chroogomphus_rutilus5.png" alt="孢子印图" loading="lazy">
+          <div class="photo-caption">孢子印 · 深灰色至近黑色</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Chroogomphus_rutilus6.png" alt="特殊细节图" loading="lazy">
+          <div class="photo-caption">细节 · 菌柄基部黄色 / 易消失菌环残迹</div>
+        </div>
+      </div>
+
+      <!-- 生境图（大图） -->
+      <div class="photo-slot-wide">
+        <img src="https://eumensides.github.io/mashroom/Chroogomphus_rutilus7.png" alt="生境图" loading="lazy">
+        <div class="photo-caption">生境图 · 油松、赤松纯林地表 / 树根共生</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          菌盖圆锥形至钟形，浅咖啡色至红棕色，表面光滑，湿时黏滑；菌褶尚未完全展开，青黄色，此期柄上部常有易消失的薄菌环。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖渐展平，中部微凸起，色泽转为红棕至紫红色，干时略具光泽；菌柄伸长，圆柱形向下渐细，与菌盖色相近，基部带黄色；菌褶延生，稀疏，青黄色渐转紫褐色。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，过熟后呈漏斗形，直径3–12cm，红棕、红黑色或紫红色，常有虫蛀；菌肉带红色，干后呈淡紫红色；菌柄4–16cm，稍带红色的橘黄色，实心；孢子印深灰色。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-claret">菌盖红棕→红黑/紫红色</span>
+          <span class="tag tag-amber">菌肉橘黄色（干后淡紫红）</span>
+          <span class="tag tag-amber">菌褶青黄色→紫褐色</span>
+          <span class="tag tag-claret">菌柄橘黄带红色</span>
+          <span class="tag tag-slate">孢子印深灰色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">幼期圆锥形至钟形</span>
+          <span class="tag tag-stone">成熟平展，过熟呈漏斗形（径3–12cm）</span>
+          <span class="tag tag-amber">菌褶延生，稀疏，不等长</span>
+          <span class="tag tag-claret">菌柄圆柱形向下渐细（4–16cm）</span>
+          <span class="tag tag-stone">上部常有易消失菌环</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">气味不明显，无特殊香气</span>
+          <span class="tag tag-stone">湿时表面黏滑，干时具光泽</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-amber">肉质肥嫩，味道清淡</span>
+          <span class="tag tag-amber">常用于炖煮，如"小鸡炖蘑菇"</span>
+          <span class="tag tag-stone">耐储藏，适合干制</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr>
+            <th>部位</th>
+            <th>形态描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖表皮</td>
+            <td>凸镜形至扁平，过熟呈漏斗形，直径3–12cm；表面棕色、红棕色至红黑色，光滑，湿润时黏滑，干燥后紫红色，常有虫蛀</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>延生，稀疏，不等长，青黄色渐转紫褐色，具长圆柱状侧囊状体</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>橘黄色至浅黄棕色，近柄基部带黄色，干后呈淡紫红色；梅泽试剂检验呈淀粉质阳性反应</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>4–16cm，圆柱形向下渐细，稍带红色的橘黄色，实心，上部往往有易消失的薄菌环</td>
+          </tr>
+          <tr>
+            <td>菌环</td>
+            <td>幼期可见，成熟后多已消失，痕迹不明显</td>
+          </tr>
+          <tr>
+            <td>菌托</td>
+            <td>无——本种无外菌幕包裹结构，柄基无袋状或球状菌托</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>表面光滑，圆柱状，长14–22微米，宽4.5–7微米；孢子印深灰色至近黑色</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖<strong>红棕至紫红色</strong>，湿时黏滑，与鲜黄至橘黄色的菌肉形成鲜明对比</li>
+        <li>菌褶<strong>延生且稀疏</strong>，青黄色渐转紫褐色——延生特征是与许多褶菌区分的重要参考</li>
+        <li>菌肉在梅泽试剂中呈<strong>淀粉质阳性反应</strong>（变蓝），这是区分色钉菇属与近缘铆钉菇属的关键化学特征</li>
+        <li>专性与<strong>松属树木</strong>共生，几乎只见于松科纯林或混交林地表，脱离松树难觅其踪</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 采集提示：与铆钉菇属的形态易混淆</div>
+      <ul class="caution-list">
+        <li>色钉菇属（<em>Chroogomphus</em>）与铆钉菇属（<em>Gomphidius</em>）同属铆钉菇科，外形特征极其相似，仅凭肉眼有时很难区分，需借助菌肉颜色及化学反应等特征综合判断</li>
+        <li>色钉菇属菌肉多为黄色或橙色，菌丝组织遇梅泽试剂变蓝；铆钉菇属菌褶幼时常有菌幕，菌盖边缘可能残留菌幕碎片，组织非淀粉质</li>
+        <li>同属内还有易混色钉菇、东方色钉菇、变色色钉菇、紫色钉菇等近似种，形态学特征交叉重叠，仅凭外观有时难以准确鉴定到种</li>
+        <li>建议采集时结合生境（是否松林）、菌肉颜色及新鲜断面变化等多重特征综合判断，不确定时应交由专业人士辨识</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与铆钉菇属的区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">铆钉菇属（<em>Gomphidius</em>）菌褶幼时具菌幕包裹，菌盖边缘常有菌幕残留物；本种（色钉菇属）菌肉呈鲜明<strong>橘黄色</strong>且遇梅泽试剂变蓝，是最主要的区分依据</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">属内近似种区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">易混色钉菇（<em>C. confusus</em>）菌盖较小（1–4cm），黄棕色偏红调，囊状体具结晶；本种（<em>C. rutilus</em>）菌盖湿时很黏、光滑，囊状体壁很薄，分布覆盖全国而非局限于西南或东北地区</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">易混色钉菇 <em>Chroogomphus confusus</em></div>
+        <div class="confusion-diff">同属近似种，菌盖较小（1–4cm），黄棕色带红色色调，囊状体具结晶，主要分布于中国西南部</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">紫色钉菇 <em>Chroogomphus purpurascens</em></div>
+        <div class="confusion-diff">同属近似种，主要分布于中国东北部，形态与本种相近，需结合产地及显微特征区分</div>
+      </div>
+      <div class="confusion-item caution">
+        <div class="confusion-name" style="color:var(--warn)">铆钉菇属物种 <em>Gomphidius spp.</em></div>
+        <div class="confusion-diff">同科不同属，外形与本种极其相似，主要靠菌肉颜色（本种为橘黄色）及梅泽试剂反应（本种阳性变蓝）区分，普通采集者较难仅凭肉眼判断</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">褐黄铆钉菇 <em>Chroogomphus ochraceus</em>（北美分布）</div>
+        <div class="confusion-diff">北美同属近似种，形态与本种相近，是分类学文献中常提及的对比物种，我国不产</div>
+      </div>
+    </div>
+
+    <!-- ── 命名与俗名说明板块 ── -->
+    <div style="margin-top:1.4rem;background:var(--claret-pale);border:1px solid rgba(138,53,36,0.32);border-radius:14px;overflow:hidden;">
+
+      <div style="background:var(--claret);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">中文名说明：血红色钉菇 与「红蘑」</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Naming Note</span>
+      </div>
+
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称来源与关系</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--claret);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                属名 <em>Chroogomphus</em> 由希腊词根 <em>chroo-</em>（颜色）与 <em>Gomphus</em>（钉/楔形，铆钉菇科名称由来）复合而成，中文译作"色钉菇属"；种加词 <em>rutilus</em> 意为"红色的、火红色的"，中文正式名"血红色钉菇"即由此直译而来，突出其红棕至紫红色的菌盖色泽。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--claret);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>俗名"红蘑""松树伞""松蘑""肉蘑"：</strong>东北地区民间俗称，"红蘑"直指其红棕色菌盖，"松树伞""松蘑"则强调其专性与松树共生的生境特征，"肉蘑"形容其菌肉肥厚的口感；在东北地区是制作传统名菜"小鸡炖蘑菇"的常用食材之一。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--claret);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>分类地位：</strong>隶属铆钉菇科（<em>Gomphidiaceae</em>）色钉菇属（<em>Chroogomphus</em>），本种为该属的<strong>模式种</strong>；色钉菇属与铆钉菇属（<em>Gomphidius</em>）虽外形相似，但分子系统学研究证实二者亲缘关系较近，同属牛肝菌目内一支独特的褶菌类群（牛肝菌目中少见的具菌褶物种）。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 分布与生态 -->
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">分布与研究现状</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              本种在中国全国广泛分布，尤以辽宁丹东、鞍山、抚顺、本溪、铁岭等东部山区油松、赤松纯林中较为常见；国外见于日本、韩国、西伯利亚及欧洲。
+            </div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              近年有研究者对其化学成分与健康促进作用进行系统梳理（发表于Nutrients期刊），提示其在功能性食用菌开发方面具有一定潜力，但相关活性成分的临床验证仍在早期阶段。
+            </div>
+          </div>
+        </div>
+
+        <!-- 实践提示 -->
+        <div style="background:var(--warn-pale);border:1px solid rgba(165,89,26,0.3);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a340e;line-height:1.7;">
+          <strong>🍄 采集提示：</strong>本种虽为传统食用菌，但因与铆钉菇属及色钉菇属内多个近似种形态交叉，采集时应仔细核对菌肉颜色、生境（是否松林）等特征；不确定物种时应交由熟悉本地菌类的人士协助辨识后再食用。
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「盖红肉黄柄橘色，梅泽试剂现真容」</div>
+        <div class="memory-pill">「褶疏而延青转紫，孢子印黑似夜幕」</div>
+        <div class="memory-pill">「松林寻它不离松，脱离松树影无踪」</div>
+        <div class="memory-pill">「小鸡炖蘑菇里客，东北山间红蘑客」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">子实体散生、群生或单生，直接从松林地表根际土壤中长出</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">外生菌根真菌，专性与松属（Pinus）树木根系共生，多见于油松、赤松等纯林或针叶混交林地表，菌丝与树根紧密共生</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国全国广布，尤以辽宁东部山区（丹东、鞍山、抚顺、本溪、铁岭）常见；国外分布于欧洲、日本、韩国及西伯利亚</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">夏秋季为主要出菇期，常见于中低海拔松林地区，是北方山区秋季常见的野生食用菌之一</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：优先在明确的松林环境中寻找，注意与铆钉菇属及同属近似种区分；不确定时可通过掰开菌肉观察颜色（本种为橘黄色）辅助判断，但仍建议交由有经验者最终确认。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">传统食用菌，肉质肥嫩、鲜美可口，风味清淡，是东北地区制作"小鸡炖蘑菇"等传统菜肴的常用食材，耐储藏，适合干制保存</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用 / 保健价值</div>
+        <div class="value-body">近期研究提示其富含天然活性成分，在功能性食品开发方面具有潜在价值，相关健康促进作用的系统性研究正在推进中，但尚未形成成熟的临床应用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为松属树木的专性外生菌根共生伙伴，在北温带针叶林生态系统的养分循环及松树健康生长中发挥积极作用，是松林生态系统的指示性物种之一</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研与记录价值</div>
+        <div class="value-body">作为色钉菇属的模式种，对该属乃至整个铆钉菇科的分类厘定具有基础性参考价值；已被列入《中国生物多样性红色名录—大型真菌卷》，评估等级为无危（LC）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-hans/%E8%A1%80%E7%BA%A2%E8%89%B2%E9%92%89%E8%8F%87" target="_blank">Wikipedia · 血红色钉菇</a> ·
+      <a class="ref-link" href="https://www.mbiosh.com/column/medicinal-mushrooms/information/37542" target="_blank">微生物安全与健康网</a> ·
+      <a class="ref-link" href="https://www.indexfungorum.org/" target="_blank">Index Fungorum</a>
+    </div>
+    <div>研究现状：分类明确 · 食用记录充分 · 全国广布</div>
+  </div>
+
+</div>
+</body>
+</html>
