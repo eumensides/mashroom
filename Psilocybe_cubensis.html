@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>古巴裸盖菇 · Psilocybe cubensis（含致幻成分，中国及多数国家列为管制物种）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 管制/致幻物种：中性土褐 + 强烈法律警示紫蓝 */
+    --ink: #191620;
+    --ink-mid: #3e3a4a;
+    --ink-light: #82788e;
+
+    --cream: #eeecf2;
+    --surface: #fdfcfa;
+    --surface-warm: #f6f4f8;
+
+    /* 土褐主色（菌盖本色） */
+    --umber: #8a6a3e;
+    --umber-light: #c4a26a;
+    --umber-pale: #f0e6d2;
+    --umber-mid: #5c4420;
+
+    /* 靛蓝（法律警示主色，与致幻/管制主题呼应） */
+    --indigo: #383266;
+    --indigo-light: #7a72ae;
+    --indigo-pale: #e6e2f2;
+
+    /* 淤青蓝（本种损伤变色的标志特征） */
+    --bruise: #2c4a72;
+    --bruise-light: #6a8ab0;
+    --bruise-pale: #e2ecf5;
+
+    /* 警戒红（毒性/法律风险强调） */
+    --danger: #7a1f2e;
+    --danger-light: #c07a88;
+    --danger-pale: #f5e0e4;
+
+    --stone: #5e5848;
+    --stone-light: #948c78;
+
+    --border: rgba(60,50,90,0.14);
+    --border-mid: rgba(60,50,90,0.26);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--indigo);
+    color: #fff;
+    text-align: center;
+    padding: 11px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #c8b088; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(20,16,28,0.76)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(220,212,235,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--indigo); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 32px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--umber-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-umber  { background: var(--umber-pale);  color: var(--umber-mid); }
+  .tag-indigo { background: var(--indigo-pale); color: var(--indigo); }
+  .tag-bruise { background: var(--bruise-pale); color: var(--bruise); }
+  .tag-danger { background: var(--danger-pale); color: var(--danger); }
+  .tag-stone  { background: #ece6d8;            color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-umber  { background: var(--umber-mid); }
+  .dot-indigo { background: var(--indigo); }
+  .dot-bruise { background: var(--bruise); }
+  .dot-danger { background: var(--danger); }
+  .dot-stone  { background: var(--stone-light); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #c8b088; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #c8b088; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20,16,28,0.76); color: #e6dcf0; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--umber-pale);  color: var(--umber-mid); }
+  .phase-mid    { background: var(--bruise-pale); color: var(--bruise); }
+  .phase-mature { background: var(--indigo-pale); color: var(--indigo); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--umber-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--danger-pale); border: 1px solid rgba(122,31,46,0.32); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 700; color: var(--danger); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a1420; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--danger); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--indigo-pale); border: 1px solid rgba(56,50,102,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--indigo); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #221e3c; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--indigo); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--umber-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--danger); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--indigo-pale); border: 1px solid rgba(56,50,102,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--indigo); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #e6e2f2, #f6f4f8);
+    border: 1px solid rgba(56,50,102,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--indigo); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--umber-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 24px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  ⚖ 含裸盖菇素等致幻成分 · 在中国及绝大多数国家/地区属管制物种 · 本页仅作物种识别科普，不涉及栽培、提取或使用方法
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Psilocybe_cubensis0.png" alt="古巴裸盖菇主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Psilocybe cubensis · 黄褐色光滑菌盖，紫褐色孢子印，全株损伤后转蓝色，常见于草食动物粪便及施肥草场</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 蘑菇目 · 裸盖菇科 · 裸盖菇属</div>
+    <div class="hero-name-zh">古巴裸盖菇</div>
+    <div class="hero-name-la">Psilocybe cubensis</div>
+    <div class="hero-author">(Earle) Singer, 1949 · 曾用学名 <em>Stropharia cubensis</em> Earle, 1906</div>
+
+    <div class="tag-row">
+      <span class="tag tag-danger">⚖ 中国列管精神药品原植物（真菌）</span>
+      <span class="tag tag-indigo">含裸盖菇素/脱磷裸盖菇素</span>
+      <span class="tag tag-bruise">损伤后变蓝</span>
+      <span class="tag tag-umber">粪生真菌</span>
+      <span class="tag tag-stone">紫褐色孢子印</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">古巴裸盖菇 / 古巴光头菇</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Magic Mushroom / Golden Teacher（常见栽培品系俗称）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">蘑菇目 Agaricales / Hymenogastraceae 裸盖菇科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">法律地位</span>
+        <span class="taxon-value">中国：裸盖菇素已列入《精神药品品种目录》管制；多数国家/地区将其列为管制物质或禁止种植持有</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志反应：损伤变蓝</span>
+        <span class="fb-value">菌盖、菌柄受伤、按压或干燥过程中会逐渐转为蓝绿色，这一变色反应源于裸盖菇素代谢产物的氧化，是裸盖菇属的重要识别特征，但同样特征也出现在多种同属物种中</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">孢子印：紫褐至暗紫褐色</span>
+        <span class="fb-value">成熟孢子印为紫褐色至暗紫褐色，与鹅膏属的白色孢子印、蘑菇属的巧克力褐色孢子印均不相同，是裸盖菇属鉴定的重要依据</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">法律与健康风险须知</span>
+        <span class="fb-value">在中国，裸盖菇素已被列入国家管制的精神药品品种目录，种植、持有、传播含此成分的真菌可能涉及法律责任；即便在部分已放宽管制的地区，其使用也存在不可预测的心理健康风险</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Psilocybe_cubensis1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 黄褐至红褐色 / 光滑 / 中央色深边缘渐浅</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Psilocybe_cubensis2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 灰紫褐色菌褶 / 膜质菌环 / 白色菌柄</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Psilocybe_cubensis3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉白色，损伤处逐渐转蓝</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Psilocybe_cubensis4.png" alt="菌褶面图" loading="lazy">
+        <div class="photo-caption">褶面 · 幼时灰色，成熟转紫褐至暗紫褐色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Psilocybe_cubensis5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 紫褐至暗紫褐色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Psilocybe_cubensis6.png" alt="变色反应细节图" loading="lazy">
+        <div class="photo-caption">细节 · 菌柄基部受伤后蓝染反应明显</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Psilocybe_cubensis7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 牛、马等草食动物粪便及施肥草场，群生或丛生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-bruise"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体幼时菌盖呈半球形，直径1–2cm，黄褐色，表面光滑；菌盖边缘以膜质内菌幕与菌柄相连，遮盖尚未成熟的菌褶；
+          菌柄白色，纤细；此时整体较小，颜色较浅，若受外力挤压触碰会开始出现淡蓝色斑痕。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐展开为钟形至凸镜形，直径可达3–6cm，颜色转为黄褐至红褐色，中央颜色更深、边缘渐浅；内菌幕破裂并在菌柄上部形成膜质菌环；
+          菌褶完全显露，初为灰白色，随孢子成熟渐转为紫灰色；菌柄白色，中空，损伤后蓝染反应更为明显。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展开近平展，直径可达8cm，黄褐至红褐色，中央具低矮钝突；菌褶紫褐至暗紫褐色，密集，直生至弯生；
+          菌柄5–15cm，白色至浅黄色，中空，具明显膜质菌环，损伤处及老熟后整体呈现明显蓝染；孢子印紫褐至暗紫褐色。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-bruise"></span>
+      <span class="section-title">颜色 · 形状 · 气味</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-umber">菌盖黄褐至红褐色（中央更深）</span>
+          <span class="tag tag-bruise">菌褶紫灰→紫褐至暗紫褐色</span>
+          <span class="tag tag-stone">孢子印紫褐至暗紫褐色</span>
+          <span class="tag tag-bruise">损伤处及老熟部位转蓝绿色</span>
+          <span class="tag tag-stone">菌柄白色至浅黄色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">半球形→钟形→近平展（径3–8cm）</span>
+          <span class="tag tag-umber">菌盖表面光滑，潮湿时黏滑</span>
+          <span class="tag tag-bruise">菌柄5–15cm，中空，具膜质菌环</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">面粉样气味</span>
+          <span class="tag tag-stone">无强烈刺激性异味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">法律与生理活性提示</div>
+        <div class="trait-tags">
+          <span class="tag tag-danger">⚖ 中国及多数国家/地区列为管制物种</span>
+          <span class="tag tag-danger">含裸盖菇素等强效致幻成分</span>
+          <span class="tag tag-danger">本页不提供栽培/使用相关信息</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-bruise"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径3–8cm，幼时半球形，成熟展开为钟形至近平展，常具低矮钝突；表面光滑，潮湿时黏滑；黄褐至红褐色，中央颜色更深，边缘渐浅，干燥后颜色变浅泛白</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>直生至弯生，密集，幼时灰白色，随孢子成熟渐转紫灰色，最终呈紫褐至暗紫褐色，褶缘常带白色细纹</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色，质地较薄；受伤或挤压后逐渐转为蓝绿色，是本属真菌的标志性化学反应之一</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>长5–15cm，白色至浅黄色，中空，基部略膨大；具明显膜质菌环，成熟后仍多可保留，菌柄受伤处蓝染反应尤为明显</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>椭圆形，光滑，紫褐色；孢子印紫褐至暗紫褐色</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-indigo"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素（仅用于科学识别，不用于采集使用）</div>
+      <ul class="distinction-list">
+        <li>菌盖<strong>黄褐至红褐色</strong>，中央色深、边缘渐浅，表面光滑</li>
+        <li>全株<strong>损伤后逐渐转蓝绿色</strong>，是裸盖菇属最典型的化学反应特征之一</li>
+        <li>孢子印为<strong>紫褐至暗紫褐色</strong>，区别于鹅膏属的白色及蘑菇属的巧克力褐色</li>
+        <li>常见于<strong>草食动物粪便</strong>及施肥草场，这一独特生境是野外初步识别的重要线索之一，但仍无法替代专业鉴定</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚖ 重要提示：法律与健康风险</div>
+      <ul class="caution-list">
+        <li>在中国，裸盖菇素（Psilocybin）已被列入国家管制的精神药品品种目录，<strong>种植、持有、传播</strong>含此成分的真菌可能涉及法律责任，本页面仅作物种识别科普，不涉及、也不提供任何栽培、提取或使用相关的信息</li>
+        <li>即便在部分已调整管制政策的国家或地区，该物种的生理及心理效应也<strong>因人而异且不可预测</strong>，存在诱发急性焦虑、惊恐发作乃至潜在精神健康风险，对有精神疾病史或家族史者风险更高</li>
+        <li>野外遇到疑似本种或其他小型褐色伞菌，因其与多种含鹅膏毒素的剧毒盔孢伞属（<em>Galerina</em>）物种外观相似，<strong>切勿随意触碰采摘食用</strong>，误食剧毒盔孢伞可致命</li>
+        <li>如发现儿童或宠物接触到疑似本种真菌，应及时脱离环境并视情况就医，避免因误食引发不良反应</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与剧毒盔孢伞属的区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">纹缘盔孢伞（<em>Galerina marginata</em>）等剧毒盔孢伞与裸盖菇属体型相近、生境部分重叠（均可生于腐木或粪肥附近），但盔孢伞属<strong>孢子印为锈褐色</strong>而非紫褐色，且含有与致命鹅膏相同的<strong>鹅膏毒素</strong>，误食可致急性肝衰竭死亡，二者绝不可仅凭"体型相似"混淆判断</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与其他裸盖菇属物种的关系</div>
+        <div style="font-size:13px;color:var(--ink-mid)">裸盖菇属全球已知<strong>百余种</strong>均含或疑似含裸盖菇素类似成分，种间形态高度相似，需借助孢子及显微特征区分；从法律与安全角度而言，整个裸盖菇属都不建议非专业人士随意接触或采集</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相关及易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--danger)">☠ 纹缘盔孢伞 <em>Galerina marginata</em></div>
+        <div class="confusion-diff">剧毒！含与致命鹅膏相同的鹅膏毒素，可致急性肝衰竭死亡；生长于腐木，体型娇小，与部分裸盖菇属物种外观相似，孢子印为锈褐色（而非紫褐色）是关键区分点，但肉眼极易误判，务必高度警惕</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">粪生斑褶伞类 <em>Panaeolus</em> 属物种</div>
+        <div class="confusion-diff">同样常见于粪便及施肥草地，部分物种也含裸盖菇素类成分，同属管制物种范畴；菌褶通常具明显的黑白相间斑驳纹理，是与本种外观上的主要区别之一</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">古巴裸盖菇栽培变型（"Golden Teacher"等）</div>
+        <div class="confusion-diff">该物种因易于人工栽培，市面流传多个栽培品系及俗称，形态特征略有差异但均属同一物种、均受相应法律管制，不因俗称不同而改变其法律地位</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「粪生褐盖易辨认，紫褐孢印蓝染身」</div>
+        <div class="memory-pill">「锈色孢印是警钟，盔孢伞属藏杀机」</div>
+        <div class="memory-pill">「不种不采不持有，法律红线记心头」</div>
+        <div class="memory-pill">「科普识种非鼓励，安全健康第一位」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">群生或丛生，多个子实体同时出现于同一粪堆或施肥草场斑块</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">典型粪生真菌，常见于牛、马等草食动物粪便及经粪肥施用的草场、牧场土壤，也见于富含有机质的开阔草地</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">最早于1906年在古巴采集定名，现广泛分布于热带、亚热带及部分温带地区，包括美洲、亚洲东南部及澳大利亚等地的牧场环境</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">出菇季节</div>
+        <div class="habitat-value">高温多雨的夏秋季节为主要出菇期，与降雨及粪肥堆积周期密切相关</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      安全与法律提示：本页仅用于物种识别科普，若在牧场、草地发现疑似本种真菌，请勿采集、持有或食用；如涉及相关活动疑问，建议以当地法律法规为准，并咨询专业机构。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-indigo"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">不作为传统食用菌看待；因含精神活性成分及相应法律管制，在中国及绝大多数国家/地区不具备合法食用属性</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">医学研究价值</div>
+        <div class="value-body">其主要成分裸盖菇素近年来是治疗重度抑郁症、创伤后应激障碍等精神疾病的前沿医学研究热点，多国已在严格监管的临床试验框架下开展相关研究，但此类研究均在专业医疗和法律许可框架下进行，与个人自行使用有本质区别</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">法律与公共政策意义</div>
+        <div class="value-body">是全球范围内精神活性物质管制政策讨论的代表性物种之一，不同国家和地区对其法律地位存在差异，是药物政策、公共卫生与个人自由议题交叉的典型案例</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态与科普价值</div>
+        <div class="value-body">作为典型粪生真菌，是研究草食动物粪便微生态系统及真菌孢子传播机制的观察对象；对公众普及"不采不食不明真菌"及法律风险意识具有科普警示意义</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://m.guokr.com/article/447121/" target="_blank">果壳 · 古巴裸盖菇科普</a> ·
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Psilocybe_cubensis" target="_blank">Wikipedia · Psilocybe cubensis</a> ·
+      <a class="ref-link" href="https://k.sina.cn/article_7006367380_1a19cae940010184fw.html" target="_blank">北京市毒蘑菇名录研究</a>
+    </div>
+    <div>法律管制物种 · 本页仅供识别科普 · 不涉及栽培使用信息</div>
+  </div>
+
+</div>
+</body>
+</html>
