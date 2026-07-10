@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>格纹鹅膏 · Amanita fritillaria（有毒）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #1a1a18;
+    --ink-mid: #4a4a45;
+    --ink-light: #8a8a82;
+    --cream: #f4f1ec;
+    --surface: #ffffff;
+    --moss: #3b5c2a;
+    --moss-light: #c8dab8;
+    --moss-pale: #edf4e5;
+    --amber: #6a5c1a;
+    --amber-light: #b8a860;
+    --amber-pale: #f2eed8;
+    --rust: #6a3a1a;
+    --rust-pale: #f0e6e0;
+    --toxic: #5a1f2b;
+    --toxic-light: #b98a93;
+    --toxic-pale: #ece0e2;
+    --spore: #4a4a45;
+    --spore-light: #a8a8a0;
+    --spore-pale: #eeeee8;
+    --border: rgba(50,50,45,0.14);
+    --border-mid: rgba(50,50,45,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .toxic-banner {
+    background: var(--toxic);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #c8c4bc; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,16,18,0.72));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(230,220,222,0.85); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem; display: flex; flex-direction: column;
+    justify-content: center; background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--toxic); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700;
+    line-height: 1.2; color: var(--ink); margin-bottom: 6px;
+  }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--ink-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--ink-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-moss { background: var(--moss-pale); color: var(--moss); }
+  .tag-amber { background: var(--amber-pale); color: var(--amber); }
+  .tag-rust { background: var(--rust-pale); color: var(--rust); }
+  .tag-ink { background: #eeece6; color: var(--ink-mid); }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+  .tag-spore { background: var(--spore-pale); color: var(--spore); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border); padding-top: 1rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
+  }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid);
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-moss { background: var(--moss); }
+  .dot-amber { background: var(--amber); }
+  .dot-rust { background: var(--rust); }
+  .dot-ink { background: var(--ink-mid); }
+  .dot-toxic { background: var(--toxic); }
+  .dot-spore { background: var(--spore); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge {
+    margin-left: auto; font-size: 11px; font-weight: 500; color: var(--ink-light);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot {
+    aspect-ratio: 4/3; background: #ddd8ce; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: block; }
+  .photo-slot-wide { grid-column: span 3; aspect-ratio: 16/7; }
+
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(26,26,24,0.72); color: #ece8e2; font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young { background: var(--amber-pale); color: var(--amber); }
+  .phase-mid { background: var(--rust-pale); color: var(--rust); }
+  .phase-mature { background: var(--spore-pale); color: var(--spore); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-light); margin-bottom: 8px;
+  }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--ink-light); padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border);
+    vertical-align: top; color: var(--ink);
+  }
+  .parts-table td:first-child { font-weight: 500; color: var(--ink-mid); white-space: nowrap; width: 100px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .distinction-box {
+    background: var(--toxic-pale); border: 1px solid var(--toxic-light);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem;
+  }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--toxic); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #4a1620; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--toxic); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--amber-light);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.danger { border-left-color: var(--toxic); background: var(--toxic-pale); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--ink-mid); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: #eae6e0; border: 1px solid #d0cac0; border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--ink-mid); font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-light); margin-bottom: 6px;
+  }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card.toxic-card { border-left: 3px solid var(--toxic); }
+  .value-card-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-light); margin-bottom: 8px;
+  }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-light);
+  }
+  .ref-link { color: var(--moss); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  .alert-box {
+    background: var(--toxic-pale); border: 1px solid var(--toxic-light); border-radius: 10px;
+    padding: 12px 16px; font-size: 12px; color: var(--toxic); margin-top: 10px; font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .photo-slot-wide { grid-column: span 2; aspect-ratio: 16/9; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toxic-banner">⚠️ 鹅膏属有毒真菌 · 我国南方地区较常见 · 严禁采食，仅供学习识别</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria0.png" alt="格纹鹅膏主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Amanita fritillaria · 菌盖表面裂成深灰至近黑色斑块，菌柄基部膨大覆鳞</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 鹅膏科 · 鹅膏属</div>
+    <div class="hero-name-zh">格纹鹅膏</div>
+    <div class="hero-name-la">Amanita fritillaria</div>
+    <div class="hero-author">(Berk.) Sacc.</div>
+
+    <div class="tag-row">
+      <span class="tag tag-toxic">⚠ 有毒</span>
+      <span class="tag tag-ink">中国毒蘑菇修订名录收录种</span>
+      <span class="tag tag-amber">外菌膜裂成黑褐色斑块</span>
+      <span class="tag tag-spore">菌托退化为鳞片状（非杯状）</span>
+      <span class="tag tag-ink">我国南方常见</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文名</span>
+        <span class="taxon-value">格纹鹅膏（因菌盖鳞片斑块状"格纹"得名）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">鹅膏菌目 / Amanitaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">属 / 组</span>
+        <span class="taxon-value">鹅膏属 <em>Amanita</em>（菌托退化组 · 近豹斑鹅膏类群）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">近缘易混淆种</span>
+        <span class="taxon-value">豹斑鹅膏 <em>A. pantherina</em> · 灰花纹鹅膏 <em>A. fuliginea</em></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ink"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+    <div class="photo-grid">
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 灰褐底色 + 深灰至近黑色斑块状鳞片</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 白色菌褶 / 上位菌环 / 菌柄鳞片</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 白色菌肉 / 菌柄基部膨大结构</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria4.png" alt="菌褶面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">褶面 · 白色，离生，密集</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 白色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">★特殊细节 · 菌柄基部近球状鳞片特写（退化菌托）</div>
+      </div>
+
+      <div class="photo-slot photo-slot-wide">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria7.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Amanita_fritillaria7.png" alt="生境图" loading="lazy">
+        </picture>
+        <div class="photo-caption">生境图 · 针叶林、阔叶林地上散生或群生</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          子实体全包被于灰白色至浅灰色外菌膜内，呈卵形，表面尚且光滑或仅隐约可见细小颗粒；菌柄尚未完全伸长，基部已开始呈现膨大雏形；此阶段极难与其他灰白色鹅膏"蛋形期"肉眼区分，切勿凭外形自行判断可食用性。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          外菌膜逐渐龋裂，形成深灰至近黑色的不规则小斑块，松散附着在菌盖表面（"格纹"外观开始显现）；菌盖渐次张开呈半球形，边缘仍内卷；菌柄伸长，表面开始出现灰色至褐色鳞片；菌环尚紧贴柄部，尚未完全展开。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖平展，直径4–10cm，浅灰色、褐灰色至浅褐色，表面具辐射状纤丝状条纹，深灰至近黑色鳞片状斑块清晰附着于菌盖表面；菌柄长5–10cm，中部直径0.6–1.5cm，白色至污白色，被灰色至褐色鳞片；基部膨大呈近球状，有时向地下收细成陀螺形至梭形，直径1–2.5cm，其上半部覆有深灰、鼻烟色至近黑色鳞片（此为退化菌托，呈鳞片状而非完整杯状）；菌环位于菌柄上位。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">菌盖浅灰→褐灰→浅褐</span>
+          <span class="tag tag-ink">鳞片深灰至近黑色</span>
+          <span class="tag tag-ink">菌柄白色至污白色</span>
+          <span class="tag tag-ink">菌柄鳞片灰色至褐色</span>
+          <span class="tag tag-spore">孢子印白色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">菌盖伞形展开，辐射纤丝纹</span>
+          <span class="tag tag-ink">菌柄细长圆柱形</span>
+          <span class="tag tag-ink">基部膨大呈近球状/陀螺形/梭形</span>
+          <span class="tag tag-ink">菌环上位</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">无特别记载的显著气味</span>
+          <span class="tag tag-toxic">⚠ 气味不可作为安全判断依据</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感 · 食毒</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">⚠ 有毒，严禁舔尝/试毒</span>
+          <span class="tag tag-toxic">⚠ 具体中毒类型报道有限</span>
+          <span class="tag tag-ink">按不可食用真菌一律处理</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr><th>部位</th><th>形态描述</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>菌盖</td><td>直径4–10cm，浅灰色、褐灰色至浅褐色，具辐射状纤丝状条纹；菌盖张开时外菌膜常开裂成深灰至近黑色小斑块附着在菌盖表面，是本种最醒目的识别特征</td></tr>
+          <tr><td>菌褶</td><td>白色，离生，密集（鹅膏属典型褶片形态）</td></tr>
+          <tr><td>菌肉</td><td>白色，鹅膏属常见质地，未见明显特殊气味或明显变色记录</td></tr>
+          <tr><td>菌柄</td><td>长5–10cm，中部直径0.6–1.5cm；白色至污白色，被灰色至褐色鳞片</td></tr>
+          <tr><td>菌柄基部</td><td>膨大呈近球状，有时向地下收细成陀螺形至梭形，直径1–2.5cm；上半部被有深灰色、鼻烟色至近黑色鳞片——这是退化型菌托（鳞片状/环带状），并非完整的杯状菌托，采集时容易被忽视</td></tr>
+          <tr><td>菌环</td><td>上位</td></tr>
+          <tr><td>担子</td><td>32–40×8–10μm，棒状</td></tr>
+          <tr><td>担孢子</td><td>7–9×5.5–7.5μm，宽椭圆形至椭圆形，光滑，无色，淀粉质（遇碘液显蓝反应）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆 · 有毒警示</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">⚠ 核心辨识三要素（有毒警示）</div>
+      <ul class="distinction-list">
+        <li>菌盖表面外菌膜<strong>裂成深灰至近黑色的不规则小斑块</strong>，松散附着而非牢固融合——"格纹"之名由此而来</li>
+        <li>菌柄基部膨大呈<strong>近球状，上半部覆深灰至近黑色鳞片</strong>，菌托已退化为鳞片状/环带状，而非鹅膏科常见的完整杯状菌托，容易被误判为"无菌托、更安全"</li>
+        <li>菌环上位，白色菌褶、白色孢子印——这些特征与多种剧毒鹅膏菌共有，<strong>不能仅凭孢子印是否为白色来判断是否安全</strong></li>
+      </ul>
+    </div>
+
+    <div class="alert-box">
+      ⚠ 特别警示：鹅膏属中同时存在剧毒致命种类（如灰花纹鹅膏、致命鹅膏，含鹅膏毒肽可致急性肝损害）与相对温和种类，仅凭肉眼特征极难在野外准确区分。格纹鹅膏已被正式收录于中国毒蘑菇修订名录，具体致病成分及中毒类型的系统报道目前有限，但这绝不意味着风险较低——遇到任何具鹅膏属典型特征（菌盖鳞片、菌环、菌柄基部膨大）的野生蘑菇，都应一律按不可食用处理，绝不可因"资料不全"而心存侥幸。
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink);">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic);">⚠ 豹斑鹅膏 <em>Amanita pantherina</em>（有毒）</div>
+        <div class="confusion-diff">同属近缘种，中毒可致副交感神经兴奋、幻觉甚至肝损害。区别：豹斑鹅膏菌盖褐色至棕褐色，表面为<strong>白色块状斑点</strong>（非深灰至近黑色的龟裂斑块），菌柄基部具更明显的环带状菌托</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic);">⚠⚠ 灰花纹鹅膏 <em>Amanita fuliginea</em>（剧毒！致命）</div>
+        <div class="confusion-diff">我国南方主要致死毒菌之一，含鹅膏毒肽/鬼笔毒肽，急性肝损害型中毒。区别：菌盖灰色、烟褐色至近黑色，表面为<strong>光滑的隐生纤丝状花纹</strong>（不呈块状龟裂斑块），菌柄基部球形膨大且菌托浅杯状，边缘无沟纹；两者颜色调性接近，野外极易混淆，务必谨慎对待任何深灰至黑色系鹅膏</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">其他灰色系鹅膏近缘种</div>
+        <div class="confusion-diff">鹅膏属中存在大量灰色、褐灰色系物种，形态差异细微且高度依赖显微特征（孢子形状、担子大小）与分子鉴定；野外遇到灰色系鹅膏，无论菌盖鳞片是块状还是纤丝状，均应视为潜在危险物种</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「灰盖裂斑块，柄基球鳞覆」</div>
+        <div class="memory-pill">「格纹得名因菌膜碎，杯状菌托早退化」</div>
+        <div class="memory-pill">「灰色鹅膏莫轻视，白孢白褶非安全签」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ink"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">群落分布方式</div>
+        <div class="habitat-value">散生或群生，未见明显丛生或仙女环记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质类型</div>
+        <div class="habitat-value">菌根型真菌，生于针叶林、阔叶林中地上，与树木形成共生关系</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">我国南方地区比较常见；具体省份分布及全球分布范围有待更系统的调查记录补充</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">夏秋季出菇，雨后林地地上散生或群生</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      标本采集建议：记录菌盖鳞片是否为块状龟裂而非光滑纤丝纹、菌柄基部膨大形态及鳞片颜色、共生树种类型；由于与剧毒的灰花纹鹅膏等灰色系鹅膏外观接近，采集时应交由专业机构进行分子鉴定，切勿凭肉眼经验自行判断可食用性。
+    </div>
+    <div class="alert-box">
+      ⚠ 重要提示：鹅膏属是中国导致中毒死亡事件最主要的类群，约70%的蘑菇中毒死亡由该属真菌引起。如误食任何鹅膏属蘑菇后出现恶心、呕吐、腹泻等症状，须立即就医，并尽量携带样本或清晰照片供专业机构molecular鉴定，切勿因初期症状缓解而掉以轻心（含鹅膏毒肽的种类常有"假愈期"）。
+    </div>
+  </div>
+
+  <!-- 7. 价值 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card toxic-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">⚠ 有毒，无食用价值，严禁采食。已被正式收录于中国毒蘑菇修订名录；具体致病成分及中毒类型的系统研究报道相对有限，应本着谨慎原则一律按不可食用真菌处理</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">分类学价值</div>
+        <div class="value-body">作为鹅膏属中一个具有独特"斑块状裂纹"菌盖特征的物种，是鹅膏科形态分类与分子系统学研究中区分近缘灰色系物种（如豹斑鹅膏、灰花纹鹅膏）的重要参照样本</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">公共卫生 · 科普价值</div>
+        <div class="value-body">是我国南方毒蘑菇监测预警体系关注的鹅膏属物种之一，其"菌托退化为鳞片状"这一特征常被误认为"更安全"，是野外毒菌识别科普中需要重点纠正的认知误区</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为菌根型真菌，与针叶林、阔叶林中的树木形成共生关系，参与森林生态系统的养分循环与树木健康维持</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="http://www.mycopedia.top/result.php?id=196" target="_blank">菌物志 Mycopedia</a> ·
+      <a class="ref-link" href="https://wap.emushroom.net/qikan/show-17437.html" target="_blank">中国毒蘑菇新修订名录</a> ·
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-hans/%E9%B5%9D%E8%86%8F%E8%8F%8C%E5%B1%AC" target="_blank">维基百科·鹅膏菌属</a>
+    </div>
+    <div>⚠ 有毒 · 中国毒蘑菇修订名录收录种 · 仅供学习识别</div>
+  </div>
+
+</div>
+</body>
+</html>
