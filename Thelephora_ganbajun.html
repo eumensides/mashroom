@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>干巴菌 · Thelephora ganbajun</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食用珍稀物种：烟灰炭色 + 琥珀烟熏暖调（珊瑚状革菌，无法人工栽培） */
+    --ink: #1c1a17;
+    --ink-mid: #453f38;
+    --ink-light: #837a6e;
+    --cream: #f6f3ec;
+    --surface: #ffffff;
+    --surface-warm: #fdfbf6;
+
+    /* 烟灰炭褐（子实体主色） */
+    --char: #4a423a;
+    --char-light: #8a7f70;
+    --char-pale: #e9e3d8;
+    --char-mid: #332e28;
+
+    /* 琥珀烟熏（烘干/腌腊香气标记） */
+    --smoke: #a06a2e;
+    --smoke-light: #d7a460;
+    --smoke-pale: #f7ecd6;
+    --smoke-mid: #74491a;
+
+    /* 苔绿（可食标记） */
+    --moss: #4a6c2a;
+    --moss-light: #8ab870;
+    --moss-pale: #edf4e5;
+
+    /* 松林绿（生境标记） */
+    --pine: #35583a;
+    --pine-light: #7fa284;
+    --pine-pale: #e6efe4;
+
+    --stone: #6a6355;
+    --stone-light: #a09786;
+
+    --border: rgba(70,62,50,0.14);
+    --border-mid: rgba(70,62,50,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--smoke-mid);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #c9c0b0; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(20,16,10,0.72)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(235,220,190,0.9); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--smoke); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--char-light); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-smoke { background: var(--smoke-pale); color: var(--smoke-mid); }
+  .tag-moss  { background: var(--moss-pale);  color: var(--moss); }
+  .tag-pine  { background: var(--pine-pale);  color: var(--pine); }
+  .tag-char  { background: var(--char-pale);  color: var(--char-mid); }
+  .tag-stone { background: #f0ede2; color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-smoke { background: var(--smoke); }
+  .dot-moss  { background: var(--moss); }
+  .dot-pine  { background: var(--pine); }
+  .dot-stone { background: var(--stone-light); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #beb4a2; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #beb4a2; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20,16,10,0.72); color: #ede2c8; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--smoke-pale); color: var(--smoke-mid); }
+  .phase-mature { background: var(--char-pale);  color: var(--char-mid); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--smoke-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--char-pale); border: 1px solid rgba(51,46,40,0.25); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--char-mid); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #2a251e; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--char-mid); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(74,108,42,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2a4020; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--smoke-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: #e07060; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--smoke-pale); border: 1px solid rgba(160,106,46,0.28); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--smoke-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar { background: linear-gradient(135deg, #e0d3ba, #fdfbf6); border: 1px solid rgba(160,106,46,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--smoke-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); flex-wrap: wrap; gap: 8px; }
+  .ref-link { color: var(--smoke-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🍄 可食用珍稀物种 · 云南特有野生食用菌 · 尚无法人工栽培 · 云南四大山珍之一
+</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun0.png" alt="干巴菌主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Thelephora ganbajun · 灰白至灰黑色珊瑚状丛生子实体，扇形/帚状分枝</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 革菌科（珊瑚状真菌）</div>
+    <div class="hero-name-zh">干巴菌</div>
+    <div class="hero-name-la">Thelephora ganbajun</div>
+    <div class="hero-author">M. Zang, 1987 · 云南特有种</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">名贵可食</span>
+      <span class="tag tag-smoke">独特腌牛肉干香气</span>
+      <span class="tag tag-pine">外生菌根菌（与松树共生）</span>
+      <span class="tag tag-char">珊瑚状丛生</span>
+      <span class="tag tag-stone">尚不能人工栽培</span>
+      <span class="tag tag-stone">中国特有</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">干巴菌 / 干巴革菌 / 对花菌 / 乾巴菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Ganba Fungus</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">革菌目 Thelephorales / 革菌科 Thelephoraceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分布范围</span>
+        <span class="taxon-value">中国特有 · 主产云南，贵州西部、四川南部零星分布</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志特征：珊瑚状丛生</span>
+        <span class="fb-value">子实体自厚实带环纹的基部反复分枝，向上展开为狭窄的扇形或帚状小分枝，整体形似珊瑚或干燥的莲座</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">独一无二的香气</span>
+        <span class="fb-value">具浓郁独特的类似腌制牛肉干的香味，是云南野生菌中辨识度最高的气味标志，也是"干巴菌"名称的直接由来</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">无法人工栽培</span>
+        <span class="fb-value">作为与松树形成外生菌根的共生菌，其菌根共生机制尚未被完全破解，至今全球均未实现人工栽培，只能依赖野生采集，是价格居高不下的核心原因</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-smoke"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun1.png" alt="整丛俯拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">整丛俯拍 · 珊瑚状多次分枝 / 灰白至灰黑色</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun2.png" alt="侧面分枝图" loading="lazy">
+        </picture>
+        <div class="photo-caption">侧面分枝 · 扇形/帚状小分枝清晰可见</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun3.png" alt="基部特写图" loading="lazy">
+        </picture>
+        <div class="photo-caption">基部特写 · 厚实干片 / 表面环纹 / 根状菌丝束</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun4.png" alt="幼期个体图" loading="lazy">
+        </picture>
+        <div class="photo-caption">幼期个体 · 质地柔软 / 颜色较浅</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun5.png" alt="出土/菌塘图" loading="lazy">
+        </picture>
+        <div class="photo-caption">出土场景 · 松林地表"菌塘"周围群生</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun6.png" alt="料理成品图" loading="lazy">
+        </picture>
+        <div class="photo-caption">料理成品 · 油鸡枞干巴菌 / 干煸干巴菌</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Thelephora_ganbajun7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 云南中部松林 · 云南松/思茅松林下地表 800–2200米海拔</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-smoke"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签（珊瑚状革菌）</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体初萌发时质地柔软，颜色较浅，呈灰白色小型丛簇，基部尚未完全分化，分枝较少且短小，整体贴近地表生长，此阶段常与土壤、松针混杂而不易被发现。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">生长期</div>
+        <div class="phase-desc">
+          子实体迅速增大，高5–14cm、宽4–14cm，自厚实且具环纹的基部反复多次分枝，向上分裂出狭窄的扇形或帚状小分枝，颜色由灰白逐渐转深；此阶段质地仍相对柔软，香气开始显著散发，是传统采摘的最佳时期。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟/干韧期</div>
+        <div class="phase-desc">
+          子实体完全成熟后质地转为干燥而坚韧，颜色加深为灰黑色，各分枝在基部仍相互连接成一体；此时香气最为浓郁强烈，是干巴菌得名的直接来源（干燥、坚韧、香浓似腌肉干）；过老个体质地过硬，风味虽浓但口感稍逊。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-smoke"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-char">整体：灰白色至灰黑色</span>
+          <span class="tag tag-char">基部：色深，表面光滑具环纹</span>
+          <span class="tag tag-stone">分枝尖端：色相对较浅</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">丛生珊瑚状/莲座状</span>
+          <span class="tag tag-stone">高5–14cm，宽4–14cm</span>
+          <span class="tag tag-smoke">基部厚实带环纹，反复多次分枝</span>
+          <span class="tag tag-smoke">分枝呈扇形/帚状</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-smoke">浓郁独特，似腌牛肉干</span>
+          <span class="tag tag-smoke">干燥后香气更加浓烈持久</span>
+          <span class="tag tag-stone">是云南野生菌中辨识度最高的气味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">肉质干脆，嚼劲十足</span>
+          <span class="tag tag-moss">炒制/干煸/腌制皆宜</span>
+          <span class="tag tag-stone">荤素搭配均能突出独特异香</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-smoke"></span>
+      <span class="section-title">各部位详情</span>
+      <span class="section-badge">珊瑚状革菌特殊结构</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>基部干片</td><td>较厚，表面光滑无绒毛，具明显环纹，下端长有根状菌丝束深入土壤/松针层与树根相连；各分枝在基部相互连接形成一体，是判断新鲜度与品级的重要部位</td></tr>
+          <tr><td>分枝（枝片）</td><td>自基部向上反复多次分裂，逐渐变窄，形成扇形或帚状小分枝；颜色灰白色至灰黑色，幼时柔软，成熟后干韧；是主要的食用部位</td></tr>
+          <tr><td>担孢子</td><td>多角形，壁上带刺突，内含一滴油滴，是革菌科（区别于表面光滑孢子的伞菌）的典型微观特征</td></tr>
+          <tr><td>担子</td><td>长棒形，笔直无弯曲</td></tr>
+          <tr><td>囊状体</td><td>长棒状或长腹鼓状</td></tr>
+          <tr><td>菌丝</td><td>具锁状联合，与云南松、思茅松、长毛松等松属植物根系形成外生菌根共生关系，是其无法人工栽培的关键生物学原因</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>子实体呈<strong>珊瑚状/莲座状丛生</strong>，没有典型伞菌的"菌盖-菌褶-菌柄"结构，而是自厚实基部反复分枝</li>
+        <li>颜色为<strong>灰白色至灰黑色</strong>，整体偏素雅低调，不似许多鲜艳有毒菌类那样引人注目</li>
+        <li>具有<strong>独一无二的类腌牛肉干香气</strong>，是野外辨识与市场鉴伪的最直接方法，随成熟愈发浓郁</li>
+        <li>专一生长于<strong>云南松等松属植物根际形成的外生菌根</strong>，脱离共生关系无法存活，因此至今无法人工栽培</li>
+      </ul>
+    </div>
+
+    <div class="caution-box">
+      <div class="caution-title">💡 选购与食用小贴士</div>
+      <ul class="caution-list">
+        <li>本种<strong>无毒可食</strong>，但因其珊瑚状丛生形态与部分革菌属、莲座革菌属近似种存在混采情况，建议通过正规菌市或有经验的当地菌农渠道购买</li>
+        <li>新鲜干巴菌带有细小泥沙与松针碎屑，清洗时需仔细逐层剥开分枝、反复冲洗，是云南家常烹饪中公认较为费工的野生菌之一</li>
+        <li>市场上"品质好的干巴菌价格可达千元/公斤以上"，选购时以基部干片完整、香气浓郁、无霉变异味者为佳</li>
+      </ul>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">莲座革菌 <em>Thelephora vialis</em></div>
+        <div class="confusion-diff">同属革菌属，形态也呈丛生莲座状，曾在早期文献中与干巴菌混淆报道；但香气远不及干巴菌浓郁独特，是市场上常见的低价"混充"品种之一</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">橙黄革菌 <em>Thelephora aurantiotincta</em></div>
+        <div class="confusion-diff">同属近缘种，但子实体带有橙黄色调，与干巴菌通体灰白灰黑的色调明显不同，较易通过颜色区分</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">近缘复合群物种（<em>T. aquila</em>、<em>T. glaucoflora</em>、<em>T. nebula</em>、<em>T. pseudoganbajun</em> 等）</div>
+        <div class="confusion-diff">分子系统学研究显示这些物种与干巴菌构成一个高支持度的近缘复合群，形态高度相似，肉眼极难可靠区分，市场上"干巴菌"实际可能涵盖多个近缘种，需借助分子鉴定才能精确区分</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.2rem;">
+    <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「珊瑚丛生灰白黑，厚基环纹反复裂」</div>
+      <div class="memory-pill">「一嗅便知腌肉香，松林菌根是家乡」</div>
+      <div class="memory-pill">「至今未能驯化育，唯有野采觅珍馐」</div>
+      <div class="memory-pill">「近缘复合难细辨，闻香识菌是关键」</div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pine"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">外生菌根真菌，与松树根系形成共生"菌塘"，同一菌塘可连年在原地反复出菇，是当地菌农世代相传"认塘采菌"的重要采集知识</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 共生树种</div>
+        <div class="habitat-value">与云南松、马尾松、长毛松（<em>Pinus kesiya var. langbianensis</em>）等松科植物形成外生菌根，生长于海拔800–2200米的松林地表</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国特有种，主要分布于云南省中部及各地州（昆明、楚雄等地尤为著名），贵州西部、四川南部有零星记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">出菇季节</div>
+        <div class="habitat-value">6–10月为子实体发生期，菌丝生长最适温度22–30℃且不需光照，而子实体发育则需一定光照，适宜温度14–24℃，土壤湿度约60%、空气相对湿度80–90%</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      保护与可持续提示：由于菌根共生关系复杂、人工栽培尚未突破，野生资源采集压力持续增大；建议采集时保护菌塘周边生态环境、避免过度翻挖破坏地表菌丝网络，以维持来年产量的可持续性。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-smoke"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">味美可口、独具异香且营养丰富，无论炒制、炸制、干煸还是腌制，搭配荤菜（如青椒炒肉末干巴菌）或素菜皆宜，是云南家常菜与高档宴席中都极受追捧的特色食材</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">营养价值</div>
+        <div class="value-body">富含多种氨基酸及钾、钙、镁、铁、铜、硒等人体必需元素，其中硒含量在云南常见18种野生食用菌中位居最高，具备较高的营养保健价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">经济与文化价值</div>
+        <div class="value-body">与竹荪、冬虫夏草、鸡枞菌、松茸并称云南珍贵野生食用菌，是"云南山珍"文化的代表符号之一；因产量有限、无法栽培，价格长期居高不下且逐年上涨，是地方特色经济与雨季"赶菌集市"的重要组成部分</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研价值</div>
+        <div class="value-body">作为外生菌根真菌，其与云南松等建群树种复杂的共生营养方式是研究人工驯化菌根真菌的重要课题；目前科研人员已在缩短菌种培养周期、菌根侵染诱导等方面取得进展，但距离完整实现子实体的人工栽培仍有较长距离</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Thelephora_ganbajun" target="_blank">Wikipedia</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E5%B9%B2%E5%B7%B4%E8%8F%8C/4179901" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://m.fx361.com/news/2022/1104/13578723.html" target="_blank">干巴菌研究进展综述</a>
+    </div>
+    <div>中国特有种 · 云南四大山珍之一 · 尚无人工栽培技术</div>
+  </div>
+
+</div>
+</body>
+</html>
