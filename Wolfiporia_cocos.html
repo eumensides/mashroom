@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>茯苓 · Wolfiporia cocos</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食用/药用物种：土褐 + 米白暖调（地下菌核类真菌） */
+    --ink: #211a12;
+    --ink-mid: #4d4030;
+    --ink-light: #8c7d64;
+    --cream: #f8f4ec;
+    --surface: #ffffff;
+    --surface-warm: #fdfaf3;
+
+    /* 赭褐（外皮色） */
+    --umber: #6e4426;
+    --umber-light: #a97a4c;
+    --umber-pale: #f2e4d0;
+    --umber-mid: #55311a;
+
+    /* 米白（内部菌肉色） */
+    --oat: #c9b98e;
+    --oat-light: #e6dab8;
+    --oat-pale: #faf5e6;
+
+    /* 苔绿（可食/药用标记） */
+    --moss: #4a6c2a;
+    --moss-light: #8ab870;
+    --moss-pale: #edf4e5;
+
+    /* 朱红（赤茯苓/朱茯苓标记色） */
+    --vermilion: #a8462a;
+    --vermilion-light: #d98868;
+    --vermilion-pale: #fbe6dc;
+
+    --stone: #6a5c40;
+    --stone-light: #a0937a;
+
+    --border: rgba(110,68,38,0.14);
+    --border-mid: rgba(110,68,38,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--umber-mid);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #d9c7a6; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(24,14,4,0.7)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,220,180,0.9); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--umber); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--oat); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-umber { background: var(--umber-pale); color: var(--umber-mid); }
+  .tag-moss  { background: var(--moss-pale);  color: var(--moss); }
+  .tag-verm  { background: var(--vermilion-pale); color: var(--vermilion); }
+  .tag-oat   { background: var(--oat-pale);   color: var(--umber-mid); }
+  .tag-stone { background: #f1ede0; color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-umber { background: var(--umber); }
+  .dot-moss  { background: var(--moss); }
+  .dot-verm  { background: var(--vermilion); }
+  .dot-stone { background: var(--stone-light); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #d3c09c; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #d3c09c; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(24,14,4,0.7); color: #f0e2c4; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--umber-pale); color: var(--umber-mid); }
+  .phase-mature { background: var(--vermilion-pale); color: var(--vermilion); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--umber-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--vermilion-pale); border: 1px solid rgba(168,70,42,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--vermilion); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a2010; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--vermilion); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(74,108,42,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2a4020; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--umber-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: #e07060; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--umber-pale); border: 1px solid rgba(110,68,38,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--umber-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar { background: linear-gradient(135deg, #ecdcb8, #fdfaf3); border: 1px solid rgba(110,68,38,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--umber-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); flex-wrap: wrap; gap: 8px; }
+  .ref-link { color: var(--umber-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🍄 可食用/药用物种 · 以地下菌核入药 · 非典型伞状真菌，子实体罕见且不显眼
+</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos0.png" alt="茯苓主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Wolfiporia cocos · 形如甘薯的地下菌核，外皮棕褐、内部洁白</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 多孔菌科（菌核类）</div>
+    <div class="hero-name-zh">茯苓</div>
+    <div class="hero-name-la">Wolfiporia cocos</div>
+    <div class="hero-author">(Schwein.) Ryvarden & Gilb. · 中药"四时神药"</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">可食可药</span>
+      <span class="tag tag-umber">地下菌核类真菌</span>
+      <span class="tag tag-verm">松根寄生</span>
+      <span class="tag tag-stone">子实体罕见</span>
+      <span class="tag tag-stone">广泛人工栽培</span>
+      <span class="tag tag-stone">《神农本草经》上品</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">茯苓 / 云苓 / 松苓 / 茯灵 / 茯菟 / 松柏芋</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Fuling / Tuckahoe / China Root</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">多孔菌目 / 多孔菌科 Polyporaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">同物异名</span>
+        <span class="taxon-value">Poria cocos (Schw.) Wolf</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志特征：地下大菌核</span>
+        <span class="fb-value">与常见伞状蘑菇完全不同——茯苓的主体是埋于松树根部土壤中的球形至不规则团块状菌核，外皮棕褐至黑褐色，内部洁白或淡粉红，质地坚实</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">子实体极为罕见</span>
+        <span class="fb-value">典型的伞菌"菌盖、菌褶、菌柄"结构在茯苓身上几乎不可见；子实体仅偶尔平卧生长于菌核表面，呈薄层状，肉眼常难以察觉</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">中药地位</span>
+        <span class="fb-value">《神农本草经》列为木部上品之首，古称"四时神药"，与其他药材配伍范围极广，是中医方剂中使用频率最高的药材之一</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos1.png" alt="菌核外观图" loading="lazy">
+        </picture>
+        <div class="photo-caption">菌核外观 · 类球形团块 / 棕褐至黑褐色外皮</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos2.png" alt="出土挖掘图" loading="lazy">
+        </picture>
+        <div class="photo-caption">出土场景 · 埋于松树根部土壤下方</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 内部白色/淡粉红色致密菌肉 / 抱有松根者即"茯神"</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos4.png" alt="子实体图" loading="lazy">
+        </picture>
+        <div class="photo-caption">子实体（罕见） · 平卧于菌核表面的薄层，初白后淡褐</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos5.png" alt="加工品图" loading="lazy">
+        </picture>
+        <div class="photo-caption">加工品 · 茯苓个/块/片，切制方形薄片</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 外皮环纹与皱纹 / 赤茯苓淡红色层</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Wolfiporia_cocos7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 马尾松/云南松人工林根际栽培场 · 中海拔砂质坡地</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签（菌核类特殊生活史）</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">菌丝定植期</div>
+        <div class="phase-desc">
+          白色绒毛状菌丝体侵入松树根部及周围砂质土壤，气生菌丝短而直立，更多则纵横交错、密集贯穿基质；此阶段肉眼仅见根部周围土壤中细白菌丝网络，尚无明显团块。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">菌核形成与膨大期</div>
+        <div class="phase-desc">
+          菌丝逐渐聚集分化形成菌核——由外皮膜、内皮膜、多糖粒形成层及多糖粒积累层构成的休眠兼贮藏器官；菌核体积持续膨大增长，可达数十厘米、数公斤重，外皮渐由白色转为淡褐色至棕褐色，表面出现皱纹与环纹；此阶段是茯苓生长的核心时期，通常需1年以上，人工栽培多于接种后8个月至1年采收。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">出土与子实体分化期</div>
+        <div class="phase-desc">
+          菌核发育到一定阶段可向上顶出地表，菌丝在菌核表面生长扩大，顶端菌丝不断向外伸展，偶可发育出子实体——平卧于菌核或菌丝体表面的薄层结构，初期白色，逐渐转为淡褐色，表面具细孔（多孔菌科典型孔管结构）；但此阶段在栽培及野生条件下均较为罕见，多数茯苓终生仅以菌核形态存在。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-umber">外皮：棕褐色至黑褐色</span>
+          <span class="tag tag-oat">内部：白色或淡粉红色</span>
+          <span class="tag tag-verm">赤茯苓层：淡红色</span>
+          <span class="tag tag-stone">子实体：初白后淡褐</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">类球形/椭圆形/不规则团块</span>
+          <span class="tag tag-stone">表面具明显环纹与皱纹</span>
+          <span class="tag tag-umber">形如甘薯，大小不一</span>
+          <span class="tag tag-umber">质坚实，重可达数公斤</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">气微，味淡</span>
+          <span class="tag tag-stone">嚼之黏牙</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感 / 质地</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">干燥后质地坚实致密</span>
+          <span class="tag tag-moss">传统入汤（如茯苓饼、煲汤）口感绵软</span>
+          <span class="tag tag-stone">新鲜菌核软而略韧，加工后变硬</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">各部位（加工品）详情</span>
+      <span class="section-badge">菌核类特殊结构</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位/加工品</th><th>形态与药用描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌核外皮</td><td>棕褐色至黑褐色，粗糙具皱纹，去皮后即为"茯苓皮"，功能利水消肿，作用较菌肉更强</td></tr>
+          <tr><td>赤茯苓</td><td>削去外皮后靠近外层的淡红色部分，功能渗利湿热</td></tr>
+          <tr><td>白茯苓（茯苓）</td><td>切去赤茯苓后的白色部分，是最常用的茯苓药材，切成方块或薄片，功能渗湿健脾</td></tr>
+          <tr><td>茯神</td><td>白茯苓中心抱有细松根者，切成方形薄片，因带松根而具更强的宁心安神功效，常用于治疗惊悸、健忘、失眠</td></tr>
+          <tr><td>茯苓个/块/片</td><td>依采收加工方式不同的商品规格：整个未切制者为"茯苓个"；按不同部位切制的方块或厚片分别称"茯苓块""茯苓片"</td></tr>
+          <tr><td>子实体（罕见）</td><td>平卧生长于菌核或菌丝体表面，薄层状，表面具细密孔管（多孔菌科特征），孢子无色透明、表面光滑；因发育条件苛刻，野外与栽培中均极少见到</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>茯苓<strong>没有典型的"菌盖-菌褶-菌柄"结构</strong>，主体是埋藏地下的菌核，是与绝大多数伞菌形态学差异最大的常见药食用真菌之一</li>
+        <li>菌核<strong>外皮棕褐、内部洁白</strong>，形如甘薯，是判断新鲜度与品质的直观依据</li>
+        <li>专一或高度依赖<strong>寄生于松属植物（马尾松、赤松、云南松等）根部</strong>而生</li>
+        <li>子实体<strong>极为罕见</strong>，即便在人工栽培场也很少能观察到，与常见伞菌"看子实体识种"的思路完全不同</li>
+      </ul>
+    </div>
+
+    <div class="caution-box">
+      <div class="caution-title">⚠ 易混提示：茯苓 ≠ 土茯苓</div>
+      <ul class="caution-list">
+        <li>茯苓（本种）与<strong>土茯苓</strong>名称相似但完全无关：土茯苓是菝葜科植物光叶菝葜 <em>Smilax glabra</em> 的干燥根茎，外皮黄棕色或灰褐色，是植物药材而非真菌</li>
+        <li>购买中药材时务必核对"茯苓"与"土茯苓"标签，二者功效主治并不相同，不可混用替代</li>
+        <li>本种作为药食同源之品总体安全性良好，但阴虚而无湿热、虚寒滑精者应遵医嘱谨慎使用</li>
+      </ul>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物质/物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--vermilion)">⚠ 土茯苓（植物药材，非真菌）</div>
+        <div class="confusion-diff">菝葜科光叶菝葜的根茎，外形也呈不规则团块状，但表皮黄棕色带须根痕，内部纤维性明显，与茯苓菌核的致密无纤维质地不同；功效以解毒除湿为主，与茯苓的渗湿健脾、宁心安神并不相同</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">猪苓 <em>Polyporus umbellatus</em> 菌核</div>
+        <div class="confusion-diff">同为多孔菌科菌核类中药材，外形也呈不规则块状，但猪苓菌核表面呈黑褐色瘤状突起、质地较轻，内部灰白色，功效偏重利水渗湿而少健脾安神之效</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">雷丸 <em>Omphalia lapidescens</em> 菌核</div>
+        <div class="confusion-diff">同为地下菌核类药用真菌，但个体远小于茯苓（多为2-3cm小球），表面黑褐色，质地坚硬如石，传统用于驱虫消积，功效与用法均与茯苓不同</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.2rem;">
+    <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「地下团块似甘薯，外皮棕褐内洁白」</div>
+      <div class="memory-pill">「松根之下潜心藏，子实难寻不寻常」</div>
+      <div class="memory-pill">「渗湿健脾又安神，抱根者称是茯神」</div>
+      <div class="memory-pill">「莫将土苓认作它，功效主治两分家」</div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">菌丝侵入松根后逐渐分化形成菌核，单个或多个菌核可环绕同一根系发育，体积随年份持续增大，是典型的多年生腐生兼弱寄生型地下真菌</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">寄生或伴生于松属植物（马尾松、赤松、云南松等）根部；适宜中海拔、气候凉爽干燥、砂质土壤、坡度10–35°的向阳坡地</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国主产云南（云苓，品质公认最佳）、安徽、湖北、河南、四川、贵州、湖南、广西等地；也见于美洲、大洋洲、日本及东南亚部分国家</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采收季节</div>
+        <div class="habitat-value">多于7–9月采挖，挖出后除去泥沙，经反复"发汗"（堆置回潮）与摊晾，使水分逐渐散失、表面现皱纹后阴干，制成"茯苓个"或切制为块、片</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集与选购建议：野生茯苓已较为少见，市售以人工栽培为主（湖南、湖北、云南、安徽等地已形成规模化产区）；选购时以体重坚实、断面色白细腻、嚼之黏牙者为佳，外皮完整少破损者品质更优。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">质地绵软，气微味淡，常制成茯苓饼（北京传统名点）、茯苓糕，或直接作为煲汤配料（岭南地区常与龟类同煲），是药食同源的代表性食材之一</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用价值</div>
+        <div class="value-body">性平味甘淡，归心、肺、脾、肾经，具渗湿利水、健脾和胃、宁心安神之效，主治小便不利、水肿胀满、痰饮咳逆、脾虚泄泻、心悸失眠等；不同加工部位（皮、赤、白、神）功效各有侧重，是中医方剂中应用最广泛的药材之一，近10%的传统中成药含有茯苓成分</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">现代药理价值</div>
+        <div class="value-body">现代研究显示茯苓多糖、三萜类等活性成分具有调节肠道菌群、抗肿瘤、抗炎、抗氧化及免疫调节作用，是当前天然产物研究领域的热点药用真菌之一</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">经济与产业价值</div>
+        <div class="value-body">人工栽培技术成熟，是我国重要的大宗中药材品种，云南、湖南、湖北、安徽等地已形成规模化种植与加工产业链，带动当地林下经济与农民增收</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-cn/%E8%8C%AF%E8%8B%93" target="_blank">维基百科</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E8%8C%AF%E8%8B%93/302589" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11944627/" target="_blank">NCBI 药理研究</a>
+    </div>
+    <div>药食同源 · 《神农本草经》上品 · 广泛人工栽培</div>
+  </div>
+
+</div>
+</body>
+</html>
