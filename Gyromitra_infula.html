@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赭鹿花菌（钩基鹿花菌）· Gyromitra infula（剧毒 · 神经/溶血/致癌型）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 剧毒物种：深秋林下的赭红-炭褐色调，沉重警戒 */
+    --ink: #1c1614;
+    --ink-mid: #453a34;
+    --ink-light: #8a7a70;
+
+    --cream: #f1e9e0;
+    --surface: #fdf9f4;
+    --surface-warm: #f7efe4;
+
+    /* 赭红主色（菌盖鞍形色） */
+    --bay: #7a3420;
+    --bay-light: #b6683e;
+    --bay-pale: #f2e0d2;
+    --bay-mid: #5c2414;
+
+    /* 炭褐辅色（生境／针叶林） */
+    --char: #4a3c2e;
+    --char-light: #8a7458;
+    --char-pale: #ece4d4;
+
+    /* 苔原灰绿（生态标记，微量点缀） */
+    --pine: #4a5c3a;
+    --pine-light: #8ca070;
+    --pine-pale: #e8eedc;
+
+    /* 危险深红（剧毒警示） */
+    --danger: #7a1620;
+    --danger-light: #c9767e;
+    --danger-pale: #f7e0e2;
+
+    --stone: #605648;
+    --stone-light: #948a78;
+
+    --border: rgba(90,60,40,0.16);
+    --border-mid: rgba(90,60,40,0.28);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .toxic-banner {
+    background: var(--danger);
+    color: #fff;
+    text-align: center;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #cbb6a0; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,12,8,0.78));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,220,200,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--danger); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 32px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--bay); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-bay    { background: var(--bay-pale);   color: var(--bay-mid); }
+  .tag-char   { background: var(--char-pale);  color: var(--char); }
+  .tag-pine   { background: var(--pine-pale);  color: var(--pine); }
+  .tag-danger { background: var(--danger-pale);color: var(--danger); }
+  .tag-stone  { background: #ece2d2;           color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-bay    { background: var(--bay); }
+  .dot-char   { background: var(--char); }
+  .dot-pine   { background: var(--pine); }
+  .dot-danger { background: var(--danger); }
+  .dot-stone  { background: var(--stone-light); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #cbb6a0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #cbb6a0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20,12,8,0.78); color: #f0ddc8; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--pine-pale); color: var(--pine); }
+  .phase-mid    { background: var(--char-pale); color: var(--char); }
+  .phase-mature { background: var(--bay-pale);  color: var(--bay-mid); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--bay-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--danger-pale); border: 1px solid rgba(122,22,32,0.32); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--danger); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a1216; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--danger); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--pine-pale); border: 1px solid rgba(74,92,58,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--pine); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #263018; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--pine); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--bay-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--danger); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--bay-pale); border: 1px solid rgba(92,36,20,0.28); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--bay-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #f2e0d2, #f7efe4);
+    border: 1px solid rgba(122,52,32,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--danger); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--bay-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 24px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="toxic-banner">
+  ☠ 剧毒 · 含鹿花菌素（可代谢为火箭燃料成分甲基肼）· 神经毒性 / 溶血 / 潜在致癌，切勿采食
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Gyromitra_infula0.png" alt="赭鹿花菌主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Gyromitra infula · 赭红至红褐色马鞍形菌盖，两瓣折叠如兜帽，立于白色中空菌柄之上，秋季生于腐木旁</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">子囊菌门 · 盘菌目 · 大孔菌科（鹿花菌科）· 鹿花菌属</div>
+    <div class="hero-name-zh">赭鹿花菌</div>
+    <div class="hero-name-la">Gyromitra infula</div>
+    <div class="hero-author">(Schaeff.) Quél., 1886 · 常见异称「钩基鹿花菌」「赭马鞍菌」「头套状鹿花菌」</div>
+
+    <div class="tag-row">
+      <span class="tag tag-danger">☠ 剧毒</span>
+      <span class="tag tag-danger">含鹿花菌素</span>
+      <span class="tag tag-bay">马鞍形菌盖</span>
+      <span class="tag tag-char">秋季生于腐木旁</span>
+      <span class="tag tag-pine">潜在致癌物</span>
+      <span class="tag tag-stone">常与羊肚菌/马鞍菌混淆</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">赭鹿花菌 / 钩基鹿花菌 / 赭马鞍菌（同物异名俗称）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Hooded False Morel / Elfin Saddle / Bay Gyromitra</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">盘菌目 Pezizales / Discinaceae 大孔菌科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分类现状</span>
+        <span class="taxon-value">2023年分子系统学修订，新组合名 <em>Paragyromitra infula</em></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志结构：马鞍形兜帽菌盖</span>
+        <span class="fb-value">菌盖由两片宽瓣不规则折叠而成，形似马鞍或兜帽，表面平滑至微波状——区别于近缘种"脑状"深皱纹菌盖的关键特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">致命化学：鹿花菌素→甲基肼</span>
+        <span class="fb-value">体内代谢生成的单甲基肼（MMH）是火箭燃料成分之一，具挥发性、神经毒性、溶血性，长期或反复暴露还被认为具潜在致癌性</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">物候反差：秋出而非春出</span>
+        <span class="fb-value">与春季出菇的"脑状"鹿花菌（G. esculenta）不同，本种主要在<strong>夏末至秋季</strong>针叶林腐木旁出现，是野外物候鉴别的重要线索</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-bay"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Gyromitra_infula1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 赭红至红褐色 / 两瓣马鞍状折叠 / 表面平滑微波</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Gyromitra_infula2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 菌盖边缘部分游离上翘 / 白色中空菌柄</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Gyromitra_infula3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌柄内部多腔迷宫状中空 / 菌肉极薄脆</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Gyromitra_infula4.png" alt="子实层细节图" loading="lazy">
+        <div class="photo-caption">子实层 · 菌盖下表面（凹面）光滑，产孢层覆盖其上</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Gyromitra_infula5.png" alt="孢子图" loading="lazy">
+        <div class="photo-caption">孢子（显微）· 椭圆形，内含两个油滴（鉴别要点）</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Gyromitra_infula6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">细节 · 菌盖裂片尖端撕裂状边缘 / 菌柄表面细纵纹</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Gyromitra_infula7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 针叶林下腐木、伐根周边及林间步道旁地表，秋季群落</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-char"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体从腐木旁地表顶出，初呈不规则球形至浅杯状小突起，颜色浅褐至赭红，尚未形成明显折叠；
+          菌柄短粗，白色至污白色，内部已可见雏形空腔；此期整体形态与幼期羊肚菌或马鞍菌（Helvella）幼体较难区分，需耐心等待展开。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐向两侧折叠隆起，形成初步的马鞍/兜帽轮廓，表面颜色加深为赭红至红褐色，边缘部分与菌柄游离、部分仍贴生；
+          菌柄同步伸长，圆柱形，表面渐现细纵向皱纹，内部空腔扩大但尚未形成典型多腔迷宫结构；质地依然较为柔软。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全呈马鞍形或兜帽形，两片宽瓣中央隆起、边缘不规则卷曲上翘，直径3–8cm，赭红至暗红褐色，表面平滑或仅具浅波状皱褶（不同于"脑状"深沟回旋纹）；
+          菌柄长3–7cm，白色至奶油色，圆柱形，内部呈<strong>多腔迷宫状中空</strong>；全株质地脆弱易碎，成熟个体极易因风吹或触碰而破裂散落孢子。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-char"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-bay">菌盖赭红→红褐→暗褐（成熟渐深）</span>
+          <span class="tag tag-stone">菌盖下表面（子实层）色略浅</span>
+          <span class="tag tag-char">菌柄白色至奶油色，偶带浅褐纵纹</span>
+          <span class="tag tag-stone">孢子显微观察可见两油滴</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-bay">菌盖马鞍形/兜帽形，两瓣折叠</span>
+          <span class="tag tag-stone">表面平滑至微波状（非深脑纹）</span>
+          <span class="tag tag-char">边缘部分游离、裂片尖端上翘</span>
+          <span class="tag tag-char">菌柄圆柱形，内部多腔迷宫状中空</span>
+          <span class="tag tag-stone">整体高3.5–12cm，质地极脆</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">生鲜时气味较淡，略带菌香</span>
+          <span class="tag tag-danger">⚠ 蒸煮加热时可释放刺激性挥发气体</span>
+          <span class="tag tag-danger">该挥发物即含毒性甲基肼前体，吸入亦有风险</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-danger">⚠ 无安全食用记录，严禁品尝</span>
+          <span class="tag tag-danger">部分地区传统"水煮弃汤"处理法风险极高，不推荐</span>
+          <span class="tag tag-stone">质地脆薄，久置易碎裂</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-char"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖（子囊盘）</td>
+            <td>由两片不规则宽瓣折叠成马鞍形或兜帽形，直径3–8cm，赭红至红褐色，表面平滑或仅具浅波状皱褶，边缘常与菌柄部分游离并向外、向上卷曲，裂片尖端多呈撕裂状</td>
+          </tr>
+          <tr>
+            <td>子实层（产孢面）</td>
+            <td>覆盖于菌盖凹面（下表面），颜色略浅于盖面，光滑，密布子囊与侧丝，是产生并弹射孢子的功能层</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>极薄，质地脆弱，几乎无独立可辨的"肉质层"；含挥发性鹿花菌素，加热或损伤后可释放刺激性气体，操作时应保持通风</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>3–7cm × 1–2.5cm；圆柱形，向下略粗，白色至奶油色，表面可具细纵向皱纹；内部为<strong>多腔迷宫状中空结构</strong>（chambered），是本属区别于马鞍菌属（Helvella，柄多为简单中空或具纵沟而非多腔）的重要显微/解剖特征</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>椭圆形，表面光滑，内含<strong>两个油滴</strong>；这一特征是区分本属与马鞍菌属（后者孢子通常仅含单个油滴）最可靠的显微鉴别依据之一</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pine"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖呈<strong>马鞍形/兜帽形</strong>，两瓣折叠，表面<strong>平滑至微波状</strong>——而非近缘"脑状"鹿花菌的深沟回旋纹</li>
+        <li>菌柄内部为<strong>多腔迷宫状中空</strong>，纵切可见不规则蜂窝状腔室，区别于马鞍菌属的简单中空</li>
+        <li>孢子显微观察含<strong>两个油滴</strong>，是与外观相似的马鞍菌属（单油滴）最可靠的区分证据</li>
+        <li>物候上主要见于<strong>夏末至秋季</strong>针叶林腐木旁，区别于春季出菇的"脑状"鹿花菌</li>
+      </ul>
+    </div>
+
+    <div class="caution-box">
+      <div class="caution-title">☠ 食用前必读：剧毒，不可采食，加热亦不能确保安全！</div>
+      <ul class="caution-list">
+        <li>本种含鹿花菌素（gyromitrin），在体内水解代谢生成单甲基肼（monomethylhydrazine, MMH）——一种被用作火箭燃料成分的剧毒化合物</li>
+        <li>中毒症状可致神经毒性（惊厥、昏迷）与溶血性反应，症状潜伏期通常为6–12小时，早期仅表现为恶心呕吐等胃肠不适，极易延误识别</li>
+        <li>长期或反复接触鹿花菌素被认为具有潜在致癌性，不存在"安全食用剂量"的科学共识</li>
+        <li>部分地区历史上曾对近缘种（如"脑状"鹿花菌）采用水煮后弃汤的处理方式以求"减毒"，但该方法风险极高：毒素具挥发性，蒸煮时释放的气体本身即可致人中毒，且残留毒素无法保证完全去除，<strong>不建议任何人尝试此类"传统处理法"</strong></li>
+        <li>本种常与外观相似的可食用羊肚菌（Morchella）或部分马鞍菌（Helvella）混淆而被误采误食，务必以菌盖折叠方式、菌柄内部结构及孢子油滴数目综合确认</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与"脑状"鹿花菌（G. esculenta）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">脑状鹿花菌菌盖表面呈<strong>深沟回旋、脑状皱纹</strong>，主要于<strong>春季</strong>出菇；本种菌盖<strong>平滑至微波状</strong>（马鞍/兜帽形），主要于<strong>夏末至秋季</strong>出菇——二者同属剧毒，物候与盖面纹理是关键区分点</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与马鞍菌属（Helvella）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">马鞍菌属菌盖多呈<strong>灰色调</strong>，菌柄<strong>光滑、色浅、简单中空</strong>（部分种具纵沟但不成多腔）；本种菌盖<strong>赭红至红褐色</strong>，菌柄内部为<strong>多腔迷宫状</strong>；孢子油滴数目（1个 vs 2个）是显微确证的最终依据</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--danger)">☠ 鹿花菌（脑状鹿花菌）<em>Gyromitra esculenta</em></div>
+        <div class="confusion-diff">剧毒，同含鹿花菌素！菌盖呈深沟回旋的"脑状"皱纹，主要于<strong>春季</strong>出菇（本种秋季）；北欧部分地区仍有传统食用习惯（经特殊水煮处理），但风险极高，官方普遍不建议食用</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--danger)">☠ 毒鹿花菌 <em>Gyromitra venenata</em></div>
+        <div class="confusion-diff">中国学者近年发现并命名的新种剧毒鹿花菌，外观与羊肚菌相似度更高，是导致误采中毒的重要种类；与本种同属近缘，均含鹿花菌素类毒素</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">压缩马鞍菌 / 弹性马鞍菌 <em>Helvella compressa</em> / <em>H. elastica</em></div>
+        <div class="confusion-diff">外观同为马鞍形，但菌盖颜色偏<strong>灰色调</strong>而非赭红，菌柄<strong>光滑苍白、简单中空</strong>；部分马鞍菌种类被认为可食（需彻底煮熟），但与本种野外区分难度大，不建议非专业人士自行采食判断</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">羊肚菌 <em>Morchella</em> spp.</div>
+        <div class="confusion-diff">著名食用菌，但菌盖为<strong>蜂窝状凹坑</strong>而非马鞍折叠，且菌盖边缘与菌柄<strong>连生愈合</strong>（本种及鹿花菌属菌盖边缘多游离）；秋季林地中二者生境可能重叠，采集时务必纵剖确认盖柄连接方式</div>
+      </div>
+    </div>
+
+    <!-- ── 命名与分类地位说明板块 ── -->
+    <div style="margin-top:1.4rem;background:var(--bay-pale);border:1px solid rgba(92,36,20,0.32);border-radius:14px;overflow:hidden;">
+
+      <div style="background:var(--bay);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">命名与分类地位说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--stone-light);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone);margin-bottom:8px;">长期沿用名</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Gyromitra infula</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">(Schaeff.) Quél., 1886</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              基原异名为 <em>Helvella infula</em> Schaeffer, 1774；1886年由 Lucien Quélet 转入鹿花菌属。绝大多数现有文献、图鉴及本页标题均沿用此名。
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--bay);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--bay);margin-bottom:8px;">2023年新组合名</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Paragyromitra infula</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">(Schaeff.) X.C.Wang &amp; W.Y.Zhuang, 2023</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              基于分子系统学研究，王新超与庄文颖等学者将本种连同数个近缘种移入新建立的<strong>副鹿花菌属</strong>（<em>Paragyromitra</em>），以解决原鹿花菌属（<em>Gyromitra</em> s.l.）的并系问题。
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称关系与俗称说明</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--bay);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>「赭鹿花菌」与「钩基鹿花菌」：</strong>二者在中文科普及爱好者交流中均用于指代本种，属同一物种的不同中文俗称习惯；"赭"描述其赭红色菌盖，英文常见名 hooded false morel（兜帽状假羊肚菌）也是常见对应译法之一。检索文献时建议以拉丁学名 <em>Gyromitra infula</em>（或 <em>Paragyromitra infula</em>）为准。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--bay);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>属名释义：</strong><em>Gyromitra</em> 源自希腊语「gyros（圆／回旋）+ mitra（头巾／冠帽）」；种加词 <em>infula</em> 指古罗马祭司佩戴的羊毛头巾，均呼应其马鞍/兜帽状的菌盖形态。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--bay);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>分类沿革简述：</strong>1907年 Jean Boudier 曾将本种连同鹿花菌一并移入自建的 <em>Physomitra</em> 属，后该属被处理为异名；2023年的分子系统学修订进一步厘清了鹿花菌属复合群的并系问题，本种及部分近缘种被置入新属 <em>Paragyromitra</em>，但学界及数据库对新旧名称的采用仍处于过渡期。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 命名简史 -->
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">命名简史</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--bay);text-align:right;padding-right:12px;border-right:2px solid rgba(92,36,20,0.25);">1774</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">Jacob Christian Schaeffer 以 <em>Helvella infula</em> 首次描述本种</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--bay);text-align:right;padding-right:12px;border-right:2px solid rgba(92,36,20,0.25);">1886</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">Lucien Quélet 将其转组合为 <em>Gyromitra infula</em>——沿用逾百年的通行学名</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--bay);text-align:right;padding-right:12px;border-right:2px solid rgba(92,36,20,0.25);">1907</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">Jean Boudier 建立 <em>Physomitra</em> 属并将本种移入，后该处理未被广泛采用</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;">
+              <div style="font-size:12px;font-weight:700;color:var(--bay);text-align:right;padding-right:12px;border-right:2px solid rgba(92,36,20,0.25);">2023</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">王新超、庄文颖等基于分子系统发育重新界定 <em>Paragyromitra</em> 属，本种被处理为该属新组合种</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 实践提示 -->
+        <div style="background:var(--danger-pale);border:1px solid rgba(122,22,32,0.3);border-left:4px solid var(--danger);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#4a1216;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>秋季针叶林腐木旁见到马鞍/兜帽形赭红色蘑菇时，切勿因其"不像脑状鹿花菌那样恐怖"而放松警惕；应纵剖菌柄确认是否为多腔迷宫状中空以区别于羊肚菌，并牢记本种及所有鹿花菌属物种均<strong>不建议食用</strong>，无论是否经过何种"传统处理"。
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「赭红兜帽秋林现，脑纹春出记分明」</div>
+        <div class="memory-pill">「柄剖迷宫多腔室，孢子双滴定真身」</div>
+        <div class="memory-pill">「甲基肼藏火箭料，煮汤弃水也难保」</div>
+        <div class="memory-pill">「马鞍羊肚易相混，愈合游离两分明」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生、散生或小群生长，常紧邻腐烂针叶树倒木、伐根或木屑堆积处，个体间通常有明显间距</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">腐生菌，偏好针叶林（云杉、冷杉、松等）下腐烂木材周边的地表及腐殖质层，亦见于火烧迹地及林间步道旁裸露地表</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广布于北半球温带至寒温带针叶林地区，北美洲、欧洲均有大量记录；中国东北、西南高海拔针叶林区及部分温带山地亦有分布报道</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">夏末至秋季（约7–10月）为主要出菇期，明显晚于春季出菇的"脑状"鹿花菌；分布海拔跨度较大，从低海拔针叶林到中高山林带均有记录</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：科学观察或摄影记录应佩戴手套操作并保持通风，避免在密闭空间大量堆放或蒸煮标本；纵剖菌柄确认多腔中空结构，并借助显微镜核实孢子油滴数目，切勿以外观相似为由采作食用。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-danger"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">无——含鹿花菌素，代谢产物为剧毒的单甲基肼，具神经毒性、溶血性及潜在致癌性；国际权威机构普遍不推荐食用本属任何物种，即便经传统"水煮弃汤"处理仍存在残留风险</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用 / 毒理研究价值</div>
+        <div class="value-body">鹿花菌素及其代谢物甲基肼的毒理机制（抑制维生素B6依赖酶、干扰GABA神经递质系统）是天然肼类毒素研究的重要模式物质，对理解肼类化合物毒性及潜在解毒策略具有科研价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为腐生分解者，参与针叶林倒木及枯枝落叶层的物质循环，是森林生态系统碳氮循环链条中的一环</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">分类学与鉴定研究价值</div>
+        <div class="value-body">因常与食用羊肚菌混淆并引发中毒事件，已有研究团队针对本种开发快速分子检测方法（如LAMP等温扩增技术），用于食品安全及中毒事件快速溯源</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Paragyromitra_infula" target="_blank">Wikipedia · Paragyromitra infula</a> ·
+      <a class="ref-link" href="https://www.mykoweb.com/CAF/species/Gyromitra_infula.html" target="_blank">California Fungi · Gyromitra infula</a> ·
+      <a class="ref-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8894891/" target="_blank">PMC · G. infula LAMP鉴定研究</a>
+    </div>
+    <div>神经毒性 / 溶血 / 潜在致癌 · 秋季针叶林常见剧毒种</div>
+  </div>
+
+</div>
+</body>
+</html>
