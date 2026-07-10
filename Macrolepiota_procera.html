@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高大环柄菇 · Macrolepiota procera</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：温暖、柔和、麦色调 */
+    --ink: #1e1809;
+    --ink-mid: #4a3f24;
+    --ink-light: #8a7d5c;
+    --cream: #faf6ec;
+    --surface: #ffffff;
+    --surface-warm: #fdf9f1;
+
+    /* 麦褐主色（菌盖鳞片） */
+    --honey: #9a6a24;
+    --honey-light: #d4a04e;
+    --honey-pale: #faf0d8;
+    --honey-mid: #6e4c14;
+
+    /* 蛇皮纹棕（菌柄色） */
+    --amber: #8b5e1a;
+    --amber-light: #d4943a;
+    --amber-pale: #fef0d8;
+
+    /* 苔绿（可食标记 / 白色孢子印安心感） */
+    --moss: #4a6c2a;
+    --moss-light: #8ab870;
+    --moss-pale: #edf4e5;
+
+    /* 锈红（警示：混淆种） */
+    --warn: #9a3a18;
+    --warn-light: #d4703a;
+    --warn-pale: #fceee8;
+
+    /* 温暖灰棕 */
+    --stone: #6a5c3a;
+    --stone-light: #a09070;
+
+    --border: rgba(120,90,40,0.12);
+    --border-mid: rgba(120,90,40,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--honey);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #e8dcc0;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,14,4,0.7));
+    padding: 24px 20px 16px;
+  }
+
+  .hero-overlay-text { font-size: 12px; color: rgba(240,224,180,0.85); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--honey); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700;
+    line-height: 1.2; color: var(--ink); margin-bottom: 6px;
+  }
+
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--amber); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-honey  { background: var(--honey-pale);  color: var(--honey-mid); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-amber  { background: var(--amber-pale);  color: var(--amber); }
+  .tag-stone  { background: #f0ebe0;            color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-honey { background: var(--honey); }
+  .dot-moss  { background: var(--moss); }
+  .dot-warn  { background: var(--warn); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-amber { background: var(--amber); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+
+  .section-badge {
+    margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  .photo-outer { display: grid; gap: 10px; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+  .photo-slot {
+    aspect-ratio: 4/3; background: #e0d4b0; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot-wide {
+    aspect-ratio: 16/7; background: #e0d4b0; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(20,14,4,0.72); color: #f0e4c0; font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--honey-pale);  color: var(--honey-mid); }
+  .phase-mature { background: var(--amber-pale);  color: var(--amber); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+
+  .trait-name {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border);
+    vertical-align: top; color: var(--ink);
+  }
+  .parts-table td:first-child { font-weight: 500; color: var(--honey-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box {
+    background: var(--warn-pale); border: 1px solid rgba(154,58,24,0.28);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem;
+  }
+
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a2010; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box {
+    background: var(--moss-pale); border: 1px solid rgba(74,108,42,0.28);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem;
+  }
+
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2a4020; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--honey-light);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.danger { border-left-color: #e07060; background: var(--warn-pale); }
+
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--honey-pale); border: 1px solid rgba(154,106,36,0.25); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--honey-mid); font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); margin-bottom: 6px;
+  }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); margin-bottom: 8px;
+  }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 特色速览条 ── */
+  .feature-bar {
+    background: linear-gradient(135deg, #fdf0d0, #fdf8ee);
+    border: 1px solid rgba(154,106,36,0.3);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--honey); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light);
+  }
+  .ref-link { color: var(--honey-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🍄 可食用物种 · 欧洲名贵食用菌 · 注意与剧毒大青褶伞严格区分
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera0.png" alt="高大环柄菇主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Macrolepiota procera · 巨伞般的菌盖，蛇皮花纹菌柄，可上下移动的双层菌环</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 蘑菇科 · 大环柄菇属</div>
+    <div class="hero-name-zh">高大环柄菇</div>
+    <div class="hero-name-la">Macrolepiota procera</div>
+    <div class="hero-author">(Scop.) Singer, 1948</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">可食（幼期菌盖）</span>
+      <span class="tag tag-amber">菌柄纤维老韧不宜食</span>
+      <span class="tag tag-honey">大型伞菌 · 高可达40cm</span>
+      <span class="tag tag-honey">可移动双层菌环</span>
+      <span class="tag tag-warn">⚠ 易与剧毒大青褶伞混淆</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">高脚环柄菇 / 高环柄菇 / 高脚菇 / 雨伞菌 / 棉花菇 / 蛇皮菇</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Parasol Mushroom</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Agaricaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">LC（无危）· 全球温带广布</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志结构：可移动菌环</span>
+        <span class="fb-value">双层膜质菌环松套于菌柄上，可用手指上下推动滑移——这是本属最具辨识度的特征之一</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">标志结构：蛇皮状菌柄</span>
+        <span class="fb-value">菌柄表面覆浅褐色鳞片，呈蛇皮花纹状排列，欧洲部分地区因此称其为"蛇帽""蛇海绵"</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">体型纪录</span>
+        <span class="fb-value">成熟子实体高度与菌盖直径均可达30–40（50）厘米，是伞菌中体型最大的可食种类之一</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 中央深棕色壳状凸起 / 同心圆状棕褐鳞片</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 白色离生菌褶 / 可移动双层菌环</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉白色切开微转淡粉 / 菌柄纤维中空</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera4.png" alt="菌褶面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">褶面 · 白色，密集，离生，不等长（关键：非绿色）</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 白色（关键鉴别点，区别于大青褶伞的绿色）</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 菌柄蛇皮状鳞片特写 / 菌环滑动示意</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide" style="margin-top:10px;">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Macrolepiota_procera7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 草地、林缘疏林地散生或形成仙女环</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期（鼓槌期）</div>
+        <div class="phase-desc">
+          子实体呈紧实卵形至鼓槌状，菌盖边缘紧包菌柄，内部密封成一个腔室，尚未张开；表面浅褐色，光滑或略具细小鳞片雏形；
+          菌柄纤细但已具全高，白色被细鳞；菌环尚未松脱，紧贴菌柄；此阶段极易与幼期毒鹅膏"蛋形期"混淆，切开检查内部结构是安全采集的第一步。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期（开伞期）</div>
+        <div class="phase-desc">
+          菌盖边缘逐渐与菌柄脱离，露出白色离生菌褶；边缘脱落处在菌柄上留下一圈肉质菌环，可开始上下滑动；
+          菌盖表皮开始龟裂形成棕褐色块状鳞片，呈同心圆或蛇皮状排列，底色近白至浅褐；菌柄蛇皮状鳞片纹理清晰显现，质地渐趋纤维化。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期（平展期）</div>
+        <div class="phase-desc">
+          菌盖完全平展如伞，直径可达30–40（50）cm；中央保留一个深棕色、质感如皮革的壳状凸起（"馕饼中心"），四周鳞片明显、可轻易剥落；
+          菌褶白色，密集，成熟后有时略带粉色；孢子印白色；菌环变得松弛，用手指轻推即可整体滑动，成熟后甚至可能脱落滑至菌柄基部；
+          菌肉切开后由白色渐转淡粉色，散发令人愉悦的坚果香气；菌柄此时极为坚韧纤维化，通常不再食用。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-honey">菌盖底色近白→浅褐</span>
+          <span class="tag tag-stone">鳞片棕褐色，中央深褐壳顶</span>
+          <span class="tag tag-moss">菌褶白色（偶带粉）</span>
+          <span class="tag tag-moss">孢子印纯白</span>
+          <span class="tag tag-amber">菌柄浅棕黄，蛇皮纹深褐</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-honey">幼期卵形/鼓槌状</span>
+          <span class="tag tag-honey">成熟盘状伞形，中央凸起</span>
+          <span class="tag tag-stone">菌柄细长中生，基部略膨大</span>
+          <span class="tag tag-stone">菌环双层，可上下滑动</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-honey">令人愉悦的坚果香</span>
+          <span class="tag tag-stone">无刺激性异味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">菌盖：细嫩，肉质厚实</span>
+          <span class="tag tag-warn">菌柄：老韧纤维化，不宜食</span>
+          <span class="tag tag-honey">裹粉油炸后风味最佳</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 部位形态详表 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">部位形态详表</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr><th>部位</th><th>形态描述</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径8–40（50）cm；幼时卵形/鼓槌状包裹菌柄，成熟展开呈盘状伞形，中央具深棕色皮革质感壳状凸起；表面覆棕褐色块状鳞片，呈同心圆或蛇皮状排列，底色近白至浅褐；边缘偶见细条纹</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>白色，成熟后有时略带粉色；密集拥挤，不等长，离生（完全不与菌柄相连）</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色，质地细嫩（菌盖部分），切开或受伤后可能转为淡粉色；具令人愉悦的坚果香气</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>长8–40cm，直径0.8–2cm；圆柱形，相对细长，通常在菌盖完全展开前即已长至完整高度；表面被蛇皮状排列的浅褐色鳞片，质地极为纤维化坚韧，不易折断也不宜食用</td>
+          </tr>
+          <tr>
+            <td>菌环</td>
+            <td>发达，双层膜质，白色带浅棕色边缘，位于菌柄中上部，可沿菌柄自由上下滑动——本属最重要的鉴别特征之一</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>宽椭圆形至椭圆形，光滑，无色，薄壁，具芽孔及孔盖；孢子印白色至乳白色</td>
+          </tr>
+          <tr>
+            <td>菌托</td>
+            <td>本种无菌托（同属少数种如具托大环柄菇 <em>M. velosa</em> 具菌托，需注意种间区别）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌柄表面具<strong>蛇皮状排列的褐色鳞片</strong>，绝非光滑——这是与剧毒大青褶伞最直观的区别</li>
+        <li>菌柄中上部有<strong>双层膜质菌环，可用手指上下推动滑移</strong>，滑动感明显</li>
+        <li>菌盖中央具<strong>深棕色皮革质感壳状凸起</strong>，周围鳞片呈同心圆/块状分布</li>
+        <li><strong>白色孢子印</strong>是安全边界：菌褶或孢子印一旦发绿，立即视为剧毒大青褶伞，绝不可食</li>
+      </ul>
+    </div>
+
+    <div class="caution-box">
+      <div class="caution-title">⚠ 采食前必读：混淆致中毒风险极高</div>
+      <ul class="caution-list">
+        <li>高大环柄菇与剧毒的<strong>大青褶伞 <em>Chlorophyllum molybdites</em></strong> 外形高度相似，是我国南方蘑菇中毒事件的重要诱因之一</li>
+        <li>采集前务必逐一确认：菌柄有无蛇皮状鳞片、菌环能否滑动、菌褶/孢子印是否为白色</li>
+        <li>幼期呈卵形、尚未开伞的子实体应纵向切开检查内部结构，避免与其他有毒伞菌的"蛋形期"混淆</li>
+        <li>菌柄质地过于纤维老韧，通常仅取菌盖食用，且须彻底煮熟</li>
+        <li>不确定物种时，无论多么"像"食用菌，都不建议采食</li>
+      </ul>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink);">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn);">⚠ 大青褶伞 <em>Chlorophyllum molybdites</em>（剧毒！）</div>
+        <div class="confusion-diff">我国南方最主要的中毒蘑菇之一，2019–2021年间国内至少275起、560人中毒。区别：<strong>菌柄完全光滑无鳞片</strong>，菌褶成熟后呈绿色调，<strong>孢子印绿色</strong>，菌柄基部受伤后变红褐色；高大环柄菇菌柄有蛇皮状鳞片，孢子印白色，基部受伤不变色</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">粗鳞青褶伞 <em>Chlorophyllum rachodes</em></div>
+        <div class="confusion-diff">同为可食种，菌柄同样近光滑，菌盖鳞片粗大块状；与高大环柄菇的区别在于菌柄无蛇皮纹，孢子无芽孔盖；部分体质食用后仍可能出现不适</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">长柄大环柄菇 <em>Macrolepiota dolichaula</em></div>
+        <div class="confusion-diff">同属近缘种，可食；区别在于菌盖鳞片更小、呈点状，颜色偏淡褐色，整体鳞片没有本种粗大醒目</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">凸顶大环柄菇 <em>Macrolepiota umbonata</em></div>
+        <div class="confusion-diff">同属近缘种；菌盖鳞片呈丛毛状、较为立体隆起，颜色淡褐，与本种同心圆状块鳞有别</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">毛头鬼伞 <em>Coprinus comatus</em>（鸡腿菇）</div>
+        <div class="confusion-diff">幼期外形也呈长椭圆形，但表面鳞片翘起如睫毛，成熟后会自融为黑色汁液，孢子印黑色；高大环柄菇不具自融特性，孢子印白色</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.2rem;">
+    <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「蛇皮花纹裹菌柄，双环滑动是真身」</div>
+      <div class="memory-pill">「中央鼓包如烤饼，孢子印白最放心」</div>
+      <div class="memory-pill">「柄韧难嚼独取伞，裹粉油炸香满口」</div>
+      <div class="memory-pill">「若见褶绿柄光滑，切莫认作雨伞菇」</div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生、散生或群生，排水良好的开阔草地上常形成大型仙女环（fairy ring）；林地边缘亦可见散生个体</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">腐生：草原、牧场、林缘及疏林地上腐殖质丰富的土壤；不依赖特定树种，适应性广，全球温带地区常见</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">世界广布——除南极洲外各大洲均有记录；中国各地均有分布，欧洲是其最重要的传统食用地区，英国常见于7–11月</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">夏秋季为主（7–11月），雨后草地及林缘出菇；适应海拔范围较广，平原至低山均有记录</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：逐株检查菌柄鳞片是否呈蛇皮状排列、菌环能否滑动、菌褶及孢子印是否为白色；对每个采集点留取孢子印以确认，切勿仅凭"个头大、形似雨伞"就判定为本种。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">欧洲传统名贵食用菌，菌盖肉质细嫩、坚果香气浓郁，裹粉油炸（类似"维也纳炸猪排"做法）是最经典的烹饪方式，也可烤制、炖煮；菌柄纤维化严重，通常弃去或晒干磨粉调味</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用与保健价值</div>
+        <div class="value-body">含多糖类等活性成分，有初步抗氧化研究报道；民间应用相对有限，主要仍以食用价值为主</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">草原、林缘生态系统重要的分解者，能促进有机质循环；大型群生个体常形成醒目的仙女环景观，具有一定的生态指示意义</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科普与安全价值</div>
+        <div class="value-body">作为大环柄菇属模式种，是伞菌科系统学研究的重要参照；因外形与剧毒大青褶伞高度相似，是我国蘑菇中毒防控科普的重点识别物种</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-hans/%E9%AB%98%E5%A4%A7%E7%92%B0%E6%9F%84%E8%8F%87" target="_blank">维基百科</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E9%AB%98%E5%A4%A7%E7%8E%AF%E6%9F%84%E8%8F%87/6919385" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="http://www.mycopedia.top/result.php?details=Macrolepiota+procera" target="_blank">菌物志 Mycopedia</a>
+    </div>
+    <div>IUCN LC · 广布常见 · 大环柄菇属模式种</div>
+  </div>
+
+</div>
+</body>
+</html>
