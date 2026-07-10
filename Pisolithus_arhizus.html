@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豆马勃 · Pisolithus arhizus（豆包菌 · 死人脚 · 染色马勃）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #201a10;
+    --ink-mid: #4a3e28;
+    --ink-light: #8a7c5c;
+    --cream: #f6f1e4;
+    --surface: #ffffff;
+
+    --moss: #566c2a;
+    --moss-light: #a8bc7a;
+    --moss-pale: #eef2e0;
+
+    /* 豆马勃主色：土黄锈褐（包被色） */
+    --earth: #a67426;
+    --earth-light: #d9ad5c;
+    --earth-pale: #f7ead0;
+    --earth-mid: #7a5416;
+
+    /* 黑胶孢体色（关键鉴别特征：黑色胶质中包埋豆粒） */
+    --tar: #3a3226;
+    --tar-light: #8a7c60;
+    --tar-pale: #e8e2d2;
+
+    /* 豆粒色（浅橙黄→褐） */
+    --pea: #c8862a;
+    --pea-light: #e8bc7a;
+    --pea-pale: #faedd6;
+
+    --caution: #9a5a1a;
+    --caution-light: #d9a05a;
+    --caution-pale: #f8ecd8;
+
+    --border: rgba(120,90,40,0.16);
+    --border-mid: rgba(120,90,40,0.26);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--earth-mid);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #d8c090; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(24,18,8,0.72)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,220,190,0.85); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--earth-mid); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--ink-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--ink-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-moss { background: var(--moss-pale); color: var(--moss); }
+  .tag-earth { background: var(--earth-pale); color: var(--earth-mid); }
+  .tag-tar { background: var(--tar-pale); color: var(--tar); }
+  .tag-pea { background: var(--pea-pale); color: var(--pea); }
+  .tag-caution { background: var(--caution-pale); color: var(--caution); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-moss { background: var(--moss); }
+  .dot-earth { background: var(--earth); }
+  .dot-tar { background: var(--tar); }
+  .dot-pea { background: var(--pea); }
+  .dot-caution { background: var(--caution); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--ink-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #e6d0a0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #e6d0a0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); grid-column: span 3; }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(24,18,8,0.74); color: #f2e4c8; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--pea-pale);  color: var(--pea); }
+  .phase-mature { background: var(--tar-pale);  color: var(--tar); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--earth-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--caution-pale); border: 1px solid rgba(154,90,26,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 700; color: var(--caution); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a2c10; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--caution); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--tar-pale); border: 1px solid rgba(58,50,38,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--tar); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2a2418; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--tar); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--pea-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--caution); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--ink-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--earth-pale); border: 1px solid rgba(166,116,38,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--earth-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #f7ead0, #e8e2d2);
+    border: 1px solid rgba(166,116,38,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--earth-mid); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-light); }
+  .ref-link { color: var(--earth-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .photo-slot-wide { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🟤 生态修复功能菌 · 幼时传统可食/入药 · 成熟后完全丧失食用价值 · 外形常被戏称"最丑真菌"
+</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus0.png" alt="豆马勃主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Pisolithus arhizus · 内部无数橙黄色"豆粒"包埋于黑色胶质物中，属名意为"豆状石"</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 牛肝菌目 · 硬皮马勃科 · 豆马勃属</div>
+    <div class="hero-name-zh">豆马勃</div>
+    <div class="hero-name-la">Pisolithus arhizus</div>
+    <div class="hero-author">(Scop.) Rauschert · 曾用名 Pisolithus tinctorius，异名彩色豆马勃</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">幼时传统可食/入药</span>
+      <span class="tag tag-caution">老熟后不可食（孢粉状态）</span>
+      <span class="tag tag-tar">内部豆粒包埋于黑胶质中</span>
+      <span class="tag tag-earth">天然染料（染色马勃）</span>
+      <span class="tag tag-pea">泛外生菌根共生（几乎任何树种）</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">豆包菌 / 彩色豆马勃</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">外文俗名</span>
+        <span class="taxon-value">死人脚 / 狗屎菌 / 波西米亚松露 / 染色马勃</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">牛肝菌目 Boletales / 硬皮马勃科 Sclerodermataceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分布</span>
+        <span class="taxon-value">江苏、安徽、福建、浙江、江西、广东、广西、四川、云南等 · 全球广布</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <div class="section">
+    <div class="feature-bar">
+      <div class="rh-item">
+        <span class="rh-label">标志结构：黑胶"豆粒"</span>
+        <span class="rh-value">内部由无数浅橙黄色至褐色的不规则多角形小包（假包被小室）包埋于黑色胶质物中构成，是属名 Pisolithus（"豆状石头"）的直接来源</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">超强适应性：几乎与任何树根共生</span>
+        <span class="rh-value">是外生菌根适应性最广的真菌之一，几乎能与任何植物根系形成菌根，因此被广泛用于退化土地、采伐迹地及污染场地的生态修复接种剂</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">双重用途：药用与染色</span>
+        <span class="rh-value">中药名"豆包菌"，具止血解毒消肿之效；黑色胶质液体自古被用作羊毛天然染料，可染出从暖黄到巧克力棕的多种色泽</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-tar"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus1.png" alt="整体外观图" loading="lazy">
+        </picture>
+        <div class="photo-caption">整体外观 · 不规则球形至棒状，下部收缩成柄状基部</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus2.png" alt="柄基部菌丝束图" loading="lazy">
+        </picture>
+        <div class="photo-caption">柄基部 · 青黄色菌丝束固定于沙砾基质</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 无数"豆粒"包埋于黑色胶质物中，属本种最标志性结构</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus4.png" alt="豆粒特写图" loading="lazy">
+        </picture>
+        <div class="photo-caption">豆粒特写 · 浅橙黄色转褐色，不规则多角形，扁平</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus5.png" alt="孢子显微图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子显微 · 球形，具刺，成堆时咖啡色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus6.png" alt="散粉期图" loading="lazy">
+        </picture>
+        <div class="photo-caption">散粉期 · 顶部片裂脱落，豆粒壁逐渐消失散出孢子</div>
+      </div>
+
+      <div class="photo-slot-wide">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus7.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Pisolithus_arhizus7.png" alt="生境图" loading="lazy">
+        </picture>
+        <div class="photo-caption">生境图 · 旷野沙砾地、林间空地或路边贫瘠土壤单生或群生</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pea"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签（腹菌类特殊发育方式）</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          子实体不规则球形，宽4–8cm，未开裂前包被浅黄白色至米黄色，表面光滑、质地脆薄易碎；下部已开始收缩形成柄状基部，
+          由青黄色菌丝束固定于沙砾基质；剖开可见内部密布浅橙黄色小豆粒，尚未被黑色胶质完全浸润，此阶段传统认为可食用。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          子实体增大至不规则球形或棒状，直径可达11cm，包被转为浅土黄色至淡锈色，表面出现龟裂纹或斑状鳞片；
+          内部豆粒逐渐转为褐色，被黑色胶质物大量包裹，质地变得黏稠；柄状基部愈发明显，形似"插入地面的树桩"。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟 / 散粉期</div>
+        <div class="phase-desc">
+          包被转为青褐色，质地干燥变脆，成熟时从顶部呈星状或片状开裂、反卷脱落；内部豆粒壁暴露于空气中后逐渐溶解消失，
+          孢子随之借风或雨水散播至新的生长地点；此阶段整个子实体已成为孢子粉末的容器，完全丧失食用及药用价值。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-earth"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-earth">包被米黄→淡锈色→青褐色</span>
+          <span class="tag tag-pea">豆粒浅橙黄→褐色</span>
+          <span class="tag tag-tar">内部胶质近黑色</span>
+          <span class="tag tag-tar">孢子成堆咖啡色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-tar">不规则球形至棒状/树桩状</span>
+          <span class="tag tag-earth">下部突然收缩成柄状基部</span>
+          <span class="tag tag-earth">基部具青黄色菌丝束</span>
+          <span class="tag tag-pea">内部豆粒不规则多角形，常扁平</span>
+          <span class="tag tag-tar">外形常被认为"丑陋"</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-earth">部分产地个体具浓郁菌香</span>
+          <span class="tag tag-tar">因稀有及辨识难度，气味记载较少</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感 / 食用价值</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">幼时传统可食（民间记载）</span>
+          <span class="tag tag-caution">⚠ 现代观点不建议作为食用菌</span>
+          <span class="tag tag-tar">老熟后完全不可食</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-earth"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>子实体整体</td>
+            <td>不规则球形，有时呈棒状或树桩状，未开裂前宽4–11cm；下部突然收缩成柄状基部，整体形态在腹菌类中相当特殊</td>
+          </tr>
+          <tr>
+            <td>包被（外皮）</td>
+            <td>薄、光滑、易碎，初期浅黄白色至米黄色，后变浅土黄色至淡锈色，最后呈青褐色；表面常有龟裂纹或斑状鳞片，成熟时呈星状或片状开裂反卷</td>
+          </tr>
+          <tr>
+            <td>柄状基部</td>
+            <td>高1.5–5cm，直径1–3.5cm，由一团青黄色的菌丝束固定于基质（多为沙砾地）之上，起到锚定作用</td>
+          </tr>
+          <tr>
+            <td>内部"豆粒"结构</td>
+            <td>无数不规则多角形、常扁平的小包（假包被小室），直径1–4mm，浅橙黄色后变褐色，包埋于黑色胶质物中；是本属最标志性的鉴别结构，属名 Pisolithus（希腊语"豆状石头"）即由此而来</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>球形，直径8–10μm，表面具刺，成堆时呈咖啡色；豆粒壁暴露空气后逐渐消失，孢子借此散播</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-tar"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>剖开后可见无数<strong>浅橙黄至褐色的不规则"豆粒"包埋于黑色胶质物中</strong>，是与其他硬皮马勃、腹菌类最直接的区别，也是"豆马勃"之名的由来</li>
+        <li>子实体下部<strong>突然收缩成明显的柄状基部</strong>，并由青黄色菌丝束固定于沙砾基质，而非直接坐于地表</li>
+        <li>整体外形不规则，常似<strong>树桩、狗屎或干瘪的脚</strong>（"死人脚"之名由来），是外形辨识度极高的腹菌类</li>
+        <li>与几乎<strong>任何植物根系</strong>均可形成外生菌根，适应性远超一般腹菌类，是其被广泛用于生态修复的科学基础</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用与鉴定提示：现代观点趋于保守</div>
+      <ul class="caution-list">
+        <li>传统文献记载幼时可食用，中药名"豆包菌"也有内服记录（用于止血、解毒消肿），但现代菌类图鉴普遍认为该属辨识难度大、研究资料有限，不建议作为食用菌采集</li>
+        <li>一旦子实体进入成熟散粉阶段，内部已完全转化为孢子粉末，不具备任何食用价值，也不应误采</li>
+        <li>豆马勃属存在至少11个隐存种（DNA研究揭示），不同种之间外观极为相似，仅凭肉眼很难准确鉴定到种</li>
+        <li>本种与硬皮马勃属外观相近但内部结构不同：硬皮马勃内部无豆粒结构，孢体较为均质；豆马勃内部有明显豆粒包埋于黑胶质中，是重要区分依据</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与硬皮马勃属区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">硬皮马勃属（Scleroderma）内部孢体<strong>均质粉状</strong>，无豆粒结构；豆马勃内部有<strong>肉眼可辨的豆粒</strong>包埋于黑色胶质中，剖开即可快速区分二者</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">生态修复中的实际应用</div>
+        <div style="font-size:13px;color:var(--ink-mid)">因其与几乎任何树种根系均可共生的特性，林业工作者及园艺工作者常将其制成土壤接种剂，用于退化土地、污染场地及采伐迹地的植被恢复，是应用价值远高于食用价值的功能性真菌</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">小果豆马勃 <em>Pisolithus microcarpus</em></div>
+        <div class="confusion-diff">同属近缘种，子实体及内部豆粒均偏小型，外观与本种高度相似，主要依靠孢子及分子特征区分</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">橙黄硬皮马勃 <em>Scleroderma aurantium</em></div>
+        <div class="confusion-diff">同为腹菌类球形真菌，未开裂前外观相近，但内部为均质孢体而非黑胶包裹的豆粒结构，剖开检视是关键鉴别方法</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--caution)">⚠ 外观酷似松露的球形真菌统称</div>
+        <div class="confusion-diff">豆马勃在欧洲被称作"波西米亚松露"，说明其外形足以迷惑经验不足的采集者；务必剖开检视内部结构（黑胶包裹豆粒 vs 松露大理石纹理）加以区分，不确定时不采不食</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.4rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「树桩模样藏地表，剖开黑胶裹豆粒」</div>
+        <div class="memory-pill">「死人脚下菌丝束，几乎万物皆可共生」</div>
+        <div class="memory-pill">「幼可尝老成粉，染布入药各有用」</div>
+        <div class="memory-pill">「最丑真菌却最能干，荒地修复第一功」</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或群生于开阔地表，常见于旷野沙砾地、路边贫瘠土壤</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 共生关系</div>
+        <div class="habitat-value">外生菌根真菌，几乎可与任何树种根系共生，对宿主要求极低，耐受贫瘠、污染或退化土壤环境</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国江苏、安徽、福建、浙江、江西、广东、广西、四川、云南等地；全球温带及热带地区广泛分布</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">发生季节</div>
+        <div class="habitat-value">夏秋季为主要发生期，在沙质开阔地或林缘裸地较为常见</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集提示：如需用于生态修复或研究用途，建议咨询专业林业或菌根研究机构获取规范化菌种；不建议普通采集者将其作为食用菌采摘，尤其难以准确判断是否已进入不可逆的散粉阶段。
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-earth"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">生态修复价值</div>
+        <div class="value-body">因其与几乎任何植物根系均可形成外生菌根的超强适应性，被林业与园艺工作者广泛用作退化土地、污染场地及采伐迹地的土壤接种剂，是促进植被恢复的重要功能菌种</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">传统药用价值</div>
+        <div class="value-body">中药名"豆包菌"，具止血、解毒消肿之效，常用于胃及食管出血、外伤出血、冻疮流水流脓等症；但传统药用记载不能等同于现代食用安全性认可</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-hans/%E5%BD%A9%E8%89%B2%E8%B1%86%E9%A6%AC%E5%8B%83" target="_blank">维基百科·彩色豆马勃</a> ·
+      <a class="ref-link" href="https://zhuanlan.zhihu.com/p/572383131" target="_blank">知乎·真菌界全系列·硬皮马勃科</a> ·
+      <a class="ref-link" href="https://www.zysj.com.cn/zhongyaocai/mabo/index.html" target="_blank">中医世家·马勃</a>
+    </div>
+    <div>生态修复功能菌 · 幼时传统可食入药 · 老熟后仅存孢子粉</div>
+  </div>
+
+</div>
+</body>
+</html>
