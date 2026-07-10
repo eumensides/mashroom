@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>多脂鳞伞 · Pholiota adiposa</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 食药兼用：金黄油亮 + 琥珀，呼应"adiposa"油脂状黏液得名 */
+    --ink: #201a0e;
+    --ink-mid: #453a20;
+    --ink-light: #8c8062;
+
+    --cream: #f3eddb;
+    --surface: #fffcf2;
+    --surface-warm: #faf4e0;
+
+    /* 金黄主色（菌盖黏液光泽） */
+    --gold: #c8930f;
+    --gold-light: #e3bc5e;
+    --gold-pale: #faedc4;
+    --gold-mid: #9a6f08;
+
+    /* 琥珀锈黄（菌褶/鳞片色） */
+    --amber: #a8641e;
+    --amber-light: #d4a05c;
+    --amber-pale: #f6e4c8;
+
+    /* 柳木棕（木生基质标记色） */
+    --willow: #6b4a2c;
+    --willow-light: #a9835e;
+    --willow-pale: #f0e2cc;
+
+    /* 谨慎警戒（近缘毒种/误认警示） */
+    --warn: #a3401c;
+    --warn-light: #d3835a;
+    --warn-pale: #fae4d6;
+
+    --stone: #5c5440;
+    --stone-light: #978c6c;
+
+    --border: rgba(120,90,20,0.14);
+    --border-mid: rgba(120,90,20,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--gold-mid);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #e0c988; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(24,16,4,0.68));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(250,235,190,0.9); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-mid); margin-bottom: 12px; }
+
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 34px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--amber); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-gold   { background: var(--gold-pale);   color: var(--gold-mid); }
+  .tag-amber  { background: var(--amber-pale);  color: var(--amber); }
+  .tag-willow { background: var(--willow-pale); color: var(--willow); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-stone  { background: #ece4cc;            color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-gold   { background: var(--gold-mid); }
+  .dot-amber  { background: var(--amber); }
+  .dot-willow { background: var(--willow); }
+  .dot-stone  { background: var(--stone-light); }
+  .dot-warn   { background: var(--warn); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #e0c988; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #e0c988; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(24,16,4,0.68); color: #faedc4; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--willow-pale); color: var(--willow); }
+  .phase-mid    { background: var(--amber-pale);  color: var(--amber); }
+  .phase-mature { background: var(--gold-pale);   color: var(--gold-mid); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--gold-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(163,64,28,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a2410; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--amber-pale); border: 1px solid rgba(168,100,30,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--amber); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #4a2c10; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--amber); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--warn); background: var(--warn-pale); }
+  .confusion-item.good { border-left-color: var(--willow); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--gold-pale); border: 1px solid rgba(154,111,8,0.28); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--gold-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #faedc4, #faf4e0);
+    border: 1px solid rgba(200,147,15,0.32); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gold-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--gold-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  🍄 食药兼用菌 · 东北地区俗称"黄伞" · 与小型褐孢木生毒菌需谨慎区分
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Pholiota_adiposa0.png" alt="多脂鳞伞主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Pholiota adiposa · 菌盖浅黄色至黄褐色，表面覆一层透明黏液，如涂油脂状</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 球盖菇科 · 鳞伞属</div>
+    <div class="hero-name-zh">多脂鳞伞</div>
+    <div class="hero-name-la">Pholiota adiposa</div>
+    <div class="hero-author">(Batsch) P. Kumm., 1871</div>
+
+    <div class="tag-row">
+      <span class="tag tag-gold">食药兼用（栽培成熟）</span>
+      <span class="tag tag-amber">菌盖黏滑如油脂</span>
+      <span class="tag tag-willow">木生腐生/寄生</span>
+      <span class="tag tag-willow">丛生</span>
+      <span class="tag tag-stone">东北俗称"黄伞"</span>
+      <span class="tag tag-warn">慎防与小型木生毒菌混淆</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">多脂鳞伞 / 黄伞 / 黄柏蘑 / 柳蘑</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Sticky Scalycap（非广泛通用）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Strophariaceae 球盖菇科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">栽培状态</span>
+        <span class="taxon-value">中国东北地区常见人工栽培食药用菌</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志质感：菌盖油脂状黏滑</span>
+        <span class="fb-value">菌盖表面覆盖一层透明黏液，湿润时如涂油脂一般光亮，这正是种加词 <em>adiposa</em>（脂肪状的）的直接由来，也是本种最直观的触感识别特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">金黄鳞片点缀黏滑菌盖</span>
+        <span class="fb-value">浅黄色至黄褐色的黏滑菌盖上散布角状或绒毛状鳞片，干燥后转为金黄色，是本种在市场干货形态中辨识度极高的外观特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">丛生于柳树等阔叶树腐木</span>
+        <span class="fb-value">常以数株至数十株丛生方式固着于柳树等阔叶树的枯木、伐桩之上，是黄河三角洲及东北林区常见的木腐性食药用菌</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pholiota_adiposa1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 浅黄至黄褐色，黏滑光亮，具鳞片</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pholiota_adiposa2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 黄色至锈黄色菌褶 / 反卷鳞片菌柄</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pholiota_adiposa3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉白色至淡黄色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pholiota_adiposa4.png" alt="菌褶面图" loading="lazy">
+        <div class="photo-caption">褶面 · 密，不等长，通常延生，脆质</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pholiota_adiposa5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 锈褐色（属典型孢子印色）</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Pholiota_adiposa6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">细节 · 菌柄基部膨大，反卷鳞片带</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Pholiota_adiposa7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 柳树枯木、伐桩，成丛固着生长</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-willow"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体自木材裂口或伤口处丛生萌发，菌盖初呈半球形，表面已具黏液光泽，浅黄色；菌褶被内菌幕包裹，初期乳白色，尚不可见成熟色泽；
+          菌柄短粗，基部已可见反卷鳞片的雏形。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">生长期</div>
+        <div class="phase-desc">
+          菌盖逐渐展开为凸镜形至平展，黏液层更加明显，如涂油脂一般光亮，表面角状或绒毛状鳞片逐渐显现；菌柄伸长，基部膨大，
+          表面覆盖的反卷鳞片带随生长逐渐清晰；菌褶从菌幕中暴露，颜色由乳白色转为黄色。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展开，浅黄色至黄褐色，干后变为金黄色至黄褐色，表面黏液层持续存在；菌褶黄色至锈黄色，密集，不等长，通常延生，质地脆；
+          菌柄长4–10cm，基部膨大，表面覆盖反卷鳞片，部分随菌龄增长逐渐脱落；孢子成熟后呈金黄色，厚壁，光滑；数株至数十株丛生形成醒目的金黄色菌群。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-willow"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-gold">菌盖浅黄色至黄褐色，干后金黄色</span>
+          <span class="tag tag-amber">菌褶黄色至锈黄色</span>
+          <span class="tag tag-stone">菌肉白色至淡黄色</span>
+          <span class="tag tag-gold">孢子金黄色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">菌盖凸镜形至平展</span>
+          <span class="tag tag-amber">表面具角状/绒毛状鳞片</span>
+          <span class="tag tag-willow">菌柄基部膨大，反卷鳞片带</span>
+          <span class="tag tag-willow">数株至数十株丛生</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">无嗅无味或气味平淡</span>
+          <span class="tag tag-gold">干制后具浓郁菇香</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-gold">质地脆嫩，味道鲜美</span>
+          <span class="tag tag-stone">需彻底加热熟制后食用</span>
+          <span class="tag tag-willow">食用前需去除木质化菌柄基部</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-willow"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>新鲜时浅黄色至黄褐色，干后变为金黄色至黄褐色，表面覆盖一层透明黏液，如涂油脂状，散布角状或绒毛状鳞片</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色至淡黄色，无嗅无味</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>新鲜时黄色至锈黄色，密，不等长，通常延生，脆质</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>长4–10cm，基部膨大，表面覆盖反卷鳞片，部分标本鳞片随菌龄增长逐渐脱落；中生</td>
+          </tr>
+          <tr>
+            <td>菌丝特征</td>
+            <td>菌丝隔膜具<strong>锁状联合</strong>；菌肉菌丝无色或浅黄色，弯曲，部分膨胀，紧密交织；菌髓菌丝无色，薄壁至略厚壁</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>椭圆形或长椭圆形，金黄色，厚壁，平滑；子实层中具囊状体，薄壁至略厚壁</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-warn"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖表面覆盖<strong>透明黏液</strong>，湿润时如涂油脂一般光亮——这是种加词 <em>adiposa</em>（脂肪状的）及本种最核心的触感特征</li>
+        <li>菌盖散布<strong>角状或绒毛状鳞片</strong>，浅黄色至黄褐色底色，干燥后转为鲜明的金黄色</li>
+        <li>菌柄基部膨大，表面覆盖<strong>反卷鳞片带</strong>，部分随菌龄增长逐渐脱落</li>
+        <li>数株至数十株<strong>丛生</strong>固着于阔叶树（尤以柳树为主）枯木、伐桩之上，极少单生</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用提示：木生丛生毒菌需谨慎排查</div>
+      <ul class="caution-list">
+        <li>本种需彻底加热熟制后食用，食用前应去除菌柄基部木质化部分，鲜品建议先焯水再炖煮或爆炒</li>
+        <li>木材上丛生的小型褐孢伞菌类群中，存在剧毒的盔孢伞属（<em>Galerina</em>）物种（含鹅膏毒肽，可致死），二者孢子印颜色接近（均为锈褐色系），田间辨识需格外谨慎</li>
+        <li>本种菌盖具明显黏滑质感及鳞片，盔孢伞属菌盖通常光滑不黏、鳞片不明显，是相对可靠的野外区分线索之一，但仍建议非专业人士不要自行采集木生小型褐孢伞菌食用</li>
+        <li>同属近缘种簇生鳞伞（<em>Pholiota squarrosa</em>）在部分文献中被认为与酒精同食可能引发不良反应，食用鳞伞属真菌期间应避免饮酒</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与剧毒盔孢伞属（Galerina）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">盔孢伞属菌盖<strong>光滑不黏</strong>，通常不具明显鳞片，个体也普遍更为小巧纤细；多脂鳞伞菌盖<strong>黏滑如油脂</strong>且散布角状/绒毛状鳞片，菌柄基部具反卷鳞片带，整体形态更为粗壮显眼</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与簇生鳞伞（P. squarrosa）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">簇生鳞伞菌盖<strong>干燥不黏</strong>，鳞片直立翘起更为粗糙醒目；多脂鳞伞菌盖<strong>黏滑光亮</strong>，鳞片相对平伏，是两者最直观的触感和外观差异</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name">⚠⚠ 盔孢伞属物种 <em>Galerina marginata</em> 等（剧毒，可致死）</div>
+        <div class="confusion-diff">同样丛生或群生于木材上，含鹅膏毒肽（肝损害型剧毒成分），与部分小型鳞伞属物种外观有相似之处；菌盖光滑不黏、个体纤细是其区别于多脂鳞伞的重要线索，但风险仍高，不建议凭外观自行采食任何木生小型褐孢伞菌</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">簇生鳞伞 <em>Pholiota squarrosa</em>（同属近缘种，食用有争议）</div>
+        <div class="confusion-diff">菌盖不黏，具粗糙直立鳞片，部分文献记载与酒精同食可能引发不良反应，安全性评价不一，不建议贸然采食</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">金毛鳞伞 <em>Pholiota aurivella</em>（同属近缘种，食用价值存疑）</div>
+        <div class="confusion-diff">同样菌盖黏滑具鳞片，多生于活树或新伐木材上，形态与多脂鳞伞接近，两者田间区分需结合基质类型及鳞片形态细节</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">多脂粗峭伞 <em>Pholiota squarroso-adiposa</em>（2023年吉林新记录种）</div>
+        <div class="confusion-diff">是多脂鳞伞与簇生鳞伞特征兼具的新记录种，孢子尺寸5.5–7×3–4微米，囊状体纺锤形，进一步说明鳞伞属内部形态连续性强、鉴定需依赖显微特征</div>
+      </div>
+    </div>
+
+    <!-- 分类地位说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--gold-pale);border:1px solid rgba(154,111,8,0.32);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--gold-mid);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位与命名说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--gold-mid);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--gold-mid);margin-bottom:8px;">种加词释义</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">adiposa</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">拉丁语，意为"脂肪状的、油腻的"</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              精确描述了菌盖表面黏液层湿润时如涂油脂般的光泽质感，是本种最具辨识度的命名依据之一。
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--amber);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--amber);margin-bottom:8px;">属名释义</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Pholiota</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">希腊语 pholis（鳞片）</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              指该属物种菌盖及菌柄普遍具备的鳞片状装饰特征；中文"鳞伞属"直译该属名，"黄伞"这一商品名则突出了该属中以本种为代表的金黄色调。
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">栽培产业与研究现状</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--gold-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>东北栽培产业：</strong>多脂鳞伞（俗称"黄伞"）是中国东北地区常见的人工栽培食药用菌，采用木屑培养基进行袋料或脱袋覆土栽培，生物转化率可达130%以上，是利用农林废弃物的重要栽培菌种之一。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--gold-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>药理研究：</strong>子实体所含没食子酸甲酯（methyl gallate）等成分具有一定药理研究价值；多脂鳞伞多糖在实验室研究中显示出对葡萄球菌、大肠杆菌、肺炎杆菌、结核杆菌等病原体感染的预防作用，并对肉瘤、艾氏腹水癌等模型显示较强抑制作用。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--gold-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>全球分布：</strong>广泛分布于北美洲及欧亚大陆，多寄生或腐生于山毛榉、柳树等阔叶树，果期通常在8月至11月之间。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--warn-pale);border:1px solid rgba(163,64,28,0.3);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a2410;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>在阔叶树腐木上发现丛生的黄色黏滑蘑菇时，务必确认菌盖是否具备明显黏液层及鳞片，并留意个体大小——纤细、菌盖干燥不黏的木生丛生小菇应高度警惕剧毒盔孢伞属的可能性，不建议凭经验自行采食任何野生木生小型褐孢伞菌。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「盖涂油脂似打蜡，金黄鳞片戴斗笠」</div>
+        <div class="memory-pill">「柳树枯木丛簇生，反卷鳞带柄基萦」</div>
+        <div class="memory-pill">「黏滑有鳞方为伞，干燥纤细防盔孢」</div>
+        <div class="memory-pill">「食用需将根部去，饮酒同食要回避」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">数株至数十株丛生，固着于木质基物表面</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">木生（腐生兼寄生），主要生长于柳树、山毛榉等阔叶树的枯木、伐桩上</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国主要分布于黄河三角洲区域、黄河两岸柳树林区，以及云南丽江云杉林区（海拔2800–3200米）、吉林桦树林区；全球分布于北美洲及欧亚大陆</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">野生个体果期通常在8月至11月；人工栽培可通过控温控湿实现反季节供应</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：野外柳树等阔叶树腐木上发现丛生黄色黏滑蘑菇时，建议对比菌盖黏滑度、鳞片形态及个体大小，必要时通过孢子印颜色及专业鉴定确认，避免与剧毒盔孢伞属混淆。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">富含蛋白质、矿物质及纤维素，味道鲜美，质地脆嫩，晒干后呈金黄色并具浓郁菇香，是东北及黄河流域地区颇受欢迎的传统食用菌</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用价值</div>
+        <div class="value-body">是典型的食药兼用菌，所含多糖类成分在实验室研究中显示出抑菌（葡萄球菌、大肠杆菌等）及一定的抗肿瘤活性，没食子酸甲酯等成分具有药理研究价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">产业价值</div>
+        <div class="value-body">是利用农林废弃物（木屑培养基）进行人工栽培的重要菌种之一，栽培技术成熟，生物转化率高，对东北地区食用菌产业具有一定经济意义</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为木材腐生/寄生真菌，参与柳树等阔叶树枯木、伐桩的分解与养分循环，是相关林区生态系统物质循环的重要参与者</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://baike.baidu.com/item/%E5%A4%9A%E8%84%82%E9%B3%9E%E4%BC%9E/9817891" target="_blank">百度百科 · 多脂鳞伞</a> ·
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Pholiota_adiposa" target="_blank">Wikipedia · Pholiota adiposa</a> ·
+      <a class="ref-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12111476/" target="_blank">PMC · 多脂鳞伞栽培适应性研究</a>
+    </div>
+    <div>食药兼用菌 · 东北俗称"黄伞" · 慎防与盔孢伞属混淆</div>
+  </div>
+
+</div>
+</body>
+</html>
