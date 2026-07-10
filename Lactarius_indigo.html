@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靛蓝乳菇 · Lactarius indigo（可食用）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：温暖柔和基调，以靛蓝为点缀主色（物种本身标志色） */
+    --ink: #101720;
+    --ink-mid: #2e3d47;
+    --ink-light: #6c7e88;
+    --cream: #f0ede2;
+    --surface: #fbfaf6;
+    --surface-warm: #f4f1e6;
+
+    /* 靛蓝主色（菌体标志色） */
+    --indigo: #2d4a7a;
+    --indigo-light: #6d8db8;
+    --indigo-pale: #e0e7f0;
+    --indigo-mid: #1f3559;
+
+    /* 青绿辅色（乳汁氧化变绿色） */
+    --verdigris: #3e7a5e;
+    --verdigris-light: #7fb69a;
+    --verdigris-pale: #e2eee6;
+
+    /* 苔绿（生态标记，与青绿略区分，偏黄绿） */
+    --moss: #5c6c2e;
+    --moss-light: #9cae68;
+    --moss-pale: #edf0e0;
+
+    /* 暖沙（中性衬托色，避免整页过冷） */
+    --sand: #a5822e;
+    --sand-light: #d3ab5e;
+    --sand-pale: #f6ecd4;
+
+    /* 警示橙（易混淆/沾污提醒，非致命） */
+    --warn: #a5591a;
+    --warn-light: #d68b4d;
+    --warn-pale: #fbe9d6;
+
+    /* 灰蓝中性色 */
+    --stone: #52626c;
+    --stone-light: #8698a0;
+
+    --border: rgba(30,50,70,0.14);
+    --border-mid: rgba(30,50,70,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── 友好提示横幅 ── */
+  .notice-banner {
+    background: var(--indigo);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #7ea0c4;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(10,16,26,0.75));
+    padding: 24px 20px 16px;
+  }
+
+  .hero-overlay-text {
+    font-size: 12px;
+    color: rgba(220,230,245,0.9);
+    font-style: italic;
+  }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--indigo);
+    margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .hero-name-la {
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--sand);
+    margin-bottom: 4px;
+  }
+
+  .hero-author {
+    font-size: 12px;
+    color: var(--stone-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-indigo    { background: var(--indigo-pale);    color: var(--indigo-mid); }
+  .tag-verdigris { background: var(--verdigris-pale); color: var(--verdigris); }
+  .tag-moss      { background: var(--moss-pale);      color: var(--moss); }
+  .tag-sand      { background: var(--sand-pale);      color: var(--sand); }
+  .tag-warn      { background: var(--warn-pale);      color: var(--warn); }
+  .tag-stone     { background: #e6ecec;               color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-indigo    { background: var(--indigo); }
+  .dot-moss      { background: var(--moss); }
+  .dot-warn      { background: var(--warn); }
+  .dot-stone     { background: var(--stone-light); }
+  .dot-sand      { background: var(--sand); }
+  .dot-verdigris { background: var(--verdigris); }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .section-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--stone-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── PHOTO LAYOUT ── */
+  .photo-outer { display: grid; gap: 10px; }
+
+  .photo-grid-6 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .photo-slot {
+    aspect-ratio: 4/3;
+    background: #7ea0c4;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot-wide {
+    aspect-ratio: 16/7;
+    background: #7ea0c4;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot img, .photo-slot-wide img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(10,16,26,0.75);
+    color: #dce6f5;
+    font-size: 11px;
+    padding: 5px 8px;
+    text-align: center;
+  }
+
+  /* ── GROWTH PHASES ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .phase-label {
+    padding: 4px 0;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .phase-young  { background: var(--moss-pale);      color: var(--moss); }
+  .phase-mid    { background: var(--verdigris-pale); color: var(--verdigris); }
+  .phase-mature { background: var(--indigo-pale);    color: var(--indigo-mid); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .trait-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .trait-name {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  .parts-table td:first-child {
+    font-weight: 500;
+    color: var(--indigo-mid);
+    white-space: nowrap;
+    width: 110px;
+  }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── 特别注意栏 ── */
+  .caution-box {
+    background: var(--warn-pale);
+    border: 1px solid rgba(165,89,26,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .caution-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--warn);
+    margin-bottom: 10px;
+  }
+
+  .caution-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .caution-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #5a340e;
+    line-height: 1.6;
+  }
+
+  .caution-list li::before {
+    content: "!";
+    color: var(--warn);
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.6;
+    flex-shrink: 0;
+  }
+
+  /* ── DISTINCTION BOX ── */
+  .distinction-box {
+    background: var(--moss-pale);
+    border: 1px solid rgba(92,108,46,0.28);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .distinction-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--moss);
+    margin-bottom: 10px;
+  }
+
+  .distinction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .distinction-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #2c3416;
+    line-height: 1.6;
+  }
+
+  .distinction-list li::before {
+    content: "·";
+    color: var(--moss);
+    font-size: 16px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  /* ── CONFUSION TABLE ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .confusion-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--indigo-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+  }
+
+  .confusion-item.caution { border-left-color: var(--warn); }
+
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  /* ── MEMORY ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+
+  .memory-pill {
+    background: var(--indigo-pale);
+    border: 1px solid rgba(31,53,89,0.28);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--indigo-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── HABITAT ── */
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .habitat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .habitat-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 6px;
+  }
+
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  /* ── VALUE CARDS ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .value-card-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 8px;
+  }
+
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 特色速览栏 ── */
+  .feature-bar {
+    background: linear-gradient(135deg, #e0e7f0, #eef3ec);
+    border: 1px solid rgba(31,53,89,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--indigo-mid);
+    font-weight: 500;
+  }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--stone-light);
+  }
+
+  .ref-link { color: var(--indigo-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  ✓ 少见的天然蓝色食用菌 · 断面流出靛蓝色乳汁 · 墨西哥、危地马拉、中国均有出售
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+          <source srcset="https://eumensides.github.io/mashroom/Lactarius_indigo0.png" type="image/png">
+          <img src="https://eumensides.github.io/mashroom/Lactarius_indigo0.png" alt="靛蓝乳菇主图" loading="lazy">
+        </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Lactarius indigo · 子实体深蓝至淡蓝灰色，断面渗出靛蓝色乳汁，接触空气后渐变绿色</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 红菇目 · 红菇科 · 乳菇属</div>
+    <div class="hero-name-zh">靛蓝乳菇</div>
+    <div class="hero-name-la">Lactarius indigo</div>
+    <div class="hero-author">(Schwein.) Fr., 1838 · 又名蓝绿乳菇</div>
+
+    <div class="tag-row">
+      <span class="tag tag-indigo">✓ 可食用</span>
+      <span class="tag tag-indigo">通体靛蓝色</span>
+      <span class="tag tag-verdigris">乳汁接触空气变绿</span>
+      <span class="tag tag-moss">外生菌根共生</span>
+      <span class="tag tag-sand">Caerulei亚组模式种</span>
+      <span class="tag tag-stone">东亚 · 北美 · 中美洲广布</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文别名</span>
+        <span class="taxon-value">靛蓝乳菇 / 蓝绿乳菇</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分布</span>
+        <span class="taxon-value">北美洲东部、东亚（含中国南方）、中美洲</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">科 / 属</span>
+        <span class="taxon-value">Russulaceae 红菇科 / Lactarius 乳菇属</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">食用状态</span>
+        <span class="taxon-value">可食用 · 墨西哥/危地马拉/中国市场均有出售</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志特征：通体靛蓝色</span>
+        <span class="fb-value">子实体从菌盖、菌褶到菌柄整体呈深蓝色至淡蓝灰色，是自然界中极为罕见的天然蓝色大型真菌之一，种加词 <em>indigo</em> 即拉丁文"靛蓝色"之意</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">变绿乳汁反应</span>
+        <span class="fb-value">组织受损时流出<strong>靛蓝色乳汁</strong>，暴露在空气中会逐渐氧化变为绿色，这是乳菇属Caerulei亚组（蓝色乳汁类群）的共同标志性特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">跨大洲分布</span>
+        <span class="fb-value">广泛分布于北美洲东部、东亚（含中国南方）及中美洲，是外生菌根真菌，与多种落叶及针叶树种形成共生关系</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-indigo"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+      <!-- 6张小图 -->
+      <div class="photo-grid-6">
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Lactarius_indigo1.png" alt="上方菌盖图" loading="lazy">
+          <div class="photo-caption">上方菌盖图 · 深蓝色 / 湿时黏 / 具同心环纹</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Lactarius_indigo2.png" alt="45°仰拍图" loading="lazy">
+          <div class="photo-caption">45° 仰拍 · 靛蓝色菌褶 / 靛蓝至银蓝色菌柄</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Lactarius_indigo3.png" alt="剖面图" loading="lazy">
+          <div class="photo-caption">剖面 · 菌肉淡白转蓝色 / 渗出靛蓝乳汁</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Lactarius_indigo4.png" alt="菌褶面图" loading="lazy">
+          <div class="photo-caption">褶面 · 靛蓝色，连生或轻微延生，密集</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Lactarius_indigo5.png" alt="孢子印图" loading="lazy">
+          <div class="photo-caption">孢子印 · 淡黄色</div>
+        </div>
+
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Lactarius_indigo6.png" alt="特殊细节图" loading="lazy">
+          <div class="photo-caption">细节 · 断面乳汁氧化变绿过程特写</div>
+        </div>
+      </div>
+
+      <!-- 生境图（大图） -->
+      <div class="photo-slot-wide">
+        <img src="https://eumensides.github.io/mashroom/Lactarius_indigo7.png" alt="生境图" loading="lazy">
+        <div class="photo-caption">生境图 · 落叶林 / 针叶林地表落叶层</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-verdigris"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体幼小时菌盖凸起，深蓝色，质地黏滑，表面色泽最为浓郁鲜艳；菌褶尚未完全展开，同样呈靛蓝色；菌柄短粗，实心，表面触感与菌盖相似，黏滑。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐展平并中央下凹，色泽开始出现深浅变化，常显现同心环纹；菌柄伸长，质地渐变为干燥，柄部开始从实心转为空心；此期若损伤组织，可清晰观察到靛蓝色乳汁渗出并逐渐氧化变绿的过程。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展开呈漏斗状凹陷，直径5–15cm，色泽转为淡蓝灰色，常见褪色斑驳；菌褶靛蓝色渐变淡，受损处显绿染；菌柄2–8cm，靛蓝至银蓝或灰蓝色，空心；乳汁分泌量随年龄增长而减少，老熟个体质地趋于干燥。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-verdigris"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-indigo">菌盖深蓝→淡蓝灰色（老熟）</span>
+          <span class="tag tag-indigo">菌褶靛蓝色，渐变淡</span>
+          <span class="tag tag-indigo">菌柄靛蓝至银蓝/灰蓝色</span>
+          <span class="tag tag-verdigris">乳汁靛蓝色，接触空气变绿</span>
+          <span class="tag tag-sand">孢子印淡黄色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">菌盖凸起→中央下凹（径5–15cm）</span>
+          <span class="tag tag-indigo">常具同心环纹</span>
+          <span class="tag tag-verdigris">菌褶连生或轻微延生，密集</span>
+          <span class="tag tag-stone">菌柄圆柱形（高2–8cm，粗1–2.5cm）</span>
+          <span class="tag tag-stone">柄初实心，后渐空心</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">无明显特殊气味</span>
+          <span class="tag tag-stone">乳汁气味清淡</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-indigo">味道淡至微辛辣</span>
+          <span class="tag tag-verdigris">菌肉易脆</span>
+          <span class="tag tag-sand">中南美洲及中国民间常见食用菌</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-verdigris"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr>
+            <th>部位</th>
+            <th>形态描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖表皮</td>
+            <td>直径5–15cm，幼时凸起，成熟后中央下凹呈漏斗状；深蓝色，湿时黏，老熟后渐褪为淡蓝灰色，常具同心环纹，可能出现褪色斑驳</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>连生或轻微向下延生，紧密排列，靛蓝色，随生长渐变淡，受损处呈现绿色染斑</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>质地易脆，受损后渗出靛蓝色乳汁，乳汁量不及乳菇属其他物种，且随子实体老熟而减少</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>高2–8cm，粗1–2.5cm，圆柱形，基部有时较窄；靛蓝色至银蓝或灰蓝色；初期实心，后渐变空心；柄部弯曲时可发出清脆声响</td>
+          </tr>
+          <tr>
+            <td>乳汁</td>
+            <td>靛蓝色，暴露于空气中逐渐氧化变为绿色，味道清淡；这是Caerulei亚组（蓝色乳汁类群）的共同标志性特征</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>孢子印淡黄色；已知有较小的变型 <em>var. diminutivus</em>，菌盖仅3–7cm，暴露后菌肉数分钟内变绿，孢子印纯白色</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>子实体<strong>通体靛蓝至淡蓝灰色</strong>，是自然界极为罕见的天然蓝色大型真菌，几乎无法与其他颜色的蘑菇混淆</li>
+        <li>组织受损后流出<strong>靛蓝色乳汁</strong>——这是"乳菇属"（<em>Lactarius</em>）的通性特征（受损即流乳汁），而乳汁本身呈蓝色则是本种及少数近缘种独有</li>
+        <li>乳汁及受损组织<strong>接触空气后逐渐氧化变绿</strong>，是野外新鲜采集时可直接观察验证的动态特征</li>
+        <li>菌柄弯曲时质地易脆，可<strong>发出清脆声响</strong>，是乳菇属菌柄质地的典型表现</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 采集提示：蓝色不代表绝对安全，仍需准确辨识</div>
+      <ul class="caution-list">
+        <li>虽然本种因颜色极为特殊而不易与其他物种混淆，但仍存在少数幼期形态相近的乳菇属近似种（如 <em>L. chelidonium</em>、<em>L. paradoxus</em>），二者乳汁分别为黄色和棕色，需结合乳汁颜色仔细区分</li>
+        <li>乳菇属整体是一个庞大的属，其中不乏辛辣、刺激甚至有毒的物种，"蓝色乳汁"这一特征虽罕见但仍建议采集后仔细核对孢子印颜色、生境等综合信息</li>
+        <li>老熟个体褪色后可能不易一眼辨认为本种，建议观察受损处是否仍能渗出蓝色至绿色乳汁以辅助确认</li>
+        <li>不确定物种时应避免自行食用，交由熟悉本地菌类的人士协助辨识</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与幼期近似种的乳汁颜色区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)"><em>Lactarius chelidonium</em> 与 <em>Lactarius paradoxus</em> 仅在幼期、尚未发育出各自的褐色和黄色调之前与本种外观接近；但二者乳汁分别为<strong>黄色</strong>和<strong>棕色</strong>，而非本种特有的靛蓝色，乳汁颜色是最直接可靠的区分依据</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">变型 var. diminutivus 的区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">较小变型菌盖仅3–7cm（本种典型个体可达15cm），暴露后菌肉数分钟内即变绿（速度更快），且孢子印为<strong>纯白色</strong>而非本种典型的淡黄色，主要发现于美国德克萨斯州及弗吉尼亚州</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name"><em>Lactarius chelidonium</em></div>
+        <div class="confusion-diff">仅幼期外观与本种接近，成熟后逐渐显现褐色调；乳汁为黄色而非靛蓝色，是明确的区分特征</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name"><em>Lactarius paradoxus</em></div>
+        <div class="confusion-diff">仅幼期外观与本种接近，成熟后显现黄色调；乳汁为棕色而非靛蓝色</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">靛蓝乳菇小变型 <em>Lactarius indigo var. diminutivus</em></div>
+        <div class="confusion-diff">同种变型，菌盖更小（3–7cm），暴露后变绿更快，孢子印纯白色而非淡黄色，主要分布于美国德克萨斯、弗吉尼亚州</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">其他Caerulei亚组蓝色乳汁乳菇（因地区而异）</div>
+        <div class="confusion-diff">该亚组内还包含少数其他具蓝紫色乳汁的乳菇种类，形态与本种相近，具体物种因分布地区而异，需结合当地菌物志核实</div>
+      </div>
+    </div>
+
+    <!-- ── 命名与俗名说明板块 ── -->
+    <div style="margin-top:1.4rem;background:var(--indigo-pale);border:1px solid rgba(31,53,89,0.32);border-radius:14px;overflow:hidden;">
+
+      <div style="background:var(--indigo-mid);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">中文名说明：靛蓝乳菇 与「蓝绿乳菇」</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Naming Note</span>
+      </div>
+
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称来源与关系</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--indigo-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                种加词 <em>indigo</em> 直接源自拉丁文"靛蓝色"，中文正式名"靛蓝乳菇"即由此直译；因其菌体整体色调从深蓝到淡蓝绿均有分布，也常被称为"蓝绿乳菇"，两个中文名在中文资料中通用，指向同一物种。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--indigo-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>中美洲俗名：</strong>在墨西哥中部被称为añil、azul、hongo azul、zuin、zuine（均与"蓝色"相关），在韦拉克鲁斯州及普埃布拉州则称为quexque（意为"蓝色"）；在当地原住民社区及乡村地区有着悠久的食用传统。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--indigo-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>分类地位：</strong>隶属红菇科（<em>Russulaceae</em>）乳菇属（<em>Lactarius</em>），Hesler与Smith确认本种为Caerulei亚组（以蓝色乳汁及黏性蓝色菌盖为特征的类群）的<strong>模式种</strong>；1979年二人基于乳汁颜色及其氧化变化特征，重新将其归入乳菇亚属。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 命名简史 -->
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">命名简史</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--indigo-mid);text-align:right;padding-right:12px;border-right:2px solid rgba(31,53,89,0.25);">1822</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">美国真菌学家Lewis David de Schweinitz首次以 <em>Agaricus indigo</em> 之名描述本种，归入蘑菇属</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--indigo-mid);text-align:right;padding-right:12px;border-right:2px solid rgba(31,53,89,0.25);">1838</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">瑞典真菌学家埃利亚斯·马格努斯·弗里斯（Elias Magnus Fries）将其重置到乳菇属，成为现今学名 <em>Lactarius indigo</em> 的基础</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;">
+              <div style="font-size:12px;font-weight:700;color:var(--indigo-mid);text-align:right;padding-right:12px;border-right:2px solid rgba(31,53,89,0.25);">1979</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">Hesler与Smith修订乳菇属分类系统，依据乳汁颜色及氧化变化特征，将本种确立为Caerulei亚组模式种</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 实践提示 -->
+        <div style="background:var(--warn-pale);border:1px solid rgba(165,89,26,0.3);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a340e;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>发现疑似本种时，可用刀尖轻划菌肉观察是否渗出靛蓝色乳汁并逐渐氧化变绿，这是最直接的野外验证方法；若乳汁颜色为黄色、棕色或白色，则应考虑其他乳菇属物种，不宜直接按本种处理食用。
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「通体靛蓝世间稀，刀划乳汁蓝变绿」</div>
+        <div class="memory-pill">「柄折声脆肉易碎，孢子印黄非纯白」</div>
+        <div class="memory-pill">「墨西哥人唤作azul，中华南地亦入馔」</div>
+        <div class="memory-pill">「乳色黄棕非本尊，蓝汁方是真身证」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或小群生长，主要出现在森林地表落叶层或富含有机质的疏松土壤中</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">外生菌根真菌，与落叶林及针叶林中多种树木形成广泛的共生关系，是研究真菌色素化合物及菌根生态学的重要模式物种</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广泛分布于北美洲东部、东亚（含中国南方及印度部分地区）及中美洲，也曾在法国南部有报道记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 市场</div>
+        <div class="habitat-value">雨季为主要出菇期；在墨西哥、危地马拉及中国的地方市场均有销售，是当地原住民社区及乡村地区传统食材之一</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      观察建议：本种颜色极具辨识度，是野外观察及自然教育中广受欢迎的"打卡"物种；采集食用前仍建议核实乳汁颜色变化及新鲜程度，老熟个体风味及品质均有所下降。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-indigo"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">可食用，在墨西哥、危地马拉及中国的地方市场均有出售，是中美洲原住民社区及中国南方部分地区传统食材，味道淡至微辛辣，菌肉易脆</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用 / 研究价值</div>
+        <div class="value-body">有研究报道其子实体提取物具有抗菌及细胞毒性活性，是研究真菌色素化合物合成机制的重要模式物种之一，相关活性成分的应用前景仍在探索中</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为外生菌根真菌，参与其分布区落叶林及针叶林生态系统的养分循环，是研究森林生物多样性及菌根生态学的重要对象</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研与观赏价值</div>
+        <div class="value-body">作为Caerulei亚组模式种，对乳菇属分类系统研究具有基础性参考价值；因其罕见的天然蓝色，也是自然科普及野外观察教育中极具吸引力的代表物种</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Lactarius_indigo" target="_blank">Wikipedia · Lactarius indigo</a> ·
+      <a class="ref-link" href="https://www.mushroomexpert.com/lactarius_indigo.html" target="_blank">MushroomExpert.Com</a> ·
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-hans/%E8%97%8D%E7%B6%A0%E4%B9%B3%E8%8F%87" target="_blank">中文维基百科 · 蓝绿乳菇</a>
+    </div>
+    <div>研究现状：分类明确 · 食用记录充分 · 跨大洲广布</div>
+  </div>
+
+</div>
+</body>
+</html>
