@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>粉紫蜡蘑 · Laccaria ochropurpurea</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：柔和薰衣草紫 + 米白调 */
+    --ink: #1c1a1e;
+    --ink-mid: #47424a;
+    --ink-light: #8a8290;
+    --cream: #f5f1ee;
+    --surface: #ffffff;
+    --surface-warm: #faf7f3;
+
+    /* 紫色主色（菌褶特征色） */
+    --violet: #6a4880;
+    --violet-light: #a888c0;
+    --violet-pale: #f0e6f5;
+    --violet-mid: #4e3260;
+
+    /* 米白/浅褐（菌盖褪色后色） */
+    --buff: #a89478;
+    --buff-light: #d9c8a8;
+    --buff-pale: #f7f0e2;
+
+    /* 苔绿（菌根共生标记） */
+    --moss: #587040;
+    --moss-light: #98b078;
+    --moss-pale: #eef2e6;
+
+    /* 警戒锈红（易混淆有毒丝膜菌属警示） */
+    --warn: #963a28;
+    --warn-light: #cf7a5c;
+    --warn-pale: #fae4dc;
+
+    --stone: #605a56;
+    --stone-light: #948c84;
+
+    --border: rgba(90,70,100,0.13);
+    --border-mid: rgba(90,70,100,0.23);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--violet);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #d4c4d8; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(24,18,26,0.72)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(238,225,240,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--violet); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--buff); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-violet { background: var(--violet-pale); color: var(--violet-mid); }
+  .tag-buff   { background: var(--buff-pale);   color: #6a5a3c; }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-stone  { background: #ece6e0;            color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-violet { background: var(--violet); }
+  .dot-moss   { background: var(--moss); }
+  .dot-warn   { background: var(--warn); }
+  .dot-stone  { background: var(--stone-light); }
+  .dot-buff   { background: var(--buff); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #d4c4d8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #d4c4d8; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(24,18,26,0.72); color: #f0e6f0; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--violet-pale); color: var(--violet-mid); }
+  .phase-mid    { background: var(--moss-pale);   color: var(--moss); }
+  .phase-mature { background: var(--buff-pale);   color: #6a5a3c; }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--violet-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(150,58,40,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a1e10; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--violet-pale); border: 1px solid rgba(106,72,128,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--violet); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #34203c; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--violet); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--violet-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--warn); background: var(--warn-pale); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--violet-pale); border: 1px solid rgba(106,72,128,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--violet-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #f0e6f5, #faf7f3);
+    border: 1px solid rgba(106,72,128,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--violet); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--violet-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  💜 可食用蜡蘑属真菌 · 菌盖迅速褪色而菌褶紫色不褪 · 别称"紫白骗子菌"（Purple-and-White Deceiver）
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://eumensides.github.io/mashroom/Laccaria_ochropurpurea0.png" type="image/png">
+      <img src="https://eumensides.github.io/mashroom/Laccaria_ochropurpurea0.png" alt="粉紫蜡蘑主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Laccaria ochropurpurea · 菌盖淡紫褐至近白色，菌褶始终鲜明紫色，菌柄粗壮具纵向纤毛</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 伞菌目 · 轴腹菌科（旧归口蘑科）· 蜡蘑属</div>
+    <div class="hero-name-zh">粉紫蜡蘑</div>
+    <div class="hero-name-la">Laccaria ochropurpurea</div>
+    <div class="hero-author">(Berk.) Peck, 1895 · 基异名 <em>Agaricus ochropurpureus</em> Berk.</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">可食用（非上品）</span>
+      <span class="tag tag-violet">菌褶紫色恒定不褪</span>
+      <span class="tag tag-buff">菌盖迅速褪色</span>
+      <span class="tag tag-stone">柄粗壮纤维状</span>
+      <span class="tag tag-moss">外生菌根共生</span>
+      <span class="tag tag-stone">蜡蘑属体型最大种之一</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">粉紫蜡蘑</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Purple-and-White Deceiver / Purple-gilled Laccaria</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 Agaricales / 轴腹菌科 Hydnangiaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">中国分布</span>
+        <span class="taxon-value">西藏、云南、四川、甘肃</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志结构：紫褶恒定 · 盖色骗子</span>
+        <span class="fb-value">菌盖颜色随日晒和干燥迅速褪色至近乳白色，但菌褶始终保持鲜明紫色，形成"苍白盖 + 艳紫褶"的强烈反差，正是英文俗名"骗子菌"（deceiver）的由来</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">属名与种名由来</span>
+        <span class="fb-value">属名 <em>Laccaria</em> 源自拉丁语 <em>lacca</em>（树脂/漆），指菌褶潮湿时的蜡质光泽；种加词 <em>ochropurpurea</em> 由希腊语 <em>ochros</em>（浅黄/米色）与拉丁语 <em>purpurea</em>（紫色）复合而成，直译即"米黄盖紫褶"</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">KOH化学反应鉴别法</span>
+        <span class="fb-value">菌盖或菌柄滴加氢氧化钾（KOH）试剂后短暂变为橙色，可与外观近似的紫晶蜡蘑（遇KOH变棕色）等近缘种区分，是专业鉴定的辅助化学测试手段</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-violet"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Laccaria_ochropurpurea1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 淡紫褐至近白色 / 中央凹陷 / 表面细绒毛</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Laccaria_ochropurpurea2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · ★鲜明紫色宽褶 / 粗壮纤维状菌柄</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Laccaria_ochropurpurea3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉结实偏韧 / 菌柄纤维质地</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Laccaria_ochropurpurea4.png" alt="菌褶面图" loading="lazy">
+        <div class="photo-caption">褶面 · 紫色，宽厚，间距大，直生至近延生</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Laccaria_ochropurpurea5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 白色（球形孢子，表面具刺状纹饰）</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Laccaria_ochropurpurea6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">特殊细节 · 菌柄表面粗毛/鳞片状结构，基部膨大</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Laccaria_ochropurpurea7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 栎树、山毛榉等阔叶林及针叶混交林地表散生至群生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-buff"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          菌盖宽凸形，边缘明显内卷，颜色为鲜艳的淡紫色至浅紫褐色，表面覆细密绒毛，质地紧实；
+          菌褶已初显鲜明紫色，厚而稀疏，与菌柄直生相连；菌柄短粗，同菌盖色，表面已见纵向纤毛。此期是拍摄记录盖色的最佳窗口，此后盖色会迅速褪淡。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐展平，中央开始出现浅凹陷，颜色因日晒及干燥<strong>迅速褪色</strong>，由紫褐色转为浅褐色乃至灰白色，边缘不再明显内卷；
+          菌褶依旧保持鲜明紫色（或因白色孢子附着略显粉紫），间距进一步加宽，部分出现短褶插生其间；菌柄持续伸长，最长可达19cm，基部逐渐膨大。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展平，中央凹陷明显，边缘常不规则波状开裂，颜色已<strong>褪至近白色或浅灰白色</strong>，仅隐约可见原有紫褐色调；
+          菌褶<strong>仍保持鲜明紫色</strong>（本种最稳定、最具辨识度的特征），宽厚，间距大，直生或稍延生；菌柄粗壮坚韧，表面粗毛或鳞片状结构明显，基部膨大、肉厚；
+          孢子印白色，菌体气味温和不明显。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-buff"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-violet">菌盖幼时紫褐色→迅速褪为浅褐/近白色</span>
+          <span class="tag tag-violet">★菌褶恒定鲜明紫色（不随盖色褪去）</span>
+          <span class="tag tag-buff">菌柄同菌盖色，基部略深或苍白</span>
+          <span class="tag tag-buff">孢子印白色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">宽凸→平展，中央凹陷（径3.5–13cm）</span>
+          <span class="tag tag-stone">幼时边缘明显内卷</span>
+          <span class="tag tag-violet">菌褶宽厚、间距大，直生至近延生</span>
+          <span class="tag tag-buff">菌柄粗壮，长3–19cm，表面粗毛/鳞片状</span>
+          <span class="tag tag-buff">柄基膨大、肉厚</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">气味温和，不明显</span>
+          <span class="tag tag-stone">无特殊香气或异味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">菌盖肉质紧实，口感尚可</span>
+          <span class="tag tag-warn">⚠ 菌柄纤维坚韧难嚼，通常弃用</span>
+          <span class="tag tag-stone">滋味平淡，多混合其他食材调味</span>
+          <span class="tag tag-stone">烹煮后紫色褪去，仅存形色记忆</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-violet"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>近光滑或细毛状鳞片，幼时紫色或淡紫褐色，随生长及日晒迅速褪色至浅褐色乃至近白色/灰白色；宽凸形至平展，中央常凹陷，边缘幼时内卷，成熟后常不规则波状</td></tr>
+          <tr><td>菌褶</td><td>直生（宽附着）或稍延生，宽厚，间距大而稀疏，质地略带蜡质；<strong>颜色鲜明紫色，成熟后仅因白色孢子附着而略显浅淡，但底色始终保持紫色</strong>，是全属最具辨识度特征之一</td></tr>
+          <tr><td>菌肉</td><td>结实，新鲜时可带水感；气味温和，无明显特殊风味</td></tr>
+          <tr><td>菌柄</td><td>长3–19cm，宽0.2–2.5cm，粗细均匀，颜色与菌盖一致；表面覆粗毛或鳞片状结构，质地坚韧纤维状；基部膨大、肉厚，色如菌盖或偏苍白</td></tr>
+          <tr><td>孢子</td><td>球形，无色，表面具刺状纹饰（非光滑）；孢子印白色</td></tr>
+          <tr><td>化学反应</td><td>菌盖或菌柄组织滴加KOH（氢氧化钾）试剂后短暂呈橙色反应，可用于与近缘种紫晶蜡蘑（KOH呈棕色反应）区分</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-violet"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖颜色<strong>迅速褪色</strong>——新鲜幼菇紫褐色，成熟或经日晒后迅速转为浅褐至近白色</li>
+        <li>菌褶<strong>宽厚、间距大，且紫色恒定不随盖色褪去</strong>——即使菌盖已褪成灰白色，菌褶仍保持醒目紫色，是全属乃至野外识别本种最可靠的单一特征</li>
+        <li>菌柄<strong>粗壮坚韧、表面具粗毛/鳞片状纹理</strong>，相对于菌盖尺寸显得格外粗大，常超出预期</li>
+        <li>孢子印<strong>白色</strong>（非锈褐色）——是与外形近似的剧毒丝膜菌属物种最关键的安全区分依据</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">🍽 食用提示：可食用，但风味平淡且需谨慎排除混淆种</div>
+      <ul class="caution-list">
+        <li>本种可食用，但并非"上品"美味菇类：菌肉肉质但风味寡淡，菌柄纤维坚韧难嚼，通常仅取菌盖食用，出成率较低</li>
+        <li>部分个体可能受虫蛀，采集后应仔细检查并及时处理</li>
+        <li><strong>务必制作孢子印确认为白色</strong>，且菌柄不具蛛网状菌幕残留（cortina），以排除外观相近的剧毒丝膜菌属（<em>Cortinarius</em>）物种——后者孢子印为锈褐色，是本种最危险的潜在混淆对象</li>
+        <li>烹调后紫色会完全褪去，风味平淡，建议与其他风味浓郁的菌类或食材搭配炖煮</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与紫晶蜡蘑区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">紫晶蜡蘑（<em>L. amethystina</em>）<strong>菌盖也为紫色</strong>且个体更小，KOH试剂呈<strong>棕色</strong>反应；本种<strong>仅菌褶为紫色、菌盖迅速褪色</strong>，且个体更大，KOH呈<strong>橙色</strong>反应</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与剧毒丝膜菌属区别（关键安全点）</div>
+        <div style="font-size:13px;color:var(--ink-mid)">部分丝膜菌属（如 <em>Cortinarius torvus</em>、<em>C. lucorum</em>）体型及色调可与本种相似，但具<strong>蛛网状菌幕（cortina）</strong>及<strong>锈褐色孢子印</strong>；本种<strong>无蛛网状菌幕</strong>，孢子印<strong>白色</strong>，务必制孢子印核实</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">紫晶蜡蘑 <em>Laccaria amethystina</em>（可食）</div>
+        <div class="confusion-diff">同属近缘种，区别：整株（含菌盖）均为深紫色，个体明显较小，不像本种菌盖会大幅褪色；KOH试剂呈棕色反应而非橙色</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">红蜡蘑 <em>Laccaria laccata</em>（可食）</div>
+        <div class="confusion-diff">同属常见种，颜色为粉红至橙红色而非紫色调，个体也普遍更小巧，是蜡蘑属中最广布常见的物种之一</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">沙生蜡蘑 <em>Laccaria trullisata</em>（可食）</div>
+        <div class="confusion-diff">外观与本种相似，区别主要在生境：本种见于典型林地土壤，沙生蜡蘑则专性生长于沙质地表（如海岸沙丘）</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 丝膜菌属近似种 <em>Cortinarius torvus</em> / <em>C. lucorum</em></div>
+        <div class="confusion-diff">部分种类含肾毒性鹅膏毒素类似物（奥来毒素等），中毒潜伏期可长达数天至数周，后果严重。区别：具<strong>蛛网状菌幕（cortina）</strong>包裹幼期菌褶，孢子印<strong>锈褐色</strong>（本种白色）；采集时务必制孢子印核实，不可仅凭盖色及大致形态判断</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「盖色骗人会褪淡，紫褶不改是真身」</div>
+        <div class="memory-pill">「柄粗盖小不寻常，粗毛鳞片记心上」</div>
+        <div class="memory-pill">「白色孢子印为安，锈褐孢子命堪忧」</div>
+        <div class="memory-pill">「KOH一试见分晓，橙色蜡蘑棕色晶」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">多单生，亦可散生或小规模群生；作为体型较大的蜡蘑属物种，个体常较为醒目、不易被忽视</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 共生关系</div>
+        <div class="habitat-value">外生菌根真菌，与阔叶树（尤喜栎属、山毛榉）及部分针叶树形成共生关系；北美记录中常见于草地边缘及混交林中富含腐殖质的地表</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国：西藏、云南、四川、甘肃等西南及高原林区；北美洲：落基山脉以东的阔叶林及针叶混交林广泛分布</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">夏秋季（北美记录集中于7–10月）生于针、阔叶林地上；中国分布区多见于高海拔温带林区</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：优选幼嫩、菌盖紫色尚未完全褪去的个体，便于现场核对特征；务必制作孢子印确认白色，并检查是否具蛛网状菌幕以排除丝膜菌属；老熟或虫蛀个体不建议采集食用。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">可食用，肉质紧实但风味平淡，菌柄纤维坚韧通常弃用，出成率有限；北美地区采集爱好者多将其菌盖与其他风味浓郁的野生菌类混合炖煮或煎炒，作为搭配性食材而非主打风味来源</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态与科研价值</div>
+        <div class="value-body">作为外生菌根真菌，与森林树木形成互利共生关系，参与土壤养分与水分交换；蜡蘑属（<em>Laccaria</em>）中部分物种（如双色蜡蘑）已被用作外生菌根研究的模式生物，本种作为属内体型最大的代表种之一，对理解该属生态适应及形态多样性具有参考价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">野外教育价值</div>
+        <div class="value-body">因其"盖色骗人、褶色不改"的鲜明反差特征，是野外真菌辨识教学中极具代表性的入门案例，常被用于讲解颜色可变性状与稳定性状在物种鉴定中的不同权重</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">分布记录价值</div>
+        <div class="value-body">中国仅记录于西藏、云南、四川、甘肃等西部高原及山地林区，是研究蜡蘑属在青藏高原东缘及横断山区分布格局的参考物种之一</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://baike.baidu.com/item/%E7%B2%89%E7%B4%AB%E8%9C%A1%E8%98%91/19416807" target="_blank">百度百科 · 粉紫蜡蘑</a> ·
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Laccaria_ochropurpurea" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://zh.wikipedia.org/wiki/%E8%A0%9F%E8%98%91%E5%B1%AC" target="_blank">维基百科 · 蜡蘑属</a> ·
+      <a class="ref-link" href="https://www.canr.msu.edu/news/laccaria-ochropurpurea-berkeley-peck" target="_blank">Michigan State University · Bonito Lab</a>
+    </div>
+    <div>可食用 · 菌褶紫色恒定为核心鉴别特征 · 注意与丝膜菌属区分</div>
+  </div>
+
+</div>
+</body>
+</html>
