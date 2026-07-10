@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光亮灵芝 · Ganoderma nitidum</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 木质药用/生态记录种：漆样红棕暖调 */
+    --ink: #1e1208;
+    --ink-mid: #47301c;
+    --ink-light: #8a7058;
+
+    --cream: #f8f1e6;
+    --surface: #ffffff;
+    --surface-warm: #fdf7ee;
+
+    /* 漆样红棕主色（外壳光泽） */
+    --honey: #8a3418;
+    --honey-light: #c06a3e;
+    --honey-pale: #f5ddce;
+    --honey-mid: #63220e;
+
+    /* 木材琥珀色（菌肉/管孔） */
+    --amber: #a06a2a;
+    --amber-light: #d19c54;
+    --amber-pale: #f4e6cc;
+
+    /* 苔绿（非毒/生态标记） */
+    --moss: #4d6c34;
+    --moss-light: #8fae6e;
+    --moss-pale: #eef3e4;
+
+    /* 警示橙（使用与鉴定提示，非毒性警示） */
+    --warn: #a3521a;
+    --warn-light: #d9873f;
+    --warn-pale: #faead6;
+
+    --stone: #6c5a44;
+    --stone-light: #a4907a;
+
+    --border: rgba(140,70,30,0.14);
+    --border-mid: rgba(140,70,30,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--honey-mid);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #d9c4a8; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(20,10,4,0.72)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,208,180,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--honey); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--amber); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-honey  { background: var(--honey-pale);  color: var(--honey-mid); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-amber  { background: var(--amber-pale);  color: var(--amber); }
+  .tag-stone  { background: #f0e6d8;            color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-honey { background: var(--honey); }
+  .dot-moss  { background: var(--moss); }
+  .dot-warn  { background: var(--warn); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-amber { background: var(--amber); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #d8c2a0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #d8c2a0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20,10,4,0.72); color: #f2ddc4; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--amber-pale);  color: var(--amber); }
+  .phase-mature { background: var(--honey-pale);  color: var(--honey-mid); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--honey-mid); white-space: nowrap; width: 130px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(163,82,26,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a2c10; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(77,108,52,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2a3a20; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--honey-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: #e07050; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--honey-pale); border: 1px solid rgba(138,52,24,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--honey-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar { background: linear-gradient(135deg, #ecd2b4, #faf1e4); border: 1px solid rgba(138,52,24,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--honey); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--honey-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🪵 木质多孔菌 · 不作鲜食 · 野外记录稀少，鉴定高度依赖显微与分子证据
+</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum0.png" alt="光亮灵芝主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Ganoderma nitidum · 扇形木质子实体，表面具红棕色漆样光泽外壳</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 灵芝科（漆样灵芝类群）</div>
+    <div class="hero-name-zh">光亮灵芝</div>
+    <div class="hero-name-la">Ganoderma nitidum</div>
+    <div class="hero-author">Murrill, 1908 · North American Flora 9(2): 123</div>
+
+    <div class="tag-row">
+      <span class="tag tag-warn">不作鲜食（木质坚硬）</span>
+      <span class="tag tag-honey">漆样光泽外壳</span>
+      <span class="tag tag-amber">木腐菌（白色腐朽）</span>
+      <span class="tag tag-stone">记录稀少种</span>
+      <span class="tag tag-stone">灵芝属</span>
+      <span class="tag tag-warn">⚠ 鉴定依赖显微特征</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文名</span>
+        <span class="taxon-value">光亮灵芝</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">（无广泛通用英文俗名，species epithet意为"光亮的"）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">多孔菌目 Polyporales / 灵芝科 Ganodermataceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">未系统评估 · 全球野外记录稀少</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="rh-item">
+        <span class="rh-label">标志结构：漆样光泽外壳</span>
+        <span class="rh-value">菌盖表面覆盖一层树脂质硬化外壳，具典型的"漆样"光泽——这是灵芝属（<em>Ganoderma</em>）区别于其他多孔菌的标志性特征，种加词"nitidum"（拉丁语"光亮的"）正由此得名</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">显微关键：孢子柱状突起</span>
+        <span class="rh-value">孢子外壁具彼此分离的"柱状突起"（free pillars），是区分本种与近缘种奥氏灵芝（<em>G. oerstedii</em>，柱状突起部分融合）的核心显微证据</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">研究现状：数据稀少</span>
+        <span class="rh-value">本种自1908年发表后野外记录极少，且曾有分布记录经复核确认为近缘种误定，物种资料仍有待系统补充</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 红棕至栗褐色漆样光泽</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 管孔面与短侧生柄（若具）</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉浅材色至锈褐色，木栓质</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum4.png" alt="管孔面特写图" loading="lazy">
+        </picture>
+        <div class="photo-caption">管孔面特写 · 白色，触碰后转褐色</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 深褐色（灵芝属共性）</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 边缘乳白色生长带</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide" style="margin-top:10px;">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Ganoderma_nitidum7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 阔叶树死木 / 树桩着生景观</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签（基于灵芝属漆样类群共性特征归纳）</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          子实体初生呈白色至奶油色隆起，质地柔软，边缘生长带明显，尚未形成漆样光泽；此阶段与多数灵芝属物种的初生形态相近，难以凭肉眼确定种类。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐扩展呈扇形至肾形，表面开始出现红棕色漆样光泽外壳，边缘仍保留一圈乳白色生长带；质地由软趋硬，管孔面开始分化。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全木质化，全面覆盖红棕至栗褐色光亮外壳，边缘生长带消失并与菌盖同色；管孔面初为白色，随孢子成熟及触碰逐渐转变为褐色；子实体一年生，质地坚硬如木。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 质地</span>
+      <span class="section-badge">非食用种，此处以鉴别为目的</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-honey">菌盖红棕至栗褐色（漆样光泽）</span>
+          <span class="tag tag-stone">边缘生长带乳白色（幼期）</span>
+          <span class="tag tag-amber">管孔面白色→触后转褐色</span>
+          <span class="tag tag-stone">菌肉浅材色至锈褐色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">扇形至肾形，无柄或具短侧生柄</span>
+          <span class="tag tag-honey">木栓质至木质，坚硬</span>
+          <span class="tag tag-stone">表面平滑具光泽，或具环纹</span>
+          <span class="tag tag-stone">一年生（annual）</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-amber">新鲜时具淡菌香</span>
+          <span class="tag tag-stone">干燥后气味转淡</span>
+          <span class="tag tag-stone">无刺激性气味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">质地（非食用属性）</div>
+        <div class="trait-tags">
+          <span class="tag tag-warn">木栓质至坚硬木质，不可咀嚼食用</span>
+          <span class="tag tag-stone">老熟后极坚硬如木</span>
+          <span class="tag tag-stone">传统利用方式为煎煮/泡茶/研粉</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖</td><td>扇形至肾形，木栓质至木质，表面具漆样光泽外壳，红棕至栗褐色，边缘薄，幼期乳白色</td></tr>
+          <tr><td>皮壳（外壳）</td><td>树脂质漆样光泽层，是灵芝属标志性结构，由菌丝分泌树脂物质硬化形成，赋予菌盖表面镜面般光泽</td></tr>
+          <tr><td>菌肉</td><td>浅材色至锈褐色，木栓质，接近菌管处颜色渐深，常具环纹</td></tr>
+          <tr><td>管孔面</td><td>初期白色，触摸或损伤后变褐色（灵芝属共性反应）；孔口圆形，密集排列</td></tr>
+          <tr><td>菌柄</td><td>无或极短，若存在则多为侧生，与菌盖同色，表面同样具漆样光泽，质地坚硬</td></tr>
+          <tr><td>孢子</td><td>卵形，双层壁，顶端截平，外壁具小疣；<strong>表面柱状突起彼此分离（free pillars）</strong>——关键显微鉴别特征</td></tr>
+          <tr><td>孢子印</td><td>深褐色（灵芝属共性特征）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖具典型"漆样光泽"外壳，红棕至栗褐色，这是灵芝属（<em>Ganoderma</em>）区别于其他多孔菌的标志性特征</li>
+        <li>孢子外壁<strong>柱状突起彼此分离（不融合）</strong>——这是显微镜下区分光亮灵芝与近缘种奥氏灵芝的关键微观证据</li>
+        <li>生长于阔叶树死木、树桩，导致木材白色腐朽</li>
+        <li>该种野外记录稀少，鉴定高度依赖显微观察，肉眼特征与多个近缘漆样灵芝高度相似，极易混淆</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 物种鉴定与使用须知</div>
+      <ul class="caution-list">
+        <li>光亮灵芝<strong>并非</strong>传统药用灵芝（灵芝/赤芝 <em>G. lucidum</em>）的正名或代称，切勿将两者混为一谈，其化学成分与药理活性尚缺乏系统研究</li>
+        <li>该种与多个近缘漆样灵芝（<em>G. oerstedii</em>、<em>G. curtisii</em>、<em>G. sessile</em> 等）外观极为相似，仅凭肉眼特征难以准确区分，可靠鉴定需借助孢子显微特征乃至分子测序</li>
+        <li>灵芝类均为木质坚硬的多孔菌，不可鲜食，传统利用方式为干燥后煎煮、泡茶或研磨成粉</li>
+        <li>未经专业鉴定的野生灵芝类不建议自行采集入药，以免误认药理不明或效用存疑的近似种</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与近缘种奥氏灵芝 <em>G. oerstedii</em> 区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">孢子外壁柱状突起——光亮灵芝彼此<strong>分离</strong>（free），奥氏灵芝<strong>部分融合</strong>（partially anastomosed）；历史上曾有墨西哥韦拉克鲁斯的"光亮灵芝"分布记录，经孢子复核确认实为奥氏灵芝的误定</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与药用灵芝（赤芝）<em>G. lucidum</em> 区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">赤芝菌盖肾形，具明显环状棱纹与辐射皱纹，多具细长紫褐色菌柄，是传统药用与人工栽培的主流种；光亮灵芝分类地位独立，<strong>非药典法定基原物种</strong></div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">奥氏灵芝 <em>Ganoderma oerstedii</em></div>
+        <div class="confusion-diff">外观极相似，主要依靠孢子柱状突起融合与否区分；分布记录中曾因显微鉴定不足而与本种混淆</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">库氏灵芝 <em>Ganoderma curtisii</em></div>
+        <div class="confusion-diff">北美常见漆样灵芝，具偏心或侧生长柄，孢子疣状纹饰与尺寸略有不同，需借助显微特征区分</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">无柄灵芝 <em>Ganoderma sessile</em></div>
+        <div class="confusion-diff">常见于北美东部阔叶树，菌盖大型、无柄或近无柄，孢子8–12×6.5–8μm，尺寸略大于光亮灵芝</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">灵芝（赤芝）<em>Ganoderma lucidum</em></div>
+        <div class="confusion-diff">传统药用与栽培主流种，菌盖具典型环状棱纹，菌柄细长紫褐色；是《中国药典》法定基原种之一，与光亮灵芝分类地位不同，不可替代使用</div>
+      </div>
+    </div>
+
+    <!-- 分类地位说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--honey-pale);border:1px solid rgba(138,52,24,0.30);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--honey-mid);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">研究现状说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">"漆样灵芝类群"的分类学挑战</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--honey-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>属名含义：</strong>"Ganoderma"源自希腊语"gano"（光亮）+"derma"（皮肤），指其表面漆样光泽的皮壳结构；本种种加词"nitidum"（拉丁语"光亮的"）与属名含义呼应，进一步强调其外壳光泽特征。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--honey-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>分类学界公认的"混沌"现象：</strong>灵芝属漆样类群因形态高度趋同，全球已报道400余个种名，但许多存在同物异名或误定问题，被文献称为"分类学混沌"（taxonomic chaos）。可靠鉴定通常需要结合孢子超微结构与分子系统学证据。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--honey-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>本种研究现状：</strong>光亮灵芝由 Murrill 于1908年发表后，公开的野外记录及专项研究极为有限；中国灵芝属分类名录收录了该拉丁学名对应的中文名"光亮灵芝"，但其在中国的野外分布尚缺乏充分的标本与分子数据支持。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">命名简史</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--honey);text-align:right;padding-right:12px;border-right:2px solid rgba(138,52,24,0.25);">1908</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">Murrill 在《North American Flora》9(2): 123 首次描述 <em>Ganoderma nitidum</em>，模式产地位于美洲热带地区</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--honey);text-align:right;padding-right:12px;border-right:2px solid rgba(138,52,24,0.25);">20世纪</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">灵芝属"漆样"类群形态高度趋同，多个种一度被笼统归入"<em>G. lucidum</em> 广义种群"，分类长期混乱</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--honey);text-align:right;padding-right:12px;border-right:2px solid rgba(138,52,24,0.25);">2005年前后</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">墨西哥韦拉克鲁斯曾报道"<em>G. nitidum</em>"分布记录，后经孢子显微复核，确认实为近缘种奥氏灵芝 <em>G. oerstedii</em> 的误定</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;">
+              <div style="font-size:12px;font-weight:700;color:var(--honey);text-align:right;padding-right:12px;border-right:2px solid rgba(138,52,24,0.25);">现今</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">光亮灵芝仍是记录稀少的种，其全球分布范围与生态资料有待野外调查与分子数据进一步积累</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--warn-pale);border:1px solid rgba(163,82,26,0.28);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#4a2a0c;line-height:1.7;">
+          <strong>🍄 鉴定提示：</strong>野外见到具漆样光泽的红棕色木质菌盖时，仅凭肉眼很难在灵芝属内准确定种——可靠鉴定应记录生境（树种、木材腐朽方式）、拍摄管孔面变色反应，并采集孢子样本供显微或分子分析。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「漆样光泽木质盖，孢子分离柱状态」</div>
+        <div class="memory-pill">「白管触碰转褐色，灵芝属内共此特」</div>
+        <div class="memory-pill">「莫把光亮当赤芝，鉴定还需显微器」</div>
+        <div class="memory-pill">「死木树桩白腐朽，一年一生质如木」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或散生，硬固着生于死木或树桩表面，木栓质坚硬固着</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">腐生于阔叶树死木、倒木、树桩及根部，引起木材白色腐朽（木质纤维素被优先分解，木材呈现白色海绵状质地）</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">模式产地及主要记录见于美洲热带/亚热带地区（中美洲）；中国灵芝属分类名录收录该拉丁学名对应中文名，但野外标本记录有限</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">观察季节</div>
+        <div class="habitat-value">一年生子实体多见于温暖潮湿季节；干燥标本可全年观察，鲜品宜在孢子成熟前记录管孔面颜色变化</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      观察建议：记录着生树种、木材腐朽状态、管孔面触碰变色反应，并尽量采集孢子样本，为专业鉴定提供关键依据。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">不适宜食用——所有灵芝属物种均为木栓质至木质，质地坚硬无法咀嚼，传统利用方式为煎煮取汁或研粉冲服，而非直接食用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用与保健价值</div>
+        <div class="value-body">作为灵芝属一员具潜在活性成分（多糖、三萜类）研究价值，但光亮灵芝本身缺乏系统的化学成分与药理学研究，不应与药典法定基原种（赤芝 <em>G. lucidum</em>、紫芝 <em>G. sinense</em>）混为一谈或替代使用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为木腐真菌参与阔叶林死木分解与养分循环，是森林物质循环的重要参与者，其白色腐朽作用有助于木质纤维素的自然降解</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研价值</div>
+        <div class="value-body">因物种鉴定高度依赖孢子超微结构（柱状突起分离状态），是灵芝属分类学与孢子发生学研究的参考物种之一，也是"漆样灵芝类群分类学混沌"现象的典型案例</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-cn/%E9%9D%88%E8%8A%9D%E5%B1%AC" target="_blank">维基百科 · 灵芝属</a> ·
+      <a class="ref-link" href="https://mushroomobserver.org/name/show_name/29320" target="_blank">Mushroom Observer</a> ·
+      <a class="ref-link" href="https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S0187-31802015000100005" target="_blank">Ganoderma subgenus Ganoderma in Mexico</a>
+    </div>
+    <div>未系统评估 · 记录稀少，鉴定依赖显微与分子证据</div>
+  </div>
+
+</div>
+</body>
+</html>
