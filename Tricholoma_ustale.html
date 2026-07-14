@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>褐黑口蘑 · Tricholoma ustale（有毒，胃肠炎型）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 有毒物种：沉重警惕配色，焦褐色为标志警戒色 */
+    --ink: #180f0a; --ink-mid: #402c22; --ink-light: #806a58;
+    --cream: #f0e8dc; --surface: #fdf9f3; --surface-warm: #f8f0e2;
+
+    --scorch: #5c3418; --scorch-light: #97694a; --scorch-pale: #ecdccb; --scorch-mid: #452513;
+
+    --ochre: #a4761a; --ochre-light: #d0a34c; --ochre-pale: #f7ecd2;
+
+    --moss: #55622e; --moss-light: #97a468; --moss-pale: #edefe0;
+
+    --toxic: #7a2318; --toxic-light: #b25e4c; --toxic-pale: #f4dfda;
+
+    --stone: #5c5044; --stone-light: #8f8272;
+
+    --border: rgba(70,45,25,0.15); --border-mid: rgba(70,45,25,0.26);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .toxic-banner {
+    background: var(--toxic);
+    color: #fff;
+    text-align: center;
+    padding: 11px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #b48a68;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,12,8,0.78));
+    padding: 24px 20px 16px;
+  }
+
+  .hero-overlay-text { font-size: 12px; color: rgba(240,220,200,0.9); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex; flex-direction: column; justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--toxic); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif; font-size: 34px; font-weight: 700;
+    line-height: 1.2; color: var(--ink); margin-bottom: 6px;
+  }
+
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--scorch-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-toxic  { background: var(--toxic-pale);  color: var(--toxic); }
+  .tag-scorch { background: var(--scorch-pale); color: var(--scorch-mid); }
+  .tag-ochre  { background: var(--ochre-pale);  color: var(--ochre); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-stone  { background: #ece3d4;            color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border); padding-top: 1rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-toxic  { background: var(--toxic); }
+  .dot-scorch { background: var(--scorch-mid); }
+  .dot-moss   { background: var(--moss); }
+  .dot-stone  { background: var(--stone-light); }
+  .dot-ochre  { background: var(--ochre); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+
+  .section-badge {
+    margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+  .photo-slot { aspect-ratio: 4/3; background: #b48a68; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #b48a68; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); margin-top: 10px; }
+
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(20,12,8,0.78); color: #f2e2cf; font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);   color: var(--moss); }
+  .phase-mid    { background: var(--ochre-pale);  color: var(--ochre); }
+  .phase-mature { background: var(--scorch-pale); color: var(--scorch-mid); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+
+  .trait-name {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--scorch-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--toxic-pale); border: 1px solid rgba(122,35,24,0.32); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 700; color: var(--toxic); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4e1810; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--toxic); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(85,98,46,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #262e14; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--ochre-light);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.toxic { border-left-color: var(--toxic); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--scorch-pale); border: 1px solid rgba(69,37,19,0.28); border-radius: 8px; padding: 8px 14px;
+    font-size: 13px; font-style: italic; color: var(--scorch-mid); font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #ecdccb, #f5ebdb);
+    border: 1px solid rgba(122,35,24,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--toxic); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light);
+  }
+  .ref-link { color: var(--scorch-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toxic-banner">⚠ 有毒！日本三大蘑菇中毒元凶之一 · 胃肠炎型中毒 · 严禁采食</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+          <source srcset="https://eumensides.github.io/mashroom/Tricholoma_ustale0.png" type="image/png">
+          <img src="https://eumensides.github.io/mashroom/Tricholoma_ustale0.png" alt="褐黑口蘑主图" loading="lazy">
+        </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Tricholoma ustale · 菌盖栗褐色湿时极黏，干后发黑发亮如烧焦，与山毛榉共生</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 伞菌目 · 口蘑科 · 口蘑属 Albobrunnea组</div>
+    <div class="hero-name-zh">褐黑口蘑</div>
+    <div class="hero-name-la">Tricholoma ustale</div>
+    <div class="hero-author">(Fr.) P. Kumm., 1871 · 英文俗称「Burnt Knight」，日文名「柿しめじ」</div>
+
+    <div class="tag-row">
+      <span class="tag tag-toxic">⚠ 有毒（胃肠炎型）</span>
+      <span class="tag tag-scorch">菌盖焦褐色湿黏</span>
+      <span class="tag tag-ochre">柄基膨大扎根状</span>
+      <span class="tag tag-moss">专性与山毛榉共生</span>
+      <span class="tag tag-stone">日本常见中毒元凶</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文名 / 别名</span>
+        <span class="taxon-value">褐黑口蘑（日文名"柿しめじ"直译）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">中毒类型</span>
+        <span class="taxon-value">胃肠炎型（恶心、呕吐、腹泻）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">科 / 属</span>
+        <span class="taxon-value">Tricholomataceae 口蘑科 / Tricholoma 口蘑属</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">毒素</span>
+        <span class="taxon-value">ustalic acid（钠钾泵抑制剂）</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志特征：焦褐色菌盖</span>
+        <span class="fb-value">种加词 <em>ustale</em> 意为"烧焦的"，形容菌盖幼时栗褐带橄榄色调、湿时厚重黏滑，老熟干燥后转为黑褐色并发出光泽，宛如一块烧焦的木炭</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">胃肠炎型毒素</span>
+        <span class="fb-value">含毒素<strong>ustalic acid</strong>，是细胞膜钠钾泵（Na⁺/K⁺-ATPase）的抑制剂，是<strong>日本蘑菇中毒最常见的三大元凶之一</strong>（另两种为日本类脐菇、丽粉褶菌）</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">与山毛榉专性共生</span>
+        <span class="fb-value">外生菌根真菌，专性与山毛榉、鹅耳枥等阔叶树种共生，菌盖颜色常与地面落叶融为一体，极易被忽略而误采</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-scorch"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+      <div class="photo-grid-6">
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Tricholoma_ustale1.png" alt="上方菌盖图" loading="lazy">
+          <div class="photo-caption">上方菌盖图 · 栗褐色湿黏 / 干后发黑发亮</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Tricholoma_ustale2.png" alt="45°仰拍图" loading="lazy">
+          <div class="photo-caption">45° 仰拍 · 白转红褐色菌褶 / 柄基膨大</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Tricholoma_ustale3.png" alt="剖面图" loading="lazy">
+          <div class="photo-caption">剖面 · 菌肉白色受伤变褐 / 柄基红褐色</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Tricholoma_ustale4.png" alt="菌褶面图" loading="lazy">
+          <div class="photo-caption">褶面 · 红褐色带铁锈斑，边缘发黑</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Tricholoma_ustale5.png" alt="孢子印图" loading="lazy">
+          <div class="photo-caption">孢子印 · 白色</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Tricholoma_ustale6.png" alt="特殊细节图" loading="lazy">
+          <div class="photo-caption">细节 · 柄基膨大扎根状特写</div>
+        </div>
+      </div>
+
+      <div class="photo-slot-wide">
+        <img src="https://eumensides.github.io/mashroom/Tricholoma_ustale7.png" alt="生境图" loading="lazy">
+        <div class="photo-caption">生境图 · 山毛榉阔叶林落叶层，隐匿难察</div>
+      </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ochre"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          菌盖钟形至圆锥形，栗褐色带橄榄色调，中央颜色更深，湿润时表面覆盖厚重黏液；边缘长期内卷，包裹菌褶；菌褶白色，尚未展开。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖渐展为凸镜形，仍具黏性，表面不具环纹；菌褶转为浅赭黄色，紧密排列，弯生至直生；菌柄伸长，表面具红褐色纤维状条纹，基部开始膨大。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，常保留不明显的宽脐凸，干燥后转为黑褐色并发出光泽，边缘呈波状；菌褶转为红褐色，常见铁锈色斑点，成熟后边缘发黑；菌柄基部明显膨大呈扎根状，内部渐变中空。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ochre"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-scorch">菌盖栗褐/红褐带橄榄色调</span>
+          <span class="tag tag-scorch">干燥后黑褐色发亮</span>
+          <span class="tag tag-ochre">菌褶白→浅赭黄→红褐色</span>
+          <span class="tag tag-toxic">褶缘成熟后发黑</span>
+          <span class="tag tag-stone">柄基部红褐色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">钟形/圆锥形→凸镜形平展</span>
+          <span class="tag tag-stone">具宽而不明显的脐凸</span>
+          <span class="tag tag-stone">边缘长期内卷后呈波状</span>
+          <span class="tag tag-ochre">菌柄圆柱形，基部膨大扎根状</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">无味或微带面粉气味</span>
+          <span class="tag tag-toxic">⚠ 气味平淡不代表无毒</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">☠ 味苦或微苦</span>
+          <span class="tag tag-toxic">煮熟无法去除毒素</span>
+          <span class="tag tag-toxic">日本记录多起中毒案例</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ochre"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>3–10cm，钟形/圆锥形至凸镜形，栗褐/红褐带橄榄色调，中央色深，湿时厚重黏滑，干后发亮发黑，边缘长期内卷</td></tr>
+          <tr><td>菌褶</td><td>直生至弯生，白色转浅赭黄再转红褐色，密集，成熟后常具铁锈色斑点，褶缘发黑</td></tr>
+          <tr><td>菌肉</td><td>白色至奶油色，受伤后变褐色，柄基部呈红褐色，味苦或带面粉气味</td></tr>
+          <tr><td>菌柄</td><td>5–8cm，圆柱形，与菌盖同色或较浅，表面具红褐色纤维状条纹，基部常明显膨大呈扎根状，幼时实心成熟后渐中空</td></tr>
+          <tr><td>菌环</td><td>无</td></tr>
+          <tr><td>孢子</td><td>卵圆形至椭圆形，6–7.5×5–6微米，光滑无色；孢子印白色</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖<strong>焦褐色</strong>，湿时厚重黏滑，干后转黑并发出光泽，宛如烧焦木炭——种加词"ustale"（烧焦的）由此而来</li>
+        <li>菌褶自白色渐次转为<strong>红褐色</strong>，常见铁锈色斑点，成熟后褶缘发黑</li>
+        <li>菌柄<strong>基部明显膨大呈扎根状</strong>，表面具红褐色纤维状条纹</li>
+        <li>专性与<strong>山毛榉</strong>等阔叶树种共生，菌盖颜色常与落叶层融为一体，极易被忽视而误采误食</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用警示：口蘑属内既有名品也有毒种，切勿仅凭属名判断</div>
+      <ul class="caution-list">
+        <li>本种是日本蘑菇中毒事件中<strong>最常被提及的三大元凶之一</strong>，食用后引起恶心、呕吐、腹泻等胃肠炎症状</li>
+        <li>其所含毒素ustalic acid经动物实验证实可导致小鼠蜷缩不动、震颤及腹部收缩，高浓度下可致死</li>
+        <li>口蘑属（<em>Tricholoma</em>）是一个庞大的属，既包含松茸等名贵食用种，也包含本种这样的有毒种，<strong>仅凭"口蘑属"这一大类特征完全无法判断是否可食</strong>，必须精确鉴定到种</li>
+        <li>本种与同组内数个近似种（如<em>T. albobrunneum</em>、<em>T. ustaloides</em>）形态高度相似，肉眼难以准确区分，采集难度极大</li>
+        <li>若误食后出现胃肠道症状，应及时就医并保留样本以协助准确鉴定中毒物种</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与松茸等食用口蘑属物种的区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">松茸（<em>Tricholoma matsutake</em>）等食用口蘑具有浓郁特殊香气、菌柄常具明显菌环；本种气味平淡或带面粉味，<strong>无菌环</strong>，菌盖焦褐黏滑，是同属内价值与安全性截然不同的典型对照</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与同组近似种的显微区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)"><em>T. ustaloides</em> 柄部更纤细，菌盖红褐色中带绿色调，且菌盖表皮菌丝具丰富锁状联合，而本种缺乏该特征——但这些差异<strong>需要显微镜辅助</strong>，普通人在野外几乎无法可靠区分</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item toxic">
+        <div class="confusion-name" style="color:var(--toxic)">⚠ 白褐口蘑 <em>Tricholoma albobrunneum</em></div>
+        <div class="confusion-diff">同组近似种，形态与本种极为相似，菌盖同样红褐带橄榄色调、湿时黏滑，野外极难区分</div>
+      </div>
+      <div class="confusion-item toxic">
+        <div class="confusion-name" style="color:var(--toxic)"><em>Tricholoma ustaloides</em>（欧洲近似种）</div>
+        <div class="confusion-diff">同样与山毛榉共生，外形与本种接近，柄部相对纤细，菌盖带绿色调，需显微特征辅助鉴别</div>
+      </div>
+      <div class="confusion-item toxic">
+        <div class="confusion-name" style="color:var(--toxic)">⚠ 日本类脐菇 <em>Omphalotus japonicus</em></div>
+        <div class="confusion-diff">日本另一大中毒元凶，与食用菌形态易混淆，与本种及丽粉褶菌并称日本三大常见中毒蘑菇</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">松茸 <em>Tricholoma matsutake</em>（名贵食用）</div>
+        <div class="confusion-diff">同属但价值与安全性截然不同：具浓郁特殊香气及明显菌环，与本种平淡气味、无环形成鲜明对照，提醒"同属不等于同安全性"</div>
+      </div>
+    </div>
+
+    <!-- 命名与俗名说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--scorch-pale);border:1px solid rgba(69,37,19,0.32);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--scorch-mid);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">中文名说明：褐黑口蘑 与「柿しめじ」</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Naming Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称来源与关系</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--scorch-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">种加词 <em>ustale</em> 源自拉丁形容词 <em>ustalis</em>，意为"烧焦的"，直接描述其菌盖焦褐、老熟发黑的色泽；英文俗名"Burnt Knight"（烧焦的骑士）与中文名"褐黑口蘑"均由此意译而来。</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--scorch-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;"><strong>日文名"柿しめじ"（Kakishimeji）：</strong>意为"柿子色口蘑"，因其菌盖颜色与成熟柿子的红褐色相近而得名，是日本本土最广为人知的中毒蘑菇俗名之一。</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--scorch-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;"><strong>分类地位：</strong>隶属口蘑科（<em>Tricholomataceae</em>）口蘑属（<em>Tricholoma</em>）Albobrunnea组（亚属Tricholoma内），该组以菌盖黏滑、颜色偏红褐/焦褐为共同特征，组内多个物种均涉及胃肠炎型中毒记录。</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">命名简史</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--scorch-mid);text-align:right;padding-right:12px;border-right:2px solid rgba(69,37,19,0.25);">1818</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">埃利亚斯·马格努斯·弗里斯（Elias Magnus Fries）首次以 <em>Agaricus ustalis</em> 之名描述本种</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--scorch-mid);text-align:right;padding-right:12px;border-right:2px solid rgba(69,37,19,0.25);">1871</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">保罗·库默（Paul Kummer）将其转入口蘑属，确立现今学名 <em>Tricholoma ustale</em></div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;">
+              <div style="font-size:12px;font-weight:700;color:var(--scorch-mid);text-align:right;padding-right:12px;border-right:2px solid rgba(69,37,19,0.25);">2002</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">日本学者通过化学分析确认其毒素为ustalic acid及相关化合物，明确其致病机制为钠钾泵抑制</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--toxic-pale);border:1px solid rgba(122,35,24,0.3);border-left:4px solid var(--toxic);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#4e1810;line-height:1.7;">
+          <strong>⚠ 采集提示：</strong>在山毛榉、鹅耳枥等阔叶林中采集野生菌时，务必警惕菌盖焦褐色、湿时黏滑、气味平淡带苦味的口蘑属蘑菇；口蘑属物种鉴定难度较大，普通采集者极易将本种及其近似种误判为食用菌，建议不确定时一律放弃采食。
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「盖如烧焦柿子色，湿黏干亮莫轻采」</div>
+        <div class="memory-pill">「褶白转褐生锈斑，柄基膨大似扎根」</div>
+        <div class="memory-pill">「口蘑属中良莠杂，仅凭属名难辨清」</div>
+        <div class="memory-pill">「山毛榉下影难寻，落叶丛中藏毒身」</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">常成群或近丛生生长，多隐匿在山毛榉落叶层中，颜色与环境融为一体，不易察觉</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">外生菌根真菌，专性与山毛榉（<em>Fagus</em>）及鹅耳枥等阔叶树种共生，多见于阔叶林及针阔混交林地表</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广泛分布于亚洲、欧洲及北美洲；北美种群可能代表一个或多个不同物种，分类地位仍有争议</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">夏秋季为主要出菇期，常在阔叶林落叶堆积处成群出现</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      安全提醒：口蘑属物种数量庞大、形态相近，是全球蘑菇中毒事件中的高发类群之一。采集口蘑属蘑菇务必格外谨慎，不确定物种时应一律放弃采食。
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">无。本种为日本蘑菇中毒最常见元凶之一，食用后引起胃肠炎型中毒，煮熟无法破坏其毒素，不建议食用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研价值</div>
+        <div class="value-body">其所含毒素ustalic acid是研究细胞膜钠钾泵抑制机制的重要天然产物模型；另有研究显示其菌丝多糖对小鼠肉瘤及艾氏腹水癌具有一定体外抑制活性，具备生物活性研究价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为山毛榉、鹅耳枥等阔叶树种的重要外生菌根共生伙伴，参与欧亚及北美温带阔叶林生态系统的物质循环</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">公共卫生价值</div>
+        <div class="value-body">是日本蘑菇中毒防控科普宣传的重点关注物种之一，对研究口蘑属内食用种与毒种的鉴别方法具有典型参考价值</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Tricholoma_ustale" target="_blank">Wikipedia · Tricholoma ustale</a> ·
+      <a class="ref-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9721522/" target="_blank">PMC · Taxonomic revision of Japanese T. ustale</a> ·
+      <a class="ref-link" href="https://www.first-nature.com/fungi/tricholoma-ustale.php" target="_blank">First Nature</a>
+    </div>
+    <div>研究现状：分类明确 · 毒性已证实 · 日本重点中毒防控物种</div>
+  </div>
+
+</div>
+</body>
+</html>
