@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>褐鳞环柄菇 · Lepiota helveola（剧毒）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #17120e;
+    --ink-mid: #453a2e;
+    --ink-light: #857868;
+    --cream: #f6f2ea;
+    --surface: #ffffff;
+
+    /* 血褐主色（剧毒警示） */
+    --toxic: #6b1420;
+    --toxic-light: #c98a92;
+    --toxic-pale: #f8e6e8;
+
+    /* 鳞片褐色 */
+    --umber: #7a5230;
+    --umber-light: #b98f5e;
+    --umber-pale: #f3e6d4;
+
+    /* 孢子印/菌褶白 */
+    --spore: #746c5c;
+    --spore-light: #c8c2b4;
+    --spore-pale: #f2f0e8;
+
+    --stone: #6a5c4c;
+    --stone-light: #a89a86;
+
+    --border: rgba(60,40,20,0.12);
+    --border-mid: rgba(60,40,20,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .toxic-banner {
+    background: var(--toxic);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #d8cabc; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,10,8,0.72));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,220,210,0.85); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex; flex-direction: column; justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--toxic); margin-bottom: 12px;
+  }
+
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--ink-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--ink-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-umber { background: var(--umber-pale); color: var(--umber); }
+  .tag-spore { background: var(--spore-pale); color: var(--spore); }
+  .tag-ink   { background: #f0ede8; color: var(--ink-mid); }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border); padding-top: 1rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
+  }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-umber { background: var(--umber); }
+  .dot-spore { background: var(--spore); }
+  .dot-toxic { background: var(--toxic); }
+  .dot-ink   { background: var(--ink-mid); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--ink-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #e6ded0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #e6ded0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(20,10,8,0.74); color: #f0e4dc;
+    font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--spore-pale); color: var(--spore); }
+  .phase-mid    { background: var(--umber-pale); color: var(--umber); }
+  .phase-mature { background: var(--toxic-pale); color: var(--toxic); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--ink-mid); white-space: nowrap; width: 100px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .distinction-box {
+    background: var(--toxic-pale); border: 1px solid var(--toxic-light);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem;
+  }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--toxic); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #4a0e18; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--toxic); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--umber-light); border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.danger { border-left-color: var(--toxic); background: var(--toxic-pale); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--ink-mid); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: #f0ede4; border: 1px solid #d8cfc0; border-radius: 8px; padding: 8px 14px;
+    font-size: 13px; font-style: italic; color: var(--ink-mid); font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card.toxic-card { border-left: 3px solid var(--toxic); }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 剧毒三要素速览条 ── */
+  .danger-bar {
+    background: linear-gradient(135deg, #f8e6e8, #f6f2ea);
+    border: 1px solid var(--toxic-light);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .dg-item { display: flex; flex-direction: column; gap: 4px; }
+  .dg-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--toxic); font-weight: 500; }
+  .dg-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .alert-box {
+    background: var(--toxic-pale); border: 1px solid var(--toxic-light); border-radius: 10px;
+    padding: 12px 16px; font-size: 12px; color: var(--toxic); margin-top: 10px; font-weight: 500;
+  }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-light);
+  }
+  .ref-link { color: var(--umber); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .danger-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toxic-banner">☠️ 剧毒！含鹅膏毒肽，可致急性肝衰竭死亡 · 2019–2021年我国至少35起中毒事件、8人死亡 · 严禁采食，仅供学习识别</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola0.png" alt="褐鳞环柄菇主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Lepiota helveola · 针叶林地表小型伞菌，菌盖同心环状褐色鳞片，外形不起眼却剧毒致命</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 伞菌目 · 蘑菇科 · 环柄菇属</div>
+    <div class="hero-name-zh">褐鳞环柄菇</div>
+    <div class="hero-name-la">Lepiota helveola</div>
+    <div class="hero-author">Bres., 1882</div>
+
+    <div class="tag-row">
+      <span class="tag tag-toxic">☠ 剧毒</span>
+      <span class="tag tag-toxic">含鹅膏毒肽</span>
+      <span class="tag tag-toxic">可致急性肝衰竭</span>
+      <span class="tag tag-umber">小型 · 极易误采</span>
+      <span class="tag tag-spore">孢子印白色</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">褐鳞小伞（部分文献易与"盾形环柄菇"混用）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">近缘剧毒姐妹种</span>
+        <span class="taxon-value">肉褐鳞环柄菇 <em>L. brunneoincarnata</em> 等</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Agaricaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">毒素类型</span>
+        <span class="taxon-value">鹅膏肽类毒素（amatoxin）· 肝损害型</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- 0. 剧毒三要素速览 -->
+  <div class="section">
+    <div class="danger-bar">
+      <div class="dg-item">
+        <span class="dg-label">标志毒素</span>
+        <span class="dg-value">鹅膏毒肽（α-鹅膏毒肽等），与致命鹅膏同类毒素，抑制肝细胞RNA聚合酶II，阻断蛋白质合成</span>
+      </div>
+      <div class="dg-item">
+        <span class="dg-label">体型陷阱</span>
+        <span class="dg-value">子实体小型（菌盖2–6cm），外观不起眼，极易被误认为可食用的"小蘑菇"而随手采食</span>
+      </div>
+      <div class="dg-item">
+        <span class="dg-label">潜伏期陷阱</span>
+        <span class="dg-value">中毒常经6小时以上潜伏期，继而出现症状暂时缓解的"假愈期"，极易延误救治时机</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 浅肉粉褐底，同心环状褐色鳞片</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 白色离生菌褶 / 纤细菌柄</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉薄白色，菌柄中空</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola4.png" alt="菌褶面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">★菌褶面 · 纯白色，密集离生</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">★孢子印 · 白色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 菌柄环带状鳞片，菌环薄脆易脱落</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide" style="margin-top:10px;">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lepiota_helveola7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 针叶林地表散生，极易被忽视的小型菇群</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖初期半球形，直径仅1–2cm，中央鳞片密集呈暗褐色小点状，边缘鳞片细小并呈同心环状排列，底色浅肉粉褐；
+          菌褶白色，离生，紧密；菌柄纤细中空，白色带粉红调，菌环完整但极薄、位于菌柄中上部。<strong>此阶段与幼嫩可食用小型蘑菇外观相近，是野外最危险的误采阶段</strong>。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖渐展开至2–4cm，边缘同心环状鳞片更为清晰，中央鳞片仍呈块状深褐色；菌柄伸长，环带状褐色鳞片显现于菌环以下部位；
+          菌环开始变得松弛，边缘不整齐；菌褶始终保持洁白，未随生长转色。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展或中央微凸，直径可达6cm，浅肉粉红至灰褐色底上覆同心环状褐至暗褐色鳞片，边缘鳞片细小反卷；
+          菌柄长3–6cm，菌环此时多已脱落仅残留痕迹或完全消失（<strong>此阶段更难仅凭菌环判断，需综合菌褶白色、孢子印白色及鳞片同心环状排列方式鉴别</strong>）；菌肉受损后渐变褐色。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-umber">菌盖浅肉粉褐→灰褐色</span>
+          <span class="tag tag-umber">同心环状褐色至暗褐鳞片</span>
+          <span class="tag tag-spore">菌褶纯白，不随成熟变色</span>
+          <span class="tag tag-spore">孢子印白色</span>
+          <span class="tag tag-umber">菌柄白带粉红调，下部环带状褐鳞</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">小型：菌盖2–6cm</span>
+          <span class="tag tag-ink">半球形→平展（中央微凸）</span>
+          <span class="tag tag-ink">菌柄细长3–6×0.3–0.7cm，中空</span>
+          <span class="tag tag-ink">菌环薄膜质，极易脱落</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">无明显特殊气味</span>
+          <span class="tag tag-toxic">⚠ 气味不可作辨毒依据</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感 · 食毒</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">⚠ 严禁品尝试毒</span>
+          <span class="tag tag-toxic">⚠ 剧毒：肝损害型</span>
+          <span class="tag tag-toxic">⚠ 潜伏期超6小时，极具迷惑性</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>表面覆盖褐色至暗褐色鳞片，呈<strong>同心环状</strong>排列（区别于部分可食环柄菇的放射状排列），中央鳞片密集呈块状，边缘鳞片细小反卷；底色浅肉粉红至灰褐色，干燥不黏</td></tr>
+          <tr><td>菌褶</td><td>离生，白色，成熟后转乳白色至浅黄白，密集，边缘细纤毛状，<strong>不随成熟转为粉褐或深褐色</strong></td></tr>
+          <tr><td>菌肉</td><td>薄，白色，量少，受损后渐变褐色，无特殊气味，含鹅膏毒肽</td></tr>
+          <tr><td>菌柄</td><td>3–6cm×0.3–0.7cm，等粗或向下渐细，中空至松髓；白色带粉红调，覆环带状褐色纤维状鳞片，揉搓处变褐色</td></tr>
+          <tr><td>菌环</td><td>膜质，位于菌柄中上部，薄而易碎，成熟后常松弛脱落或仅留痕迹，与菌盖鳞片同色，不可作为唯一鉴别依据</td></tr>
+          <tr><td>孢子</td><td>椭圆形，无色透明，光滑；孢子印<strong>白色</strong></td></tr>
+          <tr><td>菌托</td><td>无菌托（区别于毒性更强但也更易被警惕的鹅膏属；但环柄菇属"无菌托"这一点恰恰使其更容易被误认为"安全"的小蘑菇）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆 · 有毒警示</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">⚠ 核心辨识四要素（有毒警示）</div>
+      <ul class="distinction-list">
+        <li>菌盖鳞片呈<strong>同心环状</strong>排列于浅肉粉褐底色上，中央鳞片块状深褐，边缘鳞片细小——与许多可食用小型蘑菇的均匀色泽或放射状纹理不同</li>
+        <li>菌褶与孢子印始终<strong>纯白色</strong>，绝不转为粉褐或深褐色（区别于可食用蘑菇属 <em>Agaricus</em>，后者菌褶随成熟由粉红转深褐、孢子印呈深褐色）</li>
+        <li>子实体<strong>小型</strong>（菌盖常小于6cm），生于针叶林地表，极易被当作"小蘑菇"或"松树菇"随手采摘</li>
+        <li>含<strong>鹅膏毒肽</strong>，与致命鹅膏毒性成分同类，摄入中等大小的单株即可致成年人死亡，无特效解毒药</li>
+      </ul>
+    </div>
+
+    <div class="alert-box" style="margin-bottom:1rem;">
+      ⚠ 特别警示：本种气味与口感均无明显异常，且体型娇小、外观不起眼，是我国北方及中部地区多起严重甚至致死性中毒事件的元凶之一；同属的肉褐鳞环柄菇（更常见）、近肉红环柄菇、毒环柄菇、亚毒环柄菇等"小个子"环柄菇均含同类剧毒，肉眼极难安全区分。野外遇到针叶林下的小型白褶伞菌，唯一安全做法是<strong>"不采不食"</strong>。
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">食毒属性</div>
+        <div style="font-size:13px;color:var(--toxic);font-weight:500;">☠ 剧毒（肝损害型，鹅膏毒肽中毒）</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">中毒记录</div>
+        <div style="font-size:13px;color:var(--ink-mid)">2019–2021年我国至少35起中毒事件、8人死亡；中毒潜伏期常超过6小时，经历胃肠炎期→假愈期→内脏损害期，极易因"假愈期"症状缓解而延误救治</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic)">☠ 肉褐鳞环柄菇 <em>Lepiota brunneoincarnata</em></div>
+        <div class="confusion-diff">极度相似，且是我国北方中毒事件更多发的"姊妹种"（俗称"小个子大蘑王"）；菌盖中央凸起更矮钝，菌柄基部更明显膨大，担孢子略大；同样含鹅膏毒肽，肉眼几乎无法安全区分</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic)">☠ 近肉红环柄菇 / 毒环柄菇 / 亚毒环柄菇 <em>L. subincarnata</em> / <em>L. venenata</em> / <em>L. subvenenata</em></div>
+        <div class="confusion-diff">同组近缘剧毒种，形态高度重叠，需依赖孢子显微测量及分子系统学数据才能准确鉴定到种；均含鹅膏毒肽，均不可食用</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">可食用蘑菇属（野蘑菇等） <em>Agaricus</em> spp.（可食）</div>
+        <div class="confusion-diff">关键区别：蘑菇属菌褶随成熟由<strong>粉红色转为深褐色</strong>，孢子印深褐色；本种菌褶与孢子印<strong>始终白色</strong>，不随成熟变色，此为最重要的野外速鉴依据</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">高大环柄菇（幼期） <em>Macrolepiota procera</em>（可食）</div>
+        <div class="confusion-diff">幼期形态有一定相似性，但高大环柄菇成株可达15cm以上，菌柄具蛇皮状花纹，菌环可上下滑动；本种体型始终娇小，成熟菌盖罕超6cm</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「同心环鳞浅肉底，白褶白孢不会变」</div>
+        <div class="memory-pill">「个头小小藏剧毒，肝损假愈最危险」</div>
+        <div class="memory-pill">「针叶林下白褶菇，宁可错过不要采」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ink"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生、散生，偶见小丛；个体分散、体型娇小，常隐藏于枯针叶层下不易察觉</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">地生，典型生于针叶林（松、云杉、冷杉）地表枯落物层，偶见于杨树、枣树等阔叶树周边</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国东北、华北地区为集中分布区；同组近缘剧毒姐妹种在华中、华东、西南等地亦有中毒报道；欧洲、北非（土耳其曾有中毒记录）等地也有分布</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">发生 · 中毒季节</div>
+        <div class="habitat-value">中国东北、华北：7–9月为主；华中、华东：4月下旬至10月均有记录，雨后数日为出菇高峰</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      本页仅用于识别防范，绝不建议采集食用。野外若发现针叶林下小型、菌褶白色的伞菌，应留存照片、GPS坐标及生境信息提交专业机构鉴定，切勿凭经验采食。
+    </div>
+    <div class="alert-box">
+      ⚠ 误食后如出现恶心呕吐等胃肠炎症状（尤其在食用野生蘑菇后6小时以上才发作），应立即就医并保留剩余蘑菇或呕吐物样本供毒理鉴定，切勿因"假愈期"症状缓解而掉以轻心——肝损害往往在假愈期后急剧恶化。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-umber"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card toxic-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">☠ 剧毒，绝对禁止食用，无任何食用价值。鹅膏毒肽耐高温、耐干燥，煮沸、暴晒、腌制等常见家庭处理方式均无法破坏其毒性，不存在"处理后可安全食用"的可能</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">毒理与临床意义</div>
+        <div class="value-body">含鹅膏毒肽（α-amanitin类环肽），可抑制RNA聚合酶II、阻断蛋白质合成，导致肝细胞大量坏死；中毒分为潜伏期（&gt;6小时）、胃肠炎期、假愈期、内脏损害期（急性肝衰竭）四阶段，是我国鹅膏肽类蘑菇中毒防治指南重点收录的物种之一</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">公共卫生价值</div>
+        <div class="value-body">是我国北方及中部地区剧毒蘑菇监测预警体系的重点物种；其体型娇小、外观与部分可食用小蘑菇相似，是"小个子大蘑王"科普宣传的典型案例，对降低误采误食致死率具有重要意义</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">分类与鉴定研究</div>
+        <div class="value-body">与肉褐鳞环柄菇、毒环柄菇、亚毒环柄菇等同组近缘种的分类界限主要依赖孢子显微测量及分子系统学（ITS等基因片段）鉴定，是环柄菇属剧毒类群系统学研究的重要材料</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Lepiota_helveola" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E8%A4%90%E9%B3%9E%E7%8E%AF%E6%9F%84%E8%8F%87/1465039" target="_blank">百度百科</a> ·
+      <a class="ref-link" href="https://hncdc.com/upload/1/cms/content/editor/1747014553825.pdf" target="_blank">中华急诊医学杂志 2020</a>
+    </div>
+    <div>☠ 剧毒 · 肝损害型中毒（鹅膏毒肽）· 仅供学习识别，严禁采食</div>
+  </div>
+
+</div>
+</body>
+</html>
