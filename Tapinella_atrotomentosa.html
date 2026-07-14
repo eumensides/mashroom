@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黑毛小塔氏菌 · Tapinella atrotomentosa（不可食用）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #1a1a18;
+    --ink-mid: #4a4a45;
+    --ink-light: #8a8a82;
+    --cream: #f7f4ee;
+    --surface: #ffffff;
+    --moss: #3b5c2a;
+    --moss-light: #c8dab8;
+    --moss-pale: #edf4e5;
+    --amber: #8b5e1a;
+    --amber-light: #e8c980;
+    --amber-pale: #fdf4dc;
+    --rust: #8b3a1a;
+    --rust-pale: #fceee8;
+    --toxic: #7a1f2b;
+    --toxic-light: #d99aa3;
+    --toxic-pale: #f7e3e6;
+    --spore: #55642f;
+    --spore-light: #b8c48a;
+    --spore-pale: #f0f1de;
+    --border: rgba(60,60,40,0.12);
+    --border-mid: rgba(60,60,40,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── TOXIC WARNING BANNER ── */
+  .toxic-banner {
+    background: var(--toxic);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #d4cdc0;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-image-placeholder {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #7a7468;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+    padding: 2rem;
+    border: 2px dashed #b8b2a8;
+  }
+
+  .hero-image-placeholder .icon-large {
+    font-size: 48px;
+    opacity: 0.4;
+    line-height: 1;
+  }
+
+  .hero-image-placeholder .placeholder-label {
+    font-size: 12px;
+    color: #9a9490;
+    font-family: monospace;
+    background: rgba(255,255,255,0.5);
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--toxic);
+    margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .hero-name-la {
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--ink-mid);
+    margin-bottom: 4px;
+  }
+
+  .hero-author {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-moss { background: var(--moss-pale); color: var(--moss); }
+  .tag-amber { background: var(--amber-pale); color: var(--amber); }
+  .tag-rust { background: var(--rust-pale); color: var(--rust); }
+  .tag-ink { background: #f0ede8; color: var(--ink-mid); }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+  .tag-spore { background: var(--spore-pale); color: var(--spore); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-moss { background: var(--moss); }
+  .dot-amber { background: var(--amber); }
+  .dot-rust { background: var(--rust); }
+  .dot-ink { background: var(--ink-mid); }
+  .dot-toxic { background: var(--toxic); }
+  .dot-spore { background: var(--spore); }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .section-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .photo-slot {
+    aspect-ratio: 4/3;
+    background: #e8e4dc;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px dashed #c0bab0;
+  }
+
+  .photo-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .photo-slot-wide { grid-column: span 3; }
+
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #9a9490;
+    font-size: 11px;
+    text-align: center;
+    padding: 8px;
+  }
+
+  .photo-placeholder svg {
+    opacity: 0.4;
+    width: 28px; height: 28px;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(26,26,24,0.72);
+    color: #f0ede8;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 5px 8px;
+    text-align: center;
+  }
+
+  .photo-url-hint {
+    font-size: 10px;
+    color: #b0aa9e;
+    font-family: monospace;
+    word-break: break-all;
+    line-height: 1.3;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .phase-label {
+    padding: 4px 0;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .phase-young { background: var(--amber-pale); color: var(--amber); }
+  .phase-mid { background: var(--rust-pale); color: var(--rust); }
+  .phase-mature { background: var(--spore-pale); color: var(--spore); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .trait-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .trait-name {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  .parts-table td:first-child {
+    font-weight: 500;
+    color: var(--ink-mid);
+    white-space: nowrap;
+    width: 100px;
+  }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .distinction-box {
+    background: var(--toxic-pale);
+    border: 1px solid var(--toxic-light);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .distinction-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--toxic);
+    margin-bottom: 10px;
+  }
+
+  .distinction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .distinction-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #5a1620;
+    line-height: 1.6;
+  }
+
+  .distinction-list li::before {
+    content: "·";
+    color: var(--toxic);
+    font-size: 16px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .confusion-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+  }
+
+  .confusion-item.danger {
+    border-left-color: var(--toxic);
+    background: var(--toxic-pale);
+  }
+
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--ink-mid); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+
+  .memory-pill {
+    background: #f0ede8;
+    border: 1px solid #d8d3c8;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .habitat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .habitat-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 6px;
+  }
+
+  .habitat-value {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .value-card.toxic-card {
+    border-left: 3px solid var(--toxic);
+  }
+
+  .value-card-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+  }
+
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--ink-light);
+  }
+
+  .ref-link { color: var(--moss); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  .alert-box {
+    background: var(--toxic-pale);
+    border: 1px solid var(--toxic-light);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--toxic);
+    margin-top: 10px;
+    font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .photo-slot-wide { grid-column: span 2; aspect-ratio: 16/9; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="toxic-banner">⚠️ 不可食用/有毒物种 · 我国大型真菌中毒分类记录为胃肠炎型（部分文献记有肝肾损害型）· 味极苦涩，严禁采食，仅供学习识别</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+   <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa0.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa0.png" alt="黑毛小塔氏菌主图" loading="lazy">
+        </picture>
+    <div class="hero-image-placeholder">
+      <div class="icon-large">🍄</div>
+      <div>主图占位 · 待插入</div>
+      <div class="placeholder-label">src="YOUR_URL_0"</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 牛肝菌目（有菌褶的例外类群）· 小塔氏菌科</div>
+    <div class="hero-name-zh">黑毛小塔氏菌</div>
+    <div class="hero-name-la">Tapinella atrotomentosa</div>
+    <div class="hero-author">(Batsch) Šutara, 1992 · 原学名 Paxillus atrotomentosus</div>
+
+    <div class="tag-row">
+      <span class="tag tag-toxic">⚠ 不可食用</span>
+      <span class="tag tag-toxic">胃肠炎型中毒</span>
+      <span class="tag tag-amber">腐生菌·针叶树专性</span>
+      <span class="tag tag-ink">分类学奇观：有菌褶却属牛肝菌目</span>
+      <span class="tag tag-spore">孢子印黄褐色</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">黑毛小塔氏菌 / 黑柄桩菇（旧称）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Velvet Rollrim / Velvet-footed Pax</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">Boletales 牛肝菌目 / Tapinellaceae 小塔氏菌科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">近缘易混淆种</span>
+        <span class="taxon-value">卷边桩菇 <em>Paxillus involutus</em>（曾同属，危险混淆）</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="rhizomorph-bar" style="background:linear-gradient(135deg,#f7e3e6,#f7f4ee);border-color:rgba(122,31,43,0.3);">
+      <div class="rh-item">
+        <span class="rh-label" style="color:var(--toxic);">分类学悖论</span>
+        <span class="rh-value">虽具菌褶（外观酷似伞菌），但经分子系统学证实实为牛肝菌目（Boletales）成员，与牛肝菌、松塔牛肝菌同目异形，是"菌褶趋同演化"的经典案例</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label" style="color:var(--toxic);">化学防御机制</span>
+        <span class="rh-value">子实体受伤时，无色前体leucomentins转化为terphenylquinone类色素atromentin及丁烯羟酸内酯osmundalactone，具驱虫拒食活性，也是菌盖褐色的来源</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label" style="color:var(--toxic);">命名纠葛</span>
+        <span class="rh-value">曾长期归入桩菇属，称Paxillus atrotomentosus，与剧毒的卷边桩菇（P. involutus）同属而极易混淆；1992年确证其为腐生木材分解者，与桩菇属仅为远亲，遂独立为小塔氏菌属</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录 · 待插入8张</span>
+    </div>
+    <div class="photo-grid">
+
+      <div class="photo-slot">
+       <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>上方菌盖图</span>
+          <span class="photo-url-hint">src="YOUR_URL_1"</span>
+        </div>
+        <div class="photo-caption">上方菌盖图 · 天鹅绒质感，肉桂褐至暗褐色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>45° 仰拍图</span>
+          <span class="photo-url-hint">src="YOUR_URL_2"</span>
+        </div>
+        <div class="photo-caption">45° 仰拍 · 延生菌褶与偏生黑绒菌柄</div>
+      </div>
+
+      <div class="photo-slot">
+       <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>剖面图</span>
+          <span class="photo-url-hint">src="YOUR_URL_3"</span>
+        </div>
+        <div class="photo-caption">剖面 · 菌肉淡黄色，质地坚韧厚实</div>
+      </div>
+
+      <div class="photo-slot">
+       <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa4.png" alt="下方菌褶图" loading="lazy">
+        </picture>
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>下方菌褶图</span>
+          <span class="photo-url-hint">src="YOUR_URL_4"</span>
+        </div>
+        <div class="photo-caption">★菌褶面 · 奶油至黄褐色，近柄处分叉近网孔状</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>孢子印图</span>
+          <span class="photo-url-hint">src="YOUR_URL_5"</span>
+        </div>
+        <div class="photo-caption">孢子印 · 黄褐色带微橄榄色调</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>特殊细节图</span>
+          <span class="photo-url-hint">src="YOUR_URL_6"</span>
+        </div>
+        <div class="photo-caption">菌柄基部黑褐色天鹅绒质细节（"atrotomentosa"命名由来）</div>
+      </div>
+
+      <div class="photo-slot photo-slot-wide">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa7.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tapinella_atrotomentosa7.png" alt="生境图" loading="lazy">
+        </picture>
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>群生生境图</span>
+          <span class="photo-url-hint">src="YOUR_URL_7"</span>
+        </div>
+        <div class="photo-caption">生境 · 松属针叶树腐朽树桩根际单生至散生</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">菌盖凸镜形至半球形，边缘明显内卷（roll-rim，属名Tapinella与桩菇属Paxillus共有的"内卷边缘"特征），全表面覆金棕色至浅褐色天鹅绒状绒毛；菌柄粗壮且短，往往比菌盖更先发育显现，同为浅褐色绒毛质地；菌褶尚不明显，微露于内卷边缘下方</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">菌盖渐展开为扁平至浅漏斗形，边缘仍可见波状内卷残留；表面绒毛质感保留，色泽转为肉桂褐至红褐色；菌柄天鹅绒质地逐渐转深，近基部变黑褐色至近黑色（顶部近菌褶处仍色浅）；菌褶延生特征清晰，奶油色至浅黄褐色，近菌柄基部开始出现分叉与交织脉纹</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">菌盖完全展平或呈浅漏斗/杯状，直径可达4–15cm，颜色变深至暗褐色，部分老熟个体表面绒毛脱落转光滑；菌柄短粗（2–12cm长，1–3cm粗），常偏生或侧生于菌盖一侧，基部黑褐色绒毛最浓密显著；菌褶延生明显，密集，成熟后转黄褐色并带褐色染斑，近柄基部分叉、交织成网状甚至近似孔状——这是本种"有菌褶却属牛肝菌目"分类学特殊性的直观体现；菌肉质地坚韧，味极苦涩</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-amber">菌盖金棕→肉桂褐→暗褐色</span>
+          <span class="tag tag-ink">菌柄浅褐→黑褐至近黑色（基部最深）</span>
+          <span class="tag tag-amber">菌褶奶油色→黄褐色（老熟染褐斑）</span>
+          <span class="tag tag-spore">孢子印黄褐带橄榄色调</span>
+          <span class="tag tag-ink">菌肉淡黄色至赭黄色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">菌盖凸镜形→扁平/浅漏斗形（径4–15cm）</span>
+          <span class="tag tag-ink">边缘幼时明显内卷</span>
+          <span class="tag tag-amber">菌柄短粗（2–12cm×1–3cm），常偏生/侧生</span>
+          <span class="tag tag-toxic">无菌环、无菌托</span>
+          <span class="tag tag-ink">菌褶延生，近柄处分叉呈网状</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">气味不明显，无特殊香气</span>
+          <span class="tag tag-ink">部分记录称有轻微土腥或菌菇气</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">⚠ 味极苦涩/辛辣（acrid）</span>
+          <span class="tag tag-toxic">质地坚韧似皮革，几乎无法嚼烂</span>
+          <span class="tag tag-ink">东欧个别地区曾有食用记录，现普遍视为不可食用</span>
+          <span class="tag tag-toxic">⚠ 严禁舔尝试毒</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr>
+            <th>部位</th>
+            <th>形态描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>干燥，密被天鹅绒状至细绒毛质地（不黏滑），幼时金棕至浅褐色，成熟后转肉桂褐至暗褐色；老熟部分个体绒毛脱落趋于光滑；氨水滴加会使菌盖呈亮紫色反应（化学鉴别辅助特征）</td></tr>
+          <tr><td>菌褶</td><td>延生（沿菌柄向下生长），密集不等长，奶油色至浅黄褐色，成熟后可见褐色染斑；近菌柄基部处常分叉或形成交织脉纹，局部近似网孔状——本科（小塔氏菌科）介于伞菌与孔菌之间的形态过渡特征</td></tr>
+          <tr><td>菌肉</td><td>淡黄色至赭黄色，质地厚实坚韧，受伤不明显变色；味极苦涩/辛辣，几乎无法作为食材利用</td></tr>
+          <tr><td>菌柄</td><td>2–12cm长，1–3cm粗，粗壮短小，常偏生或侧生于菌盖一侧（很少正中生）；表面密被天鹅绒质绒毛，近菌盖处色浅，向基部渐转深褐至近黑色，正是"黑毛（atrotomentosa=黑色绒毛）"得名之由</td></tr>
+          <tr><td>菌环 / 菌托</td><td>无菌环、无菌托——与桩菇属（Paxillus）及鹅膏属等易混淆类群的重要鉴别依据之一</td></tr>
+          <tr><td>孢子</td><td>椭圆形，光滑，约4–6.5 × 3–4.5μm，遇碘液呈典型糊精反应（dextrinoid）；孢子印黄褐色带橄榄色调</td></tr>
+          <tr><td>化学防御物质</td><td>受伤组织中无色前体leucomentins迅速转化为terphenylquinone类色素atromentin、丁烯羟酸内酯osmundalactone等，兼具拒食昆虫、抗氧化、抗菌活性，是近年天然产物化学研究热点</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆 · 有毒警示</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">⚠ 核心辨识三要素</div>
+      <ul class="distinction-list">
+        <li><strong>菌柄天鹅绒质，色黑褐至近黑</strong>（尤以基部最深）——"黑毛"之名的直接来源，是野外最直观的第一识别点</li>
+        <li>菌盖同样布满天鹅绒状绒毛，肉桂褐至暗褐色，专一生长于<strong>针叶树（尤其松属）腐木树桩</strong>上，罕见于阔叶树</li>
+        <li>菌褶延生，近柄基部<strong>分叉、交织近网孔状</strong>——虽有菌褶外观，实则归属于孔菌类占多数的牛肝菌目，是形态与分类地位错位的经典范例</li>
+      </ul>
+    </div>
+
+    <div class="alert-box" style="margin-bottom:1rem;">
+      ⚠ 特别警示：本种曾长期使用"Paxillus atrotomentosus"这一学名，与剧毒的<strong>卷边桩菇（<em>Paxillus involutus</em>）</strong>同属；卷边桩菇含可诱发致命自身免疫性溶血反应的抗原类物质，即使反复食用多年后仍可能突发致死性中毒（"桩菇综合征"）。虽然分子证据已证实黑毛小塔氏菌与桩菇属仅为远亲、致病机制不同，但历史命名的混淆使二者在老旧图鉴与民间认知中仍常被混为一谈，应格外警惕，一律不采不食。
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">食毒属性</div>
+        <div style="font-size:13px;color:var(--toxic);font-weight:500;">⚠ 不可食用；我国大型真菌中毒分类记录为胃肠炎型（部分区域文献记有肝肾损害型），西方文献多因质韧味苦而定性为inedible（不可食用）而非剧毒</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">分类地位提示</div>
+        <div style="font-size:13px;color:var(--ink-mid)">虽具菌褶外观，但基于rDNA大亚基序列分析，本种明确嵌套于牛肝菌目（Boletales）系统发育树中，与牛肝菌类为同目近亲，是"菌褶趋同演化"研究的重要材料</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic);">⚠ 卷边桩菇 <em>Paxillus involutus</em>（剧毒，可致命）</div>
+        <div class="confusion-diff">历史上曾与本种同属（均称Paxillus），外观均有内卷菌盖边缘；区别：卷边桩菇为菌根菌，生于阔叶/针叶混交林地表（非专一生于腐木），菌柄中生、无明显天鹅绒黑色质感；含可诱发免疫性溶血的抗原物质，长期反复食用后仍可能突发致命中毒，绝对禁食</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">耳状小塔氏菌 <em>Tapinella panuoides</em>（同属近缘种，同样不可食用）</div>
+        <div class="confusion-diff">区别：无柄或近无柄，扇形/耳形侧生于针叶木材，不具黑色天鹅绒菌柄（因菌柄退化）；颜色偏黄褐至橙褐；同属小塔氏菌科，同样记录为胃肠炎型不可食用蘑菇</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">其他针叶林腐木生褐色绒毛类群</div>
+        <div class="confusion-diff">野外偶见外观相近的其他木材腐生菌（如部分革菌、锈革孔菌），但均缺乏本种"延生菌褶+偏生黑绒菌柄+专一针叶树基质"的组合特征，可通过孢子印颜色与菌褶结构综合区分</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「黑绒菌柄偏一侧，专生松桩不落地」</div>
+        <div class="memory-pill">「菌褶网状近柄基，牛肝菌目披褶衣」</div>
+        <div class="memory-pill">「曾与桩菇共一名，剧毒之嫌不可轻」</div>
+        <div class="memory-pill">「苦涩如皮嚼不烂，不必尝味自然辨」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ink"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">群落分布方式</div>
+        <div class="habitat-value">单生至散生，偶见小簇生；同一树桩上可持续多年反复出菇</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质类型</div>
+        <div class="habitat-value">腐生菌（非菌根菌），专性生长于针叶树（尤其松属Pinus）的腐朽树桩、倒木及根部，引起木材褐腐（brown rot）；偶见于云杉、冷杉等其他针叶树种，罕见报道生于阔叶树（如美国马德龙木）</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广布于欧亚大陆、北美洲及中美洲；英国以苏格兰加里东松林最为常见，英格兰南部及爱尔兰较少见；中国见于黄山、燕山等地区针叶林生态调查记录，属大型真菌区系常见成员</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">夏季至秋季（北美太平洋沿岸自初夏降雨后即可出现，持续至秋末）；采集仅供标本与教学识别用途，严禁作为食材采摘</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      标本采集建议：重点记录基质树种（是否为针叶树）、菌柄偏生/侧生程度、天鹅绒质地颜色梯度及菌褶网状化程度；可用稀氨水滴加菌盖表面观察是否呈紫色反应作为辅助化学鉴别。
+    </div>
+    <div class="alert-box">
+      ⚠ 重要提示：本种不可食用，质地坚韧、味极苦涩，误食后可能引发胃肠不适；如误食出现恶心、呕吐等症状应及时就医，并注意与剧毒卷边桩菇（Paxillus involutus）等菌根类相似种鉴别，切勿因其"看似朴素"而放松警惕。
+    </div>
+  </div>
+
+  <!-- 7. 价值 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card toxic-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">⚠ 不建议食用。质地坚韧似皮革、味极苦涩，几乎无法作为食材利用；我国大型真菌中毒分类记录中列为胃肠炎型（部分区域文献记有肝肾损害型）中毒来源；历史上东欧部分地区曾有零星食用记录，现代菌物学界普遍将其列为不可食用种</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">天然产物 · 药理研究价值</div>
+        <div class="value-body">子实体提取物对多种革兰氏阳性/阴性菌（含耐药菌株）表现出显著广谱抗菌活性，同时具抗氧化活性；受伤激活产生的atromentin、osmundalactone等化合物是研究真菌化学防御机制的重要模式物质</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">分类学 · 系统发育研究价值</div>
+        <div class="value-body">作为"具菌褶却属牛肝菌目"的代表类群，是研究担子菌门子实层形态趋同演化的经典材料；其与桩菇属（Paxillus）从形态相似到分子证据确认远缘关系的过程，是20世纪末真菌分类学修订的典型案例</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为针叶林重要的木材腐生分解者，引起松木等针叶材褐色腐朽，参与森林碳、氮循环，是老龄针叶林生态系统健康与持续衰腐过程的指示物种之一</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Tapinella_atrotomentosa" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://www.first-nature.com/fungi/tapinella-atrotomentosa.php" target="_blank">First Nature</a> ·
+      <a class="ref-link" href="https://www.mykoweb.com/CAF/species/Tapinella_atrotomentosa.html" target="_blank">California Fungi</a> ·
+      <a class="ref-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6102582/" target="_blank">NCBI 抗菌活性研究</a>
+    </div>
+    <div>⚠ 不可食用 · 胃肠炎型中毒记录 · 仅供学习识别</div>
+  </div>
+
+</div>
+</body>
+</html>
