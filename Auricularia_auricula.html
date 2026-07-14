@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黑木耳 · Auricularia auricula</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：温暖、柔和、秋日蜜色调 */
+    --ink: #1e1608;
+    --ink-mid: #4a3c20;
+    --ink-light: #8a7858;
+    --cream: #faf6ee;
+    --surface: #ffffff;
+    --surface-warm: #fdf9f2;
+
+    /* 蜜黄主色 */
+    --honey: #b07020;
+    --honey-light: #e8b84e;
+    --honey-pale: #fdf4dc;
+    --honey-mid: #7a4e10;
+
+    /* 暖橙棕（菌褶、菌柄色） */
+    --amber: #8b5e1a;
+    --amber-light: #d4943a;
+    --amber-pale: #fef0d8;
+
+    /* 苔绿（可食标记） */
+    --moss: #4a6c2a;
+    --moss-light: #8ab870;
+    --moss-pale: #edf4e5;
+
+    /* 锈红（警示：生食有毒） */
+    --warn: #9a3a18;
+    --warn-light: #d4703a;
+    --warn-pale: #fceee8;
+
+    /* 温暖灰棕 */
+    --stone: #6a5c3a;
+    --stone-light: #a09070;
+
+    --border: rgba(120,90,40,0.12);
+    --border-mid: rgba(120,90,40,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ── 温和提示横幅 ── */
+  .notice-banner {
+    background: var(--honey);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #e8dcc8;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,12,4,0.7));
+    padding: 24px 20px 16px;
+  }
+
+  .hero-overlay-text {
+    font-size: 12px;
+    color: rgba(240,220,180,0.85);
+    font-style: italic;
+  }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--honey);
+    margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .hero-name-la {
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--amber);
+    margin-bottom: 4px;
+  }
+
+  .hero-author {
+    font-size: 12px;
+    color: var(--stone-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-honey  { background: var(--honey-pale);  color: var(--honey-mid); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-amber  { background: var(--amber-pale);  color: var(--amber); }
+  .tag-stone  { background: #f0ebe0;            color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-honey { background: var(--honey); }
+  .dot-moss  { background: var(--moss); }
+  .dot-warn  { background: var(--warn); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-amber { background: var(--amber); }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .section-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--stone-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── PHOTO LAYOUT ── */
+  .photo-outer { display: grid; gap: 10px; }
+
+  .photo-grid-6 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .photo-slot {
+    aspect-ratio: 4/3;
+    background: #e0d4b8;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot-wide {
+    aspect-ratio: 16/7;
+    background: #e0d4b8;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot img, .photo-slot-wide img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(20,12,4,0.72);
+    color: #f0e0c0;
+    font-size: 11px;
+    padding: 5px 8px;
+    text-align: center;
+  }
+
+  /* ── GROWTH PHASES ── */
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .phase-label {
+    padding: 4px 0;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 6px;
+  }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--honey-pale);  color: var(--honey-mid); }
+  .phase-mature { background: var(--amber-pale);  color: var(--amber); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── TRAITS GRID ── */
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .trait-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .trait-name {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 8px;
+  }
+
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── PARTS TABLE ── */
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid);
+    background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  .parts-table td:first-child {
+    font-weight: 500;
+    color: var(--honey-mid);
+    white-space: nowrap;
+    width: 110px;
+  }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  /* ── 特别注意栏 ── */
+  .caution-box {
+    background: var(--warn-pale);
+    border: 1px solid rgba(154,58,24,0.28);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .caution-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--warn);
+    margin-bottom: 10px;
+  }
+
+  .caution-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .caution-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #5a2010;
+    line-height: 1.6;
+  }
+
+  .caution-list li::before {
+    content: "!";
+    color: var(--warn);
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.6;
+    flex-shrink: 0;
+  }
+
+  /* ── DISTINCTION BOX ── */
+  .distinction-box {
+    background: var(--moss-pale);
+    border: 1px solid rgba(74,108,42,0.28);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1rem;
+  }
+
+  .distinction-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--moss);
+    margin-bottom: 10px;
+  }
+
+  .distinction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .distinction-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #2a4020;
+    line-height: 1.6;
+  }
+
+  .distinction-list li::before {
+    content: "·";
+    color: var(--moss);
+    font-size: 16px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  /* ── CONFUSION TABLE ── */
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .confusion-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--honey-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 16px;
+  }
+
+  .confusion-item.danger { border-left-color: #e07060; }
+
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  /* ── MEMORY ── */
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+
+  .memory-pill {
+    background: var(--honey-pale);
+    border: 1px solid rgba(176,112,32,0.25);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--honey-mid);
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* ── HABITAT ── */
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .habitat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .habitat-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 6px;
+  }
+
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  /* ── VALUE CARDS ── */
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .value-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .value-card-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-light);
+    margin-bottom: 8px;
+  }
+
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 菌索特色展示 ── */
+  .rhizomorph-bar {
+    background: linear-gradient(135deg, #fdf0d8, #fdf8ee);
+    border: 1px solid rgba(176,112,32,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--honey);
+    font-weight: 500;
+  }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border-mid);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--stone-light);
+  }
+
+  .ref-link { color: var(--honey-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .rhizomorph-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  🍄 可食用物种 · 世界最早人工栽培的食用菌之一 · 中国最重要的栽培食用菌产业之一
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula0.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula0.png" alt="黑木耳主图" loading="lazy">
+        </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Auricularia heimuer · 胶质耳形子实体侧生于阔叶朽木，湿润半透明，干后收缩革质</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 木耳目 · 木耳科（胶质菌）</div>
+    <div class="hero-name-zh">黑木耳</div>
+    <div class="hero-name-la">Auricularia auricula</div>
+    <div class="hero-author">(L. ex Hook.) Underw. · 现代分类学名 Auricularia heimuer F. Wu, Yuan Yuan &amp; Y.C. Dai, 2014</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">广泛可食</span>
+      <span class="tag tag-honey">世界最早栽培食用菌之一</span>
+      <span class="tag tag-honey">腐生木材分解者</span>
+      <span class="tag tag-stone">胶质子实体，干湿态巨变</span>
+      <span class="tag tag-amber">重要药食同源真菌</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">木耳 / 云耳 / 木檽 / 光木耳 / 树鸡 / 耳子</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Black Wood Ear / Cloud Ear Fungus</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">木耳目 Auriculariales / 木耳科 Auriculariaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">栽培状态</span>
+        <span class="taxon-value">大规模人工栽培 · 中国核心食用菌产业之一</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="rhizomorph-bar">
+      <div class="rh-item">
+        <span class="rh-label">标志结构：胶质变形</span>
+        <span class="rh-value">新鲜时柔软胶质半透明，富弹性；晒干后强烈收缩为黑色硬脆角质，遇水复原膨胀、恢复柔软半透明的原始形态——干湿态之间的巨大形变是本种最直观的识别特征</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">栽培历史</span>
+        <span class="rh-value">中国传统"砍花法"栽培始于约公元600年前后，是世界上最早实现人工栽培的食用菌品种之一；1955年发明纯菌种打孔接种法，现代主要采用木屑代料栽培，年产值超40亿美元</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">2014年更名</span>
+        <span class="rh-value">分子证据证实中国广泛栽培的"黑木耳"并非模式产地为欧洲的<em>A. auricula-judae</em>，而是仅分布于东亚的独立新种，遂定名为<em>Auricularia heimuer</em>（种加词取自"黑木耳"汉语拼音）</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+      <!-- 6张小图 -->
+      <div class="photo-grid-6">
+        <div class="photo-slot">
+          <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula1.png" alt="上方耳片图" loading="lazy">
+        </picture>
+          <div class="photo-caption">背面（不孕面）· 灰褐色细绒毛，弧形隆起</div>
+        </div>
+
+        <div class="photo-slot">
+          <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+          <div class="photo-caption">45° 侧拍 · 耳形轮廓、侧生短柄与朽木附着点</div>
+        </div>
+
+        <div class="photo-slot">
+          <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula3.png" alt="剖面图" loading="lazy">
+        </picture>
+          <div class="photo-caption">剖面 · 胶质半透明，中部可见浅色髓层</div>
+        </div>
+
+        <div class="photo-slot">
+          <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula4.png" alt="子实层面图" loading="lazy">
+        </picture>
+          <div class="photo-caption">子实层面（腹面）· 光滑或略皱，红褐至黑褐色</div>
+        </div>
+
+        <div class="photo-slot">
+          <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula5.png" alt="孢子印图" loading="lazy">
+        </picture>
+          <div class="photo-caption">孢子印 · 白色（担孢子腊肠形，肉眼呈白色粉状）</div>
+        </div>
+
+        <div class="photo-slot">
+          <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+          <div class="photo-caption">细节 · 干燥收缩态与泡发复原态对比</div>
+        </div>
+      </div>
+
+      <!-- 生境图（大图） -->
+      <div class="photo-slot-wide">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula7.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Auricularia_auricula7.png" alt="生境图" loading="lazy">
+        </picture>
+        <div class="photo-caption">生境图 · 阔叶树（栎属为主）枯立木、倒木侧生群丛，亦为椴木/代料人工栽培场景</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼耳期</div>
+        <div class="phase-desc">子实体初现为微小杯状/盘状凸起，浅黄褐色，质地已呈柔软胶质；不孕面（外面）密生极短绒毛，子实层面（内面）尚浅平未充分凹陷；单生或数枚簇生于树皮裂缝或朽木伤口处</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">展育期</div>
+        <div class="phase-desc">耳片迅速扩展为耳形、叶状或不规则形，边缘呈波状，逐渐加宽变薄；颜色转为红褐色至棕褐色；侧生短柄或近无柄固着于基质；多枚耳片常呈覆瓦状叠生丛聚，湿润时呈半透明胶质、极富弹性</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期 / 干燥态</div>
+        <div class="phase-desc">耳片展开至最大，宽可达2–12cm（栽培个体可更大），子实层面（内面/腹面）转深褐至黑褐色，光滑或略具皱纹脉络；不孕面（外面/背面）灰褐至暗青灰色，密布极短绒毛；<strong>晒干后强烈收缩为黑色角质至近革质的硬脆薄片</strong>，可长期保存；干耳遇水浸泡后迅速吸水膨胀，数十分钟内恢复至新鲜时的柔软半透明胶质状态，是本种最具辨识度的"复活"特性</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-honey">鲜耳浅黄褐→红褐色（子实层面）</span>
+          <span class="tag tag-stone">背面（不孕面）灰褐至暗青灰色</span>
+          <span class="tag tag-stone">干耳收缩后呈黑色至深褐色</span>
+          <span class="tag tag-moss">孢子印白色</span>
+          <span class="tag tag-stone">泡发后恢复红褐色半透明</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">浅圆盘形/耳形/不规则叶状（宽2–12cm）</span>
+          <span class="tag tag-stone">边缘波状，薄（厚约0.8–2mm）</span>
+          <span class="tag tag-honey">侧生短柄或近无柄</span>
+          <span class="tag tag-stone">常覆瓦状丛生叠生</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">鲜耳气味清淡，略带菌菇气</span>
+          <span class="tag tag-stone">干制后气味更为浓缩，无异味</span>
+          <span class="tag tag-stone">泡发后无刺激性气味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">爽脆滑嫩，富弹性</span>
+          <span class="tag tag-moss">几乎无明显味道，易吸附汤汁调味</span>
+          <span class="tag tag-stone">质地介于凉拌爽脆与炖煮软糯之间</span>
+          <span class="tag tag-honey">需熟制/充分泡发后食用</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead>
+          <tr>
+            <th>部位</th>
+            <th>形态描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>子实层面</td>
+            <td>着生于耳片内面（凹面），光滑或略具皱纹脉络，湿润时红褐色至棕褐色，半透明；干燥后转为深褐色至黑褐色；是担子与担孢子发育的场所</td>
+          </tr>
+          <tr>
+            <td>不孕面（背面）</td>
+            <td>耳片外面（凸面），呈弧形隆起，密生极短绒毛，青褐色至暗青灰色；绒毛基部褐色，向上渐尖，尖端近无色，长约50–150μm</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>胶质，半透明，富弹性；中部具浅色髓层（这也是本种与欧洲黑木耳的重要显微区别之一）；由具锁状联合的菌丝组成</td>
+          </tr>
+          <tr>
+            <td>附着方式</td>
+            <td>侧生，以极短柄或狭细基部固着于朽木基质，无正中生长柄；单生或数十枚簇生、覆瓦状叠生</td>
+          </tr>
+          <tr>
+            <td>担子</td>
+            <td>棒状，具3道横隔分为4细胞，每细胞各生1小梗；大小约40–67 × 3–6.5μm，埋于胶质子实层中</td>
+          </tr>
+          <tr>
+            <td>担孢子</td>
+            <td>腊肠形，弯曲，无色，光滑，薄壁，具1–2个大液泡；大小约11–13 × 4–5μm；孢子印白色至奶白色</td>
+          </tr>
+          <tr>
+            <td>干湿态转换</td>
+            <td>新鲜时柔软胶质，粘而富弹性；晒干后强烈收缩为黑色硬而脆的角质至近革质薄片，体积可缩小至原来的十分之一左右；泡发后迅速吸水恢复原状，是采购、储存与烹饪前的关键处理环节</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>胶质耳形/盘形子实体<strong>侧生于阔叶树朽木</strong>（尤喜栎属），无正中生长柄，常覆瓦状丛生</li>
+        <li>不孕面（背面）<strong>密布极短绒毛</strong>，青褐至灰褐色；子实层面（腹面）光滑，红褐至黑褐色</li>
+        <li>干湿态<strong>形变巨大</strong>：新鲜柔软半透明↔干燥收缩黑色硬脆，泡发后可恢复原状，是最直观的野外与厨房识别法</li>
+        <li>孢子印<strong>白色</strong>，担孢子腊肠形具锁状联合菌丝——显微特征是区分近缘复合种的关键依据</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与毛木耳区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">毛木耳（<em>A. cornea</em> / <em>A. polytricha</em>）不孕面绒毛<strong>更长更密</strong>（可达数毫米，肉眼明显可见"毛耳"感），质地更厚更脆韧，口感不及黑木耳细腻；黑木耳绒毛短而不明显</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与皱木耳区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">皱木耳（<em>A. delicata</em>）子实层面具<strong>明显网格状皱褶</strong>，外观蜂窝化；黑木耳子实层面光滑或仅有浅脉纹，无网格结构</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">毛木耳 <em>Auricularia cornea</em>（<em>A. polytricha</em>，可食，俗称"粗木耳"）</div>
+        <div class="confusion-diff">区别：不孕面绒毛长而明显、无色，仅基部褐色；质地较黑木耳粗韧，不易嚼碎，风味逊于黑木耳，但价格更低廉，市场常见的"平价木耳"多为此种或其栽培变种</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">皱木耳 <em>Auricularia delicata</em>（可食）</div>
+        <div class="confusion-diff">区别：子实层面具明显网格状皱褶，外观类似脑纹或蜂窝；生境与黑木耳相近，但网格皱褶是最直观的野外区分特征</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">短毛木耳 <em>Auricularia villosula</em>（同域近缘种，可食）</div>
+        <div class="confusion-diff">2014年与黑木耳同期从复合种中厘清的独立新种，主要分布于中国东北，无髓层（黑木耳有髓层），担孢子略大（13–15.5×5–6.1μm），不孕面短柔毛不明显但子实层具明显皱褶，野外肉眼较难区分，需显微鉴定</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">欧洲黑木耳 <em>Auricularia auricula-judae</em>（可食，我国不产）</div>
+        <div class="confusion-diff">区别：模式产地及分布仅限欧洲，我国广泛栽培的"黑木耳"曾长期误用此学名，2014年分子证据确认二者为不同物种；欧洲种孢子更大（15–22×5–7μm），传统多生于接骨木上</div>
+      </div>
+    </div>
+
+    <!-- ── 分类地位说明板块 ── -->
+    <div style="margin-top:1.4rem;background:var(--honey-pale);border:1px solid rgba(176,112,32,0.30);border-radius:14px;overflow:hidden;">
+
+      <div style="background:var(--honey);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--moss);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--moss);margin-bottom:8px;">✓ 现代有效名（东亚栽培种）</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Auricularia heimuer</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">F.Wu, Yuan Yuan & Y.C.Dai, 2014</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              中文：<strong>黑木耳</strong>。基于分子证据独立命名的东亚特有种，是我国广泛栽培食用的黑木耳的准确学名，种加词取自中文"黑木耳"拼音。
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--stone-light);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone);margin-bottom:8px;">= 传统习用名（本页沿用）</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Auricularia auricula</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">(L. ex Hook.) Underw.</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              长期以来中国文献、药典及市场标签沿用此名指代黑木耳；现代分类学研究表明其所指实体应更精确地对应<em>A. heimuer</em>，但该名称在中文语境中仍被广泛使用。
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--amber);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--amber);margin-bottom:8px;">易混淆的欧洲种</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Auricularia auricula-judae</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">(Bull.) Quél.</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              中文：<strong>欧洲黑木耳（犹大木耳）</strong>。模式产地及天然分布<strong>仅限欧洲</strong>，我国不产；曾被误认为与我国黑木耳同种，2014年后已被证明为独立物种。
+            </div>
+          </div>
+
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称关系与混淆说明</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--honey);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>长期混用的历史成因：</strong>由于早期真菌分类主要依赖形态学比对，且模式标本多产自欧洲，我国广泛栽培的黑木耳长期被套用模式产地为欧洲的<em>Auricularia auricula-judae</em>之名，学名与实际物种并不完全对应。
+              </div>
+            </div>
+
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--honey);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>2014年分子证据厘清：</strong>吴芳、戴玉成等基于形态与分子数据研究证实，中国栽培最广的"黑木耳复合群"实际包含多个独立物种：东亚特有的<em>A. heimuer</em>（黑木耳）、我国东北的<em>A. villosula</em>（短毛木耳）及生长于针叶树的<em>A. americana</em>（美洲木耳），而<em>A. auricula-judae</em>本尊仅分布于欧洲。
+              </div>
+            </div>
+
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--honey);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>中文名称不受影响：</strong>无论学名如何修订，中文"黑木耳"作为通用商品名与俗名的地位未受影响；本页沿用"Auricularia auricula"这一读者熟悉的传统习用学名，同时在此说明其现代对应学名应为<em>A. heimuer</em>，供严谨引用时参考。
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">木耳复合群关键近缘种对比</div>
+          <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+              <thead>
+                <tr style="background:var(--cream);">
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-mid);font-weight:500;color:var(--stone-light);letter-spacing:.04em;">学名</th>
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-mid);font-weight:500;color:var(--stone-light);letter-spacing:.04em;">中文名</th>
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-mid);font-weight:500;color:var(--stone-light);letter-spacing:.04em;">分布</th>
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-mid);font-weight:500;color:var(--stone-light);letter-spacing:.04em;">髓层</th>
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-mid);font-weight:500;color:var(--stone-light);letter-spacing:.04em;">担孢子(μm)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background:var(--moss-pale);">
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);font-style:italic;font-weight:500;">A. heimuer</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);"><strong>黑木耳</strong></td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">东亚（中国北方为主）</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);color:var(--moss);">✓ 有髓层</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">11–13 × 4–5</td>
+                </tr>
+                <tr>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);font-style:italic;font-weight:500;">A. villosula</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">短毛木耳</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">东亚（中国分布更广）</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);color:var(--warn);">✗ 无髓层</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">13–15.5 × 5–6.1</td>
+                </tr>
+                <tr>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);font-style:italic;font-weight:500;">A. auricula-judae</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">欧洲黑木耳</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">仅欧洲</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);color:var(--stone-light);">—</td>
+                  <td style="padding:9px 10px;border-bottom:1px solid var(--border);">15–22 × 5–7</td>
+                </tr>
+                <tr>
+                  <td style="padding:9px 10px;font-style:italic;font-weight:500;">A. americana</td>
+                  <td style="padding:9px 10px;">美洲木耳</td>
+                  <td style="padding:9px 10px;">北美 / 中国东北华北（针叶树）</td>
+                  <td style="padding:9px 10px;color:var(--stone-light);">生长基质不同（针叶树）</td>
+                  <td style="padding:9px 10px;">因种而异</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「湿如胶冻，干如脆片，泡水又复原」</div>
+        <div class="memory-pill">「背毛短短腹面光，侧生朽木栎树上」</div>
+        <div class="memory-pill">「毛长是毛耳，网格是皱耳，光滑才是它」</div>
+        <div class="memory-pill">「千年砍花育此耳，如今代料满山川」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或群生，常覆瓦状叠生成丛；野生个体沿朽木树皮裂缝、伤口处密集萌发</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">腐生菌，生长于阔叶树死树、倒木及腐朽木上，尤以栎属（Quercus）最为常见，亦见于榆、杨、槐等树种；人工栽培以椴木砍花法或木屑代料袋料栽培为主</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">天然分布及栽培主产区集中于中国北方，黑龙江（大兴安岭、伊春、东宁）、吉林为核心产区；全国大部分省区均有栽培，福建、四川、湖北等地亦有分布</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">野生子实体多见于夏秋雨后（7–9月为盛产期）；人工栽培可通过控温控湿实现全年出耳，商品干耳全年可购</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采购与保存建议：优选耳片完整、色泽自然（避免过度乌黑发亮，可能经染色处理）、无霉斑异味的干耳；食用前须充分冷水或温水泡发2小时以上，泡发时间过长（超过一夜、尤其室温下）易滋生椰毒假单胞菌产生米酵菌酸毒素，务必现泡现吃、不隔夜泡发。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">中国传统"山珍"之一，营养丰富，富含多糖、膳食纤维、铁及多种矿物质；口感爽脆滑嫩，广泛用于凉拌、炒制、炖汤（如酸辣汤）等家常菜肴，是素食与荤食搭配中的百搭食材</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用与保健价值</div>
+        <div class="value-body">传统中医认为其性平味甘，具补气血、润肺、止血之效，用于气虚血亏、咯血吐血、崩漏、便秘等；现代研究显示其多糖成分具抗凝血、降血脂、抗氧化等潜在活性，常被称为"食品阿司匹林"（民间说法，需结合个人情况理性看待）</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">产业与栽培价值</div>
+        <div class="value-body">世界上最早实现人工栽培的食用菌品种之一，栽培历史逾千年；现代中国黑木耳产业年产值超40亿美元，黑龙江东宁、伊春等地已形成规模化菌棒代料栽培产业集群，是山区农民增收的重要经济作物</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为阔叶林重要的木材腐生分解者，加速枯立木、倒木的有机质分解与养分循环，是森林生态系统物质循环链条中的关键功能类群之一</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/wiki/黑木耳" target="_blank">维基百科 中文</a> ·
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Auricularia_heimuer" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://manu40.magtech.com.cn/Jwxb/article/2015/1672-6472/1672-6472-34-4-604.shtml" target="_blank">菌物学报·黑木耳复合群学名说明</a> ·
+      <a class="ref-link" href="https://www.zysj.com.cn/zhongyaocai/muer/index.html" target="_blank">中医世家·木耳药用</a>
+    </div>
+    <div>广泛栽培 · 药食同源 · 泡发需注意食品安全</div>
+  </div>
+
+</div>
+</body>
+</html>
