@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>红黄褶孔菌 · Phylloporus rhodoxanthus（褶孔牛肝菌 · 可食）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #201408;
+    --ink-mid: #4a2c14;
+    --ink-light: #8a6848;
+
+    --cream: #fbf1e0;
+    --surface: #ffffff;
+
+    /* 红色主色（菌盖/属名"红黄"之红） */
+    --red: #b8331a;
+    --red-light: #e07a52;
+    --red-pale: #fbe0d2;
+    --red-mid: #8a2410;
+
+    /* 黄色主色（菌褶/属名"红黄"之黄） */
+    --yellow: #d99a1a;
+    --yellow-light: #f0c868;
+    --yellow-pale: #fdf0cc;
+    --yellow-mid: #a8720e;
+
+    --moss: #566c2a;
+    --moss-light: #a0bc78;
+    --moss-pale: #eef2e0;
+
+    --caution: #9a5a1a;
+    --caution-light: #d9a05a;
+    --caution-pale: #f8ecd8;
+
+    --stone: #6a5640;
+    --stone-light: #a08868;
+
+    --border: rgba(180,80,20,0.14);
+    --border-mid: rgba(180,80,20,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--red);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #eec888; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(28,14,4,0.7)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(250,220,180,0.85); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--red-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-red    { background: var(--red-pale);    color: var(--red-mid); }
+  .tag-yellow { background: var(--yellow-pale); color: var(--yellow-mid); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-caution{ background: var(--caution-pale);color: var(--caution); }
+  .tag-stone  { background: #f2e6d4;            color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-red { background: var(--red); }
+  .dot-yellow { background: var(--yellow); }
+  .dot-moss { background: var(--moss); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-caution { background: var(--caution); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #f0d29c; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #f0d29c; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); grid-column: span 3; }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(28,14,4,0.72); color: #fbe4c4; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--yellow-pale);  color: var(--yellow-mid); }
+  .phase-mature { background: var(--red-pale);  color: var(--red-mid); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--red-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--caution-pale); border: 1px solid rgba(154,90,26,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--caution); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a3010; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--caution); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(86,108,42,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2a3820; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--yellow-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: #c0301a; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--red-pale); border: 1px solid rgba(184,51,26,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--red-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #fbe0d2, #fdf0cc);
+    border: 1px solid rgba(184,51,26,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--red-mid); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--red-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .photo-slot-wide { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🍄 可食用物种 · 归属牛肝菌科却长有真正的"菌褶"而非菌孔 · 色彩鲜艳如花，常用于摆盘装饰
+</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus0.png" alt="红黄褶孔菌主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Phylloporus rhodoxanthus · 土褐红色菌盖搭配鲜黄色延生菌褶，是牛肝菌科中罕见长菌褶的"异类"</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 伞菌目 · 牛肝菌科 · 褶孔牛肝菌属</div>
+    <div class="hero-name-zh">红黄褶孔菌</div>
+    <div class="hero-name-la">Phylloporus rhodoxanthus</div>
+    <div class="hero-author">(Schwein.) Bres. · 又名红黄褶孔牛肝菌、褶孔菌、褶孔牛肝、荞巴巴菌</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">可食用</span>
+      <span class="tag tag-red">菌盖土褐红色</span>
+      <span class="tag tag-yellow">菌褶鲜黄色，延生</span>
+      <span class="tag tag-stone">牛肝菌科中的"菌褶异类"</span>
+      <span class="tag tag-caution">褶间具横脉，似菌孔</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">英文俗名</span>
+        <span class="taxon-value">Gilled bolete（有菌褶的牛肝菌）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">中文别名</span>
+        <span class="taxon-value">褶孔菌 / 褶孔牛肝 / 荞巴巴菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 Agaricales / 牛肝菌科 Boletaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分布</span>
+        <span class="taxon-value">江苏、福建、广东、四川、贵州、云南、西藏、海南、香港等 · 北半球广布</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <div class="section">
+    <div class="feature-bar">
+      <div class="rh-item">
+        <span class="rh-label">分类学趣点：披着牛肝菌外衣的"菌褶菇"</span>
+        <span class="rh-value">虽归属牛肝菌科，本种却长有真正的片状菌褶而非菌孔，是牛肝菌目中演化出菌褶结构的典型代表，常被称为"gilled bolete"（有褶牛肝菌）</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">标志配色：红盖黄褶</span>
+        <span class="rh-value">土褐红色的菌盖与鲜黄色的延生菌褶形成强烈对比，是"红黄褶孔菌"及属名"rhodoxanthus"（希腊语"玫瑰黄"）的直接由来</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">过渡结构：褶间横脉近似菌孔</span>
+        <span class="rh-value">菌褶之间常具横脉相连，有时几乎连成网状而形成"褶孔"，是介于典型菌褶与典型菌孔之间的过渡形态，具有重要的演化研究价值</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-red"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 土黄褐色至淡栗色，被绒毛或渐光滑</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 鲜黄色菌褶清晰可见，宛如一朵金黄小花</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉淡黄色，厚实</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus4.png" alt="菌褶横脉特写图" loading="lazy">
+        </picture>
+        <div class="photo-caption">菌褶横脉特写 · 褶间具横脉，部分区域相连近似菌孔</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 淡黄褐色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus6.png" alt="菌柄脉纹特写图" loading="lazy">
+        </picture>
+        <div class="photo-caption">菌柄脉纹特写 · 上部具脉纹，色较盖浅</div>
+      </div>
+
+      <div class="photo-slot-wide">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus7.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Phylloporus_rhodoxanthus7.png" alt="生境图" loading="lazy">
+        </picture>
+        <div class="photo-caption">生境图 · 夏秋季林中地上群生或散生</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-yellow"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖扁半球形，直径3–5cm，土褐色至带红褐色，表面被细绒毛；边缘幼时明显内卷；菌褶尚未完全展开，
+          橘黄色，较稀，已呈延生状；菌柄圆柱形，色较盖浅，具纤毛状鳞片；菌肉淡黄色，质地紧实。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖渐平展，直径可达7–9cm，中部开始出现浅凹陷，颜色转为土黄色、褐色或淡栗色，绒毛渐稀疏；
+          菌褶充分展开，鲜黄色至橘黄色，延生，不等长，褶间开始出现横脉相连；菌柄上部脉纹逐渐显现。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，直径可达11cm，中部下凹更明显，表面绒毛基本脱落变光滑；菌褶鲜黄色，较稀，
+          褶间横脉相连成网状，部分区域几乎形成"褶孔"；菌柄脉纹清晰，基部稍细；孢子印淡黄褐色。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-red"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-red">菌盖土黄色→褐色→淡栗色</span>
+          <span class="tag tag-yellow">菌褶橘黄色至鲜黄色</span>
+          <span class="tag tag-stone">菌肉淡黄色</span>
+          <span class="tag tag-stone">菌柄土黄色或橘黄色</span>
+          <span class="tag tag-stone">孢子印淡黄褐色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">菌盖扁半球形→平展中凹（径3–11cm）</span>
+          <span class="tag tag-yellow">菌褶延生，不等长，褶间具横脉</span>
+          <span class="tag tag-caution">部分区域横脉相连成"褶孔"</span>
+          <span class="tag tag-stone">菌柄圆柱形，上部有脉纹</span>
+          <span class="tag tag-stone">菌盖表面绒毛渐脱落变光滑</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">气味温和，具菌香</span>
+          <span class="tag tag-stone">无明显刺激性异味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">可食用</span>
+          <span class="tag tag-stone">质地较厚实</span>
+          <span class="tag tag-caution">仍建议煮熟煮透后食用</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-red"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径3–11cm，扁半球形，后平展，中部稍下凹，土黄色、褐色或淡栗色，被绒毛或渐变光滑</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>淡黄色，厚，是牛肝菌科成员共有的厚实肉质特征</td>
+          </tr>
+          <tr>
+            <td>菌褶（关键分类特征）</td>
+            <td>橘黄色至鲜黄色，较稀，延生，不等长，褶间具横脉相连，有时形成"褶孔"；是本种归属牛肝菌科却拥有片状菌褶这一分类学特殊性的直接体现</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>长3–5cm，粗0.7–1.4cm，圆柱形，上下略等粗或基部稍细，土黄色或橘黄色，上部具脉纹</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>椭圆形或近纺锤形，带淡黄色，10.4–13×4.4–5.2μm；孢子印淡黄褐色；褶侧囊体无色，顶端常较细，棒状，常有黄色内含物</td>
+          </tr>
+          <tr>
+            <td>菌托 / 菌环</td>
+            <td>均无</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>虽归属<strong>牛肝菌科</strong>，却拥有典型的<strong>片状菌褶</strong>而非牛肝菌常见的菌孔结构，是本属最独特的分类学特征</li>
+        <li>菌盖<strong>土黄褐至淡栗色</strong>，与菌褶的<strong>鲜黄至橘黄色</strong>形成强烈的"红黄"对比配色，是种加词 rhodoxanthus（"玫瑰黄"）及中文名的直接由来</li>
+        <li>菌褶<strong>褶间具横脉相连</strong>，部分区域几乎连成网状而形成"褶孔"，是介于典型菌褶与典型菌孔之间的过渡形态</li>
+        <li>菌盖外翻或成熟平展时常露出鲜黄色菌褶，<strong>色彩鲜艳宛如一朵小花</strong>，是野外辨识度极高的视觉特征</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">食用提示</div>
+      <ul class="caution-list">
+        <li>本种被多份文献明确记录为可食用菌，但野生菌采集仍建议充分煮熟煮透后食用，不要生食或半生食用</li>
+        <li>由于菌褶结构特殊，初次接触者可能因"长菌褶"而误判其分类归属，甚至误以为是普通伞菌或红菇属，采集时可结合菌肉厚实、菌褶延生具横脉等特征综合判断</li>
+        <li>不同产地、不同发育阶段的个体颜色变化较大（从土黄到淡栗色不等），不确定物种时仍建议咨询当地有经验的采集者或专业机构</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与普通伞菌（菌褶类）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">本种虽有菌褶，但<strong>菌肉厚实肥厚</strong>（牛肝菌科共有特征），且菌褶<strong>褶间具横脉</strong>，明显不同于普通薄菌肉、褶间无横脉的典型伞菌</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与典型牛肝菌（菌孔类）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">典型牛肝菌菌盖下方为<strong>密集菌管孔</strong>；本种为<strong>片状菌褶</strong>，是牛肝菌科内演化出菌褶结构的特殊类群，二者子实层体结构完全不同</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">淡红褶孔菌 <em>Phylloporus rubeolus</em></div>
+        <div class="confusion-diff">同属近缘种，菌盖颜色偏淡红色调，外观与本种相似，主要产于中国云南等地，是褶孔牛肝菌属中较新描述的物种之一</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">红鳞褶孔菌 <em>Phylloporus rubrosquamosus</em></div>
+        <div class="confusion-diff">同属近缘种，菌盖具红色鳞片，与本种同为褶孔牛肝菌属中国类群成员，外观有一定相似度</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">粗柄褶孔牛肝菌（糙柄褶孔菌）<em>Phylloporus scabrosus</em></div>
+        <div class="confusion-diff">同属近缘种，菌柄质地更为粗糙，是褶孔牛肝菌属在中国描述的本土种之一</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.4rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「牛肝菌科长菌褶，红黄配色似小花」</div>
+        <div class="memory-pill">「褶间横脉连成网，半是菌褶半菌孔」</div>
+        <div class="memory-pill">「土褐盖下鲜黄裙，摆盘装饰两相宜」</div>
+        <div class="memory-pill">「厚肉是牛肝菌根，莫因有褶认错门」</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">夏秋季于林中地上群生或散生</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 共生关系</div>
+        <div class="habitat-value">外生菌根真菌，国外文献记载与山毛榉、栎树等阔叶树形成菌根关系</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国江苏、福建、广东、四川、贵州、云南、西藏、海南、香港等地；北半球温带及亚热带地区广泛分布</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">夏秋季雨后为主要发生期，与其他外生菌根真菌类似</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集与食用建议：因色彩鲜艳、造型独特，本种在餐饮摆盘中也常被用作装饰；采集后建议煮熟煮透食用，避免生食；不确定具体种类时可参考菌褶横脉、菌肉厚度等特征综合判断。
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-red"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">是明确记录的可食用菌，质地厚实，气味温和；因色彩鲜艳如花，也常被用于菜肴摆盘装饰，兼具食用与观赏价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">分类学与演化价值</div>
+        <div class="value-body">作为牛肝菌科中拥有真正菌褶结构的代表类群，是研究牛肝菌目子实层体结构演化（菌孔与菌褶之间过渡形态）的重要模式物种</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">物种多样性研究价值</div>
+        <div class="value-body">近年针对褶孔牛肝菌属的系统发育研究显示，中国该属至少有21个系统发育种，其中多个为新描述物种，东亚类群与东南亚关系最为密切，是真菌生物地理学研究的热点类群之一</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为外生菌根真菌，对宿主林木的水分与养分吸收具有促进作用，是森林生态系统物质循环的重要参与者</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://baike.baidu.com/item/%E7%BA%A2%E9%BB%84%E8%A4%B6%E5%AD%94%E7%89%9B%E8%82%9D%E8%8F%8C/10201959" target="_blank">百度百科·红黄褶孔牛肝菌</a> ·
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-cn/%E8%A4%B6%E5%AD%94%E7%89%9B%E8%82%9D%E8%8F%8C%E5%B1%9E" target="_blank">维基百科·褶孔牛肝菌属</a> ·
+      <a class="ref-link" href="https://handwiki.org/wiki/Biology:Phylloporus_rhodoxanthus" target="_blank">HandWiki · Phylloporus rhodoxanthus</a>
+    </div>
+    <div>可食用牛肝菌科 · 独特菌褶结构 · 红黄配色标志种</div>
+  </div>
+
+</div>
+</body>
+</html>
