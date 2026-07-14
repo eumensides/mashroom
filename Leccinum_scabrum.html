@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>褐疣柄牛肝菌 · Leccinum scabrum</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食用牛肝菌：桦木灰褐 + 疣点锈红 */
+    --ink: #1e1b17;
+    --ink-mid: #443e34;
+    --ink-light: #8a8272;
+
+    --cream: #f2ede2;
+    --surface: #fffdf7;
+    --surface-warm: #faf6ec;
+
+    /* 灰褐主色（菌盖/桦木色） */
+    --birch-cap: #8c7256;
+    --birch-light: #c2ab89;
+    --birch-pale: #f1e7d5;
+    --birch-mid: #6b5540;
+
+    /* 锈红疣点色（菌柄标志） */
+    --scaber: #a54a30;
+    --scaber-light: #cf8a6c;
+    --scaber-pale: #f7e0d5;
+
+    /* 桦树皮白（生境标记） */
+    --bark: #d9d2c0;
+    --bark-light: #ece7d9;
+
+    /* 谨慎琥珀（食用安全提示） */
+    --warn: #ad7a2c;
+    --warn-light: #d3ac6c;
+    --warn-pale: #f8ecd8;
+
+    --stone: #5c554a;
+    --stone-light: #978d78;
+
+    --border: rgba(107,85,64,0.14);
+    --border-mid: rgba(107,85,64,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--scaber);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #d6c9ab; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(22,16,8,0.68));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,228,205,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--scaber); margin-bottom: 12px; }
+
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 34px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--birch-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-birch  { background: var(--birch-pale);  color: var(--birch-mid); }
+  .tag-scaber { background: var(--scaber-pale); color: var(--scaber); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-stone  { background: #ece3d0;            color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-birch  { background: var(--birch-mid); }
+  .dot-scaber { background: var(--scaber); }
+  .dot-warn   { background: var(--warn); }
+  .dot-stone  { background: var(--stone-light); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #d6c9ab; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #d6c9ab; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(22,16,8,0.68); color: #f2e6d4; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--bark-light);  color: var(--birch-mid); }
+  .phase-mid    { background: var(--warn-pale);   color: var(--warn); }
+  .phase-mature { background: var(--scaber-pale); color: var(--scaber); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--birch-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(173,122,44,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a4110; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--birch-pale); border: 1px solid rgba(107,85,64,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--birch-mid); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #362a1a; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--birch-mid); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--birch-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.good { border-left-color: var(--scaber); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--birch-pale); border: 1px solid rgba(107,85,64,0.28); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--birch-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #f1e7d5, #faf6ec);
+    border: 1px solid rgba(140,114,86,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--birch-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--birch-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  🍄 可食用牛肝菌 · 菌柄密布锈红疣点 · 与桦树形成专性菌根
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Leccinum_scabrum0.png" alt="褐疣柄牛肝菌主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Leccinum scabrum · 菌盖淡灰褐色至栗褐色，菌柄密布红褐色小疣点</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 牛肝菌科 · 疣柄牛肝菌属</div>
+    <div class="hero-name-zh">褐疣柄牛肝菌</div>
+    <div class="hero-name-la">Leccinum scabrum</div>
+    <div class="hero-author">(Bull. : Fr.) Gray</div>
+
+    <div class="tag-row">
+      <span class="tag tag-scaber">可食用</span>
+      <span class="tag tag-scaber">菌柄密布锈红疣点</span>
+      <span class="tag tag-birch">桦树专性菌根</span>
+      <span class="tag tag-birch">无孔口变色反应</span>
+      <span class="tag tag-stone">牛肝菌科（有菌管无菌褶）</span>
+      <span class="tag tag-warn">重金属富集需适量</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">褐疣柄牛肝菌 / 桦树牛肝菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Birch Bolete / Scaber Stalk</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">牛肝菌目 / Boletaceae 牛肝菌科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分布状态</span>
+        <span class="taxon-value">原产欧洲，随桦树引种遍布北半球及澳新</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志结构：菌柄锈红疣点</span>
+        <span class="fb-value">菌柄下部淡灰色，具纵棱纹，密布众多红褐色至黑褐色的小疣点，这正是"疣柄牛肝菌属"（<em>Leccinum</em>）得名的由来，也是本种最直观的野外识别特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">与桦树形成专性菌根</span>
+        <span class="fb-value">本种起源于欧洲，与桦树关系密切，多形成外生菌根共生；因桦树被引种至世界各地，本种也随之扩散至北半球各地乃至澳大利亚、新西兰</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">菌肉不变蓝，安全信号之一</span>
+        <span class="fb-value">菌肉切开后不变色或仅略变粉黄色，<strong>不会像部分毒牛肝菌那样迅速变蓝</strong>，是牛肝菌科采集安全排查中的重要参考指标之一</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-birch"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Leccinum_scabrum1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 淡灰褐色至栗褐色，湿时稍黏</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Leccinum_scabrum2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 白色至淡褐色菌管 / 疣点菌柄</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Leccinum_scabrum3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉白色，伤不变色或稍变粉黄</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Leccinum_scabrum4.png" alt="菌管孔口图" loading="lazy">
+        <div class="photo-caption">管口面 · 圆形，初白后转淡褐色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Leccinum_scabrum5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 淡褐色至褐色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Leccinum_scabrum6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">细节 · 菌柄纵棱纹与红褐色小疣点特写</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Leccinum_scabrum7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 桦树林下地表，单生或散生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-scaber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体呈半球形，菌盖淡灰褐色，表面光滑或具短绒毛，湿润时稍黏；菌管尚短，管口白色，紧贴菌柄；菌柄下部已可见细小的浅色疣点雏形，
+          纵棱纹尚不明显。此阶段口感最为细嫩，是采集者公认风味最佳的阶段。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">生长期</div>
+        <div class="phase-desc">
+          菌盖逐渐扩展为凸镜形，色泽加深为红褐色，边缘颜色略淡；菌管伸长，管口逐渐由白色转为淡褐色；菌柄纵棱纹愈发明显，
+          疣点数量增多、颜色加深为红褐色，密布于淡灰色柄面之上。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展开，直径可达3–13.5(15)cm，淡灰褐色、红褐色或栗褐色；菌管管口转为淡褐色，圆形；菌柄长4–11(15)cm，
+          粗1–3.5cm，下部淡灰色，具纵棱纹，密布众多红褐色至黑褐色小疣点；菌肉白色，切开后不变色或稍变粉黄；孢子印淡褐色或褐色。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-scaber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-birch">菌盖淡灰褐色 / 红褐色 / 栗褐色</span>
+          <span class="tag tag-stone">菌肉白色，伤不变色或稍变粉黄</span>
+          <span class="tag tag-birch">菌管初白后转淡褐色</span>
+          <span class="tag tag-scaber">菌柄疣点红褐色至黑褐色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">菌盖半球形至凸镜形，成熟平展</span>
+          <span class="tag tag-scaber">菌柄具纵棱纹，密布小疣点</span>
+          <span class="tag tag-birch">无菌环、无菌托</span>
+          <span class="tag tag-stone">菌管代替菌褶，非离生结构</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-birch">温和菌香，无特殊刺激气味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-birch">熟制后质地软嫩，风味温和</span>
+          <span class="tag tag-warn">务必彻底煮熟后食用</span>
+          <span class="tag tag-stone">部分指南建议谨慎食用</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-scaber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径3–13.5(15)cm，淡灰褐色，红褐色或栗褐色，湿时稍黏，光滑或有短绒毛，边缘颜色较淡</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色，切开后不变色或稍变粉黄，质地相对松软</td>
+          </tr>
+          <tr>
+            <td>菌管</td>
+            <td>初期白色，渐变为淡褐色；管口同色，圆形，代替菌褶行使产孢功能——牛肝菌科的共同结构特征</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>长4–11(15)cm，粗1–3.5cm，下部淡灰色，具纵棱纹，密布众多<strong>红褐色小疣点</strong>——本属最具辨识度的标志结构</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>无色至微带黄褐色，长椭圆形或近纺锤形，平滑，(11.7)15–18μm×5–6μm；管侧囊体和管缘囊体相似，近无色，纺锤状或棒状；孢子印淡褐色或褐色</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-birch"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖下方为<strong>菌管而非菌褶</strong>，管口圆形——牛肝菌科（Boletaceae）区别于伞菌科的家族性结构特征</li>
+        <li>菌柄密布<strong>红褐色至黑褐色小疣点</strong>，下部淡灰色具纵棱纹，是"疣柄牛肝菌属"命名及本种野外识别的核心依据</li>
+        <li>菌肉切开后<strong>不变色或仅略变粉黄</strong>，不会迅速变蓝，是区别于部分毒牛肝菌的重要参考特征</li>
+        <li>与<strong>桦树</strong>形成专性外生菌根关系，凡是桦树林下发现的疣柄牛肝菌，均应首先考虑本种</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用提示：牛肝菌科采集安全通则</div>
+      <ul class="caution-list">
+        <li>本种虽属可食用牛肝菌，但部分权威指南建议谨慎食用，认为疣柄牛肝菌属整体的食用安全性仍需个体注意，芬兰、俄罗斯等地食用普遍，但并非所有地区的指南都推荐</li>
+        <li>务必彻底煮熟后食用，生食或未煮透可能引起胃肠不适</li>
+        <li>牛肝菌科整体采集安全通则：应避开管口呈红色、切开后迅速变蓝、口感极苦的种类，这些特征常与有毒或难以下咽的牛肝菌相关</li>
+        <li>疣柄牛肝菌属对重金属（汞、镉、铅）及放射性核素具有较强的富集能力，食用来源不明或疑似污染地区的野生个体时应格外谨慎，不宜长期大量食用</li>
+        <li>老熟、菌管发黏发暗或有异味的个体不宜食用</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与橙黄疣柄牛肝菌（L. aurantiacum）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">橙黄疣柄牛肝菌菌盖<strong>橙红色</strong>，菌柄疣点<strong>近黑色</strong>，菌肉切开后先变红继而变黑；本种菌盖为灰褐至栗褐色调，菌肉伤后仅略变粉黄，变色程度远不及橙黄疣柄牛肝菌明显</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与苦粉孔菌（Tylopilus felleus）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">苦粉孔菌外形酷似牛肝菌，但菌柄具<strong>网状花纹</strong>（而非疣点），管口初白后转粉红色，且<strong>味极苦</strong>（虽无毒但严重影响口感）；本种菌柄为疣点而非网纹，管口转淡褐而非粉红，味道温和</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item good">
+        <div class="confusion-name">橙黄疣柄牛肝菌 <em>Leccinum aurantiacum</em>（可食）</div>
+        <div class="confusion-diff">菌盖橙红色，菌柄疣点近黑色，菌肉切开后先变红后变黑，与山杨等阔叶树形成菌根，是疣柄牛肝菌属内另一广受欢迎的食用种</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">苦粉孔菌 <em>Tylopilus felleus</em>（不宜食用，味极苦）</div>
+        <div class="confusion-diff">外形与牛肝菌属相近，但菌柄具网状花纹而非疣点，管口初白后转粉红色，味道极苦，虽无明确毒性但严重影响食用体验，是新手最容易误采的"苦味陷阱"</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">美味牛肝菌 / 欧洲板栗牛肝菌 <em>Boletus edulis</em>（知名食用种）</div>
+        <div class="confusion-diff">菌柄具<strong>网状花纹</strong>而非疣点，是牛肝菌属（而非疣柄牛肝菌属）的代表种，两者可通过菌柄表面纹理特征快速区分</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">疣柄牛肝菌属其他近缘种（约75种）</div>
+        <div class="confusion-diff">该属全球已知约75种，多数与桦树、杨树、栎树等特定树种形成专性菌根，形态整体相近，田间区分需结合宿主树种及菌肉变色反应综合判断</div>
+      </div>
+    </div>
+
+    <!-- 分类地位说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--birch-pale);border:1px solid rgba(107,85,64,0.32);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--birch-mid);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位与命名说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--birch-mid);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--birch-mid);margin-bottom:8px;">属名释义</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Leccinum</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">或源自意大利方言 leccino（一种牛肝菌俗称）</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              疣柄牛肝菌属全球已知约75种，核心共同特征即菌柄表面密布疣点状鳞片，区别于牛肝菌属（<em>Boletus</em>）的网状花纹菌柄，中文属名"疣柄牛肝菌属"正是对这一结构特征的直译。
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--scaber);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--scaber);margin-bottom:8px;">种加词释义</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">scabrum</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">拉丁语，意为"粗糙的"</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              形容菌柄表面密布疣点后呈现的粗糙触感，英文俗名 Scaber Stalk（粗糙柄）同样呼应了这一特征。
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">生态与营养研究现状</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--birch-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>菌根专性：</strong>疣柄牛肝菌属可与超过60个木本植物属形成外生菌根关系，在森林生态系统中具有重要的功能地位；本种在中国部分记录中也见于云杉、冷杉林下，提示其菌根宿主范围可能比传统认知更广。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--birch-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>营养与富集特性：</strong>研究显示疣柄牛肝菌属富含优质蛋白、膳食纤维、矿物质、生物活性多糖及酚类化合物，具抗氧化、免疫调节及一定抗肿瘤活性；但该属对重金属及放射性核素的富集能力也十分突出，是环境监测研究中常用的生物指示物种之一。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--birch-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>保存特性：</strong>采后常温保存期较短（仅数天），因此除鲜食外，晒干或加工处理也是常见的市场流通形式。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--warn-pale);border:1px solid rgba(173,122,44,0.3);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a4110;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>桦树林下发现菌柄密布疣点、管口非红色、切开不变蓝的牛肝菌时，可初步判断为本种；采集后建议尝一小块判断是否有苦味（不咽下即可判断），若极苦应放弃食用；不确定树种及疣点颜色特征时，建议咨询当地专业人士或菌物协会核实。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「柄生疣点认此属，桦树林下寻踪迹」</div>
+        <div class="memory-pill">「无褶有管牛肝菌，孔口不红最安心」</div>
+        <div class="memory-pill">「网纹柄是牛肝菌，疣点柄是疣柄属」</div>
+        <div class="memory-pill">「重金属易被富集，适量食用莫贪多」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或散生，极少成丛群生</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">地生，与桦树形成外生菌根关系（中国部分记录也见于云杉、冷杉），常见于阔叶林或针阔混交林地表</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">原产欧洲，随桦树引种遍布北半球各地及澳大利亚、新西兰；中国分布于黑龙江、吉林、辽宁、河北、陕西、新疆、青海、西藏、四川、云南、浙江、安徽、江苏、广东、海南等17个省区</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">夏秋季（六月至十月），是欧洲及中国北方林区常见的野生食用菌之一</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：优先选择幼期至中期个体，风味最佳且质地紧实；采后应尽快处理食用或低温保存，避免长时间常温放置导致品质下降。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-birch"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">是欧洲及中国北方林区常见的野生食用菌之一，幼期子实体及菌盖风味最佳，适合鲜食、晒干或加工处理，但需彻底煮熟</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">营养价值</div>
+        <div class="value-body">富含优质蛋白、膳食纤维、矿物质、生物活性多糖及酚类化合物，具抗氧化、免疫调节及一定抗肿瘤活性，是研究关注的功能性食品来源之一</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态与环境价值</div>
+        <div class="value-body">作为外生菌根真菌参与森林养分循环，对重金属及放射性核素具有较强富集能力，是重要的环境生物指示物种，在森林恢复及生物修复研究中也具应用潜力</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">经济与文化价值</div>
+        <div class="value-body">在芬兰、俄罗斯等地是传统市场常见的季节性野生食材及收入来源之一，具有一定的地方饮食文化意义</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/wiki/%E8%A4%90%E7%96%A3%E6%9F%84%E7%89%9B%E8%82%9D%E8%8F%8C" target="_blank">Wikipedia · 褐疣柄牛肝菌</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E8%A4%90%E7%96%A3%E6%9F%84%E7%89%9B%E8%82%9D%E8%8F%8C/1481361" target="_blank">百度百科 · 褐疣柄牛肝菌</a> ·
+      <a class="ref-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12842815/" target="_blank">PMC · 疣柄牛肝菌属研究综述</a>
+    </div>
+    <div>可食用 · 与桦树共生 · 重金属富集需适量食用</div>
+  </div>
+
+</div>
+</body>
+</html>
