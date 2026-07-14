@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>褐云斑鹅膏 · Amanita porphyria（不可食用）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 不可食用鹅膏：紫灰云斑色调，呼应"porphyria"（泰尔紫）得名 */
+    --ink: #1c1a1e;
+    --ink-mid: #423c46;
+    --ink-light: #857e8c;
+
+    --cream: #efeaee;
+    --surface: #fdfbfd;
+    --surface-warm: #f7f2f6;
+
+    /* 紫灰主色（菌盖/菌环色） */
+    --porphyry: #6e5470;
+    --porphyry-light: #a690a8;
+    --porphyry-pale: #e9dfea;
+    --porphyry-mid: #503e54;
+
+    /* 灰褐（云斑纹理色） */
+    --taupe: #7a6a5c;
+    --taupe-light: #ab9c8c;
+    --taupe-pale: #ece4d8;
+
+    /* 警戒赭红（禁食警示） */
+    --warn: #a3401c;
+    --warn-light: #d3835a;
+    --warn-pale: #fae4d6;
+
+    /* 危险深红（近缘剧毒种/命名陷阱警示） */
+    --danger: #7a1f2b;
+    --danger-light: #c98a92;
+    --danger-pale: #f7e3e6;
+
+    --stone: #5c5660;
+    --stone-light: #979098;
+
+    --border: rgba(80,62,84,0.14);
+    --border-mid: rgba(80,62,84,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--warn);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #c3b3c4; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(18,12,20,0.72));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(232,220,232,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warn); margin-bottom: 12px; }
+
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 34px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--porphyry-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-porphyry { background: var(--porphyry-pale); color: var(--porphyry-mid); }
+  .tag-taupe    { background: var(--taupe-pale);    color: var(--taupe); }
+  .tag-warn     { background: var(--warn-pale);     color: var(--warn); }
+  .tag-danger   { background: var(--danger-pale);   color: var(--danger); }
+  .tag-stone    { background: #ece5ec;              color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-porphyry { background: var(--porphyry-mid); }
+  .dot-taupe    { background: var(--taupe); }
+  .dot-warn     { background: var(--warn); }
+  .dot-stone    { background: var(--stone-light); }
+  .dot-danger   { background: var(--danger); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #c3b3c4; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #c3b3c4; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(18,12,20,0.72); color: #ece0ec; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--taupe-pale);    color: var(--taupe); }
+  .phase-mid    { background: var(--porphyry-pale); color: var(--porphyry-mid); }
+  .phase-mature { background: var(--warn-pale);     color: var(--warn); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--porphyry-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(163,64,28,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a2410; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--porphyry-pale); border: 1px solid rgba(80,62,84,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--porphyry-mid); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2e2432; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--porphyry-mid); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--porphyry-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--danger); background: var(--danger-pale); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--porphyry-pale); border: 1px solid rgba(80,62,84,0.28); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--porphyry-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #e9dfea, #f7f2f6);
+    border: 1px solid rgba(110,84,112,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--porphyry-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--porphyry-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  ⚠ 不可食用 · 疑似有毒 · 与"假褐云斑鹅膏"名称易混淆，务必以拉丁学名核实
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Amanita_porphyria0.png" alt="褐云斑鹅膏主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Amanita porphyria · 菌盖暗紫灰色至云斑褐色，具生马铃薯/萝卜气味</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 鹅膏菌科 · 鹅膏属 亚属Amanitina · 粗柄组</div>
+    <div class="hero-name-zh">褐云斑鹅膏</div>
+    <div class="hero-name-la">Amanita porphyria</div>
+    <div class="hero-author">Alb. & Schwein. : Fr.</div>
+
+    <div class="tag-row">
+      <span class="tag tag-warn">⚠ 不可食用</span>
+      <span class="tag tag-porphyry">紫灰云斑色调</span>
+      <span class="tag tag-porphyry">生马铃薯/萝卜气味</span>
+      <span class="tag tag-taupe">柄基环状球茎</span>
+      <span class="tag tag-taupe">针叶林菌根</span>
+      <span class="tag tag-danger">易与"假褐云斑鹅膏"混淆</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">褐云斑鹅膏 / 灰紫鹅膏</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Grey Veiled Amanita / Porphyry Amanita</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Amanitaceae 鹅膏菌科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">毒性分级 / 食用状态</span>
+        <span class="taxon-value">疑似含毒素·各国指南均列为不可食用</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志颜色：泰尔紫云斑色调</span>
+        <span class="fb-value">菌盖呈暗淡的灰紫色至暗紫灰色，也常带褐色调，种加词 <em>porphyria</em> 正是源自古希腊语"泰尔紫"（帝王紫染料）一词，形容这一独特的云斑状紫灰色泽</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">标志气味：生马铃薯/萝卜味</span>
+        <span class="fb-value">菌肉具有鲜明的<strong>生马铃薯或萝卜气味</strong>，是本种及其近缘种（如柠檬黄鹅膏）最重要的嗅觉识别特征之一</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">菌盖边缘光滑无沟纹</span>
+        <span class="fb-value">与豹斑鹅膏、残托鹅膏等"鹅膏组"物种不同，本种<strong>菌盖边缘光滑不具沟纹</strong>，孢子淀粉质反应为阳性（变蓝），分类学上隶属完全不同的类群</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-porphyry"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Amanita_porphyria1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 暗紫灰色至云斑褐色，光滑</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Amanita_porphyria2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 白色菌褶 / 灰紫色菌环</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Amanita_porphyria3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉白色，具生马铃薯气味</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Amanita_porphyria4.png" alt="菌褶面图" loading="lazy">
+        <div class="photo-caption">褶面 · 白色，离生，受伤后变暗</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Amanita_porphyria5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 白色（孢子淀粉质，遇碘变蓝）</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Amanita_porphyria6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">细节 · 柄基环状球茎，菌托呈碎片状</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Amanita_porphyria7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 针叶林（云杉、冷杉）贫瘠土壤，单生或散生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-taupe"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体呈半球形，菌盖表面光滑，常附有灰色菌幕碎片状斑块；此阶段颜色偏灰，紫色调尚不明显；菌褶被菌幕包裹，尚不可见；
+          柄基已可见球茎雏形，质地柔软。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">生长期</div>
+        <div class="phase-desc">
+          菌盖逐渐展开，颜色转深，显现出灰紫色至暗紫灰色的"云斑"色调，部分个体带褐色或橄榄色调；菌幕破裂在菌柄上形成脆弱的菌环，
+          颜色呈灰紫色，容易破碎或发黑；柄基球茎更加明显，边缘出现环状收缩带（rimmed/collared）。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展开近平展，直径4–10(12)cm，暗紫灰色至云斑褐色；菌褶白色，离生，<strong>受伤后会变暗</strong>；菌柄5–12(18)cm，
+          柄基呈明显的环状/收缩状球茎，四周有时环绕白色膜质菌托碎片（并非总是完整的袋状结构）；菌肉白色，具鲜明的生马铃薯或萝卜气味；孢子印白色。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-taupe"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-porphyry">菌盖暗紫灰色至褐色，云斑状</span>
+          <span class="tag tag-taupe">菌褶白色，受伤变暗</span>
+          <span class="tag tag-porphyry">菌环灰紫色或发黑</span>
+          <span class="tag tag-taupe">孢子印白色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">菌盖半球形至平展，光滑无沟纹</span>
+          <span class="tag tag-porphyry">柄基环状/收缩状球茎</span>
+          <span class="tag tag-danger">菌托常呈碎片状而非完整袋状</span>
+          <span class="tag tag-taupe">菌环脆弱易破碎</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-porphyry">生马铃薯气味</span>
+          <span class="tag tag-porphyry">或类似萝卜气味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-danger">⚠ 严禁品尝鉴定</span>
+          <span class="tag tag-warn">各国指南均列为不可食用</span>
+          <span class="tag tag-stone">口感无公开记录</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-taupe"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径4–10(12)cm，幼时半球形，后平展，光滑，<strong>边缘不具沟纹</strong>，偶附灰色菌幕斑块；暗淡的灰紫色至暗紫灰色，也常呈褐色调</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>白色，离生，不等长，<strong>受伤后颜色变暗</strong>——这是本种较为特殊的一点，多数鹅膏属物种菌褶受伤不变色</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色，具鲜明的<strong>生马铃薯或萝卜气味</strong>，是重要的嗅觉识别特征</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>长5–12(18)cm，粗0.6–1.5cm，上部近等粗，柄基呈明显的环状或收缩状球茎（有时因开裂而与褐痕鹅膏 <em>A. brunnescens</em> 混淆）</td>
+          </tr>
+          <tr>
+            <td>菌环 / 菌托</td>
+            <td>菌环脆弱，灰紫色或发黑，环下常有灰色纤毛环带；菌托<strong>常呈不规则碎片状</strong>附着于柄基或球茎表面，并非总是形成完整的袋状/杯状结构，初期灰白色，迅速转为浅紫灰色至褐紫色</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>近球形至亚球形，直径8–10μm（或7.5–9.5×7–9μm），<strong>淀粉质（遇碘液变蓝）</strong>——这一点与鹅膏组（striate margin类群，孢子非淀粉质）形成鲜明对比；孢子印白色</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-danger"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖呈<strong>暗紫灰色至云斑褐色</strong>，边缘光滑<strong>不具沟纹</strong>，与豹斑鹅膏、残托鹅膏等"鹅膏组"物种的菌盖结构截然不同</li>
+        <li>菌肉具鲜明的<strong>生马铃薯/萝卜气味</strong>，是野外快速识别的重要嗅觉线索</li>
+        <li>柄基呈<strong>环状/收缩状球茎</strong>，菌托常为<strong>不规则碎片状</strong>附着，而非完整的袋状结构</li>
+        <li>孢子<strong>淀粉质</strong>（遇碘变蓝），是显微鉴定上区别于"鹅膏组"（孢子非淀粉质）近缘毒菌的关键技术指标</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用提示：不可食用，且极易与命名相近的剧毒种混淆</div>
+      <ul class="caution-list">
+        <li>各国真菌指南普遍将本种列为<strong>不可食用</strong>，认为其可能含有与鹅膏属其他物种类似的危险毒素，尚无充分的食品安全性研究支持食用</li>
+        <li><strong>命名陷阱务必警惕：</strong>"褐云斑鹅膏"（<em>Amanita porphyria</em>）与"假褐云斑鹅膏"（<em>Amanita pseudoporphyria</em>）是<strong>两个不同的物种</strong>，后者已知可导致<strong>急性肾损害型中毒</strong>，是我国云南等地毒蘑菇中毒事件的重要致病物种；两者中文名、拉丁学名均高度相似，检索或交流时极易混淆，务必以完整拉丁学名及来源文献核实</li>
+        <li>本种与豹斑鹅膏（<em>A. pantherina</em>，毒性更强）外观和生境有相似之处，田间仅凭肉眼快速区分风险较高</li>
+        <li>无论气味是否为"熟悉的马铃薯味"，鹅膏属物种一律不建议采食</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与"假褐云斑鹅膏"（A. pseudoporphyria）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">两者宏观形态<strong>几乎无法用肉眼区分</strong>，需借助显微特征——假褐云斑鹅膏菌托中膨大细胞更丰富，孢子呈<strong>椭圆形</strong>（7–10×5–7.5μm）；本种孢子呈<strong>近球形</strong>；假褐云斑鹅膏已知可致<strong>急性肾损害</strong>，是我国实际发生中毒事件的物种，务必格外警惕这一命名及形态双重陷阱</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与柠檬黄鹅膏（A. citrina）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">柠檬黄鹅膏菌盖呈<strong>浅柠檬黄至橄榄色</strong>，不具紫色调，菌环更为膜质持久；本种菌盖具灰紫色调，菌环质地脆弱易碎；两者同样具生马铃薯气味，同为不可食用种</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name">⚠⚠ 假褐云斑鹅膏 <em>Amanita pseudoporphyria</em>（有毒，肾损害型）</div>
+        <div class="confusion-diff">与本种中文名、学名高度相似，宏观形态几乎无法用肉眼区分，是极典型的"命名陷阱"；已知可致急性肾损害型中毒，是我国云南等地毒蘑菇中毒事件的重要致病物种，检索交流务必核实拉丁学名及来源</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name">豹斑鹅膏 <em>Amanita pantherina</em>（剧毒，神经精神型）</div>
+        <div class="confusion-diff">菌盖褐色具明显白色菌幕疣，整体更为粗壮，菌托呈完整袋状而非碎片状；与本种同域分布于林地，形态和习性有相似之处，但毒性更强，务必严格区分</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">柠檬黄鹅膏 <em>Amanita citrina</em>（不可食用近缘种）</div>
+        <div class="confusion-diff">菌盖浅柠檬黄色至橄榄色，不具紫色调，同样具生马铃薯气味，主要分布于落基山脉以东地区，与本种为经典的"气味相似、颜色不同"对照种</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">高地鹅膏 <em>Amanita excelsa</em>（不可食用近缘种）</div>
+        <div class="confusion-diff">主要分布于欧洲，个体更大，菌盖灰褐色，不具紫色调，边缘条纹较不明显，多见于山毛榉林，菌环相对更为脆弱</div>
+      </div>
+    </div>
+
+    <!-- 分类地位说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--porphyry-pale);border:1px solid rgba(80,62,84,0.32);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--porphyry-mid);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位与命名说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--porphyry-mid);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--porphyry-mid);margin-bottom:8px;">种加词释义</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">porphyria</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">古希腊语 porphúra（πορφύρα），意为"泰尔紫"</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              泰尔紫是古代地中海地区从骨螺提取的名贵紫色染料，象征帝王身份；用以形容本种菌盖偶尔显现的紫灰色调，但需注意这一紫色并非总是明显可见，部分个体整体偏灰褐色。
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--danger);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--danger);margin-bottom:8px;">分类位置</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">subgen. Amanitina · sect. Validae</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">subsect. Mappae（"斑点系"近缘类群）</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">
+              该组特征为菌盖边缘不具沟纹、菌环膜质持久、柄基球茎通常较小；与"鹅膏组"（section Amanita，如豹斑鹅膏、残托鹅膏，菌盖边缘具沟纹、孢子非淀粉质）在分类学上分属不同类群，但外观仍有相似之处，田间鉴定需格外仔细。
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">命名沿革与地区差异说明</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--porphyry-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>命名历史：</strong>1805年由德国真菌学家阿尔贝蒂尼（J.B. von Albertini）与美国真菌学家施魏尼茨（L.D. von Schweinitz）共同描述发表；丹麦真菌学家舒马赫（H.C.F. Schumacher）此前已于1803年以异名 <em>Agaricus gracilis</em> 描述过同一物种，但按真菌命名法优先权规则，现行学名仍为 <em>Amanita porphyria</em>。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--porphyry-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>大西洋两岸物种争议：</strong>欧洲与北美两地被称为"Grey Veiled Amanita"的标本是否为完全同一物种，学界仍存在一定疑问，提示该复合群可能包含尚未厘清的隐存种。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--porphyry-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>亚洲近缘种再次提醒：</strong>亚洲分布的"假褐云斑鹅膏"（<em>A. pseudoporphyria</em>）在宏观形态上与本种极为接近，仅能通过菌托显微结构（膨大细胞丰度）及孢子形状（椭圆形 vs 近球形）区分，是本页反复强调的最重要安全提醒。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--danger-pale);border:1px solid rgba(122,31,43,0.3);border-left:4px solid var(--danger);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a1018;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>针叶林下若发现具灰紫色调、生马铃薯气味、柄基环状球茎的鹅膏属子实体，应直接判定为不可食用的褐云斑鹅膏一类，切勿因"有相似食用种传说"而尝试；由于与假褐云斑鹅膏等有毒近缘种肉眼难以区分，鹅膏属物种应始终坚持"不采、不食"的原则。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「紫灰云斑马铃薯味，柄基环茎无沟纹」</div>
+        <div class="memory-pill">「褐云假褐名相近，肉眼难分肾损伤」</div>
+        <div class="memory-pill">「菌托碎片非完整，孢子变蓝助鉴定」</div>
+        <div class="memory-pill">「鹅膏一族皆谨慎，气味再熟也不尝」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或散生，不形成大型群落</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">地生，与针叶树（云杉、冷杉、铁杉等）形成外生菌根关系，也可见于部分落叶树（如桦树）；偏好贫瘠土壤</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">分布于欧洲、北美洲，气候上更偏向北方针叶林及半北方地区；也有澳大利亚的分布记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">夏季至秋季，是北方针叶林较为常见但因体色隐蔽（与松针落叶层融为一体）而容易被忽略的鹅膏属物种</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：针叶林下发现紫灰色调、柄基球茎鹅膏属真菌时，建议仅拍照记录，不采不食；如需专业鉴定，应保留完整子实体（含柄基）供检视菌托结构。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-porphyry"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">不可食用，各国真菌指南均建议不予采食，安全性缺乏充分研究支持</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用价值</div>
+        <div class="value-body">未见公开的显著药理活性研究报道</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为针叶林外生菌根真菌，参与云杉、冷杉等针叶树的养分吸收与土壤生态循环，是北方针叶林生态系统的重要组成部分</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科普 / 鉴定教育价值</div>
+        <div class="value-body">因与"假褐云斑鹅膏"存在极易混淆的命名与形态双重陷阱，是毒蘑菇科普教育中警示"不能仅凭中文俗名或表面相似性判断安全性"的经典案例</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Amanita_porphyria" target="_blank">Wikipedia · Amanita porphyria</a> ·
+      <a class="ref-link" href="https://www.mushroomexpert.com/amanita_porphyria.html" target="_blank">MushroomExpert.com</a> ·
+      <a class="ref-link" href="https://www.first-nature.com/fungi/amanita-porphyria.php" target="_blank">First Nature · Grey Veiled Amanita</a>
+    </div>
+    <div>不可食用 · 易与假褐云斑鹅膏混淆 · 针叶林菌根种</div>
+  </div>
+
+</div>
+</body>
+</html>
