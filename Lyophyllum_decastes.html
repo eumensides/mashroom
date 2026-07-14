@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>荷叶离褶伞 · Lyophyllum decastes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：温暖、柔和、灰白象牙调 */
+    --ink: #201c14;
+    --ink-mid: #4a4438;
+    --ink-light: #8a8270;
+
+    --cream: #f8f4ea;
+    --surface: #ffffff;
+    --surface-warm: #fdfaf1;
+
+    /* 象牙灰主色（菌盖色） */
+    --honey: #8a7440;
+    --honey-light: #c4ac6e;
+    --honey-pale: #f5efd8;
+    --honey-mid: #6a5828;
+
+    /* 暖褐（菌柄/生境） */
+    --amber: #7a5a28;
+    --amber-light: #c49a4e;
+    --amber-pale: #f6ecd4;
+
+    /* 苔绿（可食标记） */
+    --moss: #4a6c2a;
+    --moss-light: #8ab870;
+    --moss-pale: #edf4e5;
+
+    /* 锈红（警示：混淆种） */
+    --warn: #9a3a18;
+    --warn-light: #d4703a;
+    --warn-pale: #fceee8;
+
+    --stone: #6a6248;
+    --stone-light: #a49c84;
+
+    --border: rgba(110,100,60,0.12);
+    --border-mid: rgba(110,100,60,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--honey);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #e6e0c8; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,16,4,0.7));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,232,190,0.85); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem; display: flex; flex-direction: column;
+    justify-content: center; background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--honey); margin-bottom: 12px;
+  }
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700;
+    line-height: 1.2; color: var(--ink); margin-bottom: 6px;
+  }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--amber); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-honey  { background: var(--honey-pale);  color: var(--honey-mid); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-amber  { background: var(--amber-pale);  color: var(--amber); }
+  .tag-stone  { background: #f0ede0;            color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border); padding-top: 1rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
+  }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid);
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-honey { background: var(--honey); }
+  .dot-moss  { background: var(--moss); }
+  .dot-warn  { background: var(--warn); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-amber { background: var(--amber); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge {
+    margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot {
+    aspect-ratio: 4/3; background: #e0d8b8; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot-wide {
+    aspect-ratio: 16/7; background: #e0d8b8; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(20,16,4,0.72); color: #f0e8c8; font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--honey-pale);  color: var(--honey-mid); }
+  .phase-mature { background: var(--amber-pale);  color: var(--amber); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); margin-bottom: 8px;
+  }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border);
+    vertical-align: top; color: var(--ink);
+  }
+  .parts-table td:first-child { font-weight: 500; color: var(--honey-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box {
+    background: var(--warn-pale); border: 1px solid rgba(154,58,24,0.28);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem;
+  }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a2010; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box {
+    background: var(--moss-pale); border: 1px solid rgba(74,108,42,0.28);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem;
+  }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2a4020; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--honey-light);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.danger { border-left-color: #e07060; background: var(--warn-pale); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--honey-pale); border: 1px solid rgba(138,116,64,0.25); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--honey-mid); font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); margin-bottom: 6px;
+  }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); margin-bottom: 8px;
+  }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #f4ecd0, #fdfaee);
+    border: 1px solid rgba(138,116,64,0.3);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--honey); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light);
+  }
+  .ref-link { color: var(--honey-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🍄 可食用物种 · 云贵川传统野生食用菌"一窝羊" · 注意与白色系有毒近似种区分
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes0.png" alt="荷叶离褶伞主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Lyophyllum decastes · 数十朵灰白色子实体紧密丛生一处，故有"一窝羊"之称</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 离褶伞科 · 离褶伞属</div>
+    <div class="hero-name-zh">荷叶离褶伞</div>
+    <div class="hero-name-la">Lyophyllum decastes</div>
+    <div class="hero-author">(Fr. : Fr.) Singer</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">可食（食药兼用）</span>
+      <span class="tag tag-honey">极强丛生性 · "一窝羊"</span>
+      <span class="tag tag-stone">无菌环无菌托</span>
+      <span class="tag tag-amber">脆嫩爽口 · 久煮不烂</span>
+      <span class="tag tag-warn">⚠ 需与白色系有毒种严格区分</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">鹿茸菌 / 鹿茸菇 / 一窝羊 / 冷香菌 / 北风菌 / 路基蘑 / 铁道蘑 / 粟窝 / 冻菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Fried Chicken Mushroom / Clustered Domecap</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Lyophyllaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">LC · 北半球温带广布 · 已实现人工驯化栽培</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志结构：极强丛生性</span>
+        <span class="fb-value">数十至上百朵子实体紧密丛生同一基部，鲜见单生，云南俗称"一窝羊"由此而来</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">标志结构：朴素无环无托</span>
+        <span class="fb-value">菌柄自始至终光滑，无菌环、无菌托、无明显菌幕残余，外观干净朴素</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">安全参考</span>
+        <span class="fb-value">菌褶与孢子印均为白色，但白色丛生蘑菇中仍存在剧毒的粉褶菌类，采集须谨慎核实</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 灰白至灰黄色，光滑不粘，边缘波状瓣裂</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 白色密集菌褶 / 光滑菌柄，无环无托</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉白色致密有弹性 / 菌柄内实</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes4.png" alt="菌褶面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">褶面 · 白色至浅黄色，直生至延生，稠密</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 白色（须与毒粉褶菌的粉色孢子印区分）</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 菌柄基部彼此粘连丛生特写</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide" style="margin-top:10px;">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lyophyllum_decastes7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 阔叶林/混交林地上或草坪边缘大丛丛生（"一窝羊"景观）</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖扁半球形，边缘明显内卷，灰白色至灰黄色，光滑不粘；菌褶白色，直生，细密；菌柄白色，光滑，内实，基部已开始与相邻子实体粘连丛生；菌肉白色，质地细嫩有弹性，气味清香柔和。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐平展，中部微下凹；边缘开始呈不规则波状；菌褶白色至浅黄色，密集，直生至延生；菌柄伸长，长3–8（12）cm，仍光滑白色，多株基部紧密粘连形成拳头大小的丛生团簇。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖直径可达5–16cm，扁平，中部下凹，呈不规则波状瓣裂，表面水渍状；菌褶白色至浅黄色，稠密，不等长；菌柄粗0.7–1.8（2）cm，近柱形或稍扁，基部彼此粘连，数十朵同基紧密丛生，形成"一窝羊"式的大型群落；孢子印白色；菌肉厚实，弹性依旧，清香扑鼻，久煮不烂。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-honey">菌盖灰白→灰黄色</span>
+          <span class="tag tag-moss">菌褶白色（老熟微浅黄）</span>
+          <span class="tag tag-moss">孢子印纯白</span>
+          <span class="tag tag-stone">菌柄白色，光滑</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-honey">扁半球形→平展中凹</span>
+          <span class="tag tag-honey">边缘不规则波状瓣裂</span>
+          <span class="tag tag-stone">菌柄近柱形或稍扁</span>
+          <span class="tag tag-stone">基部粘连紧密丛生</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-honey">清香扑鼻，气味柔和宜人</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">肉质肥厚细嫩，有弹性</span>
+          <span class="tag tag-moss">脆嫩爽口，鲜味浓郁</span>
+          <span class="tag tag-honey">久煮不烂，适合炖煮</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 部位形态详表 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">部位形态详表</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径5–16cm，扁半球形至平展，中部下凹，灰白色至灰黄色，光滑，不粘；边缘平滑且初期内卷，后伸展呈不规则波状瓣裂，成熟时表面呈水渍状</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>白色至浅黄色，稍密至稠密，直生至延生，不等长</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>白色，中部厚，边缘薄，质地有弹性，味柔和，具清香</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>近柱形或稍扁，长3–8（12）cm，粗0.7–1.8（2）cm；白色，光滑，内实；基部彼此紧密粘连，数十朵同基丛生，是本种最典型的宏观特征</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>无色，光滑，近球形，5–7×4.8–6μm；孢子印白色</td>
+          </tr>
+          <tr>
+            <td>菌环 · 菌托</td>
+            <td>均无——离褶伞科普遍特征，全株外观干净朴素，无任何菌幕残余</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>数十至上百朵子实体<strong>同基紧密丛生</strong>，罕见单生——"一窝羊"之名由此而来，是野外最直观的辨识线索</li>
+        <li>菌柄自始至终<strong>光滑、无菌环、无菌托</strong>，整株外观朴素干净</li>
+        <li>菌盖灰白至灰黄色，成熟后边缘呈<strong>不规则波状瓣裂</strong>，表面水渍状</li>
+        <li><strong>白色菌褶+白色孢子印</strong>是重要参考，但白色丛生蘑菇中仍存在剧毒的粉褶菌类，孢子印务必单独制作确认，不能仅凭菌褶初看白色就放松警惕</li>
+      </ul>
+    </div>
+
+    <div class="caution-box">
+      <div class="caution-title">⚠ 采食前必读：白色丛生蘑菇需格外谨慎</div>
+      <ul class="caution-list">
+        <li>白色/灰白色丛生或群生蘑菇中存在剧毒的<strong>毒粉褶菌</strong>等相似种，务必逐一核实孢子印颜色再决定是否食用</li>
+        <li>离褶伞属内部分近缘种（如少数灰色系离褶伞）形态与本种接近，非专业人士不易准确区分，建议只采食经验证的成熟群落</li>
+        <li>采集后建议单独制作孢子印，确认为白色而非粉色/肉粉色后再食用</li>
+        <li>不确定物种归属时，无论群落规模多大、外观多"眼熟"，都不建议采食</li>
+      </ul>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink);">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn);">⚠ 毒粉褶菌 <em>Entoloma sinuatum</em>（剧毒！）</div>
+        <div class="confusion-diff">欧美常见胃肠炎型中毒源。区别：<strong>菌褶初期黄白色后渐变粉红色，孢子印粉红色至肉粉色</strong>，菌盖常呈污白色油脂状光泽，多单生或散生而非紧密丛生；本种菌褶及孢子印始终白色，且紧密丛生</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn);">⚠ 白霜杯伞 <em>Clitocybe dealbata</em>（有毒，含毒蕈碱）</div>
+        <div class="confusion-diff">菌盖较小，白色粉霜状，常呈草坪仙女环状生长而非同基丛生；菌褶延生明显；含毒蕈碱，可致外周胆碱能神经中毒症状</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">褐离褶伞 <em>Lyophyllum fumosum</em>（同属，可食）</div>
+        <div class="confusion-diff">同为丛生习性，但菌盖较小（直径1–5cm），呈灰褐色至暗灰褐色；本种菌盖更大（5–16cm）且底色灰白至灰黄，二者可食性接近但仍建议分别核实</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「数十子实体挤一窝，灰白无环显朴素」</div>
+        <div class="memory-pill">「孢子印白最放心，粉色警惕毒粉褶」</div>
+        <div class="memory-pill">「清香脆嫩久煮不烂，一窝羊名符其实」</div>
+        <div class="memory-pill">「白色丛生莫大意，孢子印色定安危」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">极强丛生或簇生习性，数十至上百朵同基紧密拥挤生长，罕见单生；喜低温，昼夜温差有利于子实体分化</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">与阔叶林（杨树、麻栎等壳斗科/杨柳科植物）或针叶林形成外生菌根关系；也见于草坪、公园、菜园、林间小道旁腐殖质丰富的土壤</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国云南、四川、贵州、江苏、广西、青海、甘肃、新疆等地；广泛分布于北半球温带地区（亚洲、欧洲、北美）</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">秋季，多为晚秋；喜低温型真菌，菌丝生长最适温度约25℃，子实体分化最适温度约19℃，0–3℃昼夜温差有利于出菇</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：确认整丛子实体菌柄光滑无环无托、菌褶及孢子印均为白色后再采食；对每个采集点单独留取孢子印，警惕混生其中的粉褶菌类或其他白色系近似种。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">菌肉肥厚细嫩、清香扑鼻，脆嫩爽口，久煮不烂，是云南、四川、贵州等地重要的传统野生食用菌，市场俗称"一窝羊"，鲜销及干制均可，炖汤、爆炒皆宜</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药用与保健价值</div>
+        <div class="value-body">富含β-1,3-D及β-1,6-D葡聚糖等多糖成分，体外抗肿瘤实验显示对小鼠肉瘤180和艾氏腹水癌分别有约75%和60%的抑制率；氨基酸成分齐全，矿物质含量丰富；传统用于治疗腰酸腿痛、手足麻木等</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研与栽培价值</div>
+        <div class="value-body">已实现人工驯化栽培，是离褶伞属研究与产业化开发的代表种类；对温度、pH、碳氮源等培养条件的研究较为成熟，具备规模化生产潜力</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">外生菌根真菌，与阔叶林、针叶林树木形成共生关系，对森林生态系统的养分循环及树木健康具有积极作用</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://www.wiki8.cn/data/jingjizhenjun/view/197.html" target="_blank">中国经济真菌图谱</a> ·
+      <a class="ref-link" href="https://www.mbiosh.com/column/medicinal-mushrooms/hot-today/33003" target="_blank">微生物安全与健康网</a> ·
+      <a class="ref-link" href="http://www.kanmogu.com/encyclopedia_show.aspx?id=2320" target="_blank">云南野生菌信息港</a>
+    </div>
+    <div>LC · 食药兼用 · 已实现人工驯化栽培</div>
+  </div>
+
+</div>
+</body>
+</html>
