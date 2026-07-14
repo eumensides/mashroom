@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>褐乳牛肝菌 · Suillus collinitus</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：温暖栗褐 + 松林粉调 */
+    --ink: #241a12;
+    --ink-mid: #4a3826;
+    --ink-light: #8a7860;
+    --cream: #faf3ea;
+    --surface: #ffffff;
+    --surface-warm: #fdf6ec;
+
+    /* 栗褐主色（菌盖） */
+    --rust: #a8481e;
+    --rust-light: #d97a48;
+    --rust-pale: #fbe8dc;
+    --rust-mid: #7a2f10;
+
+    /* 金黄（菌管/菌柄） */
+    --gold: #c98a1e;
+    --gold-light: #e8b84e;
+    --gold-pale: #fdf1d8;
+
+    /* 粉红（基部菌丝 · 招牌鉴别特征） */
+    --pink: #c05a72;
+    --pink-light: #e3a0b2;
+    --pink-pale: #fbe9ee;
+
+    /* 苔绿（可食标记） */
+    --moss: #4a6c2a;
+    --moss-light: #8ab870;
+    --moss-pale: #edf4e5;
+
+    /* 温暖灰棕 */
+    --stone: #6a5c4a;
+    --stone-light: #a09078;
+
+    --border: rgba(120,80,40,0.12);
+    --border-mid: rgba(120,80,40,0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--rust);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot {
+    background: #e6d2c0;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(30,14,4,0.7));
+    padding: 24px 20px 16px;
+  }
+
+  .hero-overlay-text { font-size: 12px; color: rgba(250,225,200,0.88); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--rust-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-rust  { background: var(--rust-pale);  color: var(--rust-mid); }
+  .tag-gold  { background: var(--gold-pale);  color: #8a5c10; }
+  .tag-pink  { background: var(--pink-pale);  color: var(--pink); }
+  .tag-moss  { background: var(--moss-pale);  color: var(--moss); }
+  .tag-stone { background: #f0ebe0;           color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-rust  { background: var(--rust); }
+  .dot-gold  { background: var(--gold); }
+  .dot-pink  { background: var(--pink); }
+  .dot-moss  { background: var(--moss); }
+  .dot-stone { background: var(--stone-light); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+  .photo-slot {
+    aspect-ratio: 4/3; background: #e4cfb8; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot-wide {
+    aspect-ratio: 16/7; background: #e4cfb8; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(30,14,4,0.72); color: #f8e6d4;
+    font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--gold-pale);  color: #8a5c10; }
+  .phase-mid    { background: var(--rust-pale);  color: var(--rust-mid); }
+  .phase-mature { background: var(--pink-pale);  color: var(--pink); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--rust-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .distinction-box {
+    background: var(--pink-pale); border: 1px solid rgba(192,90,114,0.28);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem;
+  }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--pink); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #5a1e30; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--pink); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--gold-light); border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.note { border-left-color: var(--pink); background: var(--pink-pale); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--rust-pale); border: 1px solid rgba(168,72,30,0.25); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--rust-mid); font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── 鉴别要素速览条 ── */
+  .signature-bar {
+    background: linear-gradient(135deg, #fbe9ee, #fdf6ec);
+    border: 1px solid rgba(192,90,114,0.3);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .sig-item { display: flex; flex-direction: column; gap: 4px; }
+  .sig-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--pink); font-weight: 500; }
+  .sig-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light);
+  }
+  .ref-link { color: var(--rust-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .signature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">🍄 可食用物种 · 建议熟制并剥除菌盖胶质表皮 · 专性与松树共生，采集需确认宿主树种</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus0.png" alt="褐乳牛肝菌主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Suillus collinitus · 松林地表栗褐色黏滑菌盖，基部粉红色菌丝毡是招牌</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 牛肝菌目 · 乳牛肝菌科</div>
+    <div class="hero-name-zh">褐乳牛肝菌</div>
+    <div class="hero-name-la">Suillus collinitus</div>
+    <div class="hero-author">(Fr.) Kuntze, 1898</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">可食（熟制 · 建议去皮）</span>
+      <span class="tag tag-pink">★ 基部粉红色菌丝</span>
+      <span class="tag tag-rust">无菌环</span>
+      <span class="tag tag-gold">松林专性菌根菌</span>
+      <span class="tag tag-stone">嗜钙 · 石灰质土壤</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">无环乳牛肝菌 / 无环黄牛肝菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Ringless Yellow Boletus / Pine Bolete</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">牛肝菌目 / Suillaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">南欧常见；北欧分布区边缘（丹麦近危 · 爱沙尼亚濒危）</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- 0. 鉴别要素速览 -->
+  <div class="section">
+    <div class="signature-bar">
+      <div class="sig-item">
+        <span class="sig-label">招牌特征：粉红菌丝</span>
+        <span class="sig-value">菌柄基部覆盖一团粉红色至锈褐色致密菌丝毡，是与近似种最直接、最可靠的肉眼鉴别点</span>
+      </div>
+      <div class="sig-item">
+        <span class="sig-label">种加词含义</span>
+        <span class="sig-value">collinitus 拉丁语意为"涂抹的 / 粘的"，形容其菌盖表面湿时极为黏滑的胶质层</span>
+      </div>
+      <div class="sig-item">
+        <span class="sig-label">共生专一性</span>
+        <span class="sig-value">仅与双针松属树种（黑松、欧洲赤松、地中海松等）形成外生菌根，离开松树不会出现</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 栗褐色黏滑，暗色放射状细纹</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 黄色菌管孔口 / 短粗菌柄腺点</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉淡黄色，切开不变色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus4.png" alt="管面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">管面 · 黄色→橄榄绿褐，角形孔口</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 橄榄褐色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">★细节 · 菌柄基部粉红色菌丝毡（核心鉴别）</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide" style="margin-top:10px;">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Suillus_collinitus7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 石灰质沙土松林地表群生景观</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖半球形，直径2–4cm，表面深红褐色，湿时极为黏滑光亮，边缘内卷，常带白色棉絮状菌幕残余；菌管孔口鲜黄色，紧贴菌柄呈弯生状态；
+          菌柄短粗，白色带淡黄调，基部已可见淡粉色菌丝萌发；菌肉淡黄色，质地紧实。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖渐平展并微凸，直径扩展至5–9cm，颜色转为栗褐色，表面开始显现暗色放射状细纹（此为与点柄乳牛肝菌均匀色泽的关键区别）；
+          菌管孔口仍为黄色，靠近菌柄处呈明显多角形；菌柄红褐色腺点渐次显现，基部粉红色菌丝团更为醒目。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展至边缘微反卷，直径可达11–12cm，栗褐至红褐色，湿时黏滑如涂油，干后表面有光泽；菌管孔口转为橄榄绿褐色；
+          菌柄基部粉红色致密菌丝毡完全展现，往往裹带周边沙土；自始至终<strong>无菌环</strong>残留，与部分同属有环种形成鲜明对比。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-rust">菌盖红褐→栗褐色</span>
+          <span class="tag tag-rust">暗色放射状细纹</span>
+          <span class="tag tag-gold">菌管孔黄色→橄榄绿褐</span>
+          <span class="tag tag-gold">菌柄淡黄带红褐腺点</span>
+          <span class="tag tag-pink">★基部粉红色菌丝毡</span>
+          <span class="tag tag-gold">菌肉淡黄，切面不变色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">半球形→平展（径5–12cm）</span>
+          <span class="tag tag-stone">菌柄短粗，6–9×1–1.5cm</span>
+          <span class="tag tag-stone">终生无菌环</span>
+          <span class="tag tag-stone">菌管孔口多角形</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">气味不明显</span>
+          <span class="tag tag-stone">带轻微酸味</span>
+          <span class="tag tag-stone">无刺激性异味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">熟制后风味平淡，微带酸味</span>
+          <span class="tag tag-moss">建议剥除菌盖胶质表皮</span>
+          <span class="tag tag-moss">仅取幼嫩个体食用最佳</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>光滑，湿时极黏滑（胶质层明显，"collinitus"即形容此特征），色泽由深红褐渐变栗褐，可见暗色放射状细纹，胶质表皮易整片剥离</td></tr>
+          <tr><td>菌管</td><td>直生至弯生，黄色，成熟后渐变橄榄绿褐色；管口角形，靠近菌柄处孔口明显较大，损伤不变色</td></tr>
+          <tr><td>菌肉</td><td>淡黄色，质地紧实，切开或损伤后不变色；气味不明显，微带酸味</td></tr>
+          <tr><td>菌柄</td><td>6–9cm×1–1.5cm，短粗圆柱形，向基部略膨大；表面白色带黄色调，散布红褐色腺点颗粒；自始至终无菌环</td></tr>
+          <tr><td>菌柄基部</td><td>覆盖一团<strong>粉红色至锈褐色致密菌丝毡</strong>——本种最关键的野外鉴别特征，区别于近似种点柄乳牛肝菌的白色菌丝</td></tr>
+          <tr><td>孢子</td><td>橄榄褐色，纺锤形，光滑；孢子印橄榄褐色</td></tr>
+          <tr><td>菌托</td><td>无菌托（区别于鹅膏属）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pink"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌柄基部覆盖<strong>粉红色</strong>致密菌丝团——本种最可靠、肉眼即可辨认的鉴别特征</li>
+        <li>菌盖表面具暗色<strong>放射状细纹</strong>，而非均匀单色（区别于点柄乳牛肝菌）</li>
+        <li>菌柄<strong>自始至终无菌环</strong>（区别于同属具环种类）</li>
+        <li>专性与<strong>双针松</strong>（黑松、欧洲赤松、地中海松、意大利石松等）形成外生菌根，仅出现于松树周围，嗜石灰质土壤</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">食用处理建议</div>
+        <div style="font-size:13px;color:var(--ink-mid)">与多数乳牛肝菌属物种做法相同：食用前剥除菌盖黏滑胶质表皮层，充分煮熟；只采幼嫩个体，风味与口感更佳，老熟个体质地偏软烂</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">采集辨认口诀</div>
+        <div style="font-size:13px;color:var(--ink-mid)">"看盖有纹、看柄无环、扒开基部找粉丝（菌丝）"——三步法可在野外快速与近似种区分</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">点柄乳牛肝菌 <em>Suillus granulatus</em>（可食，极相似）</div>
+        <div class="confusion-diff">区别：菌盖颜色均匀一致、<strong>无放射状细纹</strong>；菌柄基部菌丝<strong>白色</strong>（非粉红色）；幼时菌管孔口常分泌乳白色液滴</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">褐环乳牛肝菌 / 黄乳牛肝菌 <em>Suillus luteus</em>（可食）</div>
+        <div class="confusion-diff">区别：菌柄上部具明显<strong>浅褐色膜质菌环</strong>；本种终生无环，是野外最直观的区分方式</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">地中海乳牛肝菌 <em>Suillus mediterraneensis</em> / <em>S. bellinii</em>（可食，同域伴生种）</div>
+        <div class="confusion-diff">常与本种混生于地中海松林中，形态高度相近，田野条件下有时需结合孢子测量或分子数据才能准确区分</div>
+      </div>
+      <div class="confusion-item note">
+        <div class="confusion-name">种内变型：var. aureus（金黄色变型）/ var. velatipes（基部具胶质外菌幕）</div>
+        <div class="confusion-diff">均为本种内部变型而非独立物种；var. velatipes 专与阿勒颇松共生，菌柄基部具胶质褐色外菌幕，菌盖边缘有白色细毡；辨识时不必过度纠结，均按本种处理</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「粉红菌丝藏基部，栗褐放纹是招牌」</div>
+        <div class="memory-pill">「终生无环可放心，专认松树才安家」</div>
+        <div class="memory-pill">「湿滑菌盖手一摸，剥皮下锅更美味」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">常成群或散生于松树根际，可大片出现，常与点柄乳牛肝菌等近缘种混生于同一片松林</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">外生菌根菌，专一性极强，仅与双针松属树种（黑松、欧洲赤松、地中海松、意大利石松、阿勒颇松等）共生；嗜钙，偏好石灰质、沙质土壤</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广布于欧洲，以南欧地中海地区（意大利波河平原、西班牙、法国南部等）最为常见；北欧（英伦三岛、波兰）罕见，丹麦列为近危、爱沙尼亚列为濒危；伊朗等地亦有采集记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">主要在夏季至秋季出菇；温暖气候地区可延续至初冬；喜雨后温暖天气，多与松树生长周期同步</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：确认宿主为双针松属树种后再采集；逐株检查菌柄基部是否有粉红色菌丝、菌盖是否有放射状细纹，避免与点柄乳牛肝菌混采；建议只采幼嫩个体，食用前剥除菌盖表皮。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-rust"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">可食用，但整体风味评价一般，气味微带酸味，滋味平淡，非顶级食用菌；建议只采幼嫩个体，食用前剥除菌盖黏滑胶质表皮层（与多数乳牛肝菌属物种通行做法一致），充分煮熟后食用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">营养与活性成分</div>
+        <div class="value-body">含多种生育酚（维生素E类抗氧化物质）；富含苹果酸、奎尼酸、柠檬酸、酮戊二酸等有机酸，是其风味来源与抗氧化活性的主要贡献成分</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">外生菌根菌，是松树幼苗建立菌根关系的先锋物种之一，在贫瘠沙质、石灰质土壤造林及生态修复中具有重要应用价值，林业上常用于接种苗木根系以提高造林成活率</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">保护现状 · 指示意义</div>
+        <div class="value-body">因高度依赖特定松树宿主及温暖气候（喜地中海型气候），在分布区北缘（丹麦、爱沙尼亚等）种群稀少并被列入受胁物种红色名录，是观察气候变化对共生真菌分布影响的指示物种之一</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Suillus_collinitus" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://www.first-nature.com/fungi/suillus-collinitus.php" target="_blank">First Nature</a> ·
+      <a class="ref-link" href="https://m.fx361.com/news/2018/1201/15048677.html" target="_blank">山西吕梁山乳牛肝菌属研究</a>
+    </div>
+    <div>可食（熟制） · 松林专性菌根菌 · 欧洲广布，北缘受胁</div>
+  </div>
+
+</div>
+</body>
+</html>
