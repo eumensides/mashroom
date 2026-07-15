@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>环柄香菇 · Lentinus sajor-caju（环柄韧伞 · 可食，须趁嫩采收）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #241a10;
+    --ink-mid: #4a3a24;
+    --ink-light: #8a7860;
+    --cream: #faf3e6;
+    --surface: #ffffff;
+
+    --moss: #4a6c2a;
+    --moss-light: #8ab870;
+    --moss-pale: #edf4e5;
+
+    /* 环柄香菇主色：暖棕木质色（漏斗形/朽木腐生） */
+    --wood: #9a6a2a;
+    --wood-light: #d4a45c;
+    --wood-pale: #f6e8d0;
+    --wood-mid: #6e4a16;
+
+    /* 菌环标志色（关键鉴别结构） */
+    --ring: #b8834a;
+    --ring-light: #e0bc84;
+    --ring-pale: #f8ecd8;
+
+    /* 时机警示（老熟不可食） */
+    --caution: #9a5a1a;
+    --caution-light: #d9a05a;
+    --caution-pale: #f8ecd8;
+
+    --stone: #6a5a44;
+    --stone-light: #a08c70;
+
+    --border: rgba(140,100,40,0.14);
+    --border-mid: rgba(140,100,40,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--wood-mid);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #e0c090; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(28,18,6,0.7)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(248,224,190,0.85); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--wood-mid); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--wood-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-wood { background: var(--wood-pale); color: var(--wood-mid); }
+  .tag-moss { background: var(--moss-pale); color: var(--moss); }
+  .tag-caution { background: var(--caution-pale); color: var(--caution); }
+  .tag-ring { background: var(--ring-pale); color: var(--wood-mid); }
+  .tag-stone{ background: #f2e6d4;          color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-wood { background: var(--wood); }
+  .dot-moss { background: var(--moss); }
+  .dot-caution { background: var(--caution); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-ring { background: var(--ring); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #ecd0a0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #ecd0a0; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); grid-column: span 3; }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(28,18,6,0.72); color: #f8e4c8; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--ring-pale);  color: var(--wood-mid); }
+  .phase-mature { background: var(--caution-pale);  color: var(--caution); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--wood-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--caution-pale); border: 1px solid rgba(154,90,26,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--caution); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a3010; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--caution); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(74,108,42,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #2a4020; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--ring-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: #c0301a; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--wood-pale); border: 1px solid rgba(154,106,42,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--wood-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #f8ecd8, #f6e8d0);
+    border: 1px solid rgba(154,106,42,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .rh-item { display: flex; flex-direction: column; gap: 4px; }
+  .rh-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--wood-mid); font-weight: 500; }
+  .rh-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--wood-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .photo-slot-wide { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  🍄 可食用物种 · 必须趁幼嫩"纽扣期"采收食用 · 一旦成熟质地极度坚韧，无论怎样烹煮都难以咀嚼
+</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju0.png" alt="环柄香菇主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Lentinus sajor-caju · 幼时杯状后成漏斗形，偏生柄上具膜质菌环，是与近缘侧耳类最直接的区别</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 多孔菌科 · 韧伞属</div>
+    <div class="hero-name-zh">环柄香菇</div>
+    <div class="hero-name-la">Lentinus sajor-caju</div>
+    <div class="hero-author">(Fr.) Fr. · 曾用名 Pleurotus sajor-caju · 又称环柄韧伞</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">可食（须趁嫩采收）</span>
+      <span class="tag tag-caution">⚠ 老熟后质地坚韧不可食</span>
+      <span class="tag tag-ring">柄上具膜质菌环（关键特征）</span>
+      <span class="tag tag-wood">腐生于朽木及农业废弃物</span>
+      <span class="tag tag-stone">白腐真菌</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">曾用学名</span>
+        <span class="taxon-value">Pleurotus sajor-caju（现已归入韧伞属）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">易混淆种</span>
+        <span class="taxon-value">肺形侧耳 Pleurotus pulmonarius（柄上无环）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">多孔菌目 Polyporales / 多孔菌科 Polyporaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分布</span>
+        <span class="taxon-value">中国南方、印度、泰国、马来西亚等热带亚热带地区 · 全球商业栽培</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <div class="section">
+    <div class="feature-bar">
+      <div class="rh-item">
+        <span class="rh-label">关键鉴别：柄上具膜质菌环</span>
+        <span class="rh-value">这是本种与外观极为相似的侧耳类（如凤尾菇/肺形侧耳）最直接的区别——后者菌柄上完全没有菌环，是"环柄"之名的直接由来</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">采收时机决定一切</span>
+        <span class="rh-value">幼嫩"纽扣期"质地柔软鲜美；一旦充分成熟，菌肉因骨架状菌丝（三体型/二体型菌丝结构）大量形成而变得极度坚韧如皮革，无论怎样烹煮都难以嚼动</span>
+      </div>
+      <div class="rh-item">
+        <span class="rh-label">生态角色：高效木质纤维素分解者</span>
+        <span class="rh-value">属白腐真菌，能分泌漆酶等胞外酶高效降解木质素，常在稻草、麦秆、甘蔗渣、棉籽壳等农业废弃物上大量生长，是农业废弃物资源化利用的重要功能菌种</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-wood"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 幼时杯状，成熟后漏斗形，白色至浅黄褐色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju2.png" alt="45°侧拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 侧拍 · 偏生菌柄，柄上可见膜质菌环</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 幼嫩菌肉白色柔软，成熟后质地转硬韧</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju4.png" alt="菌褶图" loading="lazy">
+        </picture>
+        <div class="photo-caption">菌褶 · 延生，排列整齐，白色至浅黄色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju5.png" alt="菌环特写图" loading="lazy">
+        </picture>
+        <div class="photo-caption">菌环特写 · 淡黄色膜质环，是本属命名的关键结构</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju6.png" alt="幼嫩纽扣期图" loading="lazy">
+        </picture>
+        <div class="photo-caption">幼嫩纽扣期 · 杯状，质地柔软，是最佳采收时机</div>
+      </div>
+
+      <div class="photo-slot-wide">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju7.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Lentinus_sajor-caju7.png" alt="生境图" loading="lazy">
+        </picture>
+        <div class="photo-caption">生境图 · 丛生于朽木、稻草、蔗渣等农业废弃物基质上</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ring"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签（采收窗口极为关键）</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩"纽扣"期（最佳采收期）</div>
+        <div class="phase-desc">
+          子实体呈杯状或浅漏斗状，直径较小，质地柔软有韧性；菌盖白色至浅黄褐色，表面光滑；菌褶已开始延生排列；
+          柄上菌环初步形成，淡黄色膜质；菌肉柔嫩多汁，是风味与口感最佳、唯一适合采收食用的阶段。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐展开呈漏斗状，直径可达4–8cm，颜色转为浅黄褐色至棕色；菌褶延生更加明显，排列整齐；
+          柄上菌环清晰可见；菌肉开始因骨架状菌丝增多而逐渐变韧，仍可勉强食用但口感已不如幼嫩期。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期（不可食用）</div>
+        <div class="phase-desc">
+          子实体完全展开呈典型漏斗形，颜色加深；菌肉因三体型/二体型菌丝（骨架菌丝）大量形成而变得极度坚韧如皮革，
+          咀嚼困难，无论烹煮多长时间都难以软化；此阶段已完全丧失食用价值，仅具孢子传播功能。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-wood"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-wood">菌盖白色→浅黄褐色→浅棕色</span>
+          <span class="tag tag-stone">菌褶白色至浅黄色</span>
+          <span class="tag tag-ring">菌环淡黄色</span>
+          <span class="tag tag-stone">菌柄近白色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">幼时杯状→成熟漏斗形（径4–8cm）</span>
+          <span class="tag tag-ring">菌柄偏生，具膜质菌环</span>
+          <span class="tag tag-stone">菌褶延生排列整齐</span>
+          <span class="tag tag-stone">常丛生</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">菌香与普通侧耳类似</span>
+          <span class="tag tag-stone">无刺激性异味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">幼嫩期：鲜美近似平菇</span>
+          <span class="tag tag-caution">⚠ 成熟期：极度坚韧，无法咀嚼</span>
+          <span class="tag tag-stone">富含酚类及黄酮类活性成分</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-wood"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径4–8cm，幼时杯状，成熟后呈漏斗形（斗笠状），白色至浅黄褐色或浅棕色，表面光滑</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>幼嫩时柔软多汁；成熟后因三体型或二体型菌丝（含骨架菌丝）大量增生而变得极度坚韧如皮革，是本种区别于普通侧耳的重要组织学特征</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>延生，排列整齐，白色至浅黄色</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>偏生（不在菌盖中央），柄上部具明显的<strong>膜质菌环</strong>，是本种"环柄"之名及区别于近缘侧耳类（无菌环）的关键鉴别结构</td>
+          </tr>
+          <tr>
+            <td>菌丝系统</td>
+            <td>三体型或二体型菌丝结构（含生殖菌丝、骨架菌丝，部分种类还有联结菌丝），是导致成熟菌肉坚韧的组织学基础；近缘的侧耳属为单体型菌丝，质地始终柔软</td>
+          </tr>
+          <tr>
+            <td>菌托</td>
+            <td>无</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌柄上部具<strong>明显的膜质菌环</strong>，是与外观极为相似的侧耳类（如肺形侧耳/凤尾菇）最直接、最可靠的区别特征</li>
+        <li>子实体幼时呈<strong>杯状</strong>，成熟后展开为典型的<strong>漏斗形</strong>，形态变化幅度较大</li>
+        <li>菌肉质地随成熟度发生<strong>剧烈变化</strong>：幼嫩期柔软多汁，成熟期极度坚韧如皮革，是本种最重要的实用鉴别与食用提示</li>
+        <li>菌丝系统为<strong>三体型/二体型</strong>（含骨架菌丝），区别于近缘侧耳属的单体型菌丝结构，是二者质地差异的组织学根源</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用提示：采收时机是唯一决定因素</div>
+      <ul class="caution-list">
+        <li>必须在幼嫩"纽扣期"（子实体尚呈杯状、质地柔软时）采收食用，风味与口感俱佳，可用于炒菜、煲汤、咖喱等多种烹调方式</li>
+        <li>一旦子实体完全展开进入成熟期，菌肉会变得极度坚韧，<strong>无论烹煮多长时间都无法软化</strong>，食用体验大打折扣，实际上已不具备食用价值</li>
+        <li>采购或采集时应优先选择杯状、尚未完全展开的幼嫩个体，避免选购已呈典型漏斗状、质地明显发硬的成熟个体</li>
+        <li>本种在栽培实践中因生长迅速、适应农业废弃物基质而被广泛人工栽培，市场上常与凤尾菇、平菇等统称销售，购买时可留意柄部是否具菌环以辨别具体种类</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与肺形侧耳（凤尾菇）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">肺形侧耳（Pleurotus pulmonarius）菌柄<strong>裸露无环</strong>，菌肉质地柔软，成熟后仍可正常食用；环柄香菇柄上<strong>具膜质菌环</strong>，菌肉成熟后会变得极度坚韧，二者外观相似但组织结构与食用窗口完全不同</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与糙皮侧耳（平菇）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">糙皮侧耳（Pleurotus ostreatus）呈典型贝壳状/扇形，柄短或近无柄，无菌环；环柄香菇呈漏斗形，柄明显偏生且具环，二者虽同为常见栽培食用菌但分类地位（多孔菌科 vs 侧耳科）不同</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">肺形侧耳（凤尾菇，可食）<em>Pleurotus pulmonarius</em></div>
+        <div class="confusion-diff">外观与本种极为相似（同为漏斗形/贝壳状白色至浅褐色菌类），过去常被商业栽培者混称为"Pleurotus sajor-caju"，实为不同物种；关键区别在于柄上是否具菌环</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">糙皮侧耳/平菇（可食）<em>Pleurotus ostreatus</em></div>
+        <div class="confusion-diff">全球广泛栽培的经典食用菌，贝壳状菌盖，柄短或近无柄，无菌环；与环柄香菇同属常见栽培"平菇类"统称，但分类地位不同</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">漏斗状侧耳（异名/近缘类群）</div>
+        <div class="confusion-diff">环柄香菇在部分资料中也被称为"漏斗状侧耳"，指其成熟后典型的漏斗状外观，与其他漏斗形菌类需结合菌环等结构综合区分</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.4rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「杯状幼嫩最鲜美，漏斗老熟嚼不动」</div>
+        <div class="memory-pill">「柄上一环是关键，无环便是凤尾菇」</div>
+        <div class="memory-pill">「稻草蔗渣皆基质，白腐分解显神通」</div>
+        <div class="memory-pill">「纽扣期采正当时，过时便成皮革干」</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">丛生，腐生于朽木及各类农业废弃物基质表面</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">白腐真菌，可分解多种木质纤维素基质，如朽木、稻草、麦秆、甘蔗渣、棉籽壳等，最适生长温度20–30℃</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国南方及热带亚热带地区、印度、泰国、马来西亚、坦桑尼亚等地均有分布，全球广泛商业栽培</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采收季节</div>
+        <div class="habitat-value">人工栽培条件下周年可产，野生个体多见于温暖多雨季节</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采收提示：务必把握"纽扣期"这一狭窄的最佳采收窗口，过早采收产量低，过晚采收则质地坚韧无法食用；家庭种植或市场选购时，可通过观察子实体是否已完全展开、菌肉按压是否发硬来判断是否已错过最佳食用期。
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-wood"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用与营养价值</div>
+        <div class="value-body">幼嫩期口感风味俱佳，几乎不含脂肪，富含必需氨基酸、维生素及矿物质，同时含有较高水平的酚类化合物及黄酮类物质，具有抗氧化、抗菌、抗炎乃至轻度抗肿瘤活性，是营养价值较高的食用菌</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">农业废弃物资源化价值</div>
+        <div class="value-body">作为高效白腐真菌，可利用稻草、麦秆、甘蔗渣、棉籽壳等农业废弃物作为栽培基质进行商业化种植，是农业循环经济与废弃物资源化利用的重要功能菌种</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">分类学价值</div>
+        <div class="value-body">曾长期被归入侧耳属（Pleurotus），后因骨架状菌丝结构、菌环等特征差异被重新归入韧伞属（Lentinus），是菌类分类学中"外观相似但组织结构不同"的典型教学案例</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研应用价值</div>
+        <div class="value-body">其木质素降解能力（漆酶等胞外酶）被应用于秸秆等农作物废弃物的固态发酵研究，可提升饲料抗氧化活性及营养价值，具有农业饲料开发的应用前景</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Lentinus_sajor-caju" target="_blank">Wikipedia · Lentinus sajor-caju</a> ·
+      <a class="ref-link" href="https://fungiatlas.com/lentinus-sajor-caju/" target="_blank">Fungi Atlas · Funnel Woodcap</a> ·
+      <a class="ref-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11150714/" target="_blank">Frontiers in Microbiology · 环柄香菇固态发酵研究</a>
+    </div>
+    <div>可食用多孔菌科真菌 · 须趁嫩采收 · 柄上菌环为关键鉴别结构</div>
+  </div>
+
+</div>
+</body>
+</html>
