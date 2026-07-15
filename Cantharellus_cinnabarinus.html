@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>红鸡油菌 · Cantharellus cinnabarinus</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 可食物种：珊瑚红 + 粉调，呼应"朱红/喇叭"意象 */
+    --ink: #1e1512;
+    --ink-mid: #4a3630;
+    --ink-light: #8a7268;
+
+    --cream: #fbf2ee;
+    --surface: #fffdfb;
+
+    /* 朱红主色（菌体色） */
+    --coral: #c8442a;
+    --coral-light: #e8886e;
+    --coral-pale: #fbe0d6;
+    --coral-mid: #92301a;
+
+    /* 粉调辅色 */
+    --pink: #d97590;
+    --pink-light: #ecb0c0;
+    --pink-pale: #fbe6ec;
+
+    /* 苔绿（生境标记） */
+    --moss: #4c6e34;
+    --moss-light: #90ac74;
+    --moss-pale: #ecf1e4;
+
+    /* 警戒黄褐（易混淆种警示） */
+    --warn: #9a6018;
+    --warn-light: #d4984c;
+    --warn-pale: #faedd8;
+
+    --stone: #64564c;
+    --stone-light: #988a7e;
+
+    --border: rgba(150,60,30,0.14);
+    --border-mid: rgba(150,60,30,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--coral);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #e8a088; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(30,15,10,0.72)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(250,225,215,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--coral-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-coral { background: var(--coral-pale); color: var(--coral-mid); }
+  .tag-pink  { background: var(--pink-pale);  color: #a03858; }
+  .tag-moss  { background: var(--moss-pale);  color: var(--moss); }
+  .tag-warn  { background: var(--warn-pale);  color: var(--warn); }
+  .tag-stone { background: #f0e6dc;           color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-coral { background: var(--coral); }
+  .dot-moss  { background: var(--moss); }
+  .dot-warn  { background: var(--warn); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-pink  { background: var(--pink); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #e8a088; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #e8a088; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(30,15,10,0.72); color: #fbe4dc; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--pink-pale);  color: #a03858; }
+  .phase-mature { background: var(--coral-pale); color: var(--coral-mid); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--coral-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(154,96,24,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a3210; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(76,110,52,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #24361a; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--pink-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--warn); background: var(--warn-pale); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--coral-pale); border: 1px solid rgba(200,68,42,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--coral-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #fbe0d6, #fbf2ee);
+    border: 1px solid rgba(200,68,42,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--coral); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--coral-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  🌺 可食用鸡油菌类 · 朱红/火烈鸟粉色小喇叭状子实体 · 中国种群分类地位近年有新发现
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://eumensides.github.io/mashroom/Cantharellus_cinnabarinus0.png" type="image/png">
+      <img src="https://eumensides.github.io/mashroom/Cantharellus_cinnabarinus0.png" alt="红鸡油菌主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Cantharellus cinnabarinus · 朱红至火烈鸟粉色小喇叭状子实体，假菌褶分叉具横脉，通体同色</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 鸡油菌目 · 鸡油菌科 · 鸡油菌属 朱红鸡油菌亚属</div>
+    <div class="hero-name-zh">红鸡油菌</div>
+    <div class="hero-name-la">Cantharellus cinnabarinus</div>
+    <div class="hero-author">(Schwein.) Schwein., 1832</div>
+
+    <div class="tag-row">
+      <span class="tag tag-moss">可食用（优质食用菌）</span>
+      <span class="tag tag-coral">朱红/火烈鸟粉色</span>
+      <span class="tag tag-pink">俗称"红喇叭菌"</span>
+      <span class="tag tag-stone">含虾青素类色素</span>
+      <span class="tag tag-stone">外生菌根菌</span>
+      <span class="tag tag-warn">中国种群分类存疑</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">红喇叭菌</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Cinnabar-red Chanterelle / Red Chanterelle</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">鸡油菌目 Cantharellales / 鸡油菌科 Cantharellaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">分类地位</span>
+        <span class="taxon-value">模式产地北美；中国种群与近缘种华红鸡油菌关系密切，详见下文说明</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志颜色：虾青素朱红</span>
+        <span class="fb-value">子实体通体呈火烈鸟粉至朱红色，色素成分为类胡萝卜素虾青素（canthaxanthin），进入人体后可转化为维生素A，是本属中颜色最鲜艳的红色系代表种之一</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">得名由来：形似朱红喇叭</span>
+        <span class="fb-value">种加词 <em>cinnabarinus</em> 意为"朱砂色的"，因整体形似红色小喇叭而得俗名"红喇叭菌"</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">假菌褶：分叉具横脉</span>
+        <span class="fb-value">下延、稀疏、狭窄的假菌褶分叉并以横脉相连，与菌盖同色或略浅——是鸡油菌属区别于真正伞菌褶片的共有特征，本种表现尤为典型</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-coral"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Cantharellus_cinnabarinus1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方视角 · 朱红至火烈鸟粉色 / 中央下凹呈喇叭状</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Cantharellus_cinnabarinus2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 假菌褶分叉具横脉 / 菌柄同盖色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Cantharellus_cinnabarinus3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉近白色，近表皮处泛红 / 菌柄实心</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Cantharellus_cinnabarinus4.png" alt="假菌褶面图" loading="lazy">
+        <div class="photo-caption">假菌褶面 · 稀疏狭窄，分叉，横脉相连，下延至柄</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Cantharellus_cinnabarinus5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 白色至淡粉色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Cantharellus_cinnabarinus6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">特殊细节 · 菌柄常弯曲，光滑，通体同色特写</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Cantharellus_cinnabarinus7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 栎树、山毛榉、山核桃等阔叶林地表散生、群生或单生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pink"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体细小，菌盖初呈扁平状，尚未下凹，颜色鲜艳的火烈鸟粉至朱红色，边缘内卷；菌柄短粗，同盖色，表面光滑；
+          假菌褶尚不明显，仅隐约可见浅色下延脊纹；整体质地柔嫩，散发淡淡甜香。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖中部开始下凹，趋近漏斗状雏形，边缘仍内卷并呈波状；颜色仍鲜艳，朱红色调加深；
+          假菌褶逐渐显现，狭窄稀疏，开始出现分叉及横脉连接；菌柄伸长，常略弯曲，实心；甜香气味渐趋明显。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全发育为浅喇叭状，直径1.5–5.5cm，薄，中部下凹，颜色仍为朱红色但会随日晒及老化逐渐褪淡；
+          边缘内卷、波状至瓣裂状，无条纹；菌肉近白色，靠近表皮处泛红；假菌褶稀疏狭窄，下延，分叉并具横脉，与盖同色或略浅；
+          菌柄近圆柱形，常弯曲，光滑，长2–4cm，粗0.3–1.0cm，<strong>实心</strong>（区别于同科部分中空的喇叭菌属近缘种）；孢子印白色至淡粉色，散发甜香。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pink"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-coral">通体朱红至火烈鸟粉色</span>
+          <span class="tag tag-pink">老熟渐褪淡</span>
+          <span class="tag tag-stone">菌肉近白色，近表皮处泛红</span>
+          <span class="tag tag-stone">孢子印白色至淡粉色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">浅喇叭状，中部下凹（径1.5–5.5cm）</span>
+          <span class="tag tag-stone">边缘内卷，波状至瓣裂状，无条纹</span>
+          <span class="tag tag-pink">假菌褶狭窄稀疏，分叉具横脉，下延</span>
+          <span class="tag tag-coral">菌柄常弯曲，实心（非中空）</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-coral">清甜芳香</span>
+          <span class="tag tag-stone">无刺激性异味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-moss">味道鲜美，风味近似鸡油菌</span>
+          <span class="tag tag-stone">质地细嫩偏薄</span>
+          <span class="tag tag-stone">是公认的优质食用菌之一</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-coral"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖</td><td>直径1.5–5.5cm，薄，最初扁平，后中部下凹近似喇叭状；表面光滑，先呈近朱红色，老后褪色；边缘内卷，波状至瓣裂状，无条纹</td></tr>
+          <tr><td>假菌褶</td><td>稀疏，狭窄，下延至菌柄，分叉，具横脉相连，与菌盖同色或略浅——为鸡油菌属特有的"假菌褶"（脊状褶皱），并非真正伞菌褶片</td></tr>
+          <tr><td>菌肉</td><td>近白色，靠近表皮处呈红色，质地细嫩，散发清甜香气</td></tr>
+          <tr><td>菌柄</td><td>与菌盖同色，近圆柱形，常弯曲，表面光滑，长2–4cm，粗0.3–1.0cm，<strong>实心</strong></td></tr>
+          <tr><td>孢子</td><td>无色，光滑，宽椭圆形，6–10×4–6μm；孢子印白色至淡粉色</td></tr>
+          <tr><td>色素成分</td><td>含类胡萝卜素虾青素（canthaxanthin，即4,4′-二酮-β-胡萝卜素），赋予子实体鲜艳红色，在人体内可转化为维生素A</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>子实体<strong>通体朱红至火烈鸟粉色</strong>，随日晒老化逐渐褪淡——是本种在野外最直观的颜色标志</li>
+        <li>假菌褶<strong>狭窄稀疏、分叉并具横脉相连</strong>，与真正的伞菌褶片有本质区别，是鸡油菌属的共性结构</li>
+        <li>菌柄<strong>实心、常弯曲</strong>，区别于部分同科近缘中空种类</li>
+        <li>散发<strong>清甜芳香</strong>气味，是野外辅助辨识的重要嗅觉线索</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">🍽 食用提示：优质食用菌，但需正确鉴别</div>
+      <ul class="caution-list">
+        <li>本种是公认的优质食用菌，风味鲜美，与鸡油菌（<em>C. cibarius</em>）风味相近，无已知毒性报道</li>
+        <li>野外采集时应仔细核实假菌褶结构（分叉、横脉、非锐利真菌褶），避免与颜色相近但具真正锋利菌褶的物种混淆</li>
+        <li>红色系野生菌中不乏其他外观相似但结构迥异的物种（如部分红菇属），采集经验不足者建议随身携带图鉴或由专业人士陪同确认</li>
+        <li>中国大陆各地所称"红鸡油菌"存在分类学上的复杂性，详见下方"分类地位说明"，采集记录时建议保留标本或影像以便后续核实</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与假鸡油菌（<em>Hygrophoropsis aurantiaca</em>）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">假鸡油菌颜色偏橙黄而非朱红，具<strong>真正细密、边缘锐利的分叉菌褶</strong>（本种为分叉横脉状假菌褶），可能引起轻微不适，不建议食用</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与红菇属近似红色种区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">红菇属（<em>Russula</em>）物种菌褶为<strong>真正的、质脆易断的薄片状结构</strong>，菌柄一般不与菌盖同色且无假菌褶分叉横脉特征；部分红菇属物种（如呕吐红菇）有毒，颜色鲜艳时更需谨慎区分</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">得州鸡油菌 <em>Cantharellus texensis</em>（可食，近缘种）</div>
+        <div class="confusion-diff">与本种形态高度相似，主要依靠DNA测序、孢子形状及菌盖表皮细胞结构区分，野外肉眼较难可靠鉴别，同为北美分布种</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">珊瑚鸡油菌 <em>Cantharellus corallinus</em>（可食）</div>
+        <div class="confusion-diff">同域分布，颜色为更鲜艳的红橙色，区别在于基部常带有若隐若现的白色调，多见于栎树林及林间草坪</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 假鸡油菌 <em>Hygrophoropsis aurantiaca</em></div>
+        <div class="confusion-diff">橙黄色系，具真正锋利分叉细密菌褶（本种为分叉横脉状假菌褶），可能引起轻微胃肠不适，颜色相近时需仔细核查菌褶结构</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 呕吐红菇 <em>Russula emetica</em> 及其他红色红菇属物种</div>
+        <div class="confusion-diff">部分红色红菇属物种有毒，具真正质脆易断的菌褶片，菌柄粗壮多汁，与本种狭窄分叉横脉的假菌褶及纤细实心菌柄有明显区别</div>
+      </div>
+    </div>
+
+    <!-- 分类地位说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--moss-pale);border:1px solid rgba(76,110,52,0.30);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--moss);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">分类地位说明：红鸡油菌 与 华红鸡油菌</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--moss);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--moss);margin-bottom:8px;">模式种 · 北美分布</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Cantharellus cinnabarinus</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">(Schwein.) Schwein., 1832</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">中文：<strong>红鸡油菌</strong>。最初依据北美标本描述，广泛分布于北美洲东部；是朱红鸡油菌亚属（subg. <em>Cinnabarinus</em>）的模式种。</div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border-mid);border-top:3px solid var(--stone-light);border-radius:10px;padding:14px 15px;">
+            <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone);margin-bottom:8px;">中国近缘种（2022年发表）</div>
+            <div style="font-style:italic;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:4px;">Cantharellus sinocinnabarinus</div>
+            <div style="font-size:11.5px;color:var(--stone-light);margin-bottom:8px;">Ming Zhang, S.C. Shao &amp; T.H. Li, 2022</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">中文：<strong>华红鸡油菌</strong>。基于中国西南地区标本的多基因分子系统学分析新描述的独立物种，与红鸡油菌关系密切但可通过形态及遗传距离区分。</div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称关系与使用建议</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--moss);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;"><strong>历史沿用与新近厘清：</strong>中国大陆早期文献（如百度百科、食品百科等）中记录的"红鸡油菌"广泛分布于香港、广东、安徽、江苏、浙江、西藏、云南、四川、吉林、贵州等地，均沿用北美学名 <em>C. cinnabarinus</em>；2022年一项系统性分子系统学研究重新检视了中国西南地区标本（编号HKAS58243），确认其应归入新描述的独立物种<strong>华红鸡油菌</strong>，而非真正的北美种红鸡油菌。</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--moss);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;"><strong>使用建议：</strong>本页描述综合了中国大陆科普资料对"红鸡油菌"的传统记述与北美原始模式种资料；如需严谨区分中国境内标本的准确学名，建议结合分子系统学最新研究成果，优先考虑华红鸡油菌等本土新描述物种的可能性。二者食用价值和整体形态高度相似，日常科普与采集层面可暂不做严格区分。</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--warn-pale);border:1px solid rgba(154,96,24,0.3);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#4a3210;line-height:1.7;">
+          <strong>🍄 延伸说明：</strong>朱红鸡油菌亚属（subg. <em>Cinnabarinus</em>）在中国已知物种数量近年因分子系统学研究快速增加（新发表华红鸡油菌、橙脉鸡油菌等多个物种），这也是中国野生红色系鸡油菌类命名较为复杂、地方志与科普资料用名不尽统一的主要原因。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「朱红小喇叭，实心柄弯曲」</div>
+        <div class="memory-pill">「假褶分叉又横脉，真假一辨便知晓」</div>
+        <div class="memory-pill">「甜香伴身形娇小，虾青素染就艳红」</div>
+        <div class="memory-pill">「同名异种要留心，华红兄弟藏其中」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生、散生或群生，个体虽小但因颜色鲜艳，在林地落叶间较为醒目</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 共生关系</div>
+        <div class="habitat-value">外生菌根真菌，与栎属、山毛榉、山核桃等阔叶树种形成共生关系；常见于林中开阔地、林缘及草地边缘</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">北美洲东部广泛分布；中国大陆记录见于香港、广东、安徽、江苏、浙江、西藏、云南、四川、吉林、贵州等地（部分种群分类地位详见上文说明）</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">夏秋季，林中地上散生、群生或单生</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：因个体较小、颜色鲜艳但产量有限，建议只采集成熟适度、无虫蛀的个体；采集时保留部分菌柄基部以便观察是否实心，并留意周边树种以辅助生境判断。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-coral"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">可食用，味道鲜美，风味与著名的鸡油菌（<em>C. cibarius</em>）相近，是公认的优质野生食用菌之一；子实体色泽鲜艳，兼具观赏与食用双重吸引力</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">营养与保健价值</div>
+        <div class="value-body">含类胡萝卜素虾青素（canthaxanthin），该色素在人体内可转化为维生素A，对视觉健康及皮肤黏膜维护具有潜在营养意义</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为外生菌根真菌，与多种阔叶树种形成互利共生关系，是维持森林土壤养分循环及树木健康生长的重要生态组分</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">分类学研究价值</div>
+        <div class="value-body">因其鲜艳的红色系外观及广泛分布，是朱红鸡油菌亚属分子系统学研究的重要参照物种，相关研究持续推动中国鸡油菌属多样性编目工作的深入</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://baike.baidu.com/item/%E7%BA%A2%E9%B8%A1%E6%B2%B9%E8%8F%8C/1484968" target="_blank">百度百科 · 红鸡油菌</a> ·
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Cantharellus_cinnabarinus" target="_blank">Wikipedia EN</a> ·
+      <a class="ref-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9143868/" target="_blank">Diversity of Cantharellus in China (2022)</a> ·
+      <a class="ref-link" href="http://www.foodbk.com/wiki/%E7%BA%A2%E9%B8%A1%E6%B2%B9%E8%8F%8C" target="_blank">食品百科全书</a>
+    </div>
+    <div>可食用 · 优质野生食用菌 · 中国种群分类地位持续更新中</div>
+  </div>
+
+</div>
+</body>
+</html>
