@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黄褐口蘑 · Tricholoma fulvum（有毒）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #1c1812;
+    --ink-mid: #4a4230;
+    --ink-light: #8a8066;
+
+    --cream: #f6f1e4;
+    --surface: #ffffff;
+
+    --moss: #4a6428;
+    --moss-pale: #edf1e2;
+
+    --amber: #7a5c1e;
+    --amber-light: #c4a24e;
+    --amber-pale: #f4ead0;
+
+    --gold: #8a6a1c;
+    --gold-pale: #f6ecc8;
+
+    --toxic: #6a2a1e;
+    --toxic-light: #c49688;
+    --toxic-pale: #f0e0da;
+
+    --spore: #6a6250;
+    --spore-light: #a89e88;
+    --spore-pale: #eeebe0;
+
+    --border: rgba(90,74,30,0.14);
+    --border-mid: rgba(90,74,30,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .toxic-banner {
+    background: var(--toxic);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 500px; border-bottom: 1px solid var(--border-mid);
+  }
+  .hero-image-slot { background: #cdb978; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(20,16,8,0.72));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(230,220,190,0.85); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem; display: flex; flex-direction: column;
+    justify-content: center; background: var(--surface);
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--toxic); margin-bottom: 12px;
+  }
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700;
+    line-height: 1.2; color: var(--ink); margin-bottom: 6px;
+  }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--ink-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--ink-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-moss { background: var(--moss-pale); color: var(--moss); }
+  .tag-amber { background: var(--amber-pale); color: var(--amber); }
+  .tag-gold { background: var(--gold-pale); color: var(--gold); }
+  .tag-ink { background: #efe9d8; color: var(--ink-mid); }
+  .tag-toxic { background: var(--toxic); color: #fff; }
+  .tag-spore { background: var(--spore-pale); color: var(--spore); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border); padding-top: 1rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
+  }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--ink-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid);
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-moss { background: var(--moss); }
+  .dot-amber { background: var(--amber); }
+  .dot-gold { background: var(--gold); }
+  .dot-ink { background: var(--ink-mid); }
+  .dot-toxic { background: var(--toxic); }
+  .dot-spore { background: var(--spore); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge {
+    margin-left: auto; font-size: 11px; font-weight: 500; color: var(--ink-light);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot {
+    aspect-ratio: 4/3; background: #d0bc7c; border-radius: 8px;
+    overflow: hidden; position: relative; border: 1px solid var(--border-mid);
+  }
+  .photo-slot img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: block; }
+  .photo-slot-wide { grid-column: span 3; aspect-ratio: 16/7; }
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(20,16,8,0.72); color: #ece2c8; font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young { background: var(--moss-pale); color: var(--moss); }
+  .phase-mid { background: var(--amber-pale); color: var(--amber); }
+  .phase-mature { background: var(--gold-pale); color: var(--gold); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-light); margin-bottom: 8px;
+  }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--ink-light); padding: 8px 12px;
+    border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td {
+    padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border);
+    vertical-align: top; color: var(--ink);
+  }
+  .parts-table td:first-child { font-weight: 500; color: var(--ink-mid); white-space: nowrap; width: 100px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .distinction-box {
+    background: var(--toxic-pale); border: 1px solid var(--toxic-light);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem;
+  }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--toxic); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #4a1a10; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--toxic); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--amber-light);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+  }
+  .confusion-item.danger { border-left-color: var(--toxic); background: var(--toxic-pale); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--ink-mid); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: #ece2c4; border: 1px solid #d4c090; border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--ink-mid); font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-light); margin-bottom: 6px;
+  }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card.toxic-card { border-left: 3px solid var(--toxic); }
+  .value-card-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-light); margin-bottom: 8px;
+  }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-light);
+  }
+  .ref-link { color: var(--moss); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  .alert-box {
+    background: var(--toxic-pale); border: 1px solid var(--toxic-light); border-radius: 10px;
+    padding: 12px 16px; font-size: 12px; color: var(--toxic); margin-top: 10px; font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .photo-slot-wide { grid-column: span 2; aspect-ratio: 16/9; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toxic-banner">⚠️ 有毒（胃肠炎型）· 中国毒蘑菇修订名录收录种 · 严禁采食，仅供学习识别</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum0.png" alt="黄褐口蘑主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Tricholoma fulvum · "桦树骑士"，口蘑属中罕见的黄色菌褶，密布褐色斑点</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 口蘑科 · 口蘑属</div>
+    <div class="hero-name-zh">黄褐口蘑</div>
+    <div class="hero-name-la">Tricholoma fulvum</div>
+    <div class="hero-author">(DC.) Bigeard & H. Guill.</div>
+
+    <div class="tag-row">
+      <span class="tag tag-toxic">⚠ 有毒 · 胃肠炎型</span>
+      <span class="tag tag-ink">中国毒蘑菇修订名录收录种</span>
+      <span class="tag tag-gold">黄色菌褶带褐斑（属内罕见）</span>
+      <span class="tag tag-ink">俗称"桦树骑士"</span>
+      <span class="tag tag-ink">外生菌根 · 与桦树共生</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">英文 / 俗名</span>
+        <span class="taxon-value">Birch Knight（桦树骑士）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Tricholomataceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">属</span>
+        <span class="taxon-value">口蘑属 <em>Tricholoma</em></span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">近缘易混淆种</span>
+        <span class="taxon-value">红鳞口蘑 <em>T. vaccinum</em> · 白棕口蘑 <em>T. albobrunneum</em></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ink"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+    <div class="photo-grid">
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 棕褐色，中部色深，湿时黏滑</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 黄色菌褶带褐色斑点，菌柄无环</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉近白色，靠近柄上部转淡黄</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum4.png" alt="菌褶面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">★特殊细节 · 褶面黄色，老后暗黄并密布褐色斑点（属内罕见特征）</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 白色</div>
+      </div>
+
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum6.png" alt="菌柄细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 菌柄上部色浅、中下部带褐色，中空</div>
+      </div>
+
+      <div class="photo-slot photo-slot-wide">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum7.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Tricholoma_fulvum7.png" alt="生境图" loading="lazy">
+        </picture>
+        <div class="photo-caption">生境图 · 桦树林及阔叶林、针阔混交林地上单生或群生</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖半球形，边缘明显内卷，棕褐色，中部色深，表面湿润时已显黏滑质感；菌褶淡黄色，弯生；菌柄短粗，上部色浅，尚未出现明显的中空结构。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖渐展为扁半球形，边缘仍内卷，表面细纤毛鳞片逐渐显现；菌褶黄色渐深，边缘及表面开始出现褐色斑点及条纹；菌柄中下部逐渐转为褐色，内部开始中空，基部略显膨大。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖直径3–6.6（9）cm，近平展，有时中部稍凸；棕褐色，中部色深，湿时黏滑，表面具细纤毛鳞片，边缘仍内卷；菌肉近白色，靠近菌柄上部转为淡黄色；菌褶黄色，老后转暗黄色并密布褐色斑点，稍密，弯生，不等长——这是口蘑属中极为罕见的"非白色菌褶"特征；菌柄长3–3.5（8）cm，粗0.6–1cm，上部色浅，中下部带褐色，中空，基部稍膨大；孢子印白色；部分个体成熟后具令人不悦的臭气味。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-amber">菌盖棕褐色，中部色深</span>
+          <span class="tag tag-ink">菌肉近白色，柄上部带淡黄</span>
+          <span class="tag tag-gold">菌褶黄色→暗黄色伴褐斑</span>
+          <span class="tag tag-ink">菌柄上浅下褐</span>
+          <span class="tag tag-spore">孢子印白色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">菌盖半球形→扁半球形→近平展</span>
+          <span class="tag tag-ink">边缘长期内卷</span>
+          <span class="tag tag-ink">菌柄短粗，中空</span>
+          <span class="tag tag-ink">基部稍膨大</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-ink">部分个体具令人不悦的臭气味</span>
+          <span class="tag tag-toxic">⚠ 气味不可作为可食判断依据</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感 · 食毒</div>
+        <div class="trait-tags">
+          <span class="tag tag-toxic">⚠ 有毒，胃肠炎型</span>
+          <span class="tag tag-toxic">⚠ 严禁采食</span>
+          <span class="tag tag-ink">民间"可食"说法不可信</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖</td><td>宽3–6.6（9）cm，半球形、扁半球形至近平展，有时中部稍凸；棕褐色，中部色深，湿时黏，表面具细纤毛鳞片，边缘长期内卷</td></tr>
+          <tr><td>菌褶</td><td>黄色，老后暗黄色并密布褐色斑点及条纹——口蘑属中极为罕见的非白色菌褶特征；稍密，弯生，不等长</td></tr>
+          <tr><td>菌肉</td><td>近白色，靠近菌柄上部转为淡黄色；部分个体具令人不悦的臭气味</td></tr>
+          <tr><td>菌柄</td><td>长3–3.5（8）cm，粗0.6–1cm；上部色浅，中下部带褐色，中空，基部稍膨大</td></tr>
+          <tr><td>菌环 · 菌托</td><td>均无（口蘑属典型特征）</td></tr>
+          <tr><td>孢子</td><td>无色，光滑，近球形，6.2–7.5×4.9–5.5μm；孢子印白色</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-toxic"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆 · 有毒警示</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">⚠ 核心辨识三要素（有毒警示）</div>
+      <ul class="distinction-list">
+        <li>菌褶<strong>黄色并密布褐色斑点条纹</strong>——口蘑属绝大多数物种菌褶为白色，本种是极少数的例外，是最直观也最容易被忽视的识别线索</li>
+        <li>菌盖<strong>湿时黏滑</strong>，棕褐色，中部色深，边缘常年内卷，表面具细纤毛鳞片</li>
+        <li>常与<strong>桦树</strong>形成外生菌根共生（俗称"桦树骑士"），但也见于其他阔叶林及针阔混交林，不能仅凭生境排除</li>
+      </ul>
+    </div>
+
+    <div class="alert-box">
+      ⚠ 特别提示：黄褐口蘑已被正式收录于中国毒蘑菇修订名录，中毒类型为胃肠炎型。民间存在"可食用"的说法，但同时也有因其具令人不悦的臭气味而被认为不宜食用的记载，两种说法互相矛盾，均不能作为食用依据。其抗肿瘤活性曾在动物实验中被测试（对小鼠肉瘤180抑制率约80%），但药理活性与食用安全性并无必然联系——一种物质具有生物活性甚至药用潜力，并不意味着可以直接采食其子实体，这是蘑菇科普中需要特别澄清的常见误区。
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink);">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic);">⚠ 白棕口蘑 <em>Tricholoma albobrunneum</em>（同样有毒，胃肠炎型）</div>
+        <div class="confusion-diff">同为中国毒蘑菇修订名录收录种。区别：菌盖同样黏滑褐色，但<strong>菌褶始终为白色</strong>而非黄色带褐斑；两者同属危险的"黏滑褐色口蘑"类群，均不可食</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--toxic);">⚠ 褐黑口蘑 <em>Tricholoma ustale</em>（同样有毒，胃肠炎型）</div>
+        <div class="confusion-diff">菌盖橙红褐色至"烧焦"色调，菌褶白色，成熟后或受伤后现锈褐色斑点；与本种菌褶天生带黄色、密布褐斑的特征不同，但同为需要警惕的褐色黏滑口蘑类群成员</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">红鳞口蘑 <em>Tricholoma vaccinum</em></div>
+        <div class="confusion-diff">菌盖边缘常有残留菌幕，表面被红褐色毛状鳞片，质感粗糙而非黏滑；与本种光滑黏滑的菌盖形成对比</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">鳞盖口蘑 <em>Tricholoma imbricatum</em></div>
+        <div class="confusion-diff">菌盖表面不黏，深棕色，密被纤毛状鳞片；与本种"湿时黏滑"的关键特征不同，是分子鉴定中曾与本种混淆的近缘种之一</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--ink-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「褶黄带褐斑，口蘑属里是异类」</div>
+        <div class="memory-pill">「盖黏中深色，桦树骑士立林间」</div>
+        <div class="memory-pill">「抗癌试验不代表能吃，胃肠炎型莫大意」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-ink"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">群落分布方式</div>
+        <div class="habitat-value">单生或群生，有时丛生</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质类型</div>
+        <div class="habitat-value">外生菌根真菌，尤喜与桦树（<em>Betula</em>）共生（故称"桦树骑士"），也见于其他阔叶林及针阔混交林地上</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广泛分布于欧亚大陆温带地区，中国多地林区均有记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">秋季，林中地上出菇</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      标本采集建议：记录菌褶颜色是否带黄并有褐色斑点、菌盖是否黏滑、共生树种是否为桦树；由于与多种同样有毒的黏滑褐色口蘑类群外观接近，采集应以拍照记录和标本保存为目的，不建议采食尝试。
+    </div>
+    <div class="alert-box">
+      ⚠ 重要提示：如误食黄褐口蘑或其他褐色黏滑口蘑类真菌后出现恶心、呕吐、腹泻等胃肠炎型症状，应及时就医，并尽量携带样本或清晰照片供专业机构鉴定，以便对症治疗。
+    </div>
+  </div>
+
+  <!-- 7. 价值 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card toxic-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">⚠ 有毒（胃肠炎型），已列入中国毒蘑菇修订名录，严禁采食。民间存在"可食"与"因臭气味不宜食"两种相互矛盾的说法，均不能作为食用依据</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">分类学价值</div>
+        <div class="value-body">其黄色且带褐斑的菌褶，是口蘑属中区分"白色菌褶"多数物种与本种的重要形态标志，在分类学及野外识别教学中具有代表性意义</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药理研究价值</div>
+        <div class="value-body">动物实验显示其提取物对小鼠肉瘤180的抑制率约为80%，对艾氏腹水癌的抑制率约为70%，是天然产物抗肿瘤活性筛选研究中的观察对象之一（提示：这是实验室提取物研究，不代表子实体可安全食用）</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">外生菌根真菌，与桦树等树木形成共生关系，参与森林生态系统的养分循环，对宿主树种的水分及矿质养分吸收具有积极作用</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://www.wiki8.cn/data/jingjizhenjun/view/114.html" target="_blank">中国经济真菌图谱</a> ·
+      <a class="ref-link" href="https://wap.emushroom.net/qikan/show-17437.html" target="_blank">中国毒蘑菇新修订名录</a> ·
+      <a class="ref-link" href="https://picturemushroom.com/zh-tw/wiki/Tricholoma_fulvum.html" target="_blank">Picture Mushroom</a>
+    </div>
+    <div>⚠ 有毒 · 中国毒蘑菇修订名录收录种 · 仅供学习识别</div>
+  </div>
+
+</div>
+</body>
+</html>
