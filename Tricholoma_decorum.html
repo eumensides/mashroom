@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黄口蘑 · Tricholoma decorum（不宜食用，味苦）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 不宜食用（味苦但非剧毒）物种：明黄底色 + 橄榄褐鳞片色 */
+    --ink: #1c1808;
+    --ink-mid: #423c1c;
+    --ink-light: #857c50;
+
+    --cream: #f8f4dc;
+    --surface: #fffef4;
+    --surface-warm: #fbf8e4;
+
+    /* 明黄主色（菌盖底色，命名"decorum/装饰"由来） */
+    --gold: #d4a91a;
+    --gold-light: #ecca5e;
+    --gold-pale: #faf0c4;
+    --gold-mid: #a8800e;
+
+    /* 橄榄褐（鳞片色） */
+    --olive: #5c5222;
+    --olive-light: #928950;
+    --olive-pale: #ece6c8;
+
+    /* 深松绿（针叶木腐生境标记） */
+    --pine: #2e5238;
+    --pine-light: #6a8c74;
+    --pine-pale: #e2ecdf;
+
+    /* 警戒琥珀（苦味/不宜食用警示） */
+    --warn: #a1651a;
+    --warn-light: #d9a054;
+    --warn-pale: #fbedd8;
+
+    --stone: #6a6040;
+    --stone-light: #9c9270;
+
+    --border: rgba(150,120,20,0.15);
+    --border-mid: rgba(150,120,20,0.27);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--olive);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #e8cf5c; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(24,20,4,0.72)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,230,180,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 34px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--gold-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-gold  { background: var(--gold-pale);  color: var(--gold-mid); }
+  .tag-olive { background: var(--olive-pale); color: var(--olive); }
+  .tag-pine  { background: var(--pine-pale);  color: var(--pine); }
+  .tag-warn  { background: var(--warn-pale);  color: var(--warn); }
+  .tag-stone { background: #f0e8c4;           color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-gold  { background: var(--gold-mid); }
+  .dot-olive { background: var(--olive); }
+  .dot-pine  { background: var(--pine); }
+  .dot-warn  { background: var(--warn); }
+  .dot-stone { background: var(--stone-light); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #e8cf5c; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #e8cf5c; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(24,20,4,0.72); color: #f5ecc4; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--gold-pale);  color: var(--gold-mid); }
+  .phase-mid    { background: var(--olive-pale); color: var(--olive); }
+  .phase-mature { background: var(--pine-pale);  color: var(--pine); }
+
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--olive); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(161,101,26,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a3810; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--pine-pale); border: 1px solid rgba(46,82,56,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--pine); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #16281c; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--pine); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--warn); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--gold-pale); border: 1px solid rgba(168,128,14,0.28); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--gold-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #faf0c4, #fbf8e4);
+    border: 1px solid rgba(168,128,14,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gold-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--gold-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="notice-banner">
+  ⚠ 不宜食用（味极苦）· 生于针叶腐木而非地表，与真正的口蘑属（Tricholoma）无直接关联，注意命名易混淆
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Tricholoma_decorum0.png" alt="黄口蘑主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Tricholomopsis decora（异名 Tricholoma decorum）· 明黄色菌盖密布橄榄褐色小鳞片，色彩对比强烈，丛生于针叶腐木之上</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 蘑菇目 · 光柄菇科 · 拟口蘑属</div>
+    <div class="hero-name-zh">黄口蘑</div>
+    <div class="hero-name-la">Tricholoma decorum</div>
+    <div class="hero-author">(Fr.) Quél. · 现多用学名 <em>Tricholomopsis decora</em> (Fr.) Singer · 俗称「黄拟口蘑」「Decorated Mop」</div>
+
+    <div class="tag-row">
+      <span class="tag tag-warn">⚠ 不宜食用（味极苦）</span>
+      <span class="tag tag-gold">明黄底色 + 橄榄褐鳞片</span>
+      <span class="tag tag-pine">木腐生（针叶腐木）</span>
+      <span class="tag tag-olive">非真正口蘑属</span>
+      <span class="tag tag-stone">分类地位曾多次变动</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">黄口蘑 / 黄拟口蘑</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Decorated Mop</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">蘑菇目 Agaricales / Tricholomataceae 或 Pluteaceae（分类处理不一）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">生态角色</span>
+        <span class="taxon-value">腐生菌，专性分解针叶树倒木及树桩</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">"decorum/decora"：装饰般的配色</span>
+        <span class="fb-value">种加词意为"装饰的、优美的"，正是形容其明黄色菌盖上散布深橄榄褐色小鳞片这一强烈而美观的色彩对比，是本种最具辨识度的外观特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">长在木头上，不是长在地上</span>
+        <span class="fb-value">与大多数外生菌根型的"真口蘑"（Tricholoma属）不同，本种是<strong>腐生菌</strong>，专门生长在针叶树倒木、树桩等腐木基质表面，从生态位上就与地表生长的口蘑属物种截然不同</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">味极苦，森林的"废物回收站"</span>
+        <span class="fb-value">菌肉味道极苦，不具备食用价值，但其分泌的强力酶系统能高效分解针叶木材中坚韧的木质素与纤维素，是森林生态系统重要的养分循环参与者</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Tricholoma_decorum1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 明黄色底色 / 橄榄褐色小鳞片密布 / 中央鳞片更密</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Tricholoma_decorum2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 黄色菌褶 / 无菌环 / 黄色菌柄</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Tricholoma_decorum3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉黄色 / 味极苦</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Tricholoma_decorum4.png" alt="丛生形态图" loading="lazy">
+        <div class="photo-caption">丛生形态 · 多个子实体密集生长于针叶腐木表面</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Tricholoma_decorum5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 白色至浅黄色</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Tricholoma_decorum6.png" alt="鳞片特写图" loading="lazy">
+        <div class="photo-caption">鳞片特写 · 深橄榄褐色小鳞片贴伏于明黄色菌盖表面</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Tricholoma_decorum7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 针叶林中腐烂倒木、树桩表面，密集丛生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-olive"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          子实体幼时呈半球形，菌盖直径2–3cm，明黄色，表面已可见细小的深橄榄褐色鳞片，中央尤为密集；
+          菌褶尚未完全显露，黄色；菌柄短，与菌盖同色；此期常紧贴腐木表面成簇萌发。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐展开为凸镜形，直径可达4–8cm，明黄色底色与深橄榄褐色鳞片对比更加鲜明；菌褶完全显露，黄色，密集，离生至近弯生；
+          菌柄伸长，黄色，表面光滑或具细微纤毛，<strong>无菌环</strong>；此期若掰开菌肉品尝会明显感受到强烈苦味（不建议实际品尝，仅作形态记录）。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展开近平展，直径可达10cm，明黄色鲜艳依旧，橄榄褐色鳞片清晰分布；菌褶黄色，密集；
+          菌柄3–8cm，黄色，无菌环，基部常与腐木紧密相连；菌肉黄色，味极苦；孢子印白色至浅黄色。多个子实体常密集丛生，覆盖整段倒木表面。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-olive"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-gold">菌盖明黄色</span>
+          <span class="tag tag-olive">鳞片深橄榄褐色，中央更密</span>
+          <span class="tag tag-gold">菌褶、菌柄均为黄色</span>
+          <span class="tag tag-stone">孢子印白色至浅黄色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">半球形→凸镜形→近平展（径2–10cm）</span>
+          <span class="tag tag-olive">鳞片密布，贴伏状</span>
+          <span class="tag tag-gold">菌柄3–8cm，无菌环</span>
+          <span class="tag tag-pine">密集丛生覆盖腐木表面</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">无突出气味或略带菌类气息</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感 / 食用性</div>
+        <div class="trait-tags">
+          <span class="tag tag-warn">⚠ 味极苦，不宜食用</span>
+          <span class="tag tag-warn">非传统意义上的剧毒种，但食用价值极低</span>
+          <span class="tag tag-stone">苦味本身即是天然的"劝退"信号</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-olive"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖</td>
+            <td>直径2–10cm，初期半球形，成熟展开为凸镜形至近平展；明黄色底色，表面密布深橄榄褐色小鳞片，中央尤为密集，边缘鳞片相对稀疏</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>黄色，密集，离生至近弯生，颜色随生长基本保持鲜艳</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>黄色，质地一般；<strong>味极苦</strong>，是本种不具备食用价值的直接原因</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>长3–8cm；黄色，表面光滑或具细微纤毛，<strong>无菌环</strong>，基部常紧贴腐木基质</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>椭圆形，光滑；孢子印白色至浅黄色</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pine"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖<strong>明黄色</strong>底色上密布<strong>深橄榄褐色小鳞片</strong>，色彩对比强烈醒目</li>
+        <li>生长于<strong>针叶树腐木、倒木、树桩表面</strong>，而非地表——这一生境本身就是与大多数地生型"真口蘑"最直接的区别</li>
+        <li>菌柄<strong>无菌环</strong>，整体色调与菌盖一致，均为黄色</li>
+        <li>菌肉<strong>味极苦</strong>，浅尝（不建议实际品尝，仅供了解）即可察觉，是天然的"不宜食用"信号</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用提示：不宜食用，味极苦</div>
+      <ul class="caution-list">
+        <li>本种<strong>味道极苦</strong>，不具备食用价值，国际权威菌物指南普遍将其列为"不宜食用"（inedible）而非传统意义上的剧毒物种</li>
+        <li>虽然并非已知的致命毒菌，但强烈的苦味可能引发不适，且缺乏系统的毒理学安全数据，<strong>不建议采食</strong></li>
+        <li>本种常与可食用的蜜环菌属物种同样生长在腐木及树桩上，采集时应注意区分：本种整体<strong>鲜艳明黄色</strong>且<strong>无菌环</strong>，与蜜环菌属的浅黄褐色调及多数具菌环的特征有所不同</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与蜜环菌属的区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">蜜环菌属（<em>Armillaria</em>）多具<strong>白色菌褶</strong>及<strong>菌环</strong>；本种<strong>菌褶、菌柄均为黄色</strong>且<strong>无菌环</strong>，色彩也更为鲜艳统一，二者虽同生腐木但外观差异明显</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与真正口蘑属的区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">真正的口蘑属（<em>Tricholoma</em>）物种多为<strong>外生菌根真菌，地表生长</strong>，与树木根系共生；本种为<strong>腐生菌，生于木材表面</strong>，生态位完全不同，这也是分类学家最终将其归入独立的拟口蘑属（<em>Tricholomopsis</em>）的重要依据之一</div>
+      </div>
+    </div>
+
+    <!-- 命名与分类说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--gold-pale);border:1px solid rgba(168,128,14,0.32);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--olive);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">命名与分类地位说明</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Taxonomy Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">"黄口蘑"之名为何容易造成误解</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--olive);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>学名变迁：</strong>本种最初于弗里斯（Fries）体系下被定名为 <em>Agaricus decorus</em>，后曾长期被置于口蘑属，称 <em>Tricholoma decorum</em>（本页标题所用学名）；现代分类中，辛格（Singer）已将其转移至独立的<strong>拟口蘑属</strong>，现用学名为 <em>Tricholomopsis decora</em>。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--olive);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>属名"Tricholomopsis"直译为"形似口蘑"</strong>——恰恰说明了这类真菌只是外观上让人联想到口蘑属，实际生态习性（腐生、生于木材）与真正的口蘑属（外生菌根、地表生长）截然不同，二者亲缘关系也较远。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--olive);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>使用建议：</strong>中文"黄口蘑"这一俗称在民间及部分资料中沿用至今，但检索文献或与他人交流时，建议同时注明学名 <em>Tricholomopsis decora</em>（或其异名 <em>Tricholoma decorum</em>），以避免与地表生长、外生菌根型的其他"口蘑"（如东北草原上常见的白蘑 <em>Tricholoma mongolicum</em>）混淆。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--warn-pale);border:1px solid rgba(161,101,26,0.3);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a3810;line-height:1.7;">
+          <strong>🍄 识别提示：</strong>看到"口蘑"二字不代表可以直接归入可食用的口蘑属大家族；本种鲜艳的黄色菌盖搭配腐木生境和无菌环的黄色菌柄，是与传统地生型口蘑最直观的区分标志，遇到类似特征的真菌应以此为线索谨慎对待。
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相关及易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">赭红拟口蘑 <em>Tricholomopsis rutilans</em></div>
+        <div class="confusion-diff">同属近缘种，菌盖底色偏紫红而非明黄，同样密布深色鳞片，同样生于针叶腐木，味道同样不佳，也不建议食用</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">蜜环菌属（<em>Armillaria</em>）各可食种</div>
+        <div class="confusion-diff">同样常见于腐木及树桩，但菌褶多为白色且多数具菌环，颜色也偏浅黄褐而非鲜艳明黄，是森林中另一类常见的木腐真菌，与本种生态位部分重叠但食用价值截然不同</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">白蘑（蒙古口蘑）<em>Tricholoma mongolicum</em></div>
+        <div class="confusion-diff">真正的口蘑属代表种，是"口蘑"一词的经典来源，白色、地表生长、与草原禾本科植物形成外生菌根，是内蒙古草原上珍贵的传统食用菌，与本种在生态习性和食用价值上完全不同</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「明黄盖上橄榄斑，装饰之名恰如其分」</div>
+        <div class="memory-pill">「长在木头不落地，腐木倒树是家园」</div>
+        <div class="memory-pill">「名带口蘑却非亲，苦味劝退莫强尝」</div>
+        <div class="memory-pill">「拟口蘑属自成家，学名务必要写全」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">密集丛生，多个子实体覆盖同一段针叶腐木或树桩表面</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">专性腐生菌，分解针叶树（松、云杉等）的倒木、树桩及腐朽木材，分泌强力酶系统降解木质素与纤维素</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">广泛分布于北半球针叶林及针阔混交林区，欧洲、北美及亚洲部分地区均有记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">主要见于8月至10月，其中8月中旬至9月下旬为出菇高峰期</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      观察建议：本种色彩鲜艳、图案独特，是林间拍照记录及菌物摄影的理想对象，但不建议作为食用采集目标；若用于生态观察，注意其密集丛生覆盖腐木的典型群落景观。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-pine"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">味极苦，不具备食用价值，国际菌物指南普遍将其列为"不宜食用"物种，非传统意义上的剧毒毒菌</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为专性腐生菌，分泌的酶系统能高效分解针叶木材中坚韧的木质素与纤维素，将枯木中封存的养分重新释放回森林土壤，是针叶林生态系统物质循环的重要参与者，堪称"森林的回收工"</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">观赏与科普价值</div>
+        <div class="value-body">明黄色菌盖搭配深橄榄褐色鳞片的强烈视觉对比，使其成为菌物摄影及自然教育中颇受欢迎的观赏物种，也是讲解"名字带'口蘑'不等于可食用"这一科普要点的良好案例</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">分类学研究价值</div>
+        <div class="value-body">其复杂的学名变迁历史（从蘑菇属、口蘑属最终独立至拟口蘑属）是研究伞菌分类系统演变、外观趋同现象与真实亲缘关系之间关系的典型案例</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://fungiatlas.com/tricholomopsis-decora/" target="_blank">Fungi Atlas · Tricholomopsis decora</a> ·
+      <a class="ref-link" href="https://www.gbif.org/taxon/7D3GH" target="_blank">GBIF · Tricholomopsis decora</a> ·
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-cn/%E5%8F%A3%E8%98%91%E5%B1%9E" target="_blank">维基百科 · 口蘑属</a>
+    </div>
+    <div>不宜食用（味苦）· 针叶腐木生 · 非真正口蘑属</div>
+  </div>
+
+</div>
+</body>
+</html>
