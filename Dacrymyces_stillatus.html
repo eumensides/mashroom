@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>花耳 · Dacrymyces stillatus（无毒 · 非传统食用菌）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 无毒但不具食用意义：自然观察基调，明亮橙黄为标志色，配灰蓝中性 */
+    --ink: #191510; --ink-mid: #423b30; --ink-light: #837a68;
+    --cream: #f2ede2; --surface: #fffdf8; --surface-warm: #faf5e8;
+
+    --jelly: #d97a1c; --jelly-light: #eda94e; --jelly-pale: #fbe6c8; --jelly-mid: #b3600f;
+
+    --amber: #c99a1c; --amber-light: #e4bf5e; --amber-pale: #faf0d2;
+
+    --moss: #4e6c50; --moss-light: #8eac90; --moss-pale: #e8f0e4;
+
+    --slate: #506270; --slate-light: #8a98a2; --slate-pale: #e6ebee;
+
+    --note: #a5591a; --note-light: #d68b4d; --note-pale: #fbe9d6;
+
+    --stone: #665c48; --stone-light: #948a70;
+
+    --border: rgba(90,70,20,0.14); --border-mid: rgba(90,70,20,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--slate);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #e8a94f; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(24,16,6,0.75));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(250,225,180,0.9); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--jelly-mid); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif; font-size: 34px; font-weight: 700;
+    line-height: 1.2; color: var(--ink); margin-bottom: 6px;
+  }
+
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--amber); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-jelly { background: var(--jelly-pale); color: var(--jelly-mid); }
+  .tag-amber { background: var(--amber-pale); color: var(--amber); }
+  .tag-moss  { background: var(--moss-pale); color: var(--moss); }
+  .tag-slate { background: var(--slate-pale); color: var(--slate); }
+  .tag-note  { background: var(--note-pale); color: var(--note); }
+  .tag-stone { background: #ece4d0; color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border); padding-top: 1rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
+  }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border-mid);
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-jelly { background: var(--jelly); }
+  .dot-moss  { background: var(--moss); }
+  .dot-note  { background: var(--note); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-amber { background: var(--amber); }
+  .dot-slate { background: var(--slate); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #e8a94f; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #e8a94f; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); margin-top: 10px; }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(24,16,6,0.75); color: #f7e5c9; font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale); color: var(--moss); }
+  .phase-mid    { background: var(--amber-pale); color: var(--amber); }
+  .phase-mature { background: var(--jelly-pale); color: var(--jelly-mid); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--jelly-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--slate-pale); border: 1px solid rgba(80,98,112,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--slate); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #2e3a42; line-height: 1.6; }
+  .caution-list li::before { content: "•"; color: var(--slate); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(78,108,80,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #223222; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--amber-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--jelly-pale); border: 1px solid rgba(179,96,15,0.28); border-radius: 8px; padding: 8px 14px;
+    font-size: 13px; font-style: italic; color: var(--jelly-mid); font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #fbe6c8, #fdf3e2);
+    border: 1px solid rgba(179,96,15,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--jelly-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light);
+  }
+  .ref-link { color: var(--jelly-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">◆ 无毒但体型微小、不具食用意义 · 雨后朽木常见的胶质小精灵 · 自然观察趣味物种</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+          <source srcset="https://eumensides.github.io/mashroom/Dacrymyces_stillatus0.png" type="image/png">
+          <img src="https://eumensides.github.io/mashroom/Dacrymyces_stillatus0.png" alt="花耳主图" loading="lazy">
+        </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Dacrymyces stillatus · 橙黄色胶质小突起，表面具脑状皱褶，生于朽木表面，遇水复原</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 花耳纲 · 花耳目 · 花耳科 · 花耳属</div>
+    <div class="hero-name-zh">花耳</div>
+    <div class="hero-name-la">Dacrymyces stillatus</div>
+    <div class="hero-author">Nees, 1816 · 英文俗称「Common Jellyspot / Witch's Butter」</div>
+
+    <div class="tag-row">
+      <span class="tag tag-slate">◆ 无毒非传统食用菌</span>
+      <span class="tag tag-jelly">橙黄胶质小突起</span>
+      <span class="tag tag-amber">干缩湿胀反复循环</span>
+      <span class="tag tag-moss">朽木分解者</span>
+      <span class="tag tag-stone">全球广泛分布</span>
+      <span class="tag tag-note">形态多变待厘清</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文名</span>
+        <span class="taxon-value">花耳（尚无广泛使用的俗称）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文俗名</span>
+        <span class="taxon-value">Common Jellyspot / Witch's Butter</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">科 / 属</span>
+        <span class="taxon-value">Dacrymycetaceae 花耳科 / Dacrymyces 花耳属</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">食用状态</span>
+        <span class="taxon-value">无毒，但体型微小不具食用价值</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志特征：橙黄胶质小点</span>
+        <span class="fb-value">子实体呈明亮橙黄至黄色的果冻状小突起，直径通常仅1–8毫米，质地滑腻半透明，是雨后朽木上最容易被注意到的"迷你彩点"之一</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">遇水复原的生存策略</span>
+        <span class="fb-value">干燥时收缩变硬、颜色暗淡近乎消失，一旦遇雨或环境潮湿便迅速吸水膨胀恢复鲜艳胶质状态，是雨后最早重新"苏醒"的真菌之一</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">形态多变，待系统厘清</span>
+        <span class="fb-value">在目前的物种定义下，花耳的形态变化范围很大，被真菌学者认为可能是一个尚待深入研究厘清的<strong>物种复合体</strong>（species complex）</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-jelly"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+      <div class="photo-grid-6">
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Dacrymyces_stillatus1.png" alt="整体形态图" loading="lazy">
+          <div class="photo-caption">整体形态图 · 橙黄色垫状胶质突起</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Dacrymyces_stillatus2.png" alt="近距特写图" loading="lazy">
+          <div class="photo-caption">近距特写 · 表面脑状/迂回皱褶纹理</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Dacrymyces_stillatus3.png" alt="融合团块图" loading="lazy">
+          <div class="photo-caption">融合团块 · 多个个体连成不规则大块</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Dacrymyces_stillatus4.png" alt="质地对比图" loading="lazy">
+          <div class="photo-caption">质地对比 · 湿润饱满 vs 干燥收缩</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Dacrymyces_stillatus5.png" alt="孢子印图" loading="lazy">
+          <div class="photo-caption">孢子形态示意 · 具隔膜（需显微观察）</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Dacrymyces_stillatus6.png" alt="特殊细节图" loading="lazy">
+          <div class="photo-caption">细节 · 基质附着处 / 假柄结构特写</div>
+        </div>
+      </div>
+
+      <div class="photo-slot-wide">
+        <img src="https://eumensides.github.io/mashroom/Dacrymyces_stillatus7.png" alt="生境图" loading="lazy">
+        <div class="photo-caption">生境图 · 针叶树倒木及去皮枝条表面</div>
+      </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">萌发期</div>
+        <div class="phase-desc">
+          子实体从树皮裂缝或去皮木材表面顶出，初为微小的橙黄色点状突起，质地黏滑，尚未形成明显的团块状结构。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">发育期</div>
+        <div class="phase-desc">
+          子实体逐渐增大呈垫状（pulvinate）至盘状，表面开始出现不规则的脑状或迂回状皱褶，颜色转为鲜明的橙黄至黄色，质感更加饱满黏滑。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">循环期</div>
+        <div class="phase-desc">
+          多个子实体常在潮湿多雨天气融合形成不规则的更大胶质团块；干燥时迅速收缩变硬、颜色暗淡近乎消失，一旦复水又迅速恢复原本鲜艳的胶质状态，如此反复循环，是本种最具观察趣味的生存特征。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-jelly">鲜橙黄至黄色（潮湿时最饱和）</span>
+          <span class="tag tag-stone">干燥时暗淡收缩发暗</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">垫状/盘状至不规则脑状皱褶团块</span>
+          <span class="tag tag-stone">直径1–8毫米（个别可更大）</span>
+          <span class="tag tag-stone">无独立菌盖、菌柄结构</span>
+          <span class="tag tag-amber">偶见不明显假柄</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">无特殊气味记录</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-slate">◆ 无食用记录</span>
+          <span class="tag tag-slate">胶质半透明缺乏实质菌肉</span>
+          <span class="tag tag-slate">不具备食用意义</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>子实体</td><td>胶质，半透明，橙黄至黄色，垫状至不规则脑状/迂回皱褶状，直径1–8毫米，常多个融合成更大团块</td></tr>
+          <tr><td>质地</td><td>新鲜时黏滑柔软，含水量高；干燥后收缩变硬、颜色暗淡，复水后迅速恢复原状，可反复循环多次</td></tr>
+          <tr><td>子实层</td><td>直接生长于胶质团块表面，无独立菌褶或菌管等分化结构，孢子直接产生于表面</td></tr>
+          <tr><td>假柄</td><td>有时可见不甚明显的假柄结构，但并非所有个体都具备</td></tr>
+          <tr><td>孢子</td><td>具隔膜，形态因物种复合体内部差异而有所不同，需借助显微镜辅助鉴定</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>子实体呈<strong>橙黄至黄色的垫状小突起</strong>，直径通常仅数毫米，质地胶质黏滑</li>
+        <li>表面常具<strong>不规则脑状或迂回状皱褶</strong>，湿润时最为鲜艳饱满</li>
+        <li>不具备传统蘑菇的<strong>菌盖、菌褶或菌柄</strong>分化结构，是"非典型蘑菇"的代表</li>
+        <li>具有独特的<strong>干缩湿胀循环能力</strong>，干燥近乎消失、遇水又迅速复原</li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">◆ 食用说明：无毒记录，但缺乏食用意义</div>
+      <ul class="caution-list">
+        <li>目前没有关于本种含有毒素的报道，但同时也<strong>没有被认可的食用记录</strong>，二者不应混淆——"无毒"不等于"可食"</li>
+        <li>本种体型极其微小（通常仅数毫米），且质地为几乎全透明的胶质，缺乏实质性的菌肉组织，从营养和口感角度均不具备传统意义上的食用价值</li>
+        <li>与之相对，同属花耳目、外观颜色相近的桂花耳（<em>Dacryopinax spathularia</em>）体型明显更大、呈匙形或鹿角形，是被认可的食用菌——切勿将本种与近缘可食种混为一谈</li>
+        <li>本种更适合作为自然观察与真菌科普的对象，而非食材来源</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与黄金木耳的区别（不同目）</div>
+        <div style="font-size:13px;color:var(--ink-mid)">黄金木耳（<em>Tremella mesenterica</em>，银耳目）外观同为橙黄色胶质，但<strong>体型通常更大</strong>，形态呈更明显的脑状分裂皱褶；本种体型更小，多呈垫状而非大幅分裂的脑状，是野外初步区分的参考，二者分类地位也不同（分属花耳目与银耳目）</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与桂花耳的区别（同目可食种）</div>
+        <div style="font-size:13px;color:var(--ink-mid)">桂花耳（<em>Dacryopinax spathularia</em>）同为花耳目，但形态呈<strong>匙形或鹿角形</strong>而非本种的垫状小点，体型也明显更大（可达1–1.5cm），且是被认可食用、云南丽江俗称"桂花菌"的知名食用菌，与本种的食用价值截然不同</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">掌状花耳 <em>Dacrymyces palmatus</em></div>
+        <div class="confusion-diff">同属近似种，体型通常更大，形态呈更明显的迂回分裂状，常见于针叶树倒木</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">黄金木耳 <em>Tremella mesenterica</em>（银耳目）</div>
+        <div class="confusion-diff">外观颜色相似均为橙黄色胶质，但分类地位不同（银耳目而非花耳目），体型通常更大且脑状分裂更明显</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">桂花耳（可食）<em>Dacryopinax spathularia</em></div>
+        <div class="confusion-diff">同目近缘种，但形态呈匙形/鹿角形而非垫状小点，体型明显更大，是被认可的食用菌，云南丽江称"桂花菌"，享有"真菌皇后"美誉</div>
+      </div>
+    </div>
+
+    <!-- 命名与俗名说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--jelly-pale);border:1px solid rgba(179,96,15,0.32);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--jelly-mid);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">中文名说明：花耳 与「滴落」</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Naming Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称来源与关系</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--jelly-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">种加词 <em>stillatus</em> 是拉丁文"滴落的"之意，形容其胶质团块含水丰富、外观宛如凝结的水滴或蜜露；属名 <em>Dacrymyces</em> 源自希腊语，意为"泪珠状真菌"，中文属名"花耳"则取意其胶质耳形构造在潮湿时形似鲜艳的小花朵。</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--jelly-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;"><strong>英文俗名"Witch's Butter"（女巫的黄油）：</strong>因其橙黄色黏滑的胶质外观，在英语民间传说中与多种类似的胶质真菌共享这一带有神秘色彩的俗称，常见于欧美地区的自然观察记录中。</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--jelly-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;"><strong>分类地位：</strong>隶属花耳目（<em>Dacrymycetales</em>）花耳科（<em>Dacrymycetaceae</em>）花耳属（<em>Dacrymyces</em>）；花耳目是担子菌门中较为原始的一支，以产生独特的"叉状担子"（音叉状分枝的担子细胞）为标志性显微特征，与银耳目、木耳目等其他胶质真菌类群形成鲜明区分。</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">命名简史与分布</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">本种由德国真菌学家尼斯（Christian Gottfried Daniel Nees von Esenbeck）于1816年首次正式描述，是花耳属中被记录最早、分布最广泛的物种之一。</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">目前已知分布于中国、日本、巴拿马、丹麦、芬兰、俄罗斯、法国、英国、挪威、玻利维亚、美国、荷兰、瑞士、瑞典、新西兰、意大利、德国、墨西哥、澳大利亚等地，是全球温带地区极为常见、四季可见的木材腐生真菌。</div>
+          </div>
+        </div>
+
+        <div style="background:var(--note-pale);border:1px solid rgba(165,89,26,0.3);border-left:4px solid var(--note);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a340e;line-height:1.7;">
+          <strong>🔍 观察提示：</strong>雨后或潮湿天气是观察本种的最佳时机，可留意针叶树倒木、去皮枝条及木桩表面的橙黄色小突起；用手轻触会感觉滑腻黏手，是向孩子或初学者演示"真菌如何应对干湿变化"这一生存策略的绝佳自然教育素材。
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「橙黄小点缀朽木，脑状皱褶似凝露」</div>
+        <div class="memory-pill">「无毒非因可入馔，胶质微小难成食」</div>
+        <div class="memory-pill">「干时隐没湿时现，反复循环显生机」</div>
+        <div class="memory-pill">「莫与桂花耳相混，匙形分叉方可食」</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布观察</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">直接从树皮裂缝或去皮木材表面顶出，常密集丛生或融合成不规则团块，附着于基质表面生长</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">木材腐生真菌，生长于阔叶树及针叶树朽木上，尤其偏好针叶树（如松、云杉、冷杉）的去皮倒木及枯枝，也见于人造木质结构表面</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">全球广泛分布，温带地区尤为常见，中国、日本及欧美多国均有记录，是分布范围极广的世界性物种</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">观察季节</div>
+        <div class="habitat-value">全年可见，但在秋冬季节及雨后潮湿环境中最为显眼饱满，是雨后菌类观察活动中极易发现的入门物种</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      观察建议：本种是雨后自然观察活动的理想对象，色彩鲜艳、随处可见且无毒安全；建议用手轻触感受其黏滑质地，并对比干燥与湿润状态下的形态差异，体会真菌应对环境变化的独特生存智慧。
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-jelly"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">无实际食用价值——虽不含已知毒素，但胶质团块体积微小、缺乏实质菌肉，不具备传统意义上的食用意义</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">木材腐生菌，参与朽木中木质素和纤维素的分解过程，是森林物质循环链条中的基础分解者之一，对维持林地养分循环具有积极作用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研价值</div>
+        <div class="value-body">因形态变化范围极大，被认为是一个尚待系统厘清的物种复合体，对花耳目分类学研究具有重要参考价值；其独特的叉状担子是花耳目的重要鉴定特征</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">观赏 / 科普价值</div>
+        <div class="value-body">色彩鲜艳醒目，全球广泛可见，是自然观察及雨后菌类科普中极具趣味性的入门物种，常被用于展示真菌"干缩湿胀"这一独特的生存策略</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://zh.wikipedia.org/wiki/%E8%8A%B1%E8%80%B3" target="_blank">中文维基百科 · 花耳</a> ·
+      <a class="ref-link" href="https://www.mushroomexpert.com/dacrymyces_stillatus.html" target="_blank">MushroomExpert.Com</a> ·
+      <a class="ref-link" href="https://www.mykoweb.com/CAF/species/Dacrymyces_stillatus.html" target="_blank">California Fungi</a>
+    </div>
+    <div>研究现状：分布记录充分 · 物种边界待厘清 · 全球广布</div>
+  </div>
+
+</div>
+</body>
+</html>
