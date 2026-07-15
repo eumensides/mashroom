@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蛋黄丝盖伞（黄裂丝盖伞）· Inocybe lutea（有毒 · 神经精神型）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 有毒物种：杏黄暖色 + 深红警戒对比 */
+    --ink: #1c1712;
+    --ink-mid: #453a2c;
+    --ink-light: #8a7a5c;
+
+    --cream: #f3ecdc;
+    --surface: #fffcf4;
+    --surface-warm: #f9f2e2;
+
+    /* 蛋黄/杏橙主色（菌盖本色） */
+    --yolk: #c8791e;
+    --yolk-light: #e8a84e;
+    --yolk-pale: #fbe8c8;
+    --yolk-mid: #9a5a12;
+
+    /* 焦褐辅色（老熟／纤丝色） */
+    --scorch: #7a4a20;
+    --scorch-light: #b07a44;
+    --scorch-pale: #f0e0c8;
+
+    /* 危险深红（剧毒警示） */
+    --danger: #8a1c1c;
+    --danger-light: #c97676;
+    --danger-pale: #f7e2e0;
+
+    /* 警戒锈橙 */
+    --warn: #a1451a;
+    --warn-light: #d9835a;
+    --warn-pale: #fbe8d9;
+
+    --stone: #605648;
+    --stone-light: #948a72;
+
+    --border: rgba(120,80,20,0.15);
+    --border-mid: rgba(120,80,20,0.26);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .toxic-banner {
+    background: var(--danger);
+    color: #fff;
+    text-align: center;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #dcb878; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(24,14,4,0.78));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(250,225,180,0.88); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--danger); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 32px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--yolk-mid); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-yolk   { background: var(--yolk-pale);   color: var(--yolk-mid); }
+  .tag-scorch { background: var(--scorch-pale); color: var(--scorch); }
+  .tag-danger { background: var(--danger-pale); color: var(--danger); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-stone  { background: #ece2ce;            color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-yolk   { background: var(--yolk); }
+  .dot-scorch { background: var(--scorch); }
+  .dot-danger { background: var(--danger); }
+  .dot-warn   { background: var(--warn); }
+  .dot-stone  { background: var(--stone-light); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #dcb878; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #dcb878; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(24,14,4,0.78); color: #f7e6c4; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--yolk-pale);   color: var(--yolk-mid); }
+  .phase-mid    { background: var(--scorch-pale); color: var(--scorch); }
+  .phase-mature { background: var(--warn-pale);   color: var(--warn); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--yolk-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--danger-pale); border: 1px solid rgba(138,28,28,0.32); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--danger); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #4a1010; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--danger); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--yolk-pale); border: 1px solid rgba(200,121,30,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--yolk-mid); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #4a2e08; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--yolk-mid); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--yolk-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: var(--danger); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--yolk-pale); border: 1px solid rgba(154,90,18,0.28); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--yolk-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #fbe8c8, #f9f2e2);
+    border: 1px solid rgba(200,121,30,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--danger); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--yolk-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 24px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ 提示横幅 ══ -->
+<div class="toxic-banner">
+  ⚠ 有毒 · 神经精神型（拟胆碱能中毒）· 常因鲜艳蛋黄色被误认为无毒野菌
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-image-slot">
+    <img src="https://eumensides.github.io/mashroom/Inocybe_lutea0.png" alt="蛋黄丝盖伞主图" loading="lazy">
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Inocybe lutea · 蛋黄至杏橙色小伞，菌盖布满辐射状纤丝并常开裂，散发刺鼻碘味</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 丝盖伞科 · 丝盖伞属</div>
+    <div class="hero-name-zh">蛋黄丝盖伞</div>
+    <div class="hero-name-la">Inocybe lutea</div>
+    <div class="hero-author">Kobayasi &amp; Hongo, 1952 · 常见异称「黄裂丝盖伞」</div>
+
+    <div class="tag-row">
+      <span class="tag tag-danger">⚠ 有毒</span>
+      <span class="tag tag-warn">神经精神型</span>
+      <span class="tag tag-yolk">蛋黄/杏橙色</span>
+      <span class="tag tag-scorch">刺鼻碘味/焦角味</span>
+      <span class="tag tag-stone">外生菌根菌</span>
+      <span class="tag tag-stone">丝盖伞属逾千种之一</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">蛋黄丝盖伞 / 黄裂丝盖伞（同物异名俗称）</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">暂无广泛通用英文名，日本首次描述记录</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / Inocybaceae 丝盖伞科</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">毒素类型</span>
+        <span class="taxon-value">中国毒蘑菇名录列为「神经精神型」</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志气味：碘味/焦角味</span>
+        <span class="fb-value">与大多数丝盖伞不同，本种带有一种令人不悦的刺鼻气味，常被描述为「碘酒味」或「烧焦兽角味」，是野外识别的重要线索</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">「裂」之名的由来</span>
+        <span class="fb-value">菌盖表面密布辐射状纤丝，成熟后常沿纤丝方向开裂，露出下方浅色菌肉——丝盖伞属的这一共性特征正是「裂丝盖伞」类俗称的来源</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">危险反差：颜色鲜艳≠安全</span>
+        <span class="fb-value">蛋黄至杏橙色的鲜艳外表极易让采集者联想到鸡油菌等美味食用菌，但本种及丝盖伞属绝大多数成员均含毒蕈碱等神经性毒素</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-yolk"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Inocybe_lutea1.png" alt="上方菌盖图" loading="lazy">
+        <div class="photo-caption">上方菌盖图 · 蛋黄至杏橙色 / 辐射状纤丝 / 边缘丝状开裂</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Inocybe_lutea2.png" alt="45°仰拍图" loading="lazy">
+        <div class="photo-caption">45° 仰拍 · 橙黄菌褶密集 / 菌柄全被细粉霜</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Inocybe_lutea3.png" alt="剖面图" loading="lazy">
+        <div class="photo-caption">剖面 · 菌肉黄色致密 / 菌柄实心</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Inocybe_lutea4.png" alt="菌褶面图" loading="lazy">
+        <div class="photo-caption">褶面 · 橙黄至深杏褐色，密集，白色流苏状褶缘</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Inocybe_lutea5.png" alt="孢子印图" loading="lazy">
+        <div class="photo-caption">孢子印 · 锈褐色（丝盖伞属通性特征）</div>
+      </div>
+      <div class="photo-slot">
+        <img src="https://eumensides.github.io/mashroom/Inocybe_lutea6.png" alt="特殊细节图" loading="lazy">
+        <div class="photo-caption">细节 · 菌柄基部边缘状球茎 / 全柄细粉霜质感</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <img src="https://eumensides.github.io/mashroom/Inocybe_lutea7.png" alt="生境图" loading="lazy">
+      <div class="photo-caption">生境图 · 阔叶林或针阔混交林下地表，与树木根系形成外生菌根</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-scorch"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          菌盖凸形至圆锥凸形，直径1.5–2cm，表面干燥，蛋黄至杏橙色，均匀覆盖同色辐射状细纤丝，边缘内卷，尚无开裂；
+          菌褶被内菌幕微弱遮盖，橙黄色；菌柄短粗，同色，全柄已可见细粉霜质感；此期气味尚不明显。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖逐渐转为钟形，直径可达2.5–3cm，纤丝随生长渐转深色（转褐），边缘开始呈现丝状光泽并出现放射状沟纹；
+          菌褶转为杏橙至深杏褐色，褶缘渐显白色流苏状；菌柄伸长，圆柱形，基部渐显边缘状膨大（marginate bulb）；
+          此期特征性的刺鼻碘味/焦角味逐渐明显，是野外识别的重要线索。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展开呈钟形至平展，边缘常沿纤丝方向丝状开裂，褐化明显，中央保留原蛋黄色；
+          菌褶深杏橙至深杏褐色，褶缘白色流苏状清晰可见；菌柄2.5–3.5cm，基部边缘状球茎可达7mm，全柄干燥、密布细粉霜，偶见纵向条纹；
+          菌肉黄色，质地较坚实，味淡而气味浓烈刺鼻，此气味特征在近缘种中较为独特。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-scorch"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-yolk">菌盖蛋黄→杏橙→褐化（成熟）</span>
+          <span class="tag tag-scorch">菌褶橙黄→深杏褐色</span>
+          <span class="tag tag-stone">褶缘白色流苏状</span>
+          <span class="tag tag-warn">孢子印锈褐色</span>
+          <span class="tag tag-yolk">菌柄蛋黄至杏橙，全被白粉霜</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">菌盖小型，径1.5–3cm</span>
+          <span class="tag tag-stone">凸形→圆锥凸形→钟形</span>
+          <span class="tag tag-yolk">表面辐射状纤丝，成熟丝状开裂</span>
+          <span class="tag tag-yolk">边缘丝质光泽并具沟纹</span>
+          <span class="tag tag-scorch">菌柄圆柱形（2.5–3.5cm），基部边缘状球茎</span>
+          <span class="tag tag-warn">无菌环无菌托</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-danger">⚠ 刺鼻碘味或烧焦兽角味（特征性）</span>
+          <span class="tag tag-stone">幼期气味较淡</span>
+          <span class="tag tag-danger">气味明显不代表可安全嗅闻鉴定</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">据文献记载味道温和/偏甜</span>
+          <span class="tag tag-danger">⚠ 严禁品尝鉴定，毒素与口感无关</span>
+          <span class="tag tag-stone">菌肉质地较坚实</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-scorch"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>菌盖表皮</td>
+            <td>干燥，蛋黄至杏橙色，幼时密布同色辐射状细纤丝，成熟后纤丝转褐并沿放射方向开裂；边缘丝质具光泽及沟纹；不具菌幕残余</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>直生至近离生，狭窄，密集，橙黄至深杏褐色（随孢子成熟加深并褐化），褶缘具明显白色流苏状边饰</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>较坚实，黄色至橙黄色；味淡或微甜；气味刺鼻，呈碘酒味或烧焦兽角味，是本种区别于多数同属近似种的重要嗅觉特征</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>2.5–3.5cm × 0.3–0.5cm；圆柱形，基部边缘状膨大（marginate bulb）可达7mm；橙黄至杏橙色，表面干燥，全柄密被细粉霜，偶见纵向条纹</td>
+          </tr>
+          <tr>
+            <td>菌环 / 菌托</td>
+            <td>均无——丝盖伞属通性，柄部全程无环、基部无典型菌托，仅具边缘状膨大</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>光滑，锈褐色，是丝盖伞属"光滑孢种组"的代表；孢子印锈褐色；准确鉴定仍需借助显微镜观察孢子形状及囊状体特征</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-danger"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖<strong>蛋黄至杏橙色</strong>，表面密布辐射状纤丝，成熟后<strong>丝状开裂</strong>——「裂」之名由此而来</li>
+        <li>具特征性<strong>刺鼻碘味或烧焦兽角味</strong>，是区别于其他黄色系丝盖伞的重要线索（但不建议凑近深嗅以免刺激呼吸道）</li>
+        <li>菌柄<strong>全被细粉霜</strong>，基部呈边缘状膨大而非典型球状菌托</li>
+        <li>孢子印<strong>锈褐色</strong>——丝盖伞属通性，与鲜艳可食的蜡伞属（白色/浅色孢子印）等形成关键区分</li>
+      </ul>
+    </div>
+
+    <div class="caution-box">
+      <div class="caution-title">⚠ 食用前必读：有毒，神经精神型中毒，切勿采食！</div>
+      <ul class="caution-list">
+        <li>中国毒蘑菇新修订名录将蛋黄丝盖伞（Inocybe lutea）明确列为「神经精神型」毒蘑菇</li>
+        <li>丝盖伞属绝大多数种类含毒蕈碱（muscarine），中毒后可出现流涎、流泪、多汗、腹痛腹泻、瞳孔缩小、心动过缓等拟胆碱能症状，严重时可致视力模糊、心律失常</li>
+        <li>该类中毒起病较快，通常餐后10–30分钟即可出现症状，与鹅膏毒肽类中毒的长潜伏期截然不同，但同样需要及时就医对症处理</li>
+        <li>丝盖伞属全球超千种，多数形态高度相似且体型微小，仅凭肉眼极难准确鉴定到种，即便是本种特征性的碘味也需要一定经验积累才能可靠辨识</li>
+        <li>鲜艳的蛋黄色外表极易让缺乏经验者误认为鸡油菌、蜡伞等美味食用菌，务必以菌褶结构（真菌褶 vs 假褶／蜡质感）及孢子印颜色仔细核实</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与鸡油菌（Cantharellus）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">鸡油菌下表面为<strong>假褶（棱脊状，可从菌盖剥离下延生）</strong>，质地蜡质，孢子印浅黄白色；本种为<strong>真菌褶</strong>（薄片状，独立不延生），孢子印<strong>锈褐色</strong>，二者褶片结构一触即辨</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">与蜡伞属（Hygrocybe）区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">蜡伞属菌盖多黏滑或具蜡质光泽，菌褶蜡质厚实、间距较宽；本种菌盖<strong>干燥、密布纤丝</strong>并易开裂，菌褶薄而密集，且具特征性刺鼻气味，蜡伞则通常气味平淡</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--danger)">⚠ 裂丝盖伞 <em>Inocybe rimosa</em>（<em>I. fastigiata</em>）</div>
+        <div class="confusion-diff">同科同属剧毒近似种，菌盖更大（2–10cm），锥形，表面辐射状长丝更明显；同含毒蕈碱，可致拟胆碱能中毒；二者常同生于同一片林地，均应一律避食</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--danger)">⚠ 土黄丝盖伞 <em>Inocybe praetervisa</em></div>
+        <div class="confusion-diff">同为黄色系丝盖伞，形态与本种接近，同属神经精神型有毒种；主要依靠孢子显微形态及分子数据区分，肉眼辨识风险高</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">鸡油菌 <em>Cantharellus</em> spp.</div>
+        <div class="confusion-diff">著名食用菌，蛋黄至杏色外观与本种相似，但下表面为质地蜡质的<strong>假褶</strong>而非真菌褶，且通常带杏香气味而非刺鼻碘味，二者褶片结构差异是最可靠的野外鉴别依据</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">黄蜡伞类 <em>Hygrocybe</em> spp.</div>
+        <div class="confusion-diff">部分黄橙色蜡伞外观与本种颜色相近，但菌盖黏滑有蜡质光泽、菌褶蜡质稀疏，且孢子印为白色，与本种干燥纤丝状菌盖及锈褐色孢子印明显不同</div>
+      </div>
+    </div>
+
+    <!-- ── 命名与分类说明板块 ── -->
+    <div style="margin-top:1.4rem;background:var(--yolk-pale);border:1px solid rgba(154,90,18,0.32);border-radius:14px;overflow:hidden;">
+
+      <div style="background:var(--yolk-mid);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">命名与分类说明：蛋黄丝盖伞 与 黄裂丝盖伞</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Naming Note</span>
+      </div>
+
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称来源与关系</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--yolk-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                本种由日本真菌学家小林义雄（Kobayasi）与本乡次雄（Hongo）于1952年基于日本标本正式描述，种加词 <em>lutea</em> 即拉丁语「蛋黄色」之意，《中国真菌志》与《中国毒蘑菇新修订名录》均采用「<strong>蛋黄丝盖伞</strong>」为规范中文名。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--yolk-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>「黄裂丝盖伞」为爱好者习称：</strong>丝盖伞属因菌盖普遍具丝状开裂特征而被称为「裂丝盖伞类」（如裂丝盖伞 <em>I. rimosa</em>），部分科普语境沿用这一构词习惯，将本种称为「黄裂丝盖伞」，指代对象与「蛋黄丝盖伞」<strong>完全相同</strong>，检索文献时建议以拉丁学名 <em>Inocybe lutea</em> 为准。
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--yolk-mid);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">
+                <strong>分类地位：</strong>曾有学者将本种转入 <em>Astrosporina</em> 属（组合名 <em>Astrosporina lutea</em>），但该组合被判定为不合法名称（nom. inval.），<em>Inocybe lutea</em> 仍为现行有效学名。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 命名简史 -->
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">命名简史</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--yolk-mid);text-align:right;padding-right:12px;border-right:2px solid rgba(154,90,18,0.25);">1952</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">小林义雄与本乡次雄在《Nagaoa》期刊上首次发表本种描述</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;font-weight:700;color:var(--yolk-mid);text-align:right;padding-right:12px;border-right:2px solid rgba(154,90,18,0.25);">1979</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">E. Horak 尝试将其转入 <em>Astrosporina</em> 属，该组合后被判定为不合法名称</div>
+            </div>
+            <div style="display:grid;grid-template-columns:64px 1fr;padding:8px 0;">
+              <div style="font-size:12px;font-weight:700;color:var(--yolk-mid);text-align:right;padding-right:12px;border-right:2px solid rgba(154,90,18,0.25);">现今</div>
+              <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.6;padding-left:12px;">收录于《中国真菌志》丝盖伞科分卷及《中国毒蘑菇新修订名录》；浙江、台湾等地陆续有新分布记录报道</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 实践提示 -->
+        <div style="background:var(--danger-pale);border:1px solid rgba(138,28,28,0.3);border-left:4px solid var(--danger);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#4a1010;line-height:1.7;">
+          <strong>🍄 采集鉴定提示：</strong>林间见到蛋黄/杏橙色小型伞菌时，切勿仅凭鲜艳诱人的颜色判断为食用菌；应先检查菌褶为真褶还是假褶（可否从菌盖剥离），再核实孢子印颜色（锈褐色需高度警惕丝盖伞属），必要时借助显微镜确认孢子形态。
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「蛋黄丝盖惹人爱，碘味刺鼻是关键」</div>
+        <div class="memory-pill">「盖丝开裂非鸡油，真褶假褶一触明」</div>
+        <div class="memory-pill">「锈褐孢印藏毒蕈碱，颜色再美莫轻尝」</div>
+        <div class="memory-pill">「十至三十分钟发病快，流涎流泪要就医」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生、散生或小群生长于林下地表，个体间通常有一定间距，极少大量密集丛生</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">外生菌根真菌，与阔叶树及部分针叶树根系共生，常见于阔叶林、针阔混交林下富含腐殖质的地表</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">模式产地为日本；中国浙江、台湾等地陆续有分布记录，《中国真菌志》丝盖伞科分卷已收录，推测在温带至亚热带阔叶林区分布较广</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">夏秋季为主要出菇期；多见于中低海拔阔叶林及混交林地表，具体物候记录仍有待各地补充</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：林下发现蛋黄至杏橙色小伞菌时，建议先观察菌褶是否为真褶、留取孢子印确认颜色，再谨慎凑近（避免深吸）辨别是否具刺鼻碘味；科学记录应保留完整子实体以便显微及分子鉴定，不建议采作食用。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-danger"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">无——中国毒蘑菇名录列为神经精神型有毒物种，且体型微小，无实际食用价值，不建议任何情况下采食</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">药理 / 毒理研究价值</div>
+        <div class="value-body">作为丝盖伞属含毒蕈碱代表种之一，为研究该属拟胆碱能毒素分布规律及相关中毒机制提供参考样本，对完善我国丝盖伞属毒理数据库具有积累意义</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为外生菌根真菌参与森林土壤养分与水分交换，对宿主树种的生长及森林生态系统的物质循环具有积极作用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">分类学价值</div>
+        <div class="value-body">丝盖伞属是伞菌目中物种数量最庞大的类群之一（逾千种），本种作为其中形态与气味均较有特色的成员，对该属分类系统的完善及区域分布记录具有参考价值</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://www.mycodb.fr/fiche.php?genre=Inocybe&espece=lutea" target="_blank">MycoDB · Inocybe lutea</a> ·
+      <a class="ref-link" href="https://zh.wikipedia.org/zh-hans/%E4%B8%9D%E7%9B%96%E4%BC%9E%E5%B1%9E" target="_blank">维基百科 · 丝盖伞属</a> ·
+      <a class="ref-link" href="https://wap.emushroom.net/qikan/show-17437.html" target="_blank">中国毒蘑菇新修订名录</a>
+    </div>
+    <div>神经精神型（拟胆碱能）· 体型微小 · 常与食用菌混淆</div>
+  </div>
+
+</div>
+</body>
+</html>
