@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>虎皮香菇 · Lentinus tigrinus（可食用）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #1c1408; --ink-mid: #453424; --ink-light: #857258;
+    --cream: #f7efe0; --surface: #fffbf3; --surface-warm: #fdf5e5;
+
+    --tiger: #96591c; --tiger-light: #c98d4e; --tiger-pale: #f5e2c8; --tiger-mid: #78430f;
+
+    --cream-gold: #b8912c; --cream-gold-light: #e0be5e; --cream-gold-pale: #f9f0d4;
+
+    --moss: #566c1e; --moss-light: #96ac5e; --moss-pale: #eef2df;
+
+    --warn: #a5591a; --warn-light: #d68b4d; --warn-pale: #fbe9d6;
+
+    --stone: #6b5b3a; --stone-light: #9c8a63;
+
+    --border: rgba(120,67,15,0.14); --border-mid: rgba(120,67,15,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--tiger);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  .hero-image-slot { background: #d6b077; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(28,20,8,0.75));
+    padding: 24px 20px 16px;
+  }
+  .hero-overlay-text { font-size: 12px; color: rgba(248,228,190,0.9); font-style: italic; }
+
+  .hero-info {
+    padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center;
+    background: var(--surface);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--tiger); margin-bottom: 12px;
+  }
+
+  .hero-name-zh {
+    font-family: 'Noto Serif SC', serif; font-size: 34px; font-weight: 700;
+    line-height: 1.2; color: var(--ink); margin-bottom: 6px;
+  }
+
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--cream-gold); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-tiger { background: var(--tiger-pale); color: var(--tiger-mid); }
+  .tag-gold  { background: var(--cream-gold-pale); color: var(--cream-gold); }
+  .tag-moss  { background: var(--moss-pale); color: var(--moss); }
+  .tag-warn  { background: var(--warn-pale); color: var(--warn); }
+  .tag-stone { background: #f0e6cc; color: var(--stone); }
+
+  .hero-taxonomy {
+    border-top: 1px solid var(--border); padding-top: 1rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
+  }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border-mid);
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-tiger { background: var(--tiger); }
+  .dot-moss  { background: var(--moss); }
+  .dot-warn  { background: var(--warn); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-gold  { background: var(--cream-gold); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #d6b077; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #d6b077; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); margin-top: 10px; }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(28,20,8,0.75); color: #f7e8c9; font-size: 11px; padding: 5px 8px; text-align: center;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card {
+    display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale); color: var(--moss); }
+  .phase-mid    { background: var(--cream-gold-pale); color: var(--cream-gold); }
+  .phase-mature { background: var(--tiger-pale); color: var(--tiger-mid); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th {
+    text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream);
+  }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--tiger-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(165,89,26,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a340e; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--moss-pale); border: 1px solid rgba(86,108,30,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #263216; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--moss); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--cream-gold-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.caution { border-left-color: var(--warn); }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill {
+    background: var(--tiger-pale); border: 1px solid rgba(120,67,15,0.28); border-radius: 8px; padding: 8px 14px;
+    font-size: 13px; font-style: italic; color: var(--tiger-mid); font-family: 'Noto Serif SC', serif;
+  }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .feature-bar {
+    background: linear-gradient(135deg, #f5e2c8, #fbf0dc);
+    border: 1px solid rgba(120,67,15,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .fb-item { display: flex; flex-direction: column; gap: 4px; }
+  .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--tiger-mid); font-weight: 500; }
+  .fb-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer {
+    border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light);
+  }
+  .ref-link { color: var(--tiger-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 26px; }
+    .feature-bar { grid-template-columns: 1fr; }
+    .page-footer { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">✓ 幼嫩可食 · 香菇属近缘种 · 俗称「斗菇」· 已实现人工栽培</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+          <source srcset="https://eumensides.github.io/mashroom/Lentinus_tigrinus0.png" type="image/png">
+          <img src="https://eumensides.github.io/mashroom/Lentinus_tigrinus0.png" alt="虎皮香菇主图" loading="lazy">
+        </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Lentinus tigrinus · 菌盖白色至淡黄色覆浅褐色翘起鳞片形如虎斑，菌褶锯齿状，生于阔叶树腐木</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 伞菌目 · 侧耳科 · 香菇属</div>
+    <div class="hero-name-zh">虎皮香菇</div>
+    <div class="hero-name-la">Lentinus tigrinus</div>
+    <div class="hero-author">(Bull.) Fr. · 俗称「斗菇 / 豹斑革耳 / 虎纹香菇」</div>
+
+    <div class="tag-row">
+      <span class="tag tag-tiger">✓ 幼嫩可食</span>
+      <span class="tag tag-gold">菌盖虎斑状鳞片</span>
+      <span class="tag tag-tiger">菌褶锯齿状</span>
+      <span class="tag tag-moss">木材褐腐菌</span>
+      <span class="tag tag-stone">高温型可栽培品种</span>
+      <span class="tag tag-warn">老熟质韧不宜食</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">虎皮香菇 / 斗菇 / 豹斑革耳</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">曾用学名</span>
+        <span class="taxon-value">Panus tigrinus (Bull.: Fr.) Sing.</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">科 / 属</span>
+        <span class="taxon-value">Pleurotaceae 侧耳科 / Lentinus 香菇属</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">食用状态</span>
+        <span class="taxon-value">幼嫩可食 · 具香菇风味 · 适宜制罐</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <div class="section">
+    <div class="feature-bar">
+      <div class="fb-item">
+        <span class="fb-label">标志特征：虎斑鳞片</span>
+        <span class="fb-value">菌盖白色至淡黄色基底上覆盖浅褐色翘起鳞片，中部密集边缘稀疏，远看形如虎皮斑纹，"虎皮香菇"之名由此而来</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">锯齿状菌褶</span>
+        <span class="fb-value">菌褶辐射状排列，密集，长短不齐，褶缘呈特征性的<strong>锯齿状或撕裂状</strong>，是本种区别于许多近似侧耳科物种的重要野外识别特征</span>
+      </div>
+      <div class="fb-item">
+        <span class="fb-label">木材褐腐菌</span>
+        <span class="fb-value">生长于阔叶树腐木上，是分解木材纤维素和木质素的重要腐生真菌，对活树本身并无伤害性，是森林物质循环的积极参与者</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-tiger"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+      <div class="photo-grid-6">
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Lentinus_tigrinus1.png" alt="上方菌盖图" loading="lazy">
+          <div class="photo-caption">上方菌盖图 · 白色至淡黄色 / 浅褐色虎斑鳞片</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Lentinus_tigrinus2.png" alt="45°仰拍图" loading="lazy">
+          <div class="photo-caption">45° 仰拍 · 白色锯齿状菌褶 / 近革质菌柄</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Lentinus_tigrinus3.png" alt="剖面图" loading="lazy">
+          <div class="photo-caption">剖面 · 菌肉白色薄 / 具香菇气味</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Lentinus_tigrinus4.png" alt="菌褶面图" loading="lazy">
+          <div class="photo-caption">褶面 · 白色，密集，褶缘锯齿状</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Lentinus_tigrinus5.png" alt="孢子印图" loading="lazy">
+          <div class="photo-caption">孢子印 · 白色</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://eumensides.github.io/mashroom/Lentinus_tigrinus6.png" alt="特殊细节图" loading="lazy">
+          <div class="photo-caption">细节 · 菌柄基部丛生相连特写</div>
+        </div>
+      </div>
+
+      <div class="photo-slot-wide">
+        <img src="https://eumensides.github.io/mashroom/Lentinus_tigrinus7.png" alt="生境图" loading="lazy">
+        <div class="photo-caption">生境图 · 阔叶树腐木 / 丛生群落</div>
+      </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼期</div>
+        <div class="phase-desc">
+          菌盖初小而圆，白色至淡黄色，鳞片尚不明显，质地半肉质柔嫩；此期食用口感与香菇风味最佳，是最适宜采食的阶段。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖渐展，中部开始凹陷呈脐状，浅褐色鳞片逐渐显现并翘起，边缘开始出现开裂；菌柄常与相邻个体基部相连，呈丛生状态。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全展开呈漏斗状，宽2.5–13cm，浅褐色翘起鳞片密布中部，边缘鳞片较少并常明显开裂；菌褶白色密集，锯齿状延生；质地逐渐变韧，不易嚼食，风味也随之下降。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-tiger">菌盖白色至淡黄色</span>
+          <span class="tag tag-tiger">浅褐色翘起鳞片</span>
+          <span class="tag tag-stone">菌肉白色</span>
+          <span class="tag tag-stone">菌褶白色</span>
+          <span class="tag tag-stone">菌柄白色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">菌盖圆形，中部脐状至漏斗形（径2.5–13cm）</span>
+          <span class="tag tag-tiger">边缘易开裂</span>
+          <span class="tag tag-tiger">菌褶辐射状密集，锯齿状褶缘</span>
+          <span class="tag tag-stone">菌柄中生或偏生，常基部相连丛生</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-tiger">具香菇特有气味</span>
+          <span class="tag tag-stone">新鲜时气味尤为明显</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-tiger">幼嫩时质地柔嫩，具香菇风味</span>
+          <span class="tag tag-tiger">适宜制罐加工</span>
+          <span class="tag tag-warn">⚠ 老熟后质韧不易嚼食</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-gold"></span>
+      <span class="section-title">各部位详情</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <table class="parts-table">
+        <thead><tr><th>部位</th><th>形态描述</th></tr></thead>
+        <tbody>
+          <tr><td>菌盖表皮</td><td>半肉质，宽2.5–13cm，圆形，中部脐状至近漏斗形，白色至淡黄色，覆浅褐色翘起鳞片，中部密集边缘稀疏，边缘易开裂</td></tr>
+          <tr><td>菌褶</td><td>辐射状排列，密集，长短不齐，白色，褶缘平直或锯齿状，多与菌柄延生</td></tr>
+          <tr><td>菌肉</td><td>白色，薄，具香菇特有气味</td></tr>
+          <tr><td>菌柄</td><td>2–5cm × 0.5–1.5cm，中生或偏生，有时基部与相邻个体相连丛生，内实，白色，近革质，表面具细鳞片</td></tr>
+          <tr><td>菌环</td><td>无</td></tr>
+          <tr><td>孢子</td><td>近圆柱形至长椭圆形，无色，光滑，6–8×2–4微米；孢子印白色</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-moss"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖白色至淡黄色基底上覆盖<strong>浅褐色翘起鳞片</strong>，形如虎皮斑纹，中部密边缘疏</li>
+        <li>菌褶白色密集，褶缘呈特征性的<strong>锯齿状或撕裂状</strong></li>
+        <li>菌柄近革质，具细鳞片，常与相邻个体<strong>基部相连丛生</strong></li>
+        <li>生于阔叶树腐木，新鲜时具<strong>明显的香菇气味</strong></li>
+      </ul>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1rem;">
+      <div class="caution-title">⚠ 食用提示：仅幼嫩个体适宜食用</div>
+      <ul class="caution-list">
+        <li>本种幼嫩时质地半肉质、口感柔嫩，具香菇风味，是适宜食用的阶段；老熟后质地逐渐变韧，不易嚼食，食用体验及风味均明显下降</li>
+        <li>采集或购买时应优先选择菌盖尚未完全展开、鳞片不甚翘起的幼嫩个体</li>
+        <li>野外采集腐木生真菌时，仍建议核实物种，避免与其他侧耳科近似种混淆</li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;">
+      <div class="trait-card">
+        <div class="trait-name">与香菇的区别</div>
+        <div style="font-size:13px;color:var(--ink-mid)">香菇（<em>Lentinula edodes</em>）菌盖鳞片较为平伏或呈龟裂纹状，<strong>无本种这般翘起的虎斑状鳞片</strong>，多栽培于特定阔叶树种段木；本种鳞片更为显著醒目，多见于各类阔叶树腐木，是野外区分的直接参考</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">分类历史与近似种</div>
+        <div style="font-size:13px;color:var(--ink-mid)">本种曾用名 <em>Panus tigrinus</em>（革耳属），分类地位历史上多次调整，目前归入香菇属（<em>Lentinus</em>）；与其他革耳属近似种在鳞片质地及菌褶细节上存在差异，需结合具体特征综合判断</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item">
+        <div class="confusion-name">香菇 <em>Lentinula edodes</em>（名贵食用）</div>
+        <div class="confusion-diff">价值更高的著名食用菌，菌盖鳞片较平伏或呈龟裂纹，无本种翘起的虎斑鳞片，多栽培于特定阔叶树段木</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">环绒革耳 <em>Panus natarajanus</em></div>
+        <div class="confusion-diff">同科近似种，鳞片形态及质地略有差异，野外辨识需结合专业特征</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">褐绒革耳 <em>Panus fulvus</em></div>
+        <div class="confusion-diff">同科近似种，菌盖颜色偏褐色调，与本种白色至淡黄色基底不同</div>
+      </div>
+    </div>
+
+    <!-- 命名与俗名说明板块 -->
+    <div style="margin-top:1.4rem;background:var(--tiger-pale);border:1px solid rgba(120,67,15,0.32);border-radius:14px;overflow:hidden;">
+      <div style="background:var(--tiger);padding:11px 18px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;">📖</span>
+        <span style="font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em;">中文名说明：虎皮香菇 与「斗菇」</span>
+        <span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;letter-spacing:.08em;text-transform:uppercase;">Naming Note</span>
+      </div>
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">名称来源与关系</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--tiger);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">1</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;">种加词 <em>tigrinus</em> 意为"虎斑纹的"，直接描述菌盖上浅褐色翘起鳞片形成的斑纹图案；中文正式名"虎皮香菇"即由此直译，同时点明其香菇属的分类地位及具备的香菇风味。</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--tiger);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">2</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;"><strong>俗名"斗菇"：</strong>因子实体常基部相连、丛生排列形似"斗"状容器而得名，是华南及台湾地区较为常用的俗称。</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--tiger);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;">3</span>
+              <div style="font-size:13px;color:var(--ink-mid);line-height:1.65;"><strong>分类地位：</strong>隶属侧耳科（<em>Pleurotaceae</em>）香菇属（<em>Lentinus</em>），曾用名 <em>Panus tigrinus</em>（革耳属）；香菇属与革耳属在分类历史上多次调整，反映了侧耳科内部类群关系的复杂性。</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border-mid);border-radius:10px;padding:14px 18px;">
+          <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--stone-light);margin-bottom:10px;">分布与栽培现状</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">中国分布于江苏、浙江、福建、湖南、广东、广西、新疆、四川、贵州、云南等地，春至秋季生于阔叶树腐木上，单生或丛生，外形美观。</div>
+            <div style="font-size:12.5px;color:var(--ink-mid);line-height:1.65;">本种属高温型品种，菌丝生长旺盛，抗逆性较强，生产周期短，出菇期持续较长，产量较高，已具备生料栽培推广的潜力，是食用菌产业中值得关注的品种之一。</div>
+          </div>
+        </div>
+
+        <div style="background:var(--warn-pale);border:1px solid rgba(165,89,26,0.3);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:12.5px;color:#5a340e;line-height:1.7;">
+          <strong>🍄 采食提示：</strong>采集或购买本种时，应优先选择幼嫩、菌盖尚未完全展开的个体，老熟个体质地变韧、风味下降，不建议食用；处理前应仔细核对形态特征，避免与其他侧耳科近似种混淆。
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-top:1.2rem;">
+      <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+      <div class="memory-pills">
+        <div class="memory-pill">「盖覆虎斑翘鳞片，边缘易裂似虎皮」</div>
+        <div class="memory-pill">「褶白锯齿密又密，柄基相连成丛生」</div>
+        <div class="memory-pill">「幼嫩堪食香菇味，老熟质韧莫强食」</div>
+        <div class="memory-pill">「腐木之上安家落，对树无害是分解客」</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">单生或丛生于腐木表面，基部常与相邻个体相连，外形美观醒目</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">木材褐腐菌，生于阔叶树腐木上，分解木材中的纤维素与木质素，对活树无伤害性</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">中国分布于江苏、浙江、福建、湖南、广东、广西、新疆、四川、贵州、云南等地，分布范围较广</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节</div>
+        <div class="habitat-value">春至秋季为主要出菇期，属高温型品种，出菇期持续较长</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      采集建议：优先在阔叶树腐木或木桩上寻找幼嫩个体，注意核对菌盖鳞片及菌褶锯齿特征；老熟个体虽仍可辨认，但食用价值已大幅下降。
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-tiger"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">幼嫩子实体可食，具香菇风味，适宜制罐加工，是具备一定商品化开发潜力的食用菌品种</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科研价值</div>
+        <div class="value-body">作为木材褐腐菌，在木质纤维素与木质素降解机制研究、木腐菌活性物质开发等领域具有一定的科研参考价值</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">分解阔叶树腐木中的纤维素与木质素，是森林物质循环链条中的重要分解者，对维持林地生态系统的养分循环具有积极作用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">栽培与产业价值</div>
+        <div class="value-body">属高温型品种，菌丝生长旺盛，抗逆性较强，生产周期短，出菇期持续较长，产量较高，已具备生料栽培推广的产业化潜力</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://baike.baidu.com/item/%E8%99%8E%E7%9A%AE%E9%A6%99%E8%8F%87/7215541" target="_blank">百度百科 · 虎皮香菇</a> ·
+      <a class="ref-link" href="http://book.foodmate.net/wiki/%E8%99%8E%E7%9A%AE%E9%A6%99%E8%8F%87" target="_blank">食品百科全书</a> ·
+      <a class="ref-link" href="https://www.indexfungorum.org/" target="_blank">Index Fungorum</a>
+    </div>
+    <div>研究现状：分类明确 · 食用记录充分 · 具栽培潜力</div>
+  </div>
+
+</div>
+</body>
+</html>
