@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>黄斑蘑菇 · Agaricus xanthodermus（黄斑伞 · 有毒）</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%84%3C/text%3E%3C/svg%3E">
+  <title>黄斑蘑菇 · Agaricus xanthodermus（黄斑伞 · 有毒）</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
 
@@ -191,9 +192,38 @@
     .toxin-bar { grid-template-columns: 1fr; }
     .photo-slot-wide { grid-column: span 2; }
   }
-</style>
+
+  /* ── 返回菌物志悬浮按钮 ── */
+  .back-btn {
+    position: fixed; top: 16px; left: 16px; z-index: 9999;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,0,0,0.12); border-radius: 999px;
+    font-size: 13px; font-weight: 500; color: #3a3a3a;
+    text-decoration: none;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    transition: background .18s, box-shadow .18s, transform .15s;
+  }
+  .back-btn:hover {
+    background: rgba(255,255,255,1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+    transform: translateY(-1px);
+  }
+  .back-btn svg { flex-shrink: 0; }
+
+  </style>
 </head>
 <body>
+<!-- 返回菌物志悬浮按钮 add_back_button -->
+<a class="back-btn" href="https://eumensides.github.io/mashroom/">
+  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.85355 3.14645C7.04882 3.34171 7.04882 3.65829 6.85355 3.85355L3.70711 7H12.5C12.7761 7 13 7.22386 13 7.5C13 7.77614 12.7761 8 12.5 8H3.70711L6.85355 11.1464C7.04882 11.3417 7.04882 11.6583 6.85355 11.8536C6.65829 12.0488 6.34171 12.0488 6.14645 11.8536L2.14645 7.85355C1.95118 7.65829 1.95118 7.34171 2.14645 7.14645L6.14645 3.14645C6.34171 2.95118 6.65829 2.95118 6.85355 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/>
+  </svg>
+  菌物志
+</a>
+
 
 <div class="toxic-banner">
   ⚠️ 有毒 · 胃肠炎型中毒 · 外观酷似可食蘑菇属近缘种 · 切开变黄 + 石炭酸异味是双重警示信号
@@ -203,7 +233,7 @@
   <div class="hero-image-slot">
     <picture>
       <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus0.webp" type="image/webp">
-      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus0.png" alt="黄斑蘑菇主图" loading="lazy">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus0.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus0.png'" alt="黄斑蘑菇主图" loading="lazy">
     </picture>
     <div class="hero-overlay">
       <div class="hero-overlay-text">Agaricus xanthodermus · 白色子实体，受伤处速变金黄色，散发石炭酸样异味</div>
@@ -275,7 +305,7 @@
       <div class="photo-slot">
         <picture>
           <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus1.webp" type="image/webp">
-          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus1.png" alt="上方菌盖图" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus1.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus1.png'" alt="上方菌盖图" loading="lazy">
         </picture>
         <div class="photo-caption">上方菌盖图 · 白色，光滑，扁半球形至平展</div>
       </div>
@@ -283,7 +313,7 @@
       <div class="photo-slot">
         <picture>
           <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus2.webp" type="image/webp">
-          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus2.png" alt="45°仰拍图" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus2.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus2.png'" alt="45°仰拍图" loading="lazy">
         </picture>
         <div class="photo-caption">45° 仰拍 · 菌褶初期粉色渐变黑褐色，柄上具膜质菌环</div>
       </div>
@@ -291,7 +321,7 @@
       <div class="photo-slot">
         <picture>
           <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus3.webp" type="image/webp">
-          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus3.png" alt="剖面图" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus3.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus3.png'" alt="剖面图" loading="lazy">
         </picture>
         <div class="photo-caption">剖面 · 靠近表皮及菌柄基部变黄色最明显，是关键诊断特征</div>
       </div>
@@ -299,7 +329,7 @@
       <div class="photo-slot">
         <picture>
           <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus4.webp" type="image/webp">
-          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus4.png" alt="菌柄基部变黄特写图" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus4.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus4.png'" alt="菌柄基部变黄特写图" loading="lazy">
         </picture>
         <div class="photo-caption">菌柄基部特写 · 切开后速变金黄色，气味最刺鼻处</div>
       </div>
@@ -307,7 +337,7 @@
       <div class="photo-slot">
         <picture>
           <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus5.webp" type="image/webp">
-          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus5.png" alt="孢子印图" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus5.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus5.png'" alt="孢子印图" loading="lazy">
         </picture>
         <div class="photo-caption">孢子印 · 紫褐黑色</div>
       </div>
@@ -315,7 +345,7 @@
       <div class="photo-slot">
         <picture>
           <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus6.webp" type="image/webp">
-          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus6.png" alt="菌环特写图" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus6.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus6.png'" alt="菌环特写图" loading="lazy">
         </picture>
         <div class="photo-caption">菌环特写 · 膜质，生于柄上部，无菌托</div>
       </div>
@@ -323,7 +353,7 @@
       <div class="photo-slot-wide">
         <picture>
           <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus7.webp" type="image/webp">
-          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus7.png" alt="生境图" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus7.webp" onerror="this.src='https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Agaricus_xanthodermus7.png'" alt="生境图" loading="lazy">
         </picture>
         <div class="photo-caption">生境图 · 夏秋季林中地上或草原单生、群生</div>
       </div>
