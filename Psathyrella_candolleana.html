@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黄盖小脆柄菇 · Psathyrella candolleana</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  :root {
+    /* 低采食价值：淡稻草黄 + 灰紫暖调，呼应易褪色的浅黄菌盖与转深的菌褶 */
+    --ink: #201c16;
+    --ink-mid: #4a4238;
+    --ink-light: #8a8070;
+    --cream: #f8f6ee;
+    --surface: #ffffff;
+    --surface-warm: #f4efe0;
+
+    /* 稻草黄主色 */
+    --honey: #b89a5a;
+    --honey-light: #d8c290;
+    --honey-pale: #f6efd8;
+    --honey-mid: #8a703a;
+
+    /* 灰紫（菌褶转深色） */
+    --amber: #7a5a6a;
+    --amber-light: #ab8a9a;
+    --amber-pale: #f0e4ea;
+
+    /* 灰绿（用于中性提示，非"推荐食用"含义） */
+    --moss: #5a7a5a;
+    --moss-light: #94b894;
+    --moss-pale: #eaf2ea;
+
+    /* 警示红（关键：小型褐色伞菌与剧毒物种混淆警示） */
+    --warn: #9a2818;
+    --warn-light: #d4623a;
+    --warn-pale: #fbe6e0;
+
+    /* 暖灰 */
+    --stone: #6a604c;
+    --stone-light: #a0947c;
+
+    --border: rgba(120,100,60,0.14);
+    --border-mid: rgba(120,100,60,0.24);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  .notice-banner {
+    background: var(--warn);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; border-bottom: 1px solid var(--border-mid); }
+  .hero-image-slot { background: #ddd0a8; position: relative; overflow: hidden; min-height: 420px; }
+  .hero-image-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(24,20,14,0.7)); padding: 24px 20px 16px; }
+  .hero-overlay-text { font-size: 12px; color: rgba(240,230,200,0.85); font-style: italic; }
+
+  .hero-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--honey-mid); margin-bottom: 12px; }
+  .hero-name-zh { font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .hero-name-la { font-style: italic; font-size: 16px; font-weight: 300; color: var(--amber); margin-bottom: 4px; }
+  .hero-author { font-size: 12px; color: var(--stone-light); margin-bottom: 1.5rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tag-honey  { background: var(--honey-pale);  color: var(--honey-mid); }
+  .tag-moss   { background: var(--moss-pale);   color: var(--moss); }
+  .tag-warn   { background: var(--warn-pale);   color: var(--warn); }
+  .tag-amber  { background: var(--amber-pale);  color: var(--amber); }
+  .tag-stone  { background: #ece4d2;            color: var(--stone); }
+
+  .hero-taxonomy { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .taxon-item { display: flex; flex-direction: column; }
+  .taxon-label { font-size: 11px; color: var(--stone-light); font-weight: 400; }
+  .taxon-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+  .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { margin-bottom: 2.5rem; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border-mid); }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-honey { background: var(--honey); }
+  .dot-moss  { background: var(--moss); }
+  .dot-warn  { background: var(--warn); }
+  .dot-stone { background: var(--stone-light); }
+  .dot-amber { background: var(--amber); }
+
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .section-badge { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--stone-light); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .photo-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .photo-slot { aspect-ratio: 4/3; background: #d4c69c; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); }
+  .photo-slot-wide { aspect-ratio: 16/7; background: #d4c69c; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border-mid); margin-top: 10px; }
+  .photo-slot img, .photo-slot-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(24,20,14,0.72); color: #f0e4c8; font-size: 11px; padding: 5px 8px; text-align: center; }
+
+  .phase-list { display: flex; flex-direction: column; gap: 12px; }
+  .phase-card { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .phase-label { padding: 4px 0; font-size: 12px; font-weight: 500; text-align: center; border-radius: 6px; }
+  .phase-young  { background: var(--moss-pale);  color: var(--moss); }
+  .phase-mid    { background: var(--honey-pale);  color: var(--honey-mid); }
+  .phase-mature { background: var(--amber-pale);  color: var(--amber); }
+  .phase-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .traits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .trait-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .trait-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .trait-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .parts-table { width: 100%; border-collapse: collapse; }
+  .parts-table th { text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); padding: 8px 12px; border-bottom: 1px solid var(--border-mid); background: var(--cream); }
+  .parts-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); }
+  .parts-table td:first-child { font-weight: 500; color: var(--honey-mid); white-space: nowrap; width: 110px; }
+  .parts-table tr:last-child td { border-bottom: none; }
+
+  .caution-box { background: var(--warn-pale); border: 1px solid rgba(154,40,24,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .caution-title { font-size: 13px; font-weight: 500; color: var(--warn); margin-bottom: 10px; }
+  .caution-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .caution-list li { display: flex; gap: 10px; font-size: 13px; color: #5a1810; line-height: 1.6; }
+  .caution-list li::before { content: "!"; color: var(--warn); font-weight: 700; font-size: 13px; line-height: 1.6; flex-shrink: 0; }
+
+  .distinction-box { background: var(--amber-pale); border: 1px solid rgba(122,90,106,0.28); border-radius: 12px; padding: 18px 20px; margin-bottom: 1rem; }
+  .distinction-title { font-size: 13px; font-weight: 500; color: var(--amber); margin-bottom: 10px; }
+  .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .distinction-list li { display: flex; gap: 10px; font-size: 13px; color: #3a2634; line-height: 1.6; }
+  .distinction-list li::before { content: "·"; color: var(--amber); font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  .confusion-list { display: flex; flex-direction: column; gap: 8px; }
+  .confusion-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--honey-light); border-radius: 0 10px 10px 0; padding: 12px 16px; }
+  .confusion-item.danger { border-left-color: #e07060; }
+  .confusion-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .confusion-name em { color: var(--stone-light); }
+  .confusion-diff { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+
+  .memory-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+  .memory-pill { background: var(--honey-pale); border: 1px solid rgba(138,112,58,0.25); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-style: italic; color: var(--honey-mid); font-family: 'Noto Serif SC', serif; }
+
+  .habitat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .habitat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .habitat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 6px; }
+  .habitat-value { font-size: 13px; color: var(--ink); line-height: 1.7; }
+
+  .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .value-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone-light); margin-bottom: 8px; }
+  .value-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  .signature-bar {
+    background: linear-gradient(135deg, #f6efd8, #f8f6ee);
+    border: 1px solid rgba(138,112,58,0.3);
+    border-radius: 12px; padding: 18px 20px; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  }
+  .sig-item { display: flex; flex-direction: column; gap: 4px; }
+  .sig-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--honey-mid); font-weight: 500; }
+  .sig-value { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .page-footer { border-top: 1px solid var(--border-mid); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--stone-light); }
+  .ref-link { color: var(--honey-mid); text-decoration: none; }
+  .ref-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .photo-grid-6 { grid-template-columns: 1fr 1fr; }
+    .traits-grid, .habitat-grid, .value-grid { grid-template-columns: 1fr; }
+    .hero-taxonomy { grid-template-columns: 1fr; }
+    .phase-card { grid-template-columns: 1fr; }
+    .hero-name-zh { font-size: 28px; }
+    .signature-bar { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-banner">
+  ⚠ 无采食价值 · 属于风险较高的"小型褐色伞菌"类群 · 不建议采食
+</div>
+
+<div class="hero">
+  <div class="hero-image-slot">
+    <picture>
+      <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana0.webp" type="image/webp">
+      <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana0.png" alt="黄盖小脆柄菇主图" loading="lazy">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-overlay-text">Psathyrella candolleana · 浅黄褐色小型伞菌，草坪路边丛生，质地极脆易碎</div>
+    </div>
+  </div>
+
+  <div class="hero-info">
+    <div class="hero-eyebrow">担子菌门 · 小脆柄菇科（脆弱易碎的小型伞菌）</div>
+    <div class="hero-name-zh">黄盖小脆柄菇</div>
+    <div class="hero-name-la">Psathyrella candolleana</div>
+    <div class="hero-author">(Fr.) Maire · 俗称"普通脆柄菇"</div>
+
+    <div class="tag-row">
+      <span class="tag tag-stone">技术上可食（无采食价值）</span>
+      <span class="tag tag-warn">⚠ 极易与剧毒小型褐菌混淆</span>
+      <span class="tag tag-honey">菌盖薄脆易碎</span>
+      <span class="tag tag-honey">菌柄中空极脆</span>
+      <span class="tag tag-stone">寿命极短（1–2日即萎)</span>
+      <span class="tag tag-stone">草坪/路边丛生</span>
+    </div>
+
+    <div class="hero-taxonomy">
+      <div class="taxon-item">
+        <span class="taxon-label">中文俗名</span>
+        <span class="taxon-value">黄盖小脆柄菇 / 普通脆柄菇</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">英文名</span>
+        <span class="taxon-value">Common Psathyrella / Pale Brittlestem</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">目 / 科</span>
+        <span class="taxon-value">伞菌目 / 小脆柄菇科 Psathyrellaceae</span>
+      </div>
+      <div class="taxon-item">
+        <span class="taxon-label">保护状态</span>
+        <span class="taxon-value">未评估 · 城乡草坪极常见"杂草型"菌类</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- 0. 特色速览 -->
+  <div class="section">
+    <div class="signature-bar">
+      <div class="sig-item">
+        <span class="sig-label">标志结构：薄脆易碎全株</span>
+        <span class="sig-value">菌盖薄如纸，菌柄中空极脆，轻触即碎，是"小脆柄菇"这一中文属名的直接来源</span>
+      </div>
+      <div class="sig-item">
+        <span class="sig-label">生命周期极短</span>
+        <span class="sig-value">子实体从开伞到自然萎缩坍塌通常仅需1–2天，是野外观察中"朝生暮落"的典型代表</span>
+      </div>
+      <div class="sig-item">
+        <span class="sig-label">安全提示：小型褐菌高风险类群</span>
+        <span class="sig-value">本种及其近缘种在形态上与多种剧毒小型褐色伞菌高度相似，属于业余采集中风险最高的类群之一，不建议采食</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 图片标签 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">图片标签</span>
+      <span class="section-badge">可视化记录</span>
+    </div>
+
+    <div class="photo-grid-6">
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana1.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana1.png" alt="上方菌盖图" loading="lazy">
+        </picture>
+        <div class="photo-caption">上方菌盖图 · 浅黄褐色，钟形至平展</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana2.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana2.png" alt="45°仰拍图" loading="lazy">
+        </picture>
+        <div class="photo-caption">45° 仰拍 · 密集菌褶 / 白色中空菌柄</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana3.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana3.png" alt="剖面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">剖面 · 菌肉极薄，菌柄中空</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana4.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana4.png" alt="褶面图" loading="lazy">
+        </picture>
+        <div class="photo-caption">褶面 · 幼时灰白带紫，成熟转紫褐/黑褐</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana5.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana5.png" alt="孢子印图" loading="lazy">
+        </picture>
+        <div class="photo-caption">孢子印 · 深紫褐色至黑褐色</div>
+      </div>
+      <div class="photo-slot">
+        <picture>
+          <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana6.webp" type="image/webp">
+          <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana6.png" alt="特殊细节图" loading="lazy">
+        </picture>
+        <div class="photo-caption">细节 · 幼时菌盖边缘悬挂的白色菌幕残片</div>
+      </div>
+    </div>
+
+    <div class="photo-slot-wide">
+      <picture>
+        <source srcset="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana7.webp" type="image/webp">
+        <img src="https://cdn.jsdelivr.net/gh/eumensides/mashroom@main/Psathyrella_candolleana7.png" alt="生境图" loading="lazy">
+      </picture>
+      <div class="photo-caption">生境图 · 城市草坪、公园绿地、树桩附近密集丛生</div>
+    </div>
+  </div>
+
+  <!-- 2. 形态特征 · 生长周期 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">形态特征 · 生长周期</span>
+      <span class="section-badge">结构标签</span>
+    </div>
+
+    <div class="phase-list">
+      <div class="phase-card">
+        <div class="phase-label phase-young">幼嫩期</div>
+        <div class="phase-desc">
+          菌盖钟形至半球形，直径1.5–4cm，浅黄褐色至奶油黄色，边缘常悬挂细小白色<strong>菌幕残片</strong>；
+          菌褶密集，幼时灰白色略带淡紫调；菌柄白色，中空，质地极脆，轻触易断。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mid">成长期</div>
+        <div class="phase-desc">
+          菌盖渐展开呈钟形至平展，直径3–6cm，颜色因吸湿性（hygrophanous）而变化：湿润时颜色加深呈黄褐色，干燥后转浅奶油色；
+          菌褶逐渐转为紫灰色，边缘的白色菌幕残片逐渐脱落变得不明显。
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label phase-mature">成熟期</div>
+        <div class="phase-desc">
+          菌盖完全平展，边缘常出现细裂纹；菌褶显著转深，呈<strong>紫褐色至黑褐色</strong>（孢子成熟所致），孢子印同色；
+          整株质地依然极薄极脆，通常在开伞后1–2天内即自然萎蔫坍塌，是本科菌类"朝生暮落"特性的典型体现。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 感官细分 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">颜色 · 形状 · 气味 · 口感</span>
+    </div>
+    <div class="traits-grid">
+      <div class="trait-card">
+        <div class="trait-name">颜色</div>
+        <div class="trait-tags">
+          <span class="tag tag-honey">菌盖浅黄褐→奶油黄（吸湿性变色）</span>
+          <span class="tag tag-amber">菌褶灰白带紫→紫褐/黑褐</span>
+          <span class="tag tag-stone">菌柄白色</span>
+          <span class="tag tag-amber">孢子印深紫褐至黑褐色</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">形状</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">钟形→平展（径1.5–6cm）</span>
+          <span class="tag tag-honey">边缘幼时具白色菌幕残片</span>
+          <span class="tag tag-honey">菌柄中空极脆</span>
+          <span class="tag tag-stone">密集丛生</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">气味</div>
+        <div class="trait-tags">
+          <span class="tag tag-stone">无明显特殊气味</span>
+          <span class="tag tag-stone">部分个体带轻微土腥味</span>
+        </div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-name">口感</div>
+        <div class="trait-tags">
+          <span class="tag tag-warn">⚠ 不建议食用</span>
+          <span class="tag tag-stone">菌肉极薄，几无食用价值</span>
+          <span class="tag tag-stone">质地脆弱易碎</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 各部位详情 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">各部位详情</span>
+      <span class="section-badge">形态记录</span>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="parts-table">
+        <thead>
+          <tr><th>部位</th><th>形态描述</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>菌盖表皮</td>
+            <td>薄如纸，光滑不粘，具吸湿性——湿润时颜色加深呈黄褐色，干燥后迅速转浅至奶油黄色；幼时边缘常悬挂白色细小菌幕残片，成熟后脱落</td>
+          </tr>
+          <tr>
+            <td>菌褶</td>
+            <td>直生或近弯生，密集，幼时灰白色略带淡紫调，随孢子成熟逐渐转为紫褐色至黑褐色；质地薄脆</td>
+          </tr>
+          <tr>
+            <td>菌肉</td>
+            <td>极薄，几乎不具备可食用的肌肉厚度，质地脆弱，几乎无实际食用价值</td>
+          </tr>
+          <tr>
+            <td>菌柄</td>
+            <td>圆柱形，3–8cm，白色，中空，质地极脆，轻微触碰或弯折即断裂——"脆柄"之名由此而来</td>
+          </tr>
+          <tr>
+            <td>孢子</td>
+            <td>椭圆形，光滑；孢子印<strong>深紫褐色至黑褐色</strong>，与近缘的鬼伞类（Coprinus）孢子印颜色相近</td>
+          </tr>
+          <tr>
+            <td>菌环 / 菌托</td>
+            <td>均无（幼时边缘的菌幕残片不形成真正的菌环结构）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 特殊区分点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-amber"></span>
+      <span class="section-title">特殊区分点</span>
+      <span class="section-badge">反向记忆</span>
+    </div>
+
+    <div class="distinction-box">
+      <div class="distinction-title">核心辨识四要素</div>
+      <ul class="distinction-list">
+        <li>菌盖<strong>薄如纸、极易破碎</strong>，菌柄中空且极脆，是"小脆柄菇"名称的直接来源</li>
+        <li>菌盖具<strong>吸湿性变色</strong>特征——同一朵蘑菇湿时色深、干时色浅，容易被误认为不同物种</li>
+        <li>菌褶随成熟从灰白带紫<strong>逐渐转深至紫褐或黑褐色</strong>，对应其深色孢子印，且不会像鬼伞属那样溶解成墨汁状</li>
+        <li>整丛密集群生于草坪、路边或朽木附近，<strong>寿命极短</strong>，常在1–2天内自然萎蔫坍塌</li>
+      </ul>
+    </div>
+
+    <div class="caution-box">
+      <div class="caution-title">⚠ 安全提示："小型褐色伞菌"是高风险类群</div>
+      <ul class="caution-list">
+        <li>小脆柄菇属（Psathyrella）物种繁多、形态高度相似，多数需借助显微镜特征才能准确鉴定到种，业余条件下极难可靠区分</li>
+        <li>更重要的是，本种及其近似形态在外观上与<strong>剧毒的条纹盔孢伞（毒环柄菇）</strong>等含鹅膏毒肽的小型褐色伞菌高度相似，误采风险显著</li>
+        <li>也需警惕锥盖伞属（Conocybe）中的剧毒物种，其外观同样为纤弱的小型黄褐色伞菌，与本种及其近缘种极易混淆</li>
+        <li>本种即便正确鉴定，菌肉菌柄均极薄脆，<strong>不具备实际食用价值</strong>，因此从安全和实用两方面均不建议采食此类小型褐色伞菌</li>
+      </ul>
+    </div>
+
+    <div class="section-header" style="margin-top:1.5rem;">
+      <span style="font-size:14px;font-weight:500;color:var(--ink)">相似易混淆物种</span>
+    </div>
+
+    <div class="confusion-list">
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 条纹盔孢伞（毒环柄菇） <em>Galerina marginata</em></div>
+        <div class="confusion-diff">剧毒！含与致命鹅膏相同的鹅膏毒肽，常丛生于朽木或木屑上，菌盖同为黄褐色，外观与小脆柄菇类群高度相似；孢子印锈褐色而非紫褐色，且多具明显菌环，但业余条件下极易混淆，误食可致肝损伤甚至死亡</div>
+      </div>
+      <div class="confusion-item danger">
+        <div class="confusion-name" style="color:var(--warn)">⚠ 锥盖伞属剧毒种 <em>Conocybe</em> spp.（如 <em>C. filaris</em>）</div>
+        <div class="confusion-diff">同为纤弱的小型黄褐色伞菌，部分物种含鹅膏毒肽，剧毒；外观与本种幼期极为相似，是"小型褐色伞菌"类群中最危险的混淆对象之一</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">近缘脆柄菇属其他种 <em>Psathyrella</em> spp.</div>
+        <div class="confusion-diff">同属物种数量庞大，形态差异细微，通常需要孢子显微特征、生境细节等综合信息才能鉴定到具体种，野外普遍统称处理</div>
+      </div>
+      <div class="confusion-item">
+        <div class="confusion-name">鬼伞类 <em>Coprinus / Coprinellus</em> spp.（近缘类群）</div>
+        <div class="confusion-diff">分类学上与小脆柄菇科关系密切，外观也可能相似，但典型鬼伞成熟后菌褶会自溶液化成墨汁状滴落，而本种菌褶仅变色不液化，可作为区分参考</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:1.2rem;">
+    <div style="font-size:12px;color:var(--stone-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">记忆标签</div>
+    <div class="memory-pills">
+      <div class="memory-pill">「薄脆柄空一触碎，朝生暮落一日间」</div>
+      <div class="memory-pill">「湿深干浅吸湿性，同株两色莫惊奇」</div>
+      <div class="memory-pill">「褶转紫褐非鬼伞，不溶墨汁是区别」</div>
+      <div class="memory-pill">「小型褐菌风险大，条纹盔孢记心怀」</div>
+    </div>
+  </div>
+
+  <!-- 6. 群落生境 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-stone"></span>
+      <span class="section-title">群落生境 · 分布采集</span>
+    </div>
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">生长方式</div>
+        <div class="habitat-value">典型密集丛生或群生，数株至数十株聚集出现，个体寿命短，常此起彼伏地持续出现于同一区域</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">生境 · 基质</div>
+        <div class="habitat-value">腐生菌，常见于城市草坪、公园绿地、花坛边缘、埋有朽木碎屑或树桩附近的扰动土壤，是典型的"城市杂草型"菌类</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">地区分布</div>
+        <div class="habitat-value">世界广布，温带至亚热带城乡环境中极为常见，中国各地公园绿地均有记录</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">采集季节 · 海拔</div>
+        <div class="habitat-value">春末至秋季（5–10月）雨后常大量出现，平原至低山地区、城市绿地均可见，出菇后极快自然凋萎</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-light);">
+      观察建议：适合作为城市自然观察与真菌多样性科普教育的入门对象，但因鉴定难度高且与剧毒小型褐菌相似，不建议采集食用。
+    </div>
+  </div>
+
+  <!-- 7. 价值评估 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-dot dot-honey"></span>
+      <span class="section-title">价值评估</span>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-card-label">食用价值</div>
+        <div class="value-body">技术分类上归为可食用，但菌肉菌柄极薄极脆，几乎不具备实际烹饪价值，通常不被作为食材采集或利用</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">科普与观察价值</div>
+        <div class="value-body">生长速度快、寿命短、分布极广，是观察真菌生命周期（从出菇到自然凋萎）的理想入门物种，也是城市自然教育中常见的科普素材</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">生态价值</div>
+        <div class="value-body">作为腐生菌参与草坪及地表有机质、木屑碎片的分解，是城市绿地生态系统物质循环中不可忽视的微小分解者</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card-label">采集风险提示</div>
+        <div class="value-body">"小型褐色伞菌"是全球蘑菇中毒事故中风险最高的类群之一，因其与多种剧毒物种外观相似且鉴定门槛高，强烈建议不采集、不食用此类菌类</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>参考来源：
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Psathyrella_candolleana" target="_blank">Wikipedia EN · Psathyrella candolleana</a> ·
+      <a class="ref-link" href="https://baike.baidu.com/item/%E8%84%86%E6%9F%84%E8%8F%87" target="_blank">百度百科 · 脆柄菇</a> ·
+      <a class="ref-link" href="https://www.mycobank.org" target="_blank">MycoBank</a>
+    </div>
+    <div>不建议采食 · 高风险小型褐菌类群</div>
+  </div>
+
+</div>
+</body>
+</html>
